@@ -44,6 +44,9 @@ int main()
 	printf("The daily caloric need for an individual with parameters as defined\n");
 	printf("in the text file, and given the activity level entered above, is: %.0f\n\n", calories);
 
+	//closes file
+	fclose(infile);
+
 	printf("End of program; press Enter to continue");
 	//kitty prevents program from insta-terminating
 	char tempCharr = '\0';
