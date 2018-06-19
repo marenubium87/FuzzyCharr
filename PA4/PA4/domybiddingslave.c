@@ -196,7 +196,7 @@ int determine_results_wrapper(int sum_dice, double curr_balance, double init_bal
 			//check to see if a win or loss state has been reached, and print messages/break accordingly...
 			if (is_point_loss_or_neither(newRoll, currPoint) == 1)
 			{
-				printf("\nHmm... you matched your point.  you won... somehow.\n");
+				printf("\nHmm... you matched your point.  You won... somehow.\n");
 				//win chatter messages
 				chatter_messages(1, 1, curr_balance, init_balance);
 				return 1;
@@ -438,12 +438,13 @@ void epilogue_message(double current_balance, double initial_balance)
 	else if (current_balance / initial_balance < 0.9)
 	{
 		printf("You leave Kitty's Palace not having done very well at all.  In your\n"
-			"depressed state you don't look both ways and get run over by a bus.\n\n");
+			"depressed state you don't look both ways and get run over by a bus.\n"
+			"Then a jackal gnaws on your remains.\n");
 	}
 	else if (current_balance / initial_balance < 1.2)
 	{
 		printf("You leave Kitty's Palace having roughly broken even.  But deep down\n"
-			"you know the kitty is watching you, waiting for you to fuck up next time so\n"
+			"you know kitty is watching you, waiting for you to fuck up next time so\n"
 			"so that he can take all of your money.\n\n");
 	}
 	else
