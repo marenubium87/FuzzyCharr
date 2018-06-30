@@ -1,0 +1,5 @@
+﻿  fluffykitty.c
+c:\users\james\source\repos\lab7a\lab7a\fluffykitty.c(27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  main.c
+  Generating Code...
+  Lab7a.vcxproj -> C:\Users\James\source\repos\Lab7a\Debug\Lab7a.exe
