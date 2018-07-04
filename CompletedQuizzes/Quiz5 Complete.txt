@@ -1,0 +1,48 @@
+//precondition: withdrawal amount must be a multiple of 10 (and positive)
+//return 1 if the balance >= withdrawal amount; 0 otherwise
+//apparently this function doesn't update the balance after withdrawal... hm.
+int dispense_bills(double balance, double withdrawal_amount,
+	int *fifties_ptr, int *twenties_ptr, int *tens_ptr)
+{
+	//start with these values set to 0, will eliminate headache later
+	*fifties_ptr = 0;
+	*twenties_ptr = 0;
+	*tens_ptr = 0;
+	
+	//return 0 if withdrawal amount greater than balance and break out
+	if (withdrawal_amount > balance)
+	{
+		printf("Don't be a dumb fuck.\n\n");
+		return 0;
+	}
+	
+	//else, do the actual shit
+	double currentAmount = withdrawal_amount;
+	
+	//dispense fifties (if applicable) until there's not enough amount left for another fifty
+	while(currentAmount >= 50)
+	{
+		curentAmount -= 50;
+		*fifties_ptr += 1;
+	}
+	
+	//now dispense twenties (if applicable) until there's not enough amount left for another twenty
+	while(currentAmount) >= 20)
+	{
+		currentAmount -= 20;
+		*twenties_ptr += 1;
+	}
+	
+	//only possibilities for currentAmount now are either 0 or 10, since it has to be a multiple of 10
+	//and we know it can't be 20, because of above block of code
+	if(currentAmount > 0)
+	{
+		*tens_ptr += 1;
+	}
+	
+	return 1;
+}
+
+fcn call from main:
+
+result = dispense_bills(balance, withdrawal_amount, &fifties, &twenties, &tens);
