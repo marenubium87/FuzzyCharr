@@ -1,0 +1,42 @@
+//finds the mean of an array of integers
+//prec:  target int array and targetSize of array must be initialized/known
+//post:  returns the mean of the integers in the array as a double
+double find_mean(int target[], int targetSize)
+{
+	//storage variable
+	int currentSum = 0;
+	
+	//adds up all elements
+	for (int i = 0; i < targetSize; i++)
+	{
+		currentSum += target[i];
+	}
+	
+	//declare average
+	double avg = 0.0;
+	
+	//calculate and return
+	avg = (double) currentSum / targetSize;
+	return avg;
+}
+
+//finds the minimum value of an array of integers
+//prec:  target int array and targetSize of array must be initialized/known
+//post:  returns the minimum value of the integers in the array as an int
+int find_min(int target[], int targetSize)
+{
+	//storage variable
+	//declared to first entry of array as default
+	int currentMin = target[0];
+	
+	//check the rest of the values now
+	for (int i = 1; i < targetSize; i++)
+	{
+		if (target[i] < currentMin)
+		{
+			currentMin = target[i];
+		}
+	}
+	
+	return currentMin;
+}
