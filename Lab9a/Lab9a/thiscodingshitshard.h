@@ -37,7 +37,15 @@ char * my_strcat(char destination[], const char source[]);
 //if string pointed to by s1 comes before string pointed to by s2, then return -1
 //if string pointed to by s2 comes before string pointed to by s1, then return 1
 //if string pointed to by s1 is identical to string pointed to by s2, then return 0
+//dependencies:  my_strlen
 int my_strcmp(const char s1[], const char s2[]);
+
+//alternate string compare without using my_strlen fcn
+//compares two strings s1 and s2
+//if string pointed to by s1 comes before string pointed to by s2, then return -1
+//if string pointed to by s2 comes before string pointed to by s1, then return 1
+//if string pointed to by s1 is identical to string pointed to by s2, then return 0
+int my_strcmp_alt(const char s1[], const char s2[]);
 
 //comparison wrapper b/c I'm too lazy to write a million printf statements
 void comparisonWrapper(char s1[], char s2[]);

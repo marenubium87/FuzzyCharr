@@ -59,10 +59,14 @@ int main()
 	char cmp1[8] = "kit";
 	char cmp2[8] = "kitty";
 	char cmp3[8] = "Kitty";
+	char cmp4[8] = "kkat";
+	char cmp5[8] = "kitz";
 	comparisonWrapper(cmp1, cmp2);
 	comparisonWrapper(cmp3, cmp1);
 	comparisonWrapper(cmp2, cmp3);
 	comparisonWrapper(cmp3, cmp3);
+	comparisonWrapper(cmp4, cmp2);
+	comparisonWrapper(cmp2, cmp5);
 
 	//end of program cleanup
 	printf("End of program; press Enter to continue");

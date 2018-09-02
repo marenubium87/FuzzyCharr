@@ -106,26 +106,21 @@ char * my_strcat(char destination[], const char source[])
 	return destination;
 }
 
+
 //compares two strings s1 and s2
 //if string pointed to by s1 comes before string pointed to by s2, then return -1
 //if string pointed to by s2 comes before string pointed to by s1, then return 1
 //if string pointed to by s1 is identical to string pointed to by s2, then return 0
+//dependencies:  my_strlen
 int my_strcmp(const char s1[], const char s2[])
 {
-	int s1_len = my_strlen(s1);
-	int s2_len = my_strlen(s2);
-	//shorter string comes first since null is ascii 0 which beats all other 
-	//non-null characters' ascii numbers
-	if (s1_len < s2_len)
+	//picks the longest of the two lengths
+	int max_len = my_strlen(s1);
+	if (my_strlen(s2) > max_len)
 	{
-		return -1;
+		max_len = my_strlen(s2);
 	}
-	else if (s1_len > s2_len)
-	{
-		return 1;
-	}
-	//if the function's made it to this point the lengths of the strings must be equal
-	for (int i = 0; i < s1_len; i++)
+	for (int i = 0; i < max_len; i++)
 	{
 		if (s1[i] < s2[i])
 		{
@@ -136,8 +131,37 @@ int my_strcmp(const char s1[], const char s2[])
 			return 1;
 		}
 	}
+	//if we've gone through the whole loop and didn't trigger either of those returns ever
+	//then the two strings are the same at this point
+	return 0;
+}
 
-	//if the function's made it to here then the two strings must be equal
+//alternate string compare without using my_strlen fcn
+//compares two strings s1 and s2
+//if string pointed to by s1 comes before string pointed to by s2, then return -1
+//if string pointed to by s2 comes before string pointed to by s1, then return 1
+//if string pointed to by s1 is identical to string pointed to by s2, then return 0
+int my_strcmp_alt(const char s1[], const char s2[])
+{
+	int i = 0;
+
+	//this will only break out if s1 and s2 both hit a null character on the same index,
+	//i.e. they are the same length, and also haven't already jumped out inside the loop
+	while (!(s1[i] == 0 && s2[i] == 0))
+	{
+		if (s1[i] < s2[i])
+		{
+			return -1;
+		}
+		else if (s1[i] > s2[i])
+		{
+			return 1;
+		}
+		i++;
+	}
+
+	//if it does make it to here, that means all elements were the same and they both hit
+	//a null character on the same index, so the two strings must be equal
 	return 0;
 }
 
@@ -145,5 +169,6 @@ int my_strcmp(const char s1[], const char s2[])
 void comparisonWrapper(char s1[], char s2[])
 {
 	printf("Comparing string \"%s\" with string \"%s\"...\n", s1, s2);
-	printf("my_strcmp returns %d\n\n", my_strcmp(s1, s2));
+	printf("my_strcmp returns %d\n", my_strcmp(s1, s2));
+	printf("my_strcmp_alt returns %d\n\n", my_strcmp_alt(s1, s2));
 }
