@@ -439,7 +439,7 @@ void epilogue_message(double current_balance, double initial_balance)
 	{
 		printf("You leave Kitty's Palace not having done very well at all.  In your\n"
 			"depressed state you don't look both ways and get run over by a bus.\n"
-			"Then a jackal gnaws on your remains.\n");
+			"Then two jackals gnaw on your remains.\n");
 	}
 	else if (current_balance / initial_balance < 1.2)
 	{
