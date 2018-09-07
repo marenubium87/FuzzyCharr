@@ -63,3 +63,79 @@ int bin_search(int target[], int my_value, int left_index, int right_index)
 		return mid_index;
 	}
 }
+
+//binary search which does not rely on left index and right index as parameters
+//prec: target array is a sorted int array of size at least 1, my_value is a valid int
+//post: gives message regarding whether target value was found and
+//		returns array index location of target value
+//		or -1 if target value was not found
+int bin_search_redux(int target[], int my_value, int target_size)
+{
+	//at some point the target size will in fact become 1
+	if (target_size <= 2)
+	{
+		if (target[0] == my_value)
+		{
+			printf("Target value of %d was found in array\n", my_value);
+			return my_value;
+		}
+		else if (target[1] == my_value)
+		{
+			printf("Target value of %d was found in array\n", my_value);
+			return my_value;
+		}
+		else
+		{
+			printf("Target value of %d was not found in array\n", my_value);
+			return -1;
+		}
+	}
+
+
+	//this integer division is fine
+	int mid_index = (target_size) / 2;
+	if (target[mid_index] > my_value)
+	{
+		//searches inside the front half of the array up to mid_index - 1 
+		//if mid_index value is greater than the target value
+		return bin_search_redux(target, my_value, mid_index - 1);
+	}
+	else if (target[mid_index] < my_value)
+	{
+		//searches the back half of the array starting from mid_index + 1
+		//the length of the back half of the array is now target_size - mid_index - 1
+		return bin_search_redux(target + mid_index + 1, my_value, target_size - mid_index - 1);
+	}
+	else
+	{
+		printf("Target value of %d was found in location %d of array\n", my_value, mid_index);
+		return mid_index;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+int fooBar(void)
+{
+	char myTestArr[64] = "soft kitty, warm kitty, little ball of fur";
+	char * maowPointer = NULL;
+
+	int i = 0;
+	for (i = 0; myTestArr[i] != '\0'; i++)
+	{
+		if (myTestArr[i] == ',')
+		{
+			if (myTestArr[i + 1] == ' ')
+			{
+				maowPointer = &myTestArr[i + 2];
+			}
+		}
+	}
+}
