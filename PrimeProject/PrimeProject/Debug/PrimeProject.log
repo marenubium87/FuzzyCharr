@@ -1,5 +1,5 @@
 ﻿  howtocodeplzhalp.c
-c:\users\james\source\repos\primeproject\primeproject\howtocodeplzhalp.c(43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\james\fuzzycharr\primeproject\primeproject\howtocodeplzhalp.c(43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   main.c
   Generating Code...
-  PrimeProject.vcxproj -> c:\users\james\source\repos\PrimeProject\Debug\PrimeProject.exe
+  PrimeProject.vcxproj -> C:\Users\James\FuzzyCharr\PrimeProject\Debug\PrimeProject.exe
