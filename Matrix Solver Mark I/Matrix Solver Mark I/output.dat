@@ -1,0 +1,38 @@
+Initial array read from infile:
+
+Current array composition:
+
+|    1.000   -2.000    5.000  -10.000  |
+|    3.000   -6.000   15.000  -32.000  |
+|    5.000    1.000   -3.000   22.000  |
+
+
+Divide row 1 by   1.000:
+
+Current array composition:
+
+|    1.000   -2.000    5.000  -10.000  |
+|    3.000   -6.000   15.000  -32.000  |
+|    5.000    1.000   -3.000   22.000  |
+
+
+Multiply row 1 by  -3.000 and add to row 2:
+
+Current array composition:
+
+|    1.000   -2.000    5.000  -10.000  |
+|    0.000    0.000    0.000   -2.000  |
+|    5.000    1.000   -3.000   22.000  |
+
+
+Multiply row 1 by  -5.000 and add to row 3:
+
+Current array composition:
+
+|    1.000   -2.000    5.000  -10.000  |
+|    0.000    0.000    0.000   -2.000  |
+|    0.000   11.000  -28.000   72.000  |
+
+
+Error: target system has no valid solution.  Aborting calculation.
+
