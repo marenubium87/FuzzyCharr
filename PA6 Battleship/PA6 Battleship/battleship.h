@@ -1,8 +1,8 @@
 //header file for battleship
 
 #define _CRT_SECURE_NO_WARNINGS
-#define GRID_SIDE_LEN 3
-#define NUM_SHIPS 2
+#define GRID_SIDE_LEN 5
+#define NUM_SHIPS 6
 
 //symbol definitions for use on game board
 #define EMPTY '.'
@@ -52,7 +52,8 @@ void displayBoard(char target[][GRID_SIDE_LEN], int playerFlag, int trueSight);
 
 //prompts user for a simulated coin flip and if the user guesses
 //the correct side of coin, return 1, else return 0
-int assignFirstMove(void);
+//also prints out the result of the coin flip to outfile.
+int assignFirstMove(FILE * outfile);
 
 //auxiliary function required for manualShipPlacement and randomShipPlacement
 //checks whether targetShip placed with either leftmost or uppermost coords
@@ -66,18 +67,21 @@ int checkValidPlacement(char targetBoard[][GRID_SIDE_LEN], Ship targetShip,
 //onto targetBoard, and checks for valid placement.
 //also displays the grid after every placement.
 //dependencies:  checkValidPlacement, displayBoard
-void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[]);
+//writes position of player's fleet to outfile
+void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], 
+	Ship shipArray[], FILE * outfile);
 
 //randomly places player or computer ships from shipArray
 //onto targetBoard, and checks for valid placement.
 //if playerFlag = 1, places player ships from first half of shipArray
 //if playerFlag = 2, places computer ships from second half of shipArray
 //if truesight is on, displays ship locations for AI as well.
+//writes position of target player's fleet to outfile
 //trueSight is a bool;	1 means ships, hits, misses can be seen
 //						0 means only hits and misses can be seen
 //dependencies:  checkValidPlacement, displayBoard
 void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
-	int playerFlag, int trueSight);
+	int playerFlag, int trueSight, FILE * outfile);
 
 //gets player guess and has as its output parameters the row
 //and column values of the player's guess.
@@ -110,19 +114,20 @@ void updateBoard(char targetBoard[][GRID_SIDE_LEN],
 //displays messages based on the player, if the shot was a hit or miss,
 //and if a ship was sunk, the identity of the ship that was sunk.
 //playerID is the acting/firing player
+//also prints out results to outfile
 void turnOutcomeMessage(Ship shipArray[], int playerID,
-	int rowGuess, int colGuess, int isHit, int shipSunkIndex);
+	int rowGuess, int colGuess, int isHit, int shipSunkIndex, FILE * outfile);
 
 //putting it all together, conducts a single turn for player 1
 //depends on basically all of the other shit
 void conductP1Turn(char player1Board[][GRID_SIDE_LEN],
 	char player2Board[][GRID_SIDE_LEN],
-	Ship shipArray[], Stats statArray[], int trueSight);
+	Ship shipArray[], Stats statArray[], int trueSight, FILE * outfile);
 
 //conducts a single turn for player 2, the AI
 void conductP2Turn(char player1Board[][GRID_SIDE_LEN],
 	char player2Board[][GRID_SIDE_LEN],
-	Ship shipArray[], Stats statArray[], int trueSight);
+	Ship shipArray[], Stats statArray[], int trueSight, FILE * outfile);
 
 //end of turn prompt
 //returns 's' if user surrenders
@@ -131,11 +136,17 @@ char endOfTurnPrompt(int * trueSight);
 //does what it says
 //figures out if all ships of the targetPlayer have sunk
 //returns 1 if all ships are sunk, else returns 0
-int allShipsSunk(int targetPlayer, Ship shipArray[]);
+//also prints a message relevant to the situation if all ships sunk
+//and prints that message to the log as well.
+int allShipsSunk(int targetPlayer, Ship shipArray[], FILE * outfile);
 
 //called when player 1 or player 2 have won the game, and print out
 //a relevant message when that happens.
-void endOfGameMessage(int winPlayer);
+//also writes it to the log.
+void endOfGameMessage(int winPlayer, FILE * outfile);
+
+//computes statistics and writes the final results to the outfile.
+void writeStats(Stats playerStats[], FILE * outfile);
 
 //wrapper to play all of battleship
 //trueSight is a bool;	1 means ships, hits, misses can be seen on AI board

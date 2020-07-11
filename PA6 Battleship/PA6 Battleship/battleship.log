@@ -1,0 +1,62 @@
+***START OF GAME***
+
+Player 1 placing fleet...
+
+	Player 1 places submarine at row 1, column 0, facing right.
+	Player 1 places patrol boat at row 0, column 1, facing down.
+
+	**Player 1 ship placement complete.
+
+Player 2 placing fleet...
+
+	Player 2 places submarine at row 1, column 2, facing down.
+	Player 2 places patrol boat at row 1, column 0, facing down.
+
+	**Player 2 ship placement complete.
+
+Flipping a coin to determine starting player.
+
+Player 1 calls tails.
+  ...and the flip is heads!
+	Player 2 wins the toss and will go first.
+
+
+***START OF COMBAT***
+
+	Player 2 fires into row 2, column 0... and misses player 1.
+	Player 1 fires into row 1, column 1... and misses player 2.
+	Player 2 fires into row 1, column 0... and scores a hit on player 1!
+	Player 1 fires into row 1, column 2... and scores a hit on player 2!
+	Player 2 fires into row 1, column 1... and scores a hit on player 1!
+		...player 1's submarine is sunk!
+	Player 1 fires into row 0, column 0... and misses player 2.
+	Player 2 fires into row 2, column 2... and misses player 1.
+	Player 1 fires into row 0, column 1... and misses player 2.
+	Player 2 fires into row 0, column 1... and scores a hit on player 1!
+		...player 1's patrol boat is sunk!
+
+	***All of player 1's ships have sunk!!
+
+	***GAME OVER, PLAYER 2 VICTORY
+
+
+	***STATISTICS***
+
+Statistics for Player 1:
+
+	Shots hit:  1
+	Shots missed:  3
+	Shots taken:  4
+
+	Accuracy: 25.0%
+
+Statistics for Player 2:
+
+	Shots hit:  3
+	Shots missed:  2
+	Shots taken:  5
+
+	Accuracy: 60.0%
+
+
+***END OF LOG FILE***

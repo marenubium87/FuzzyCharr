@@ -72,24 +72,28 @@ void displayBoard(char target[][GRID_SIDE_LEN], int playerFlag, int trueSight) {
 	}
 }
 
-//prompts user for a simulated coin flip and 
+//prompts user for a simulated coin flip and
 //if the user guesses the correct side of coin and thus goes first, return 1
 //if user guesses wrong and the AI will go first, return 2
-int assignFirstMove(void) {
+int assignFirstMove(FILE * outfile) {
 	
 	system("cls");
 	//gets player guess
 	printf("\nHey, let's flip a coin to see who goes first!\n");
 	printf("Type 1 for heads or 0 for tails:  ");
+	fprintf(outfile, "Flipping a coin to determine starting player.\n\n");
 	int PlayerGuess = 0;
 	scanf("%d", &PlayerGuess);
 	
-	//announces player guess
+	//announces player guess and also prints result to outfile
 	if (PlayerGuess) {
 		printf("\nYou called heads!\n\n");
+		fprintf(outfile, "Player 1 calls heads.\n");
+
 	}
 	else {
 		printf("\nYou called tails!\n\n");
+		fprintf(outfile, "Player 1 calls tails.\n");
 	}
 	
 	//makes actual flip.. 
@@ -97,16 +101,21 @@ int assignFirstMove(void) {
 	actualFlip = (rand() % 2);
 	
 	//and checks whether it's equal or not to player guess
+	//also prints results to outfile.
 	if (actualFlip == 1) {
 		printf("   ...the flip is heads!\n\n");
+		fprintf(outfile, "  ...and the flip is heads!\n");
 	}
 	else {
 		printf("   ...the flip is tails!\n\n");
+		fprintf(outfile, "  ...and the flip is tails!\n");
 	}
 	
 	//tells player if they will go first and returns appropriate value
+	//also reports results to outfile.
 	char tempCharr = '\0';
 	if (PlayerGuess == actualFlip) {
+		fprintf(outfile, "\tPlayer 1 wins the toss and will go first.\n\n");
 		printf("Fine, you go first.\n");
 		printf("Press enter to continue.\n\n");
 		scanf("%c", &tempCharr);
@@ -114,6 +123,7 @@ int assignFirstMove(void) {
 		return 1;
 	}
 	else {
+		fprintf(outfile, "\tPlayer 2 wins the toss and will go first.\n\n");
 		printf("Ha, I go first!\n");
 		printf("Press enter to continue.\n\n");
 		scanf("%c", &tempCharr);
@@ -174,7 +184,9 @@ int checkValidPlacement(char targetBoard[][GRID_SIDE_LEN], Ship targetShip,
 //onto targetBoard, and checks for valid placement.
 //also displays the grid after every placement.
 //dependencies:  checkValidPlacement, displayBoard
-void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[]) {
+//writes position of player's fleet to outfile
+void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], 
+	Ship shipArray[], FILE * outfile) {
 	
 	//player has half the total ships in shipArray
 	int numPlayerShips = NUM_SHIPS / 2;
@@ -182,8 +194,13 @@ void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[]) {
 	int col = 0;
 	int placementFlag = 0;
 	char dir = '\0';
+
+	fprintf(outfile, "Player one placing fleet...\n\n");
+
 	for (int i = 0; i < numPlayerShips; i++) {
 		
+		
+
 		//prompt user to place next ship, repeat as necessary
 		//until they input a valid location and orientation.
 		do {
@@ -241,12 +258,24 @@ void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[]) {
 				targetBoard[j][col] = shipArray[i].symbol;
 			}
 		}
+
+		//print ship location to outfile... since this function is for
+		//player 1 only... we can hardcode that this will be player one
+		fprintf(outfile, "\tPlayer 1 places %s at row %d, column %d, facing ",
+			shipArray[i].shipType, row, col);
+		if (dir == 'r') {
+			fprintf(outfile, "right.\n");
+		}
+		else if (dir == 'd') {
+			fprintf(outfile, "down.\n");
+		}
 	}
 
 	//print board one last time when ship placement complete
 	system("cls");
 	displayBoard(targetBoard, 1, 1);
 	printf("\n\nShip placement complete.  Press enter to continue.\n\n");
+	fprintf(outfile, "\n\t**Player 1 ship placement complete.\n\n");
 	char tempCharr = '\0';
 	scanf("%c", &tempCharr);
 	scanf("%c", &tempCharr);
@@ -257,11 +286,12 @@ void manualShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[]) {
 //if playerFlag = 1, places player ships from first half of shipArray
 //if playerFlag = 2, places computer ships from second half of shipArray
 //if truesight is on, displays ship locations for AI as well.
+//writes position of target player's fleet to outfile
 //trueSight is a bool;	1 means ships, hits, misses can be seen
 //						0 means only hits and misses can be seen
 //dependencies:  checkValidPlacement, displayBoard
-void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
-	int playerFlag, int trueSight) {
+void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[], 
+	int playerFlag, int trueSight, FILE * outfile) {
 	
 	//each player has half the total ships in shipArray
 	int numPlayerShips = NUM_SHIPS / 2;
@@ -269,6 +299,8 @@ void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
 	int col = 0;
 	int placementFlag = 0;
 	char dir = '\0';
+
+	fprintf(outfile, "Player %d placing fleet...\n\n", playerFlag);
 
 	//AI ships start at the back half of the array.
 	int shipArrayStart = 0;
@@ -298,8 +330,8 @@ void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
 		do {
 			//generate two coordinates and a direction, and see if
 			//the next ship can be placed there.
-			row = rand() % 10;
-			col = rand() % 10;
+			row = rand() % GRID_SIDE_LEN;
+			col = rand() % GRID_SIDE_LEN;
 			if (rand() % 2 == 1) {
 				dir = 'r';
 			}
@@ -347,6 +379,16 @@ void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
 			}
 		}
 
+		//print ship location to outfile for each ship...
+		fprintf(outfile, "\tPlayer %d places %s at row %d, column %d, facing ",
+			playerFlag, shipArray[i].shipType, row, col);
+		if (dir == 'r') {
+			fprintf(outfile, "right.\n");
+		}
+		else if (dir == 'd') {
+			fprintf(outfile, "down.\n");
+		}
+
 		//updates display of board after placement
 		//and second part of "placing..." message (the "done" part)
 		system("cls");
@@ -356,6 +398,7 @@ void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
 		else if (playerFlag == 2) {
 			printf("Placing my ships...\n\n");
 		}
+
 		displayBoard(targetBoard, playerFlag, playerTrueSight);
 		printf("\nPlacing %s...  done.", shipArray[i].shipType);
 		Sleep(1700);
@@ -363,6 +406,7 @@ void autoShipPlacement(char targetBoard[][GRID_SIDE_LEN], Ship shipArray[],
 
 	//after all ships are placed, print this message
 	printf("\n\nShip placement complete.  Press enter to continue.\n");
+	fprintf(outfile, "\n\t**Player %d ship placement complete.\n\n", playerFlag);
 	char tempCharr = '\0';
 	scanf("%c", &tempCharr);
 	scanf("%c", &tempCharr);
@@ -380,7 +424,7 @@ void getPlayerGuess(int * rowGuess, int * colGuess) {
 	scanf("%c", &tempCharr);
 }
 
-//literally just generates two random numbers 0-9 for both row and col
+//literally just generates two random numbers 0 - GRID_SIDE_LEN for both row and col
 //and returns as output parameters
 void getDumbAIGuess(int * rowGuess, int * colGuess) {
 	*rowGuess = rand() % GRID_SIDE_LEN;
@@ -462,26 +506,53 @@ void updateBoard(char targetBoard[][GRID_SIDE_LEN],
 //displays messages based on the player, if the shot was a hit or miss,
 //and if a ship was sunk, the identity of the ship that was sunk.
 //playerID is the acting/firing player
+//also prints out results to outfile
 void turnOutcomeMessage(Ship shipArray[], int playerID,
-	int rowGuess, int colGuess, int isHit, int shipSunkIndex) {
+	int rowGuess, int colGuess, int isHit, int shipSunkIndex, FILE * outfile) {
 
 	//if a ship was hit
 	if (isHit) {
 		printf("\nRow %d, column %d is a hit!\n\n", rowGuess, colGuess);
 
+		//prints messages to log depending on which player did the hitting
+		if (playerID == 1) {
+			fprintf(outfile, " and scores a hit on player 2!\n");
+		}
+		else if (playerID == 2) {
+			fprintf(outfile, " and scores a hit on player 1!\n");
+		}
+
+
 		//furthermore, did a ship sink?  if so, which one?
 		if (shipSunkIndex > -1) {
 			if (playerID == 1) {
-				printf("Shit, you sank my %s!\n\n", shipArray[shipSunkIndex].shipType);
+				Sleep(1200);
+				printf("Shit, you sank my %s!\n\n", 
+					shipArray[shipSunkIndex].shipType);
+				fprintf(outfile, "\t\t...player 2's %s is sunk!\n",
+					shipArray[shipSunkIndex].shipType);
 			}
 			else if (playerID == 2) {
-				printf("Ha, I sank your %s!\n\n", shipArray[shipSunkIndex].shipType);
+				Sleep(1200);
+				printf("Ha, I sank your %s!\n\n", 
+					shipArray[shipSunkIndex].shipType);
+				fprintf(outfile, "\t\t...player 1's %s is sunk!\n",
+					shipArray[shipSunkIndex].shipType);
 			}
 		}
 		//if a ship was not hit
 	}
 	else {
 		printf("\nRow %d, column %d is a miss!\n\n", rowGuess, colGuess);
+
+		//prints log messages depending on acting player
+		if (playerID == 1) {
+			fprintf(outfile, " and misses player 2.\n");
+		}
+		else if (playerID == 2) {
+			fprintf(outfile, " and misses player 1.\n");
+		}
+
 	}
 }
 
@@ -489,7 +560,7 @@ void turnOutcomeMessage(Ship shipArray[], int playerID,
 //depends on basically all of the other shit
 void conductP1Turn(char player1Board[][GRID_SIDE_LEN],
 	char player2Board[][GRID_SIDE_LEN], 
-	Ship shipArray[], Stats statArray[], int trueSight) {
+	Ship shipArray[], Stats statArray[], int trueSight, FILE * outfile) {
 
 	//sets up containers for row guess and column guess,
 	//hit detection, and whether a ship was sunk
@@ -522,11 +593,20 @@ void conductP1Turn(char player1Board[][GRID_SIDE_LEN],
 		}
 	} while (isHit == -1);
 
+	//firing message here, before hit detection
+	fprintf(outfile, "\tPlayer 1 fires into row %d, column %d...", 
+		rowGuess, colGuess);
+
+	//add 1 to the number of shots in stats
+	statArray[0].numShots++;
+
 	//if location is a hit, update shipArray... for player 1 turn,
 	//targetPlayer is always 2
+	//also update stats
 	if (isHit) {
 		shipSunkIndex = updateStatusOnHit(player2Board, shipArray, 2,
 			rowGuess, colGuess);
+		statArray[0].numHits++;
 	}
 
 	//update player 2's board with the shot
@@ -538,13 +618,14 @@ void conductP1Turn(char player1Board[][GRID_SIDE_LEN],
 	printf("\n------------------------\n\n");
 	displayBoard(player1Board, 1, 1);
 	printf("\n\n   ***YOUR MOVE***\n");
-	turnOutcomeMessage(shipArray, 1, rowGuess, colGuess, isHit, shipSunkIndex);
+	turnOutcomeMessage(shipArray, 1, rowGuess, colGuess, 
+		isHit, shipSunkIndex, outfile);
 }
 
 //conducts a single turn for player 2, the AI
 void conductP2Turn(char player1Board[][GRID_SIDE_LEN],
 	char player2Board[][GRID_SIDE_LEN],
-	Ship shipArray[], Stats statArray[], int trueSight) {
+	Ship shipArray[], Stats statArray[], int trueSight, FILE * outfile) {
 	
 	//sets up containers for row guess and column guess,
 	//hit detection, and whether a ship was sunk
@@ -572,11 +653,20 @@ void conductP2Turn(char player1Board[][GRID_SIDE_LEN],
 	printf("row %d, column %d!", rowGuess, colGuess);
 	Sleep(2400);
 
+	//firing message for log
+	fprintf(outfile, "\tPlayer 2 fires into row %d, column %d...",
+		rowGuess, colGuess);
+
+	//add 1 to the number of shots in stats
+	statArray[1].numShots++;
+
 	//if location is a hit, update shipArray... for player 2 turn,
 	//targetPlayer is always 1
+	//also updates number of hits in stats
 	if (isHit) {
 		shipSunkIndex = updateStatusOnHit(player1Board, shipArray, 1,
 			rowGuess, colGuess);
+		statArray[1].numHits++;
 	}
 
 	//update player 1's board with the shot
@@ -591,7 +681,8 @@ void conductP2Turn(char player1Board[][GRID_SIDE_LEN],
 
 	//reprints the "I guess... message for continuity before the hit message
 	printf("\nHmm... I guess: row %d, column %d!\n\n", rowGuess, colGuess);
-	turnOutcomeMessage(shipArray, 2, rowGuess, colGuess, isHit, shipSunkIndex);
+	turnOutcomeMessage(shipArray, 2, rowGuess, colGuess, 
+		isHit, shipSunkIndex, outfile);
 }
 
 //end of turn prompt
@@ -617,7 +708,8 @@ char endOfTurnPrompt(int * trueSight) {
 //figures out if all ships of the targetPlayer have sunk
 //returns 1 if all ships are sunk, else returns 0
 //also prints a message relevant to the situation if all ships sunk
-int allShipsSunk(int targetPlayer, Ship shipArray[]) {
+//and prints that message to the log as well.
+int allShipsSunk(int targetPlayer, Ship shipArray[], FILE * outfile) {
 
 	//sets start of array search location
 	//if AI, start search at halfway through array
@@ -637,23 +729,70 @@ int allShipsSunk(int targetPlayer, Ship shipArray[]) {
 	//if we make it through the loop without returning 0, then all ships
 	//for targetPlayer have sunk.
 	if (targetPlayer == 2) {
+		Sleep(1200);
 		printf("Shit, you've sunk all of my ships!\n\n");
+		fprintf(outfile, "\n\t***All of player 2's ships have sunk!!");
 	}
 	else if (targetPlayer == 1) {
+		Sleep(1200);
 		printf("Ha, I've sunk all of your ships!\n\n");
+		fprintf(outfile, "\n\t***All of player 1's ships have sunk!!");
 	}
 	return 1;
 }
 
 //called when player 1 or player 2 have won the game, and print out
 //a relevant message when that happens.
-void endOfGameMessage(int winPlayer) {
+//also writes it to the log.
+void endOfGameMessage(int winPlayer, FILE * outfile) {
 	if (winPlayer == 1) {
+		Sleep(1200);
 		printf("\nHmph... I guess you won, somehow.\n\n");
+		fprintf(outfile, "\n\n\t***GAME OVER, PLAYER 1 VICTORY");
 	}
 	else if (winPlayer == 2) {
+		Sleep(1200);
 		printf("\nHa, suck it, I win!\n\n");
+		fprintf(outfile, "\n\n\t***GAME OVER, PLAYER 2 VICTORY");
 	}
+}
+
+//computes statistics and writes the final results to the outfile.
+void writeStats(Stats playerStats[], FILE * outfile) {
+	fprintf(outfile, "\n\n\n\t***STATISTICS***\n\n");
+
+	int shotsMissed = 0;
+	double percentAccuracy = 0.0;
+
+	fprintf(outfile, "Statistics for Player 1:\n\n");
+	
+	//takes care of an edge condition when player 2 goes first
+	//and player 1 surrenders before firing a single shot.
+	if (playerStats[0].numShots == 0) {
+		fprintf(outfile, "Player 1 did not fire any shots.\n");
+	}
+	//player 1 stats
+	else {
+		shotsMissed = playerStats[0].numShots - playerStats[0].numHits;
+		percentAccuracy = (double)playerStats[0].numHits / 
+			playerStats[0].numShots * 100;
+		fprintf(outfile, "\tShots hit:  %d\n", playerStats[0].numHits);
+		fprintf(outfile, "\tShots missed:  %d\n", shotsMissed);
+		fprintf(outfile, "\tShots taken:  %d\n", playerStats[0].numShots);
+		fprintf(outfile, "\n\tAccuracy: %4.1f%%\n", percentAccuracy);
+	}
+
+	//player 2 stats
+	fprintf(outfile, "\n");
+	fprintf(outfile, "Statistics for Player 2:\n\n");
+	shotsMissed = playerStats[1].numShots - playerStats[1].numHits;
+	percentAccuracy = (double)playerStats[1].numHits /
+		playerStats[1].numShots * 100;
+	fprintf(outfile, "\tShots hit:  %d\n", playerStats[1].numHits);
+	fprintf(outfile, "\tShots missed:  %d\n", shotsMissed);
+	fprintf(outfile, "\tShots taken:  %d\n", playerStats[1].numShots);
+	fprintf(outfile, "\n\tAccuracy: %4.1f%%\n", percentAccuracy);
+
 }
 
 //wrapper to play all of battleship
@@ -667,18 +806,23 @@ void playBattleship(int * trueSight) {
 	Ship shipArray[NUM_SHIPS] = {
 		//{ "carrier", 'c', 5, 0, 0 },
 		//{ "battleship", 'b', 4, 0, 0 },
-		//{ "cruiser", 'r', 3, 0, 0 },
-		//{ "submarine", 's', 3, 0, 0 },
+		{ "cruiser", 'r', 3, 0, 0 },
+		{ "submarine", 's', 2, 0, 0 },
 		{ "patrol boat", 'p', 1, 0, 0 },
 		//{ "carrier", 'c', 5, 0, 0 },
 		//{ "battleship", 'b', 4, 0, 0 },
-		//{ "cruiser", 'r', 3, 0, 0 },
-		//{ "submarine", 's', 3, 0, 0 },
+		{ "cruiser", 'r', 3, 0, 0 },
+		{ "submarine", 's', 2, 0, 0 },
 		{ "patrol boat", 'p', 1, 0, 0 }
 	};
 
 	//sets up the stats array for both players
 	Stats playerStats[2] = { { 1, 5, 0, 0 },{ 2, 5, 0, 0 } };
+
+	//opens logfile for writing
+	FILE * outfile = NULL;
+	outfile = fopen("battleship.log", "w");
+	fprintf(outfile, "***START OF GAME***\n\n");
 
 	//sets up both player boards and initializes them
 	char player1Board[GRID_SIDE_LEN][GRID_SIDE_LEN] = { '\0' };
@@ -696,32 +840,35 @@ void playBattleship(int * trueSight) {
 	scanf(" %c", &manualShipPlacementResponse);
 	
 	if (manualShipPlacementResponse == 'y') {
-		manualShipPlacement(player1Board, shipArray);
+		manualShipPlacement(player1Board, shipArray, outfile);
 	}
 	else {
-		autoShipPlacement(player1Board, shipArray, 1, 1);
+		autoShipPlacement(player1Board, shipArray, 1, 1, outfile);
 	}
 
 	//then auto-place ships for computer
-	autoShipPlacement(player2Board, shipArray, 2, *trueSight);
+	autoShipPlacement(player2Board, shipArray, 2, *trueSight, outfile);
 
 	//flips a coin to see who goes first.
-	int firstMove = assignFirstMove();
+	int firstMove = assignFirstMove(outfile);
 
 	//declare vars for userResponse and allShipsSunk, needed later
 	char userResponse = '\0';
 	int allShipsSunkFlag = 0;
 
+	fprintf(outfile, "\n***START OF COMBAT***\n\n");
+
 	//if computer wins, computer essentially takes an extra turn
 	//before the player1 turn, player2 turn sequence
 	if (firstMove == 2) {
 		conductP2Turn(player1Board, player2Board, shipArray,
-			playerStats, *trueSight);
+			playerStats, *trueSight, outfile);
 		userResponse = endOfTurnPrompt(trueSight);
 	}
 	//print this if user is a coward and surrenders after the first AI turn.
 	if (userResponse == 's') {
-		endOfGameMessage(2);
+		endOfGameMessage(2, outfile);
+		fprintf(outfile, "\n\t***Player 1 has surrendered!!");
 	}
 
 	//keep playing until all ships sunk for a player or user surrenders
@@ -729,10 +876,10 @@ void playBattleship(int * trueSight) {
 		
 		//player 1 turn
 		conductP1Turn(player1Board, player2Board, shipArray,
-			playerStats, *trueSight);
+			playerStats, *trueSight, outfile);
 		
 		//have all of player 2's ships sunk?
-		allShipsSunkFlag = allShipsSunk(2, shipArray);
+		allShipsSunkFlag = allShipsSunk(2, shipArray, outfile);
 		
 		//if not, print the end of turn prompt.
 		if (!allShipsSunkFlag) {
@@ -740,7 +887,7 @@ void playBattleship(int * trueSight) {
 		}
 		//otherwise, print the victory message for player 1
 		else {
-			endOfGameMessage(1);
+			endOfGameMessage(1, outfile);
 		}
 
 		//only do player 2's turn if user hasn't surrendered,
@@ -749,10 +896,10 @@ void playBattleship(int * trueSight) {
 			
 			//player 2 turn
 			conductP2Turn(player1Board, player2Board, shipArray,
-				playerStats, *trueSight);
+				playerStats, *trueSight, outfile);
 
 			//have all of player 1's ships sunk?
-			allShipsSunkFlag = allShipsSunk(1, shipArray);
+			allShipsSunkFlag = allShipsSunk(1, shipArray, outfile);
 			
 			//if not, print the end of turn prompt.
 			if (!allShipsSunkFlag) {
@@ -760,15 +907,23 @@ void playBattleship(int * trueSight) {
 			}
 			//otherwise, print the victory message for player 2
 			else {
-				endOfGameMessage(2);
+				endOfGameMessage(2, outfile);
 			}
 		}
 
 		//if player 1 surrendered, print victory message for player 2
 		if (userResponse == 's') {
-			endOfGameMessage(2);
+			fprintf(outfile, "\n\t***Player 1 has surrendered!!");
+			endOfGameMessage(2, outfile);
 		}
 	}
+
+	//computes statistics and writes the final results to the outfile.
+	writeStats(playerStats, outfile);
+
+	fprintf(outfile, "\n\n***END OF LOG FILE***");
+	//closes logfile
+	fclose(outfile);
 
 	//prompts user to return to menu
 	printf("Press Enter to return to the main menu.\n\n");
