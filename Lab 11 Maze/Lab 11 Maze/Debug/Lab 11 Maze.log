@@ -1,0 +1,5 @@
+﻿  main.c
+  maze.c
+  Generating Code...
+c:\users\james\source\repos\lab 11 maze\lab 11 maze\maze.c(185): warning C4715: 'isValidPath': not all control paths return a value
+  Lab 11 Maze.vcxproj -> C:\Users\James\source\repos\Lab 11 Maze\Debug\Lab 11 Maze.exe
