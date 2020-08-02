@@ -1,8 +1,8 @@
 //header file for battleship
 
 #define _CRT_SECURE_NO_WARNINGS
-#define GRID_SIDE_LEN 5
-#define NUM_SHIPS 6
+#define GRID_SIDE_LEN 10
+#define NUM_SHIPS 10
 
 //symbol definitions for use on game board
 #define EMPTY '.'

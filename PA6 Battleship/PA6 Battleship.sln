@@ -5,27 +5,31 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PA6 Battleship", "PA6 Battleship\PA6 Battleship.vcxproj", "{254716C5-66F4-4242-BE7B-770BB1F52CD0}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{090D5A0B-C1B5-493B-8D50-6541CD9A0777}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Debug|x64.ActiveCfg = Debug|x64
 		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Debug|x64.Build.0 = Debug|x64
-		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Debug|x86.ActiveCfg = Debug|Win32
-		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Debug|x86.Build.0 = Debug|Win32
 		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Release|x64.ActiveCfg = Release|x64
 		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Release|x64.Build.0 = Release|x64
-		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Release|x86.ActiveCfg = Release|Win32
-		{254716C5-66F4-4242-BE7B-770BB1F52CD0}.Release|x86.Build.0 = Release|Win32
+		{090D5A0B-C1B5-493B-8D50-6541CD9A0777}.Debug|x64.ActiveCfg = Debug
+		{090D5A0B-C1B5-493B-8D50-6541CD9A0777}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5042C572-BACC-4EE6-ADB9-7BB806B0CFDE}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 EndGlobal

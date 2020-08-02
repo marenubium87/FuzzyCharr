@@ -1,2 +1,1 @@
-﻿  battleship.c
-  PA6 Battleship.vcxproj -> C:\Users\James\source\repos\PA6 Battleship\Debug\PA6 Battleship.exe
+﻿cl : Command line error D8045: cannot compile C file 'battleship.c' with the /clr option

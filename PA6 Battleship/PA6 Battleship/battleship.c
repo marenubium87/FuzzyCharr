@@ -804,13 +804,13 @@ void playBattleship(int * trueSight) {
 	//in order carrier, battleship, destroyer, submarine, patrol boat
 	//note player 1 has ship indices 0-4, player 2 has ship indices 5-9
 	Ship shipArray[NUM_SHIPS] = {
-		//{ "carrier", 'c', 5, 0, 0 },
-		//{ "battleship", 'b', 4, 0, 0 },
+		{ "carrier", 'c', 5, 0, 0 },
+		{ "battleship", 'b', 4, 0, 0 },
 		{ "cruiser", 'r', 3, 0, 0 },
 		{ "submarine", 's', 2, 0, 0 },
 		{ "patrol boat", 'p', 1, 0, 0 },
-		//{ "carrier", 'c', 5, 0, 0 },
-		//{ "battleship", 'b', 4, 0, 0 },
+		{ "carrier", 'c', 5, 0, 0 },
+		{ "battleship", 'b', 4, 0, 0 },
 		{ "cruiser", 'r', 3, 0, 0 },
 		{ "submarine", 's', 2, 0, 0 },
 		{ "patrol boat", 'p', 1, 0, 0 }
