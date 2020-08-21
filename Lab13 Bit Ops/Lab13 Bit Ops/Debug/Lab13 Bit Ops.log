@@ -1,0 +1,3 @@
+﻿  main.c
+c:\users\james\source\repos\lab13 bit ops\lab13 bit ops\main.c(21): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+  Lab13 Bit Ops.vcxproj -> C:\Users\James\source\repos\Lab13 Bit Ops\Debug\Lab13 Bit Ops.exe
