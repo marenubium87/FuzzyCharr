@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Inputs">
+      <UniqueIdentifier>{83d2170d-9054-4fa4-8579-9a10d3c2e03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Outputs">
+      <UniqueIdentifier>{380b7336-8eda-4be3-8248-dfd80c2a9a65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dictionary.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="A.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="B.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="C.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="D.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="E.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="F.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="G.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="H.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="I.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="J.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="K.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="L.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="M.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="N.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="O.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="P.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="Q.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="R.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="S.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="T.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="U.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="V.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="W.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="X.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="Y.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="Z.csv">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="testinput.dat">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log.txt">
+      <Filter>Resource Files\Outputs</Filter>
+    </Text>
+    <Text Include="testoutput.txt">
+      <Filter>Resource Files\Outputs</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
