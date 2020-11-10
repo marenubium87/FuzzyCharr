@@ -110,6 +110,12 @@
     <None Include="testinput.dat">
       <Filter>Resource Files\Inputs</Filter>
     </None>
+    <None Include="testinput2.dat">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
+    <None Include="testinput3.dat">
+      <Filter>Resource Files\Inputs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dictionary.h">
@@ -121,6 +127,9 @@
       <Filter>Resource Files\Outputs</Filter>
     </Text>
     <Text Include="testoutput.txt">
+      <Filter>Resource Files\Outputs</Filter>
+    </Text>
+    <Text Include="testoutput2.txt">
       <Filter>Resource Files\Outputs</Filter>
     </Text>
   </ItemGroup>

@@ -36,12 +36,11 @@ int evaluatePoSandDefn(char * word, char * PoS, char * defn) {
 		//value = 6
 		return imperfTense;
 	}
-	else if (strncmp(defn, "Of or pertaining", 16) == 0 ||
-		strncmp(defn, "Pertaining to", 13) == 0) {
-		if (strncmp(PoS, "a.", 2) == 0) {
+	else if ((strncmp(defn, "Of or pertaining", 16) == 0 || 
+		strncmp(defn, "Pertaining to", 13) == 0) 
+		&& (strncmp(PoS, "a.", 2) == 0)) {
 		//value = 7
-			return adjective;
-		}
+		return adjective;
 	}
 	else if (strncmp(defn, "See", 3) == 0 && defn[4] == word[0]) {
 		//value = 8
@@ -74,6 +73,7 @@ int evaluatePoSandDefn(char * word, char * PoS, char * defn) {
 	}
 	//so if none of those things get caught, word is fine
 	else {
+		//value = 0
 		return noChange;
 	}
 }
@@ -81,7 +81,7 @@ int evaluatePoSandDefn(char * word, char * PoS, char * defn) {
 //evaluates current line of dictionary, returns int based on code
 //corresponding to entries of DeletionType
 int evaluateEntry(char * currentLine) {
-	static char previousWord[50] = "";
+	static char previousWord[120] = "";
 
 	//marker if previous word was deleted
 	static int previousDeleted = 0;
@@ -123,46 +123,168 @@ int evaluateEntry(char * currentLine) {
 	return deletionCode;
 }
 
-//prints out results to the console
-void outputResults(char * infileString, int deletionCounts[],
-	int lineNumber) {
+//prints out pruning results to the console
+void outputPruningResults(char * infileString, int deletionCounts[],
+	int lineNumber, char * deletionCodeVerbose[]) {
 	system("cls");
+	printf("Pruning dictionary...\n\n");
 	printf("Processing %s...\n\n", infileString);
 	printf("Reading line %d...\n\n", lineNumber);
 	printf("Deletion counts:\n");
 	for (int i = 0; i < 15; i++) {
-		printf("Deletion code %2d: %6d\n", i, deletionCounts[i]);
+		printf("Deletion code %2d (%s): %6d\n", i, 
+			deletionCodeVerbose[i], deletionCounts[i]);
 	}
 }
 
 //wrapper to process all lines of a single data file
-void processDictionaryWrapper(char * infileString, char * outfileString,
-	int deletionCounts[]) {
+void processDictionaryWrapper(char * infileString, FILE * outfile,
+	int deletionCounts[], char * deletionCodeVerbose[]) {
 
 	FILE * infile = fopen(infileString, "r");
-	FILE * outfile = fopen(outfileString, "w");
-
+	
 	int i = 0;
-	char nextLine[1401] = "";
+	char nextLine[3000] = "";
 	//copy that strtok will not chop up
-	char nextLineDuplicate[1401] = "";
+	char nextLineDuplicate[3000] = "";
 
-	while (fgets(nextLine, 1400, infile) != NULL) {
+	while (fgets(nextLine, 2950, infile) != NULL) {
 		strcpy(nextLineDuplicate, nextLine);
 		
 		//process next line and evaluate deletion code here
 		int deletionCode = evaluateEntry(nextLine);
-		fprintf(outfile, "%2d  ", deletionCode);
-		fprintf(outfile, "%s", nextLineDuplicate);
+		
+		//write word to outfile?
+		if (deletionCode == 0) {
+			fprintf(outfile, "%s\n", strtok(nextLineDuplicate, "\""));
+		}
 
 		//update deletion counts array
 		deletionCounts[deletionCode]++;
 		i++;
 		if (i % 100 == 0) {
-			outputResults(infileString, deletionCounts, i);
+			outputPruningResults(infileString, deletionCounts, 
+				i, deletionCodeVerbose);
+		}
+	}
+	fclose(infile);
+}
+
+//outputs alpha count results to the console
+//requires alphaCounts to be of size NUM_LETTERS_IN_ENG_ALPHA
+void outputAlphaCountResults(int alphaCounts[], char alphabetVerbose[]) {
+	printf("Letter counts:\n\n");
+	for (int i = 0; i < NUM_LETTERS_IN_ENG_ALPHA; i++) {
+		printf("%c:%7d\n", alphabetVerbose[i], alphaCounts[i]);
+	}
+}
+
+//cleans the data file given by infileString and writes to
+//the data file given by outfileString
+//removes punctuation and all not-alpha characters
+//also makes count of alpha characters
+void cleanEntries(char * infileString, char * outfileString,
+	int alphaCounts[], char alphabetVerbose[]) {
+	FILE * infile = fopen(infileString, "r");
+	FILE * outfile = fopen(outfileString, "w");
+
+	
+	char nextWord[101] = "";
+	int i = 0;
+	while (fgets(nextWord, 100, infile) != NULL) {
+		for (unsigned int i = 0; i < strlen(nextWord); i++) {
+			nextWord[i] = tolower(nextWord[i]);
+			//is the next character not a letter?
+			if (!isalpha(nextWord[i])) {
+				//is it an apostrophe?
+				if (nextWord[i] == '\'') {
+					//does it contain an s afterward?
+					if (nextWord[i + 1] == 's') {
+						nextWord[i] = ' ';
+						nextWord[i + 1] = ' ';
+					}
+				}
+				//all else, just replace w/ space
+				else {
+					nextWord[i] = ' ';
+				}
+			}
+			else {
+				//97 is ASCII 'a'
+				alphaCounts[nextWord[i] - 97]++;
+			}
+		}
+		//write cleaned word to outfile
+		fprintf(outfile, "%s\n", nextWord);
+		i++;
+		if (i % 100 == 0) {
+			system("cls");
+			printf("Cleaning lines and generating single letter counts...\n");
+			printf("Cleaning line %d...\n\n", i);
+			outputAlphaCountResults(alphaCounts, alphabetVerbose);
 		}
 	}
 	fclose(infile);
 	fclose(outfile);
-	system("pause");
+}
+
+//prints tally of digraphs to the logfile
+void printDigraphs(int digraphCounts[][NUM_LETTERS_IN_ENG_ALPHA],
+	char alphabetVerbose[], FILE * logfile) {
+	fprintf(logfile, "***Digraph Frequencies***\n\n");
+	//print column labels
+	fprintf(logfile, "\t\t");
+	for (int x = 0; x < NUM_LETTERS_IN_ENG_ALPHA - 1; x++) {
+		fprintf(logfile, "%c\t\t", alphabetVerbose[x]);
+	}
+	fprintf(logfile, "z");
+	fprintf(logfile, "\n\n");
+
+
+	for (int i = 0; i < NUM_LETTERS_IN_ENG_ALPHA; i++) {
+		fprintf(logfile, "%c", alphabetVerbose[i]);
+		for (int j = 0; j < NUM_LETTERS_IN_ENG_ALPHA - 1; j++) {
+			fprintf(logfile, "%8d", digraphCounts[i][j]);
+		}
+		fprintf(logfile, "%8d\n", digraphCounts[i][25]);
+	}
+}
+
+//does what it says on the tin
+//requires words in file referred to by infileString to all be
+//in lower case.
+void countDigraphs(char * infileString, 
+	int digraphCounts[][NUM_LETTERS_IN_ENG_ALPHA]) {
+	FILE * infile = fopen(infileString, "r");
+	
+	char nextWord[150] = "";
+	int i = 0;
+	while (fgets(nextWord, 145, infile) != NULL) {
+		//-2 because we're looking at first letter of digraphs
+		for (unsigned int i = 0; i < strlen(nextWord) - 2; i++) {
+			//is the current char an alphabet character?
+			if (isalpha(nextWord[i])) {
+				//what about the next one?
+				if (isalpha(nextWord[i + 1])) {
+					//ascii 'a' = 97
+					digraphCounts[nextWord[i] - 97][nextWord[i + 1] - 97]++;
+				}
+				//if apostrophe, read character after that if able and
+				//consider that a digraph
+				else if (nextWord[i + 1] == '\'') {
+					if (isalpha(nextWord[i + 2])) {
+						//ascii 'a' = 97
+						digraphCounts[nextWord[i] - 97][nextWord[i + 2] - 97]++;
+					}
+				}
+			}
+		}
+		i++;
+		if (i % 200 == 0) {
+			system("cls");
+			printf("Counting digraphs...\n\n");
+			printf("Processing word %d...", i);
+		}
+	}
+	fclose(infile);
 }

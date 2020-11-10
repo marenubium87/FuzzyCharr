@@ -143,6 +143,8 @@
     <None Include="S.csv" />
     <None Include="T.csv" />
     <None Include="testinput.dat" />
+    <None Include="testinput2.dat" />
+    <None Include="testinput3.dat" />
     <None Include="U.csv" />
     <None Include="V.csv" />
     <None Include="W.csv" />
@@ -153,6 +155,7 @@
   <ItemGroup>
     <Text Include="testoutput.txt" />
     <Text Include="log.txt" />
+    <Text Include="testoutput2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
