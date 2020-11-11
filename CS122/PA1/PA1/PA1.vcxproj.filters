@@ -116,6 +116,9 @@
     <None Include="testinput3.dat">
       <Filter>Resource Files\Inputs</Filter>
     </None>
+    <None Include="digraphs.csv">
+      <Filter>Resource Files\Outputs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dictionary.h">
@@ -130,6 +133,12 @@
       <Filter>Resource Files\Outputs</Filter>
     </Text>
     <Text Include="testoutput2.txt">
+      <Filter>Resource Files\Outputs</Filter>
+    </Text>
+    <Text Include="prunedWordList.txt">
+      <Filter>Resource Files\Outputs</Filter>
+    </Text>
+    <Text Include="cleanedWordList.txt">
       <Filter>Resource Files\Outputs</Filter>
     </Text>
   </ItemGroup>

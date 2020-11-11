@@ -1,4 +1,4 @@
-***Dictionary Processed Entry Counts:
+***Dictionary Processed Entry Counts***
 
 Deletion code  0 (no change    ):  82626
 Deletion code  1 (dup entry    ):  57916
@@ -17,7 +17,7 @@ Deletion code 13 (plural       ):   3348
 Deletion code 14 (noun plural  ):   1574
 
 
-***Single Letter Frequencies:
+***Single Letter Frequencies***
 
 a:  59804
 b:  14250

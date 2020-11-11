@@ -126,6 +126,7 @@
     <None Include="B.csv" />
     <None Include="C.csv" />
     <None Include="D.csv" />
+    <None Include="digraphs.csv" />
     <None Include="E.csv" />
     <None Include="F.csv" />
     <None Include="G.csv" />
@@ -153,6 +154,8 @@
     <None Include="Z.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="cleanedWordList.txt" />
+    <Text Include="prunedWordList.txt" />
     <Text Include="testoutput.txt" />
     <Text Include="log.txt" />
     <Text Include="testoutput2.txt" />

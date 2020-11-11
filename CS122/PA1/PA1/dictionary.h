@@ -22,8 +22,8 @@ int evaluateWord(char * word, char * previousWord);
 //and definition parts of the entry
 int evaluatePoSandDefn(char * word, char * PoS, char * defn);
 
-//prints out results to the console
-void outputResults(char * infileString, int deletionCounts[],
+//prints out pruning results to the console
+void outputPruningResults(char * infileString, int deletionCounts[],
 	int lineNumber, char * deletionCodeVerbose[]);
 
 //evaluates current line of dictionary, returns int based on code
@@ -41,9 +41,10 @@ void processDictionaryWrapper(char * infileString, FILE * outfile,
 void cleanEntries(char * infileString, char * outfileString,
 	int alphaCounts[], char alphabetVerbose[]);
 
-//prints running tally of digraphs to the console for debugging purposes
+//prints tally of digraphs to the logfile
+//and also prints tally of digraphs to separate csv file
 void printDigraphs(int digraphCounts[][NUM_LETTERS_IN_ENG_ALPHA],
-	char alphabetVerbose[], FILE * logfile);
+	char alphabetVerbose[], FILE * logfile, FILE * digraphfile);
 
 //does what it says on the tin
 //requires words in file referred to by infileString to all be

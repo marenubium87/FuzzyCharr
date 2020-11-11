@@ -1,6 +1,6 @@
 /*
-* Aerie, CS122
-* Instructor: Reynx <3
+* James Liu
+* CS122
 * PA1 Data Sanitization
 * 22 Oct 2020
 */
@@ -47,7 +47,7 @@ int main() {
 	//first dictionary file
 	char infileString[20] = "A.csv";
 	//write pruned words to this file
-	char prunedWordListString[20] = "testoutput.txt";
+	char prunedWordListString[20] = "prunedWordList.txt";
 	FILE * prunedWordList = fopen(prunedWordListString, "w");
 	//write log to this file
 	char logfileString[20] = "log.txt";
@@ -73,7 +73,7 @@ int main() {
 	system("pause");
 
 	//write cleaned entries to this file
-	char cleanedWordListString[20] = "testoutput2.txt";
+	char cleanedWordListString[20] = "cleanedWordList.txt";
 	cleanEntries(prunedWordListString, cleanedWordListString, alphaCounts,
 		alphabetVerbose);
 	printf("Entries cleaned.\n\n");
@@ -88,13 +88,18 @@ int main() {
 	system("pause");
 
 	//digraph analysis
+	char digraphfileString[20] = "digraphs.csv";
+	FILE * digraphfile = fopen(digraphfileString, "w");
 	countDigraphs(cleanedWordListString, digraphCounts);
 	printf("\nDigraphs counted.\n\n");
-	printDigraphs(digraphCounts, alphabetVerbose, logfile);
-	printf("Wrote digraph frequencies to %s.\n\n", logfileString);
+	printDigraphs(digraphCounts, alphabetVerbose, logfile, digraphfile);
+	printf("Wrote digraph frequencies to %s.\n", logfileString);
+	printf("Wrote digraph frequencies to %s.\n\n", digraphfileString);
+
 	printf("***END OF PROGRAM\n\n");
 	system("pause");
 
 	fclose(logfile);
+	fclose(digraphfile);
 	return 0;
 }

@@ -229,8 +229,11 @@ void cleanEntries(char * infileString, char * outfileString,
 }
 
 //prints tally of digraphs to the logfile
+//and also prints tally of digraphs to separate csv file
 void printDigraphs(int digraphCounts[][NUM_LETTERS_IN_ENG_ALPHA],
-	char alphabetVerbose[], FILE * logfile) {
+	char alphabetVerbose[], FILE * logfile, FILE * digraphfile) {
+	
+	//write digraph frequencies to logfile
 	fprintf(logfile, "***Digraph Frequencies***\n\n");
 	//print column labels
 	fprintf(logfile, "\t\t");
@@ -240,13 +243,22 @@ void printDigraphs(int digraphCounts[][NUM_LETTERS_IN_ENG_ALPHA],
 	fprintf(logfile, "z");
 	fprintf(logfile, "\n\n");
 
-
 	for (int i = 0; i < NUM_LETTERS_IN_ENG_ALPHA; i++) {
 		fprintf(logfile, "%c", alphabetVerbose[i]);
 		for (int j = 0; j < NUM_LETTERS_IN_ENG_ALPHA - 1; j++) {
 			fprintf(logfile, "%8d", digraphCounts[i][j]);
 		}
 		fprintf(logfile, "%8d\n", digraphCounts[i][25]);
+	}
+
+	//write digraph frequencies to csv file
+	//delimiter character
+	char delim = ',';
+	for (int i = 0; i < NUM_LETTERS_IN_ENG_ALPHA; i++) {
+		for (int j = 0; j < NUM_LETTERS_IN_ENG_ALPHA; j++) {
+			fprintf(digraphfile, "%c%c%c%d\n",
+				i + 'a', j + 'a', delim, digraphCounts[i][j]);
+		}
 	}
 }
 
