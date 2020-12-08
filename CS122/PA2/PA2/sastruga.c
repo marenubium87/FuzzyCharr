@@ -27,11 +27,21 @@ void displayGameContents(Game targetGame) {
 	printf("  Genres:    ");
 	printGenreList(targetGame.pGenres);
 	printf("\n");
-	printf("  Playtime:  %dh%02dm\n",
+	printf("  Playtime:  %dh %02dm\n",
 		targetGame.timePlayed.hours, targetGame.timePlayed.minutes);
 	printf("  Achieves:  %d\n", targetGame.numAchieves);
 	printf("  Rating:    %d\n", targetGame.rating);
 	printf("\n*****\n");
+}
+
+//displays game list pointed to by pGameHead to the console
+void printGameList(GameNode * pGameHead) {
+	GameNode * pCurr = pGameHead;
+	while (pCurr != NULL) {
+		displayGameContents(pCurr->targetGame);
+		pCurr = pCurr->pNext;
+	}
+	printf("End of list.\n\n");
 }
 
 //allocates space on the heap for a new GameNode and initializes
@@ -49,4 +59,53 @@ GameNode * makeGame(Game targetGame) {
 	pMem->targetGame.numAchieves = targetGame.numAchieves;
 	pMem->targetGame.rating = targetGame.rating;
 	return pMem;
+}
+
+//inserts GameNode containing targetGame to front of game list
+//remember to call *location* of pGameHead when calling
+void insertGameAtFront(GameNode ** pGameList, Game targetGame) {
+	GameNode * pMem = makeGame(targetGame);
+	pMem->pNext = *pGameList;
+	//need to check if list is not empty... if list is empty, 
+	//not necessary (and in fact harmful) to set previous head node's pPrev
+	if (*pGameList != NULL) {
+		(*pGameList)->pPrev = pMem;
+	}
+	*pGameList = pMem;
+}
+
+//loads game library from infile via insert at front to list
+//assumes infile already opened for read
+void loadGameLibrary(GameNode ** pGameList, FILE * infile) {
+	Game tempGame = { "", "", NULL, { 0, 0 }, 0, 0 };
+	char nextLine[1701] = "";
+	while (fgets(nextLine, 1700, infile) != NULL) {
+		
+		//read next game from file
+
+		//set title and dev
+		strcpy(tempGame.title, strtok(nextLine, ","));
+		strcpy(tempGame.developer, strtok(NULL, ","));
+		
+		//tokenize genres list
+		char * genresList = strtok(NULL, ",");
+		//convert playtime, achieves, rating
+		tempGame.timePlayed.hours = atoi(strtok(NULL, ":"));
+		tempGame.timePlayed.minutes = atoi(strtok(NULL, ","));
+		tempGame.numAchieves = atoi(strtok(NULL, ","));
+		tempGame.rating = atoi(strtok(NULL, ","));
+
+		//set up genres list
+		GenreNode * pTempGenreList = NULL;
+		char * tempGenre = NULL;
+		tempGenre = strtok(genresList, "|");
+		while (tempGenre != NULL) {
+			insertGenreAtFront(&pTempGenreList, tempGenre);
+			tempGenre = strtok(NULL, "|");
+		}
+		tempGame.pGenres = pTempGenreList;
+
+		//insert next game into front of list
+		insertGameAtFront(pGameList, tempGame);
+	}
 }

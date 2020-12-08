@@ -21,21 +21,36 @@
     <ClCompile Include="sastruga.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sastrugagenres.c">
+    <ClCompile Include="sastrugaGenres.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="sastruga.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sastrugagenres.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="sastrugaTest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="hereMightBeDragons.csv">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="testInput.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="testOutput.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="hereMightBeDragons - Original.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sastruga.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sastrugaGenres.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sastrugaTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

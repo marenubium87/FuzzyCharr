@@ -117,14 +117,19 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="sastruga.c" />
-    <ClCompile Include="sastrugagenres.c" />
+    <ClCompile Include="sastrugaGenres.c" />
+    <ClCompile Include="sastrugaTest.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hereMightBeDragons - Original.csv" />
+    <None Include="hereMightBeDragons.csv" />
+    <None Include="testInput.csv" />
+    <None Include="testOutput.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sastruga.h" />
-    <ClInclude Include="sastrugagenres.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="hereMightBeDragons.csv" />
+    <ClInclude Include="sastrugaGenres.h" />
+    <ClInclude Include="sastrugaTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

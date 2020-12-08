@@ -1,10 +1,6 @@
 //header file for CS122 PA2
 
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <Windows.h>
-#include "sastrugagenres.h"
+#include "sastrugaGenres.h"
 
 //playtime structure (h:m)
 typedef struct playtime {
@@ -35,7 +31,18 @@ void printMenu(void);
 //displays all attributes of targetGame to the console
 void displayGameContents(Game targetGame);
 
+//displays game list pointed to by pGameHead to the console
+void printGameList(GameNode * pGameHead);
+
 //allocates space on the heap for a new Node and initializes
 //Node with information found in targetGame
 //returns address of Node on the heap
 GameNode * makeGame(Game targetGame);
+
+//inserts GameNode containing targetGame to front of game list
+//remember to call *location* of pGameHead when calling
+void insertGameAtFront(GameNode ** pGameList, Game targetGame);
+
+//loads game library from infile via insert at front to list
+//assumes infile already opened for read
+void loadGameLibrary(GameNode ** pGameList, FILE * infile);

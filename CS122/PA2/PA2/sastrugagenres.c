@@ -1,38 +1,24 @@
 //source file for functions to deal with genres
 
-#include "sastruga.h"
+
+#include "sastrugaGenres.h"
 
 //allocates space on the heap for a new GenreNode and initializes
-//with information found in newData
+//with information found in targetGenre
 //returns address of GenreNode on the heap
-GenreNode * makeGenre(char * newGenre) {
+GenreNode * makeGenre(char * targetGenre) {
 	GenreNode * pMem = (GenreNode *)malloc(sizeof(GenreNode));
-	strcpy(pMem->genre, newGenre);
+	strcpy(pMem->genre, targetGenre);
 	pMem->pNext = NULL;
 	return pMem;
 }
 
-//inserts genreNode contaniing newData to front of genre linked list
+//inserts genreNode contaniing targetGenre in front of genre list
 //remember to pass in the *location* of pHead when calling
-void insertGenreAtFront(GenreNode ** pList, char * newGenre) {
-	GenreNode * pMem = makeGenre(newGenre);
-	pMem->pNext = *pList;
-	*pList = pMem;
-}
-
-//lists out all contents of genre linked list to console
-void printGenreList(GenreNode * pHead) {
-	GenreNode * pCurr = pHead;
-	if (pCurr == NULL) {
-		printf("N/A");
-	}
-	else {
-		while (pCurr->pNext != NULL) {
-			printf("%s | ", pCurr->genre);
-			pCurr = pCurr->pNext;
-		}
-		printf("%s", pCurr->genre);
-	}
+void insertGenreAtFront(GenreNode ** pGenreList, char * targetGenre) {
+	GenreNode * pMem = makeGenre(targetGenre);
+	pMem->pNext = *pGenreList;
+	*pGenreList = pMem;
 }
 
 //deletes node containing targetGenre, if found from the list
@@ -67,4 +53,19 @@ int deleteGenre(GenreNode ** pList, char * targetGenre) {
 	}
 	//if code makes it to here, nothing was deleted
 	return FALSE;
+}
+
+//lists out all contents of genre linked list to console
+void printGenreList(GenreNode * pHead) {
+	GenreNode * pCurr = pHead;
+	if (pCurr == NULL) {
+		printf("N/A");
+	}
+	else {
+		while (pCurr->pNext != NULL) {
+			printf("%s | ", pCurr->genre);
+			pCurr = pCurr->pNext;
+		}
+		printf("%s", pCurr->genre);
+	}
 }
