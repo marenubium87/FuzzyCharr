@@ -3,7 +3,7 @@
 
 #include "sastrugaTest.h"
 
-int testFlag = 1;
+int testFlag = 0;
 
 int main() {
 
@@ -11,33 +11,7 @@ int main() {
 
 	if (testFlag) {
 		//run all tests
-		//testWrapper();
-
-		int tempArray[10] = { 0 };
-		for (int i = 0; i < 10; i++) {
-			tempArray[i] = i;
-		}
-		printf("Temp array composition:\n");
-		for (int i = 0; i < 10; i++) {
-			printf("%d ", tempArray[i]);
-		}
-		printf("\n\n");
-		printf("Shuffling array... running 30 trials\n");
-		for (int k = 0; k < 30; k++) {
-			//randomizes and prints out array
-			randomizeArray(tempArray, 10);
-			for (int i = 0; i < 10; i++) {
-				printf("%d ", tempArray[i]);
-			}
-			printf("\n");
-			//puts array back into original config for next run
-			for (int i = 0; i < 10; i++) {
-				tempArray[i] = i;
-			}
-		}
-		
-
-
+		testWrapper();
 		system("pause");
 	}
 	else {
@@ -61,14 +35,14 @@ int main() {
 
 			switch (choice) {
 			case 1:
-				infile = fopen("testInput.csv", "r");
+				infile = fopen("hereMightBeDragons.csv", "r");
 				loadGameLibrary(&pGameHead, infile);
 				fclose(infile);
 				printf("The new ancient scriptures have been read, my lord.");
 				printf("\n\n");
 				break;
 			case 2:
-				outfile = fopen("testOutput.csv", "w");
+				outfile = fopen("hereMightBeDragons.csv", "w");
 				preserveSacredTeachings(pGameHead, outfile);
 				fclose(outfile);
 				printf("The sacred teachings have been preserved, master.");
@@ -130,7 +104,7 @@ int main() {
 				openGatesOfChaos(pGameHead);
 				break;
 			case 11:
-				outfile = fopen("testOutput.csv", "w");
+				outfile = fopen("hereMightBeDragons.csv", "w");
 				preserveSacredTeachings(pGameHead, outfile);
 				fclose(outfile);
 				printf("Exiting and preserving the sacred teachings ");

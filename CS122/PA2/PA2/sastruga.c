@@ -34,7 +34,12 @@ void displayGameContents(Game targetGame) {
 	printf("  Playtime:  %dh %02dm\n",
 		targetGame.timePlayed.hours, targetGame.timePlayed.minutes);
 	printf("  Achieves:  %d\n", targetGame.numAchieves);
-	printf("  Rating:    %d\n", targetGame.rating);
+	if (targetGame.rating == 0) {
+		printf("  Rating:    N/A\n");
+	}
+	else {
+		printf("  Rating:    %d\n", targetGame.rating);
+	}
 	printf("\n*****\n");
 }
 
@@ -62,7 +67,7 @@ void unveilForgottenRecordsWrapper(GameNode * pGameHead) {
 	int choice = 0;
 	char tempCharr = '\0';
 
-	printf("Hail, traveler.  Select from the following:\n\n");
+	printf("Hail, master.  Select from the following:\n\n");
 	printf("1.  Unveil all of the forgotten records\n");
 	printf("2.  Unveil all forgotten records with a rating of 6\n\n");
 
@@ -474,7 +479,7 @@ void embarkOnQuest(GameNode * pGameHead) {
 //remember to call *location* of pGameHead when calling
 void collectNewArtifact(GameNode ** pGameList) {
 
-	printf("Oooh, a new artifact... shiny!!");
+	printf("Oooh, a new artifact... shiny!!  Please tell me more, master.");
 
 	//set up target game based on user input
 	Game targetGame = { "", "", NULL, { 0, 0 }, 0, 0 };
@@ -517,7 +522,7 @@ void collectNewArtifact(GameNode ** pGameList) {
 
 	//rating
 	do {
-		printf("\nType in the game's rating (1-6),\n");
+		printf("\n\nType in the game's rating (1-6),\n");
 		printf("or enter 0 to skip for now.  ");
 		scanf("%d%c", &tempInt, &tempCharr);
 		if (tempInt == 0) {
@@ -759,6 +764,10 @@ void openGatesOfChaos(GameNode * pGameHead) {
 	//randomize array order
 	randomizeArray(arrGameOrder, numGames);
 
+	for (int i = 0; i < numGames; i++) {
+		printf("%d ", arrGameOrder[i]);
+	}
+	printf("\n");
 	//find first game
 	pCurr = pGameHead;
 	for (int i = 0; i < arrGameOrder[0]; i++) {
@@ -783,13 +792,22 @@ void openGatesOfChaos(GameNode * pGameHead) {
 		printf("1.  Play next game\n");
 		printf("2.  Exit\n");
 		scanf("%d%c", &choice, &tempCharr);
-		if (choice == 1 && gamesPlayed <= numGames) {
-			//write shuffle code here
+		if (choice == 1 && gamesPlayed < numGames) {
+			//figure out the difference between next index and current
+			offset = arrGameOrder[gamesPlayed] - arrGameOrder[gamesPlayed - 1];
+			while (offset > 0) {
+				pCurr = pCurr->pNext;
+				offset--;
+			}
+			while (offset < 0) {
+				pCurr = pCurr->pPrev;
+				offset++;
+			}
 		}
-	} while (gamesPlayed <= numGames && choice == 1);
+	} while (gamesPlayed < numGames && choice == 1);
 
 	system("cls");
-	if (pCurr == NULL) {
+	if (gamesPlayed == numGames) {
 		printf("You've reached the end of your game library.\n");
 	}
 	else {

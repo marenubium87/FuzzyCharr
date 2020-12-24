@@ -5,14 +5,12 @@
 //wrapper to run all tests
 void testWrapper(void) {
 
-	//testInsertGameAtFront();
-	//testLoadGameLibrary();
-	//testModifyGenres();
-	//testDecreeDivineJudgment();
-	//testRemoveSelectedGame();
-
+	testInsertGameAtFront();
+	testLoadGameLibrary();
+	testModifyGenres();
+	testDecreeDivineJudgment();
+	testRemoveSelectedGame();
 	testOrganizingTroops();
-	system("pause");
 }
 
 //aux function for other tests
