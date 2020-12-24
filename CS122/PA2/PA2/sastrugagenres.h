@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 
 //genre structure (singly-linked list)
 typedef struct genreNode {
@@ -30,3 +31,12 @@ int deleteGenre(GenreNode ** pList, char * targetGenre);
 
 //lists out all contents of genre linked list to console
 void printGenreList(GenreNode * pHead);
+
+//lists out all contents of genre linked list to outfile
+void printGenreListFile(GenreNode * pHead, FILE * outfile);
+
+//function called by the rewriting stone tablets functionality
+//if targetGenre is found in pGenreList, deletes it UNLESS targetGenre
+//is the last genre in pGenreList
+//if targetGenre is not found in pGenreList, will add targetGenre to pGenreList
+void modifyGenreList(GenreNode ** pGenreList, char * targetGenre);

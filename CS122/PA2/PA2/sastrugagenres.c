@@ -69,3 +69,41 @@ void printGenreList(GenreNode * pHead) {
 		printf("%s", pCurr->genre);
 	}
 }
+
+//lists out all contents of genre linked list to outfile
+void printGenreListFile(GenreNode * pHead, FILE * outfile) {
+	GenreNode * pCurr = pHead;
+	if (pCurr != NULL) {
+		while (pCurr->pNext != NULL) {
+			fprintf(outfile, "%s|", pCurr->genre);
+			pCurr = pCurr->pNext;
+		}
+		fprintf(outfile, "%s,", pCurr->genre);
+	}
+}
+
+//function called by the rewriting stone tablets functionality
+//if targetGenre is found in pGenreList, deletes it UNLESS targetGenre
+//is the last genre in pGenreList
+//if targetGenre is not found in pGenreList, will add targetGenre to pGenreList
+void modifyGenreList(GenreNode ** pGenreList, char * targetGenre) {
+	//assume user is trying to delete an entry
+	if (deleteGenre(pGenreList, targetGenre)) {
+		//if a genre was deleted, was it the last one?
+		if (*pGenreList == NULL) {
+			//uh oh!  put it back
+			insertGenreAtFront(pGenreList, targetGenre);
+			printf("Warning: genre to be deleted is only one in list and");
+			printf(" cannot be deleted. \n");
+		}
+		else {
+			printf("Genre successfully deleted.  \n");
+		}
+	}
+	//if we didn't find a match for the deletion, it means genre isn't already
+	//in the list and thus user is trying to add it
+	else {
+		insertGenreAtFront(pGenreList, targetGenre);
+		printf("Genre successfully added.  \n");
+	}
+}
