@@ -6,8 +6,7 @@
 void printMenu(void) {
 	printf("Sastruga - A Text-based Game Organization Simulator\n");
 	printf("   (c) 2021 by the Nefarious Kitty Corporation\n");
-	printf("   (All rights reserved and protected by ");
-	printf("shotgun-wielding kitties.)\n\n");
+	printf("   (All rights reserved and protected by [redacted].\n\n");
 	printf("Select an option from the following:\n\n");
 	printf("  1.  Read the new ancient scriptures\n");
 	printf("  2.  Preserve the sacred teachings\n");
@@ -200,6 +199,7 @@ void searchDeveloper(GameNode * pGameHead, GameNode * gameResultsArray[]) {
 	}
 	if (i == 0) {
 		printf("\nNo matches found.\n\n");
+		system("pause");
 	}
 	else if (i == 1) {
 		printf("\n\nMatch found:\n\n");
@@ -227,6 +227,46 @@ void decreeDivineJudgment(Game * targetGame, int newRating) {
 	}
 	else {
 		targetGame->rating = newRating;
+	}
+}
+
+//what it says on the tin
+//wrapper function to make case 8 from main more succinct
+void decreeJudgmentWrapper(GameNode * pGameHead) {
+	//lets user find game by publisher and start from there
+	GameNode * pCurr = NULL;
+	
+	GameNode * gameResultsArray[12] = { NULL };
+	while (gameResultsArray[0] == NULL) {
+
+		//populates gameResultsArray with games based on developer
+		searchDeveloper(pGameHead, gameResultsArray);
+
+		if (gameResultsArray[0] != NULL) {
+			printf("\nType in the entry number of the game\n");
+			printf("you wish to judge, or 0 to exit:  ");
+
+			int gameChoice = 0;
+			int newRating = 0;
+			char tempCharr = '\0';
+			
+			scanf("%d%c", &gameChoice, &tempCharr);
+			if (gameChoice == 0) {
+				break;
+			}
+			else {
+				pCurr = gameResultsArray[gameChoice - 1];
+			}
+			system("cls");
+			printf("You have selected:\n\n");
+			displayGameContents(pCurr->targetGame);
+			printf("Enter a new rating for the game:  ");
+			scanf("%d%c", &newRating, &tempCharr);
+			decreeDivineJudgment(&(pCurr->targetGame), newRating);
+			system("cls");
+			displayGameContents(pCurr->targetGame);
+			printf("\nGame's rating has been updated.\n");
+		}
 	}
 }
 
@@ -547,7 +587,11 @@ void collectNewArtifact(GameNode ** pGameList) {
 			modifyGenreList(&(targetGame.pGenres), tempString);
 			system("pause");
 		}
-	} while (strcmp("exit", tempString) != 0);
+		if (targetGame.pGenres == NULL) {
+			printf("\nWarning!  You must enter at least one genre.\n\n");
+			system("pause");
+		}
+	} while (strcmp("exit", tempString) != 0 || targetGame.pGenres == NULL);
 
 	//targetGame is all set up to be inserted into list
 	insertGameAtFront(pGameList, targetGame);
@@ -680,13 +724,16 @@ void organizingTroops(GameNode ** pGameList) {
 	//is the list empty?
 
 	printf("As you wish... I shall organize the troops.\n\n");
-
+	int choice = 0;
 	GameNode * pCurr = *pGameList;
+	
 	if (pCurr == NULL) {
+		printf("Calamity!  You have no troops to organize, milord!\n\n");
 		return;
 	}
 	//does the list only have one element?
 	else if (pCurr->pNext == NULL) {
+		printf("Your one troop has been organized, milord!\n\n");
 		return;
 	}
 	else {
@@ -702,26 +749,118 @@ void organizingTroops(GameNode ** pGameList) {
 		//element to the right of target element for swaps, hence - 2
 		int indexLastUnsorted = numUnsorted - 2;
 
-		for (int i = indexLastUnsorted; i >= 0; i--) {
-			pCurr = *pGameList;
+		//required for case 4
+		int playtimePCurr = 0;
+		int playtimePNext = 0;
 
-			for (int j = 0; j <= i; j++) {
-	
-				if (strcmp(pCurr->targetGame.title,
-					pCurr->pNext->targetGame.title) > 0) {
-					swapElements(pGameList, pCurr);
+		do {
+			system("cls");
+			printf("How would you like to organize the troops, milord?\n\n");
+			printf("1.  Game Title (Ascending)\n");
+			printf("2.  Achievements (Ascending)\n");
+			printf("3.  Achievements (Descending)\n");
+			printf("4.  Playtime (Descending)\n");
+			printf("5.  Developer/Publisher (Descending)\n");
+			printf("6.  Never mind.  (Exit)\n\n");
+
+			scanf("%d", &choice);
+
+			switch (choice) {
+			case 1:
+				for (int i = indexLastUnsorted; i >= 0; i--) {
+					pCurr = *pGameList;
+					for (int j = 0; j <= i; j++) {
+
+						if (strcmp(pCurr->targetGame.title,
+							pCurr->pNext->targetGame.title) > 0) {
+							swapElements(pGameList, pCurr);
+						}
+						else {
+							//if we swapped elements above, that means
+							//pCurr has already in essence incremented
+							//and thus does not need to be incremented again
+							pCurr = pCurr->pNext;
+						}
+					}
 				}
-				else {
-					//if we swapped elements above, that means
-					//pCurr has already in essence incremented
-					//and thus does not need to be incremented again
-					pCurr = pCurr->pNext;
+				break;
+			case 2:
+				for (int i = indexLastUnsorted; i >= 0; i--) {
+					pCurr = *pGameList;
+					for (int j = 0; j <= i; j++) {
+
+						if (pCurr->targetGame.numAchieves >
+								pCurr->pNext->targetGame.numAchieves) {
+							swapElements(pGameList, pCurr);
+						}
+						else {
+							pCurr = pCurr->pNext;
+						}
+					}
 				}
+				break;
+			case 3:
+				for (int i = indexLastUnsorted; i >= 0; i--) {
+					pCurr = *pGameList;
+					for (int j = 0; j <= i; j++) {
+
+						if (pCurr->targetGame.numAchieves <
+							pCurr->pNext->targetGame.numAchieves) {
+							swapElements(pGameList, pCurr);
+						}
+						else {
+							pCurr = pCurr->pNext;
+						}
+					}
+				}
+				break;
+			case 4:
+				for (int i = indexLastUnsorted; i >= 0; i--) {
+					pCurr = *pGameList;
+					for (int j = 0; j <= i; j++) {
+
+						playtimePCurr = 60 * (pCurr->targetGame.timePlayed.hours)
+							+ pCurr->targetGame.timePlayed.minutes;
+						playtimePNext = 60 * 
+							(pCurr->pNext->targetGame.timePlayed.hours)
+							+ pCurr->pNext->targetGame.timePlayed.minutes;
+
+						if (playtimePCurr < playtimePNext) {
+							swapElements(pGameList, pCurr);
+						}
+						else {
+							pCurr = pCurr->pNext;
+						}
+					}
+				}
+				break;
+			case 5:
+				for (int i = indexLastUnsorted; i >= 0; i--) {
+					pCurr = *pGameList;
+					for (int j = 0; j <= i; j++) {
+
+						if (strcmp(pCurr->targetGame.developer,
+							pCurr->pNext->targetGame.developer) < 0) {
+							swapElements(pGameList, pCurr);
+						}
+						else {
+							pCurr = pCurr->pNext;
+						}
+					}
+				}
+				break;
+			case 6:
+				break;
+			default:
+				printf("Please choose a valid option.\n\n");
+				system("pause");
 			}
+
+		} while (choice < 1 || choice > 6);
+		if (choice != 6) {
+			printf("I have organized the troops, milord!\n\n");
 		}
 	}
-
-	printf("I have organized the troops, milord.\n\n");
 }
 
 //randomizes the order of element values in target int array
@@ -805,6 +944,9 @@ void openGatesOfChaos(GameNode * pGameHead) {
 			}
 		}
 	} while (gamesPlayed < numGames && choice == 1);
+
+	//let's not leak memory in this household
+	free(arrGameOrder);
 
 	system("cls");
 	if (gamesPlayed == numGames) {

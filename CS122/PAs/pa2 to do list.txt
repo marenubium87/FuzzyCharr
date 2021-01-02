@@ -1,0 +1,7 @@
+-re-read the sort function again, can sort by fields and shit
+-command line arguments (for test flag?)
+
+printf multiple line syntax:
+//the following is legal
+printf("blah blah"
+	"blah blah");

@@ -17,16 +17,10 @@ int main() {
 	else {
 		
 		GameNode * pGameHead = NULL;
-		GameNode * pCurr = NULL;
 		FILE * infile = NULL;
 		FILE * outfile = NULL;
 
 		int choice = 0;
-		int gameChoice = 0;
-		int newRating = 0;
-
-		char tempCharr = '\0';
-
 
 		do {
 			printMenu();
@@ -64,38 +58,7 @@ int main() {
 				organizingTroops(&pGameHead);
 				break;
 			case 8:
-				//lets user find game by publisher and start from there
-				gameChoice = 0;
-				GameNode * gameResultsArray[12] = { NULL };
-				while (gameResultsArray[0] == NULL) {
-
-					//populates gameResultsArray with games based on developer
-					searchDeveloper(pGameHead, gameResultsArray);
-
-					if (gameResultsArray[0] != NULL) {
-						printf("\nType in the entry number of the game\n");
-						printf("you wish to judge, or 0 to exit:  ");
-
-						int gameChoice = 0;
-						char tempCharr = '\0';
-						scanf("%d%c", &gameChoice, &tempCharr);
-						if (gameChoice == 0) {
-							break;
-						}
-						else {
-							pCurr = gameResultsArray[gameChoice - 1];
-						}
-						system("cls");
-						printf("You have selected:\n\n");
-						displayGameContents(pCurr->targetGame);
-						printf("Enter a new rating for the game:  ");
-						scanf("%d%c", &newRating, &tempCharr);
-						decreeDivineJudgment(&(pCurr->targetGame), newRating);
-						system("cls");
-						displayGameContents(pCurr->targetGame);
-						printf("\nGame's rating has been updated.\n");
-					}
-				}
+				decreeJudgmentWrapper(pGameHead);
 				break;
 			case 9:
 				embarkOnQuest(pGameHead);

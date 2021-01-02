@@ -64,6 +64,10 @@ void searchDeveloper(GameNode * pGameHead, GameNode * gameResultsArray[]);
 //also aux function for modifyGame
 void decreeDivineJudgment(Game * targetGame, int newRating);
 
+//what it says on the tin
+//wrapper function to make case 8 from main more succinct
+void decreeJudgmentWrapper(GameNode * pGameHead);
+
 //aux function for rewriteStoneTablets
 //does what it says on the tin
 void modifyGame(Game * targetGame);
