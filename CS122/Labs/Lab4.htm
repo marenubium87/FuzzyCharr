@@ -20,9 +20,7 @@ w\:* {behavior:url(#default#VML);}
 .shape {behavior:url(#default#VML);}
 </style>
 <![endif]-->
-<title>Queues</title>
-<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
- name="date"/>
+<title>More Data Structures</title>
 <o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
  name="stockticker"/>
 <!--[if gte mso 9]><xml>
@@ -30,16 +28,16 @@ w\:* {behavior:url(#default#VML);}
   <o:Author>Andy O'Fallon</o:Author>
   <o:Template>Normal</o:Template>
   <o:LastAuthor>Andy O'Fallon</o:LastAuthor>
-  <o:Revision>18</o:Revision>
-  <o:TotalTime>288</o:TotalTime>
-  <o:Created>2015-02-05T19:37:00Z</o:Created>
-  <o:LastSaved>2016-09-19T21:46:00Z</o:LastSaved>
+  <o:Revision>7</o:Revision>
+  <o:TotalTime>228</o:TotalTime>
+  <o:Created>2018-09-14T21:47:00Z</o:Created>
+  <o:LastSaved>2019-02-01T22:46:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>657</o:Words>
-  <o:Characters>3749</o:Characters>
-  <o:Lines>31</o:Lines>
-  <o:Paragraphs>8</o:Paragraphs>
-  <o:CharactersWithSpaces>4398</o:CharactersWithSpaces>
+  <o:Words>1118</o:Words>
+  <o:Characters>6378</o:Characters>
+  <o:Lines>53</o:Lines>
+  <o:Paragraphs>14</o:Paragraphs>
+  <o:CharactersWithSpaces>7482</o:CharactersWithSpaces>
   <o:Version>15.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -50,6 +48,8 @@ w\:* {behavior:url(#default#VML);}
 <link rel=colorSchemeMapping href="Lab4_files/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -665,6 +665,13 @@ st1\:*{behavior:url(#ieooui) }
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;
 	mso-font-charset:1;
@@ -672,6 +679,13 @@ st1\:*{behavior:url(#ieooui) }
 	mso-font-format:other;
 	mso-font-pitch:variable;
 	mso-font-signature:0 0 0 0 0 0;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-536870145 1073786111 1 0 415 0;}
 @font-face
 	{font-family:Tahoma;
 	panose-1:2 11 6 4 3 5 4 4 2 4;
@@ -686,6 +700,13 @@ st1\:*{behavior:url(#ieooui) }
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
 	mso-font-signature:647 0 0 0 159 0;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-520092929 1073806591 9 0 415 0;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{mso-style-unhide:no;
@@ -699,7 +720,8 @@ st1\:*{behavior:url(#ieooui) }
 	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 p.MsoHeader, li.MsoHeader, div.MsoHeader
-	{mso-style-priority:99;
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
 	mso-style-link:"Header Char";
 	margin:0in;
 	margin-bottom:.0001pt;
@@ -710,7 +732,8 @@ p.MsoHeader, li.MsoHeader, div.MsoHeader
 	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 p.MsoFooter, li.MsoFooter, div.MsoFooter
-	{mso-style-priority:99;
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
 	mso-style-link:"Footer Char";
 	margin:0in;
 	margin-bottom:.0001pt;
@@ -720,6 +743,20 @@ p.MsoFooter, li.MsoFooter, div.MsoFooter
 	font-family:"Arial",sans-serif;
 	mso-fareast-font-family:"Times New Roman";
 	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:blue;
+	mso-themecolor:hyperlink;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:purple;
+	mso-themecolor:followedhyperlink;
+	text-decoration:underline;
+	text-underline:single;}
 p
 	{mso-style-noshow:yes;
 	mso-style-priority:99;
@@ -743,8 +780,89 @@ p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	font-family:"Tahoma",sans-serif;
 	mso-fareast-font-family:"Times New Roman";
 	color:black;}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{mso-style-noshow:yes;
+	mso-style-priority:1;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
 span.HeaderChar
 	{mso-style-name:"Header Char";
+	mso-style-noshow:yes;
 	mso-style-priority:99;
 	mso-style-unhide:no;
 	mso-style-locked:yes;
@@ -759,6 +877,7 @@ span.HeaderChar
 	color:black;}
 span.FooterChar
 	{mso-style-name:"Footer Char";
+	mso-style-noshow:yes;
 	mso-style-priority:99;
 	mso-style-unhide:no;
 	mso-style-locked:yes;
@@ -786,6 +905,9 @@ span.BalloonTextChar
 	mso-hansi-font-family:Tahoma;
 	mso-bidi-font-family:Tahoma;
 	color:black;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -801,198 +923,255 @@ span.BalloonTextChar
 	mso-hansi-theme-font:minor-latin;
 	mso-bidi-font-family:"Times New Roman";
 	mso-bidi-theme-font:minor-bidi;}
- /* Page Definitions */
- @page
-	{mso-footnote-separator:url("Lab4_files/header.htm") fs;
-	mso-footnote-continuation-separator:url("Lab4_files/header.htm") fcs;
-	mso-endnote-separator:url("Lab4_files/header.htm") es;
-	mso-endnote-continuation-separator:url("Lab4_files/header.htm") ecs;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:.8in 1.0in .8in 1.0in;
 	mso-header-margin:.5in;
 	mso-footer-margin:.5in;
-	mso-header:url("Lab4_files/header.htm") h1;
-	mso-even-footer:url("Lab4_files/header.htm") ef1;
-	mso-footer:url("Lab4_files/header.htm") f1;
 	mso-paper-source:0;}
 div.WordSection1
 	{page:WordSection1;}
  /* List Definitions */
  @list l0
-	{mso-list-id:103964604;
+	{mso-list-id:479007091;
 	mso-list-type:hybrid;
-	mso-list-template-ids:266361016 375833220 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+	mso-list-template-ids:-1470344396 1195818610 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
 @list l0:level1
 	{mso-level-number-format:image;
 	list-style-image:url("Lab4_files/image001.gif");
 	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
 	font-family:Symbol;
 	color:windowtext;}
 @list l0:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1
-	{mso-list-id:111676799;
-	mso-list-type:hybrid;
-	mso-list-template-ids:357324060 1395951584 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l1:level1
-	{mso-level-tab-stop:.5in;
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-weight:bold;}
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:673579933;
+	mso-list-type:hybrid;
+	mso-list-template-ids:571488574 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
 @list l1:level2
-	{mso-level-tab-stop:1.0in;
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;}
 @list l1:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
 @list l1:level4
-	{mso-level-tab-stop:2.0in;
+	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;}
 @list l1:level5
-	{mso-level-tab-stop:2.5in;
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;}
 @list l1:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
 @list l1:level7
-	{mso-level-tab-stop:3.5in;
+	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;}
 @list l1:level8
-	{mso-level-tab-stop:4.0in;
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;}
 @list l1:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
 @list l2
-	{mso-list-id:999315046;
+	{mso-list-id:878276251;
 	mso-list-type:hybrid;
-	mso-list-template-ids:1126888924 375833220 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+	mso-list-template-ids:922142968 1195818610 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
 @list l2:level1
 	{mso-level-number-format:image;
 	list-style-image:url("Lab4_files/image001.gif");
 	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
 	font-family:Symbol;
 	color:windowtext;}
 @list l2:level2
-	{mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level4
-	{mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level5
-	{mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level7
-	{mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level8
-	{mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l2:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3
-	{mso-list-id:1794401568;
-	mso-list-type:hybrid;
-	mso-list-template-ids:357324060 1395951584 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l3:level1
-	{mso-level-tab-stop:.5in;
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-weight:bold;}
-@list l3:level2
-	{mso-level-tab-stop:1.0in;
+	font-family:"Courier New";}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l3
+	{mso-list-id:1680156790;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-15056980 -1478596210 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l3:level1
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;}
+@list l3:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
 	text-indent:-.25in;}
 @list l3:level3
-	{mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:1.75in;
+	text-indent:-9.0pt;}
 @list l3:level4
-	{mso-level-tab-stop:2.0in;
+	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
+	margin-left:2.25in;
 	text-indent:-.25in;}
 @list l3:level5
-	{mso-level-tab-stop:2.5in;
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
+	margin-left:2.75in;
 	text-indent:-.25in;}
 @list l3:level6
-	{mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:3.25in;
+	text-indent:-9.0pt;}
 @list l3:level7
-	{mso-level-tab-stop:3.5in;
+	{mso-level-tab-stop:none;
 	mso-level-number-position:left;
+	margin-left:3.75in;
 	text-indent:-.25in;}
 @list l3:level8
-	{mso-level-tab-stop:4.0in;
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
+	margin-left:4.25in;
 	text-indent:-.25in;}
 @list l3:level9
-	{mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l3:level1 lfo4
-	{mso-level-start-at:0;}
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:4.75in;
+	text-indent:-9.0pt;}
 ol
 	{margin-bottom:0in;}
 ul
@@ -1028,17 +1207,18 @@ ul
  </o:shapelayout></xml><![endif]-->
 </head>
 
-<body lang=EN-US style='tab-interval:.5in'>
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
 
 <div class=WordSection1>
 
-<p class=MsoHeader style='margin-left:219.0pt;text-indent:-219.0pt'><b><span
-style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif'>CptS 122 – Data
+<p class=MsoHeader style='margin-left:219.0pt;text-indent:-219.0pt'><span
+class=SpellE><b><span style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif'>CptS</span></b></span><b><span
+style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif'> 122 – Data
 Structures<span
 style='mso-spacerun:yes'>                                                                        
 </span></span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif;mso-no-proof:
-yes'><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif;color:#990033;
+mso-no-proof:yes'><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
  o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
  stroked="f">
  <v:stroke joinstyle="miter"/>
@@ -1058,12 +1238,11 @@ yes'><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
  </v:formulas>
  <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
  <o:lock v:ext="edit" aspectratio="t"/>
-</v:shapetype><v:shape id="Picture_x0020_1" o:spid="_x0000_i1026" type="#_x0000_t75"
- alt="image010" style='width:111.75pt;height:73.5pt;visibility:visible;
- mso-wrap-style:square'>
- <v:imagedata src="Lab4_files/image002.gif" o:title="image010"/>
-</v:shape><![endif]--><![if !vml]><img width=149 height=98
-src="Lab4_files/image002.gif" alt=image010 v:shapes="Picture_x0020_1"><![endif]></span></b><b
+</v:shapetype><v:shape id="Picture_x0020_2" o:spid="_x0000_i1025" type="#_x0000_t75"
+ style='width:89.25pt;height:58.5pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="Lab4_files/image002.gif" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=119 height=78
+src="Lab4_files/image003.png" v:shapes="Picture_x0020_2"><![endif]></span></b><b
 style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
 "Trebuchet MS",sans-serif;color:#990033'><o:p></o:p></span></b></p>
 
@@ -1073,15 +1252,15 @@ style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif;color:#990033'><o:
 
 <p class=MsoHeader style='margin-left:219.0pt;text-indent:-219.0pt'><b
 style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
-"Trebuchet MS",sans-serif;color:#990033'>Lab 4: Data Structures and Dynamic
-Linked Queues in C<o:p></o:p></span></b></p>
+"Trebuchet MS",sans-serif;color:#990033'>Lab 4: More Practice with Pointers,
+Lists, and Stacks in C<o:p></o:p></span></b></p>
 
 <p class=MsoHeader align=center style='margin-left:219.0pt;text-align:center;
 text-indent:-219.0pt'><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
 
 <p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Assigned:</span></b><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> Week
-of September 19, 2016</span></p>
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> Week of
+February 4, 2019</span></p>
 
 <p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Due: </span></b><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>At the
@@ -1089,60 +1268,42 @@ end of the lab session<o:p></o:p></span></p>
 
 <p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
 
-<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>I.
-Learner Objectives:<o:p></o:p></span></b></p>
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>I. Learner
+Objectives:<o:p></o:p></span></b></p>
 
 <p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>At the
 conclusion of this programming assignment, participants should be able to:<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Design,
-implement and test a dynamic queue implemented with a singly linked list in C<o:p></o:p></span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Compare
-and contrast dynamic linked lists, dynamic linked stacks, and dynamic linked
-queues<o:p></o:p></span></p>
+and contrast dynamic linked lists and dynamic stacks<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Summarize
-the advantages of applying a queue within certain applications<o:p></o:p></span></p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Distinguish
+between various types of pointers<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Describe
-the operations applied to a queue including<o:p></o:p></span></p>
-
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l0 level2 lfo2;
-tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
-style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>enqueue
-( )<o:p></o:p></span></p>
-
-<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l0 level2 lfo2;
-tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
-style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>dequeue
-( )<o:p></o:p></span></p>
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Dive
+deeper into the &lt;<span class=SpellE>string.h</span>&gt; library and describe
+the purpose of </span><span class=SpellE><span style='font-family:"Courier New"'>memset</span></span><span
+style='font-family:"Courier New"'>()</span><span style='font-family:"Trebuchet MS",sans-serif'>,
+</span><span class=SpellE><span style='font-family:"Courier New"'>memcpy</span></span><span
+style='font-family:"Courier New"'>()</span><span style='font-family:"Trebuchet MS",sans-serif'>,
+</span><span class=SpellE><span style='font-family:"Courier New"'>memcmp</span></span><span
+style='font-family:"Courier New"'>()</span><span style='font-family:"Trebuchet MS",sans-serif'>,
+and </span><span class=SpellE><span style='font-family:"Courier New"'>memchr</span></span><span
+style='font-family:"Courier New"'>()</span><span style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
 
@@ -1154,69 +1315,61 @@ Prerequisites:</span></b><span style='font-family:"Trebuchet MS",sans-serif'><o:
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Before
 starting this programming assignment, participants should be able to:<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Analyze
 a basic set of requirements for a problem<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Compose
 a small C language program<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Create
 test cases for a program<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
-and implement structs in C<o:p></o:p></span></p>
+and implement <span class=SpellE>structs</span> in C<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
 and implement pointers in C<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
 and implement dynamic memory in C<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Design
 and implement a dynamic singly linked list<o:p></o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l2 level1 lfo2'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Design
-and implement a dynamic stack implemented with a singly linked list<o:p></o:p></span></p>
+and implement a dynamic linked stack<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
 
@@ -1227,33 +1380,8 @@ style='font-family:"Trebuchet MS",sans-serif'>. Overview &amp; Requirements:<o:p
 mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'>This lab, along with your TA, will help you navigate
-through designing, implementing, and testing a dynamic queue implemented with a
-linked list. Recall, a queue data structure is a restricted linked list, where
-only the front or head node in the queue may be processed and then removed, at
-any given time. However, only nodes may be added to the end, back, or tail of
-the queue. A queue is referred to as a first-in, first-out (FIFO) structure as
-a result of this constraint. Furthermore, the operations of a queue must adhere
-to this restriction. An </span><span style='font-family:"Courier New";
-mso-bidi-font-weight:bold'>enqueue()</span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'> operation adds a node to the tail of the queue and
-a </span><span style='font-family:"Courier New";mso-bidi-font-weight:bold'>dequeue()</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>
-operation removes a node from the head of the queue. We will visualize a queue
-in the following way:<o:p></o:p></span></p>
-
-<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
-mso-no-proof:yes'><!--[if gte vml 1]><v:shape id="Picture_x0020_2" o:spid="_x0000_i1025"
- type="#_x0000_t75" alt="&#19;&#38354;&#31872;&#58480;&#19;&#38336;&#31872;"
- style='width:394.5pt;height:79.5pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="Lab4_files/image003.png" o:title="&#19;&#38354;&#31872;&#58480;&#19;&#38336;&#31872;"/>
-</v:shape><![endif]--><![if !vml]><img width=526 height=106
-src="Lab4_files/image003.png" alt="&#19;&#38354;&#31872;&#58480;&#19;&#38336;&#31872;"
-v:shapes="Picture_x0020_2"><![endif]></span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+mso-bidi-font-weight:bold'>This lab will allow you to further explore pointers
+and memory, linked lists, and stacks.<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
 mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
@@ -1264,122 +1392,586 @@ you may ask your TA questions. Please use your TAs knowledge to your advantage.
 You are required to move at the pace set forth by your TA. Please help other
 students in need when you are finished with a task. You may work in pairs if
 you wish. However, I encourage you to compose your own solution to each
-problem. Have a great time! Labs are a vital part to your education in CptS 122
-so work diligently.<o:p></o:p></span></p>
+problem. Have a great time! Labs are a vital part to your education in <span
+class=SpellE>CptS</span> 122 so work diligently.<o:p></o:p></span></p>
 
 <p><b><span style='font-family:"Trebuchet MS",sans-serif'>Tasks:<o:p></o:p></span></b></p>
 
-<p style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo7;
-tab-stops:list .5in'><![if !supportLists]><b><span style='font-family:"Trebuchet MS",sans-serif;
+<p style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS";mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>Given the following fragment of C code, answer the
+provided questions. If necessary, you could copy and paste the code into Visual
+Studio to answer the questions.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'><span style='mso-tab-count:1'>       </span>Line 1: </span><span
+class=SpellE><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;color:blue;background:white;
+mso-highlight:white'>int</span></span><span style='font-size:9.5pt;font-family:
+Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
+background:white;mso-highlight:white'> n1 = 10, n2 = 42, list[] = {6, 8, 42, 3,
+2, 2, -6};<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'><span style='mso-tab-count:1'>       </span>Line 2: </span><span
+class=SpellE><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;color:blue;background:white;
+mso-highlight:white'>int</span></span><span style='font-size:9.5pt;font-family:
+Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;
+background:white;mso-highlight:white'> * </span><span class=SpellE><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:blue;background:white;mso-highlight:
+white'>const</span></span><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'> p1 = &amp;n1;<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'><span style='mso-tab-count:1'>       </span>Line 3: </span><span
+class=SpellE><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;color:blue;background:white;
+mso-highlight:white'>const</span></span><span style='font-size:9.5pt;
+font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;background:white;mso-highlight:white'> </span><span class=SpellE><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:blue;background:white;mso-highlight:
+white'>int</span></span><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'> * p2 = &amp;n1;</span><span style='font-size:9.5pt;
+font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin'><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in;mso-layout-grid-align:
+none;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'>Line 4: </span><span class=SpellE><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:blue;background:white;mso-highlight:
+white'>int</span></span><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'> * p3 = list;</span><span style='font-size:9.5pt;
+font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin'><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in;mso-layout-grid-align:
+none;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'>Line 5: </span><span class=SpellE><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:blue;background:white;mso-highlight:
+white'>const</span></span><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'> </span><span class=SpellE><span style='font-size:
+9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;color:blue;background:white;mso-highlight:white'>int</span></span><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'> * </span><span
+class=SpellE><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;color:blue;background:white;
+mso-highlight:white'>const</span></span><span style='font-size:9.5pt;
+font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;background:white;mso-highlight:white'> p4 = NULL;</span><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin'><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='mso-layout-grid-align:none;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;color:blue'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-layout-grid-align:
+none;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'>Line 6: *p1 = 15;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><span
+style='mso-tab-count:2'>              </span>Line 7: p1 = &amp;n2;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><span
+style='mso-tab-count:2'>              </span>Line 8: p2 = &amp;n2;<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'><span style='mso-tab-count:1'>       </span>Line 9:
+*p2 = 67;</span><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin'><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'><span style='mso-tab-count:1'>       </span>Line 10:
+p3[4] = 67;</span><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin'><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='mso-layout-grid-align:none;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin'><span style='mso-tab-count:2'>              </span><span
+style='background:white;mso-highlight:white'>Line 11: list = &amp;n1;<o:p></o:p></span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-layout-grid-align:
+none;text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'>Line 12: p4 = list;<o:p></o:p></span></p>
+
+<p class=MsoListParagraph style='mso-layout-grid-align:none;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><span
+style='mso-tab-count:1'>       </span>Line 13: *p4 = 25;</span><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:blue'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;color:blue'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>a.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is there any discernible difference between the
+declared types for </span><span style='font-family:"Courier New";mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;color:windowtext'>p1</span><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;mso-bidi-font-family:Consolas;color:windowtext'>
+and </span><span style='font-family:"Courier New";mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:windowtext'>p2</span><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;mso-bidi-font-family:Consolas;color:windowtext'>
+on lines 2 and 3?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>b.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 6 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>c.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 7 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>d.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 8 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>e.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 9 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>f.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 10 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>g.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 11 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>h.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 12 legal?<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level1 lfo6;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+color:windowtext'><span style='mso-list:Ignore'>i.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+Consolas;color:windowtext'>Is the assignment operation on line 13 legal?<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l1 level1 lfo4;
+mso-layout-grid-align:none;text-autospace:none'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS";mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>Complete the implementation for the following
+function. The function should allocate space on the heap for the given string
+parameter, and copy (use </span><span class=SpellE><span style='font-family:
+"Courier New";mso-bidi-font-weight:bold'>strncpy</span></span><span
+style='font-family:"Courier New";mso-bidi-font-weight:bold'>()</span><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>) the
+string (</span><span class=SpellE><span style='font-family:"Courier New";
+mso-bidi-font-weight:bold'>pStr</span></span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>), including the null character to the heap. The
+function should return NULL if memory could not be allocated; otherwise it
+should return a pointer to the beginning of the allocated block of memory on
+the heap.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='mso-layout-grid-align:none;text-autospace:
+none'><span style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:
+bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;color:blue;
+background:white;mso-highlight:white'>char</span><span style='font-size:9.5pt;
+font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;background:white;mso-highlight:white'> * <span class=SpellE>copyStrToHeap</span>(</span><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;color:blue;background:white;mso-highlight:
+white'>char</span><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'>
+*</span><span class=SpellE><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;color:gray;
+background:white;mso-highlight:white'>pStr</span></span><span style='font-size:
+9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;background:white;mso-highlight:white'>)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:9.5pt;font-family:Consolas;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;background:
+white;mso-highlight:white'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:Calibri;
+mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraph style='mso-layout-grid-align:none;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;background:white;mso-highlight:white'>}</span><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l1 level1 lfo4;
+mso-layout-grid-align:none;text-autospace:none'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS";mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>Examine the following standard library functions, which
+are located in &lt;<span class=SpellE>string.h</span>&gt;. As you examine each
+one at the provided URL, please run the code examples in the C++ shell (click
+on the gear next to the example code).<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l1 level2 lfo4;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>a.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span></span><![endif]><span
+class=SpellE><span style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:
+bold'>memset</span></span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> () - <a
+href="http://www.cplusplus.com/reference/cstring/memset/">http://www.cplusplus.com/reference/cstring/memset/</a><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l1 level2 lfo4;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>b.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span></span><![endif]><span
+class=SpellE><span style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:
+bold'>memcpy</span></span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> () - <a
+href="http://www.cplusplus.com/reference/cstring/memcpy/">http://www.cplusplus.com/reference/cstring/memcpy/</a><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l1 level2 lfo4;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>c.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+class=SpellE><span style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:
+bold'>memcmp</span></span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> () - <a
+href="http://www.cplusplus.com/reference/cstring/memcmp/">http://www.cplusplus.com/reference/cstring/memcmp/</a><o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l1 level2 lfo4;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
+mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>d.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span></span><![endif]><span
+class=SpellE><span style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:
+bold'>memchr</span></span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> () - <a
+href="http://www.cplusplus.com/reference/cstring/memchr/">http://www.cplusplus.com/reference/cstring/memchr/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.25in;mso-layout-grid-align:none;
+text-autospace:none'><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>In teams discuss the purpose of each function. Could
+you apply each one, independent of the provided code examples? Could you
+replace the </span><span class=SpellE><span style='font-family:"Courier New";
+mso-bidi-font-weight:bold'>strncpy</span></span><span style='font-family:"Courier New";
+mso-bidi-font-weight:bold'>()</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> operation in Task 2 with a </span><span
+class=SpellE><span style='font-family:"Courier New";mso-bidi-font-weight:bold'>memcpy</span></span><span
+style='font-family:"Courier New";mso-bidi-font-weight:bold'>()</span><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>? Could
+you use </span><span class=SpellE><span style='font-family:"Courier New";
+mso-bidi-font-weight:bold'>memcpy</span></span><span style='font-family:"Courier New";
+mso-bidi-font-weight:bold'>()</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New";mso-bidi-font-weight:bold'> to copy <span
+class=SpellE>structs</span>?</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNoSpacing style='text-indent:.25in'><span style='font-family:"Trebuchet MS",sans-serif'>For
+the following problems define a </span><span class=SpellE><span
+style='font-family:"Courier New"'>struct</span></span><span style='font-family:
+"Courier New"'> node</span><span style='font-family:"Trebuchet MS",sans-serif'>
+with data of type </span><span style='font-family:"Courier New"'>int</span><span
+style='font-family:"Trebuchet MS",sans-serif'>. <o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='text-indent:.25in'><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Implement a function that merges
+two linked lists in order. The function must be able to merge two ordered lists
+in descending or ascending order. The function accepts pointers to the two
+lists and an order to merge the lists, and returns a pointer to the beginning of
+the merged lists. Be sure to test your function! You may start with code that
+you have written for other labs. EXTRA CHALLENGE: Could you implement a merge
+lists function which merges </span><span style='font-family:"Courier New"'>n</span><span
+style='font-family:"Trebuchet MS",sans-serif'> lists in order? This function
+would accept a pointer to an array of </span><span style='font-family:"Courier New"'>n</span><span
+style='font-family:"Trebuchet MS",sans-serif'> pointers, where each pointer
+refers to a list.<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:.5in'><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Implement a function that detects
+if there is a “loop” in a singly linked list. A “loop” is defined as a link
+from one node to itself or to another node that is before the node in the list.
+The function may only make one pass through the list. It must return 1 if a
+“loop” exists; 0 otherwise. Be sure to test your function! You may start with
+code that you have written for other labs. <b style='mso-bidi-font-weight:normal'>This
+is a common interview question!</b><o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:.5in'><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Implement a function that
+reverses a singly linked list in one pass of the list. The function accepts a
+pointer to the beginning of the list, and returns a pointer to the beginning of
+the reversed list. The function must not create any new nodes. Be sure to test
+your function! You may start with code that you have written for other labs. <b
+style='mso-bidi-font-weight:normal'>This is a common interview question!</b><o:p></o:p></span></p>
+
+<p class=MsoNoSpacing><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Implement a list using an array,
+instead of a linked implementation. With your team members discuss the
+following questions:<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
 mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
-style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
-</span></span></span></b><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'>For the following problem define a struct </span><span
-style='font-family:"Courier New";mso-bidi-font-weight:bold'>queueNode</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> with
-data of type </span><span style='font-family:"Courier New";mso-bidi-font-weight:
-bold'>char *</span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'>. Implement the following operations for your queue
-data structure:<o:p></o:p></span></p>
+style='mso-list:Ignore'>a.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to delete the last node in an array or linked implementation
+of a list?<o:p></o:p></span></p>
 
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l1 level2 lfo7;
-tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
-mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='font-family:"Courier New";mso-bidi-font-weight:bold'>isEmpty()</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> – a
-predicate function which checks to see if the queue is empty; returns true if
-the queue is empty; false otherwise<o:p></o:p></span></p>
-
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l1 level2 lfo7;
-tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
-mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='font-family:"Courier New";mso-bidi-font-weight:bold'>enqueue()</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> –
-inserts a node to the tail of the queue; the node is allocated dynamically;
-returns true if the memory was allocated for a node, false otherwise<o:p></o:p></span></p>
-
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l1 level2 lfo7;
-tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
-mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='font-family:"Courier New";mso-bidi-font-weight:bold'>dequeue()</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> –
-deletes a node from the head of the queue; returns the data in the node;
-precondition: queue is not empty (isEmpty () must be called before dequeue ()
-is called)<o:p></o:p></span></p>
-
-<p style='margin-left:1.0in;text-indent:-.25in;mso-list:l1 level2 lfo7;
-tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS";
-mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='font-family:"Courier New";mso-bidi-font-weight:bold'>printQueueRecursive()</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> –
-recursively prints out the data in the queue<o:p></o:p></span></p>
-
-<p style='margin-left:1.0in'><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
-
-<p style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo7;
-tab-stops:list .5in'><![if !supportLists]><b><span style='font-family:"Trebuchet MS",sans-serif;
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
 mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
-style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
-</span></span></span></b><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'>Test your application. In the same project, create
-one more header file </span><span style='font-family:"Courier New";mso-bidi-font-family:
-"Times New Roman";mso-bidi-font-weight:bold'>testQueue.h</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> and
-source file </span><span style='font-family:"Courier New";mso-bidi-font-family:
-"Times New Roman";mso-bidi-font-weight:bold'>testQueue.c</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> (for a
-total of at least five files). The </span><span style='font-family:"Courier New";
-mso-bidi-font-family:"Times New Roman";mso-bidi-font-weight:bold'>testQueue.h</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> file
-should contain function prototypes for test functions you will use on your
-queue functions. The </span><span style='font-family:"Courier New";mso-bidi-font-family:
-"Times New Roman";mso-bidi-font-weight:bold'>testQueue.c</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> source
-file should contain the implementations for these test functions. You will have
-at least one test function per application function. For example, you will have
-an application function called enqueue</span><span style='font-family:"Courier New";
-mso-bidi-font-family:"Times New Roman";mso-bidi-font-weight:bold'>()</span><span
-style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> (or a
-function very similar) that is used to insert a node into the tail of the
-queue. In this task, you will need to create a test function called </span><span
-style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman";
-mso-bidi-font-weight:bold'>testEnqueue()</span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'> that passes in various data directly into </span><span
-style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman";
-mso-bidi-font-weight:bold'>enqueue()</span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'> to see if it works as intended. You will also want
-to test these functions on empty and non-empty queues.<o:p></o:p></span></p>
+style='mso-list:Ignore'>b.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to delete the first node in an array or linked implementation
+of a list?<o:p></o:p></span></p>
 
-<p style='margin-left:.25in'><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
-
-<p style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo7;
-tab-stops:list .5in'><![if !supportLists]><b><span style='font-family:"Trebuchet MS",sans-serif;
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
 mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
-style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
-</span></span></span></b><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Work
-on the current programming assignment.<span style='mso-bidi-font-weight:bold'><o:p></o:p></span></span></p>
+style='mso-list:Ignore'>c.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to delete a node, in general, in an array or linked
+implementation of a list?<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>d.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to insert a node at the end in an array or linked
+implementation of a list?<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>e.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to insert a node at the front in an array or linked
+implementation of a list?<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>f.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to insert a node, in general, in an array or linked
+implementation of a list?<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
+l1 level2 lfo4'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>g.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Is
+it more efficient to access a node, in general, in an array or linked
+implementation of a list?<o:p></o:p></span></p>
+
+<p class=MsoNoSpacing><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS";mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>This
+problem is from lab 3. If you did not complete it, then use your stack code
+from lab 3 to solve the following problem. Maze: Generate a maze with a start
+to end path. The maze be represented by a two dimensional array of integers,
+where a wall may be represented by a 0 and a door may be represented by a 1.
+Find a path in your maze by using a stack. Modify your </span><span
+class=SpellE><span style='font-family:"Courier New"'>stackNode</span></span><span
+style='font-family:"Trebuchet MS",sans-serif'> to store </span><span
+style='font-family:"Courier New"'>Point</span><span style='font-family:"Trebuchet MS",sans-serif'>
+data for a path in a maze. A </span><span style='font-family:"Courier New"'>Point</span><span
+style='font-family:"Trebuchet MS",sans-serif'> should be defined as a <span
+class=SpellE>struct</span> with </span><span style='font-family:"Courier New"'>row</span><span
+style='font-family:"Trebuchet MS",sans-serif'> and </span><span
+style='font-family:"Courier New"'>column</span><span style='font-family:"Trebuchet MS",sans-serif'>
+fields. Whenever a fork in the maze is encountered, store the coordinates of
+the fork on the stack. If the current path does not provide a path to the end
+of the maze, then the last forking point can be popped and a different path may
+be taken. This is called backtracking.<span style='mso-bidi-font-weight:bold'><o:p></o:p></span></span></p>
+
+<p class=MsoNoSpacing><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
-style='font-family:"Trebuchet MS",sans-serif'>IV. Submitting Labs:<o:p></o:p></span></b></p>
+style='font-family:"Trebuchet MS",sans-serif'>IV. Submitting Labs: <o:p></o:p></span></b></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
 style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo6;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l0 level1 lfo8'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>You
 are not required to submit your lab solutions. However, you should keep them in
 a folder that you may continue to access throughout the semester. You should
@@ -1395,15 +1987,14 @@ style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo6;
-tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
-mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
-style='mso-list:Ignore'><img width=11 height=13 src="Lab4_files/image001.gif"
-alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l0 level1 lfo8'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol;color:windowtext'><span style='mso-list:Ignore'><img width=11 height=13
+src="Lab4_files/image001.gif" alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>This
-lab is worth 10 points. Your lab grade is assigned based on completeness and effort.
-To receive full credit for the lab you must show up on time and continue to
-work on the problems until the TA has dismissed you.<o:p></o:p></span></p>
+lab is worth 10 points. Your lab grade is assigned based on completeness and
+effort. To receive full credit for the lab you must show up on time and
+continue to work on the problems until the TA has dismissed you.<o:p></o:p></span></p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 

@@ -32,16 +32,16 @@ w\:* {behavior:url(#default#VML);}
   <o:Author>Andy O'Fallon</o:Author>
   <o:Template>Normal</o:Template>
   <o:LastAuthor>Andy O'Fallon</o:LastAuthor>
-  <o:Revision>9</o:Revision>
-  <o:TotalTime>4</o:TotalTime>
+  <o:Revision>19</o:Revision>
+  <o:TotalTime>17</o:TotalTime>
   <o:Created>2015-01-30T17:51:00Z</o:Created>
-  <o:LastSaved>2016-09-13T16:55:00Z</o:LastSaved>
+  <o:LastSaved>2019-01-24T17:35:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>870</o:Words>
-  <o:Characters>4960</o:Characters>
-  <o:Lines>41</o:Lines>
-  <o:Paragraphs>11</o:Paragraphs>
-  <o:CharactersWithSpaces>5819</o:CharactersWithSpaces>
+  <o:Words>939</o:Words>
+  <o:Characters>5355</o:Characters>
+  <o:Lines>44</o:Lines>
+  <o:Paragraphs>12</o:Paragraphs>
+  <o:CharactersWithSpaces>6282</o:CharactersWithSpaces>
   <o:Version>15.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -52,7 +52,6 @@ w\:* {behavior:url(#default#VML);}
 <link rel=colorSchemeMapping href="Lab3_files/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
-  <w:Zoom>120</w:Zoom>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -717,7 +716,8 @@ p.MsoFooter, li.MsoFooter, div.MsoFooter
 	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 a:link, span.MsoHyperlink
-	{mso-style-priority:99;
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
 	color:#000099;
 	text-decoration:underline;
 	text-underline:single;}
@@ -1020,7 +1020,7 @@ text-indent:-219.0pt'><b><span style='font-family:"Trebuchet MS",sans-serif'><o:
 
 <p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Assigned:</span></b><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> Week
-of September 12, 2016</span></p>
+of January 28, 2019</span></p>
 
 <p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Due: </span></b><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>At the
@@ -1088,6 +1088,13 @@ mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><spa
 style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>top
 ( ) or peek ( )<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l0 level2 lfo2;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>isEmpty
+( )<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
 
@@ -1165,14 +1172,15 @@ mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
 mso-bidi-font-weight:bold'>This lab, along with your TA, will help you navigate
-through designing, implementing, and testing a dynamic stack. Recall, a stack
-data structure is a restricted linked list, where only the top node in the
-stack may be accessed at any given time. A stack is referred to as a last-in,
-first-out (LIFO) structure as a result of this constraint. Furthermore, the
-operation of a stack must adhere to this restriction. A push ( ) operation adds
-a node to the top of the stack, a pop ( ) operation removes a node from the top
-of the stack, and a top ( ) or peek ( ) operation returns the data in the node
-at the top of the stack. We will visualize a stack in the following way:<o:p></o:p></span></p>
+through designing, implementing, and testing a dynamic stack. <b>Recall, a
+stack data structure is a restricted linked list, where only the top node in
+the stack may be accessed at any given time. A stack is referred to as a
+last-in, first-out (LIFO) structure as a result of this constraint.
+Furthermore, the operation of a stack must adhere to this restriction. A push (
+) operation adds a node to the top of the stack, a pop ( ) operation removes a
+node from the top of the stack, and a top ( ) or peek ( ) operation returns the
+data in the node at the top of the stack.</b> We will visualize a stack in the
+following way:<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
 mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
@@ -1217,7 +1225,7 @@ style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![
 style='font-family:"Courier New";mso-bidi-font-weight:bold'>isEmpty()</span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> – a
 predicate function which checks to see if the stack is empty; returns true if
-the stack is empty<o:p></o:p></span></p>
+the stack is empty; false otherwise<o:p></o:p></span></p>
 
 <p style='margin-left:1.0in;text-indent:-.25in;mso-list:l2 level2 lfo4;
 tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
@@ -1226,7 +1234,9 @@ mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>2.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
 style='font-family:"Courier New";mso-bidi-font-weight:bold'>push()</span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> –
-inserts a node to the top of the stack; the node is allocated dynamically<o:p></o:p></span></p>
+inserts a node, with a double precision value, to the top of the stack; the
+node is allocated dynamically; the double precision value should be passed in
+as an argument, along with a double pointer to the top of the stack<o:p></o:p></span></p>
 
 <p style='margin-left:1.0in;text-indent:-.25in;mso-list:l2 level2 lfo4;
 tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
@@ -1235,7 +1245,9 @@ mso-bidi-font-weight:bold'><span style='mso-list:Ignore'>3.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
 style='font-family:"Courier New";mso-bidi-font-weight:bold'>pop()</span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> –
-deletes a node from the top of the stack<o:p></o:p></span></p>
+deletes a node from the top of the stack; accepts a double pointer to the top
+of the stack; does not return a value; this function should only be called
+after isEmpty ( ) is called<o:p></o:p></span></p>
 
 <p style='margin-left:1.0in;text-indent:-.25in;mso-list:l2 level2 lfo4;
 tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
@@ -1246,7 +1258,7 @@ style='font-family:"Courier New";mso-bidi-font-weight:bold'>top()</span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> or </span><span
 style='font-family:"Courier New";mso-bidi-font-weight:bold'>peek()</span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> –
-returns the data in the node at the top of the stack<o:p></o:p></span></p>
+returns the data in the node at the top of the stack; does not modify the stack<o:p></o:p></span></p>
 
 <p style='margin-left:.75in'><span style='font-family:"Trebuchet MS",sans-serif;
 mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
@@ -1273,16 +1285,18 @@ style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> source
 file should contain the implementations for these test functions. You will have
 at least one test function per application function. For example, you will have
 an application function called </span><span style='font-family:"Courier New";
-mso-bidi-font-family:"Times New Roman";mso-bidi-font-weight:bold'>pop()</span><span
+mso-bidi-font-family:"Times New Roman";mso-bidi-font-weight:bold'>push()</span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> (or a
-function very similar) that is used to remove the top node from the stack. In
-this task, you will need to create a test function called </span><span
+function very similar) that is used to insert a node on the top of the stack.
+In this task, you will need to create a test function called </span><span
 style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman";
-mso-bidi-font-weight:bold'>testPop()</span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'> that passes in various data directly into </span><span
-style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman";
-mso-bidi-font-weight:bold'>pop()</span><span style='font-family:"Trebuchet MS",sans-serif;
-mso-bidi-font-weight:bold'> to see if it works correctly. <o:p></o:p></span></p>
+mso-bidi-font-weight:bold'>testPush()</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> that passes in various double precision data
+directly into </span><span style='font-family:"Courier New";mso-bidi-font-family:
+"Times New Roman";mso-bidi-font-weight:bold'>push()</span><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> to see
+if it works correctly. Your test should check to see that the top node has the
+correct value. Does the top pointer change?<o:p></o:p></span></p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
@@ -1329,15 +1343,16 @@ may be placed on top of a smaller disk at any point<o:p></o:p></span></p>
 <p style='margin-left:.5in'><span style='font-family:"Trebuchet MS",sans-serif;
 mso-bidi-font-weight:bold'>At the start of the game, all of the disks must
 originally be placed such that the largest disk is on the bottom of the stack
-of one post, and the smallest is on the top of the stack on the same post. The disks
-should form a cone shape. Write a program to simulate the <st1:place w:st="on"><st1:PlaceType
- w:st="on">Tower</st1:PlaceType> of <st1:PlaceName w:st="on">Hanoi</st1:PlaceName></st1:place>
-game. For each move print the post number (1 – 3) from which the disk is taken,
-the diameter of the disk, and the resulting post on which the disk is placed.
-Also, show the current diameter of the disks on each post. You must use stacks
-to solve this problem! Initially start with three disks in your game. Note: if
-you visit </span><span style='font-family:"Trebuchet MS",sans-serif;color:maroon;
-mso-bidi-font-weight:bold'><a href="https://www.youtube.com/watch?v=3I3iVQUWLjo"><span
+of one post, and the smallest is on the top of the stack on the same post. The
+disks should form a cone shape. Write a program to simulate the <st1:place
+w:st="on"><st1:PlaceType w:st="on">Tower</st1:PlaceType> of <st1:PlaceName
+ w:st="on">Hanoi</st1:PlaceName></st1:place> game. For each move print the post
+number (1 – 3) from which the disk is taken, the diameter of the disk, and the
+resulting post on which the disk is placed. Also, show the current diameter of
+the disks on each post. You must use stacks to solve this problem! Initially
+start with three disks in your game. Note: if you visit </span><span
+style='font-family:"Trebuchet MS",sans-serif;color:maroon;mso-bidi-font-weight:
+bold'><a href="https://www.youtube.com/watch?v=3I3iVQUWLjo"><span
 style='color:maroon'>https://www.youtube.com/watch?v=3I3iVQUWLjo</span></a></span><span
 style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>, you will
 find an animation of how Tower of Hanoi should run. <o:p></o:p></span></p>
@@ -1351,9 +1366,9 @@ mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><spa
 style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span></span></b><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Maze:
 Generate a maze with a start to end path. The maze be represented by a two
-dimensional array of integers, where a wall may be represented by a 0 and a
-door may be represented by a 1. Find a path in your maze by using a stack.
-Modify your </span><span style='font-family:"Courier New"'>stackNode</span><span
+dimensional array of integers, where a wall may be represented by a 0 and a door
+may be represented by a 1. Find a path in your maze by using a stack. Modify
+your </span><span style='font-family:"Courier New"'>stackNode</span><span
 style='font-family:"Trebuchet MS",sans-serif'> to store </span><span
 style='font-family:"Courier New"'>Point</span><span style='font-family:"Trebuchet MS",sans-serif'>
 data for a path in a maze. A </span><span style='font-family:"Courier New"'>Point</span><span
