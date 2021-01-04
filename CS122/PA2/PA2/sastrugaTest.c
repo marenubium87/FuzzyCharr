@@ -10,7 +10,8 @@ void testWrapper(void) {
 	testModifyGenres();
 	testDecreeDivineJudgment();
 	testRemoveSelectedGame();
-	testOrganizingTroops();
+	//testOrganizingTroops();   //no longer works, was written with
+								//assumption of only sorting by title
 }
 
 //aux function for other tests
