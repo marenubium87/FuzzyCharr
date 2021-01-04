@@ -8,9 +8,11 @@ int testFlag = 0;
 int main(int argc, char * argv[]) {
 
 	for (int i = 0; i < argc; i++) {
-		printf("%s ", argv[i]);
+		if (strcmp(argv[i], "--test") == 0) {
+			testFlag = 1;
+			break;
+		}
 	}
-
 
 	srand((unsigned int)time(NULL));
 

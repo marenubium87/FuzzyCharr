@@ -1,2 +1,5 @@
-﻿  main.c
+﻿  sastruga.c
+c:\users\james\fuzzycharr\cs122\pa2\pa2\sastruga.c(408): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  sastrugaTest.c
+  Generating Code...
   PA2.vcxproj -> C:\Users\James\FuzzyCharr\CS122\PA2\x64\Debug\PA2.exe
