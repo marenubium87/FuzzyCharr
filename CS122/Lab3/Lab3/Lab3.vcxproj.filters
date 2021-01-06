@@ -21,9 +21,15 @@
     <ClCompile Include="lab3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testStack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lac3.h">
+    <ClInclude Include="testStack.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lab3.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

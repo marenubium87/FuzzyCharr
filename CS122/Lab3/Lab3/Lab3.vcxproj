@@ -125,9 +125,11 @@
   <ItemGroup>
     <ClCompile Include="lab3.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="testStack.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lac3.h" />
+    <ClInclude Include="lab3.h" />
+    <ClInclude Include="testStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
