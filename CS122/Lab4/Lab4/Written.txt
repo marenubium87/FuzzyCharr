@@ -1,0 +1,80 @@
+Answers to written
+
+1a. Yes, absolutely.
+int * const p1 is a const pointer to an int, and 
+	means that the value of p1 (an address) cannot be modified after assignment.
+const int * p2 is a pointer to an int which is a constant, and
+	means that the variable p2 is pointing to is not modifiable via any
+	dereference of p2.  that is to say, *p2 = (whatever) will fail, even though
+	the variable pointed to by p2 may still be modified.
+
+1b. Yes, because as discussed in 1a, we are dereferencing p1 which is legal,
+	and we are not performing the illegal operation of trying to change p1 itself.
+
+1c. No.  See 1b.
+
+1d. Yes, because as discussed in 1a, here we are allowed to change the value of p2,
+	as p2 itself is not const.  We would not be allowed to change the value of the
+	variable, however, that is dereferenced by p2, via p2.
+
+1e. No.  See 1d.
+
+1f. Yes.  This is a valid syntax of pointer arithmetic.
+
+1g. No.  Once an array variable is initialized it cannot be changed,
+	i.e. it acts as if it is a const pointer.
+
+1h. No.  p4 is a const pointer (also to a const int) and cannot be assigned to
+	anything else other than the NULL it was initialized with.
+
+1i. No. 
+		if we assume line 12 doesn't run, 
+		p4 points to NULL still (see 1h) and cannot be dereferenced.
+		
+		if we assume line 12 somehow ran,
+		still no, because p4 points to a constant int, meaning reassigning
+		any values (in this case list[0]) based on a dereference to p4 will
+		still fail.  (also see 1d)
+
+2.
+
+char * copyStrToHeap(char * pStr) {
+
+	char * pMem = NULL;
+	
+	//allocate memory, copy length + 1 b/c null char
+	pMem = (char *)malloc((strlen(pStr) + 1)*sizeof(char));
+
+	//did memory allocation fail?
+	if(pMem == NULL) {
+		return pMem;
+	}
+
+	//copy strings over, return dest (heap memory)
+	return strcpy(pMem, pStr);
+}
+
+3.  memset - sets first n contiguous bytes of the block of memory
+			pointed to (and starting with) a defined pointer
+			to a specific value.  useful for, e.g. redacting words
+			from a document?
+
+	memcpy - basically like strncpy, but for any data type(s)
+			"naively" copies the bit values without heed to data
+			can use to copy structs since all instances of a struct
+			have the same total size and individual field sizes in a
+			specific order.
+			can also essentially use this like strncpy, but needs to
+			copy strlen + 1 chars (to include the null char)
+	
+	memcmp - basically like strncmp, will not stop on a null char,
+			compares the bit value of the individual bytes
+	
+	memchr - starts a search from the requested location and at most num
+			bytes, looking forward byte by byte sequentially until a match
+			with the target character is found, and then returns that location
+			or returns NULL if after num bytes the target character is not found.
+			like a generalized strchr, which does it for a target string.
+
+
+
