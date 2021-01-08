@@ -6,6 +6,8 @@
 int main() {
 	printf("CS122 Lab 4\n\n");
 
+	task4wrapper();
+
 
 
 	system("pause");
