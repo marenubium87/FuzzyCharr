@@ -73,6 +73,49 @@ void deleteList(ListNode ** pList) {
 	}
 }
 
+//aux function for mergeLists
+//finds the highest value in 
+//targetArray containing pointers to nodes with data and size targetSize
+//and returns the index of the element containing highest value
+//if there are multiple tied for highest, returns the first instance
+//requires at least one pointer in targetArray to be non-NULL
+int findHighestInArray(ListNode * targetArray[], int targetSize){
+	//sets highest to first non-null array element
+	int i = 0;
+	int currHighestIndex = 0;
+	while (targetArray[i] == NULL) {
+		i++;
+		currHighestIndex++;
+	}
+	int currHighest = targetArray[i]->data;
+	
+	//now cycle through rest of array to find highest element
+	//pointed to by a non-null pointer
+	for (; i < targetSize; i++) {
+		if (targetArray[i] != NULL &&
+				targetArray[i]->data > currHighest) {
+			
+			currHighest = targetArray[i]->data;
+			currHighestIndex = i;
+		}
+	}
+	return currHighestIndex;
+}
+
+//aux function for mergeLists
+//returns 1 if all elements in targetArray read NULL, i.e. all lists
+//have terminated, 0 else
+int allListsExhausted(ListNode * targetArray[], int targetSize) {
+	//loop through all lists
+	for (int i = 0; i < targetSize; i++) {
+		if (targetArray[i] != NULL) {
+			return FALSE;
+		}
+	}
+	//if code gets to here, all elements are indeed NULL
+	return TRUE;
+}
+
 //takes an array of ordered lists and merges them in descending order
 //returns the destination (merged) list
 ListNode * mergeLists(ListNode * arrLists[], int numLists) {
@@ -84,12 +127,36 @@ ListNode * mergeLists(ListNode * arrLists[], int numLists) {
 		(ListNode **)malloc(numLists * sizeof(ListNode *));
 	for (int i = 0; i < numLists; i++) {
 		arrListMarkers[i] = arrLists[i];
-		printf("%d ", arrListMarkers[i]->data);
 	}
 
+	//inserts a dummy element at front of merged list to make while loop
+	//easier.  will remove element later.
+	insertAtFront(&mergedList, -1);
+	ListNode * pMergedTail = mergedList;
+
+	//do this as long as all the lists aren't exhausted
+	int indexHighest = -1;
+	while (!allListsExhausted(arrListMarkers, numLists)) {
+		
+		//find largest value and append to merged list's tail
+		indexHighest = findHighestInArray(arrListMarkers, numLists);
+		insertAfterTarget(pMergedTail, arrListMarkers[indexHighest]->data);
+		pMergedTail = pMergedTail->pNext;
+
+		//increment the appropriate pointer in the list markers array too
+		arrListMarkers[indexHighest] = arrListMarkers[indexHighest]->pNext;
+	}
 	
+	//remove the dummy element
+	deleteAtFront(&mergedList);
+
+	//clear memory
+	free(arrListMarkers);
 
 	return mergedList;
 }
+
+
+
 
 //reverses a singly linked list in a single 

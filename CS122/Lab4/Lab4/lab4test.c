@@ -14,10 +14,6 @@ void printList(ListNode * targetList) {
 	printf("NULL\n\n");
 }
 
-
-
-
-
 //wrapper for the merge lists function test
 void task4wrapper(void) {
 	ListNode * arrLists[5] = { NULL };
@@ -26,9 +22,9 @@ void task4wrapper(void) {
 	insertAtFront(&arrLists[0], 6);
 	insertAtFront(&arrLists[0], 13);
 	insertAtFront(&arrLists[0], 25);
-	insertAtFront(&arrLists[1], 8);
-	insertAtFront(&arrLists[1], 9);
-	insertAtFront(&arrLists[1], 13);
+	insertAtFront(&arrLists[1], -33);
+	insertAtFront(&arrLists[1], 55);
+	insertAtFront(&arrLists[1], 61);
 	insertAtFront(&arrLists[1], 64);
 	insertAtFront(&arrLists[2], 8);
 	insertAtFront(&arrLists[2], 17);
@@ -44,13 +40,18 @@ void task4wrapper(void) {
 
 	printf("Initial List Configuration***\n\n");
 	for (int i = 0; i < 5; i++) {
-	
 		printf("List %d\n", i);
 		printList(arrLists[i]);
 	}
-	mergeLists(arrLists, 5);
-	system("pause");
-	system("cls");
 
+	ListNode * mergedList = mergeLists(arrLists, 5);
 
+	printf("Merged List\n");
+	printList(mergedList);
+
+	//free memory
+	for (int i = 0; i < 5; i++) {
+		deleteList(&arrLists[i]);
+	}
+	deleteList(mergedList);
 }
