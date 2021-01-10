@@ -185,8 +185,42 @@ int detectCycle(ListNode * targetList) {
 	return 0;
 }
 
+//reverses target singly linked list in a single pass
+//remember to pass in *location* of list
+//returns the pointer to the beginning of the reversed list
+ListNode * reverseList(ListNode ** targetList) {
+	//does targetList have 0 or 1 elements?
+	if (*targetList == NULL || (*targetList)->pNext == NULL) {
+		return targetList;
+	}
+	
+	ListNode * pCurr = *targetList;
+	ListNode * pNext = pCurr->pNext;
+	//does targetList have exactly 2 elements?
+	pCurr->pNext = NULL;
 
-
-
-
-//reverses a singly linked list in a single 
+	if (pNext->pNext == NULL) {
+		pNext->pNext = pCurr;
+		*targetList = pNext;
+		return targetList;
+	}
+	//if targetList has 3 or more elements, introduce pSupport which
+	//holds the position of pNext's pNext, else it will get lost when
+	//we "reverse" the direction of pNext's pNext pointer.
+	//diagram:
+	//	 ... ->	pC -> pN -> pS -> ...
+	//   ... <- pC <- pN    pS -> ...
+	//so now can increment pCurr to pNext and pNext to pSupport.
+	ListNode * pSupp = pNext->pNext;
+	while (pSupp != NULL) {
+		pNext->pNext = pCurr;
+		pCurr = pNext;
+		pNext = pSupp;
+		pSupp = pSupp->pNext;
+	}
+	//when pSupp becomes NULL, just need to flip pNext's pNext
+	//one final time, and set head pointer to that
+	pNext->pNext = pCurr;
+	*targetList = pNext;
+	return targetList;
+}

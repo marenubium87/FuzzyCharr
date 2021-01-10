@@ -51,3 +51,8 @@ ListNode * mergeLists(ListNode * arrLists[], int numLists);
 //Floyd's cycle detection algorithm (tortoise and hare)
 //returns 1 if a cycle is detected, 0 else
 int detectCycle(ListNode * targetList);
+
+//reverses target singly linked list in a single pass
+//remember to pass in *location* of list
+//returns the pointer to the beginning of the reversed list
+ListNode * reverseList(ListNode ** targetList);

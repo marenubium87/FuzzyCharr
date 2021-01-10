@@ -16,28 +16,17 @@ void printList(ListNode * targetList) {
 
 //wrapper for the merge lists function test
 void task4wrapper(void) {
-	printf("\n\n  **Testing mergeList (task 4)...\n\n");
+	printf("  **Testing mergeList (task 4)...\n\n");
 	ListNode * arrLists[5] = { NULL };
+	insertAtFront(&arrLists[0], 2);
 	insertAtFront(&arrLists[0], 3);
 	insertAtFront(&arrLists[0], 5);
 	insertAtFront(&arrLists[0], 6);
-	insertAtFront(&arrLists[0], 13);
-	insertAtFront(&arrLists[0], 25);
-	insertAtFront(&arrLists[1], -33);
-	insertAtFront(&arrLists[1], 55);
-	insertAtFront(&arrLists[1], 61);
-	insertAtFront(&arrLists[1], 64);
+	insertAtFront(&arrLists[0], 9);
 	insertAtFront(&arrLists[2], 8);
-	insertAtFront(&arrLists[2], 17);
-	insertAtFront(&arrLists[3], -2);
-	insertAtFront(&arrLists[3], 0);
-	insertAtFront(&arrLists[3], 4);
-	insertAtFront(&arrLists[3], 8);
-	insertAtFront(&arrLists[3], 11);
-	insertAtFront(&arrLists[3], 16);
-	insertAtFront(&arrLists[3], 18);
+	insertAtFront(&arrLists[3], 1);
 	insertAtFront(&arrLists[4], 4);
-	insertAtFront(&arrLists[4], 21);
+	insertAtFront(&arrLists[4], 7);
 
 	printf("Initial List Configuration***\n\n");
 	for (int i = 0; i < 5; i++) {
@@ -61,7 +50,7 @@ void task4wrapper(void) {
 
 //wrapper for the detect cycle function test
 void task5wrapper(void) {
-	printf("\n\n  **Testing cycle detection (task 5)...\n\n");
+	printf("  **Testing cycle detection (task 5)...\n\n");
 	
 	int numTestsFailed = 0;
 	ListNode * testList = NULL;
@@ -122,12 +111,52 @@ void task5wrapper(void) {
 	pTemp->pNext = NULL;
 	//now list is no longer circular and can be deleted
 	free(testList);
-
+	printf("\n");
 	if (numTestsFailed == 0) {
-		printf("ALL detectCycle TESTS PASSED\n\n");
+		printf("ALL cycle detection TESTS PASSED\n\n");
 	}
 	else {
-		printf("detectCycle TESTS FAILED\n\n");
+		printf("Cycle detection TESTS FAILED\n\n");
 	}
+	system("pause");
+}
+
+//wrapper for the reversing list function test
+void task6wrapper(void) {
+	printf("  **Testing list reversal (task 6)...\n\n");
+
+	ListNode * testList = NULL;
+	printf("Testing reversal of empty list:\n");
+	printList(testList);
+	printf("Reversing list...\n");
+	reverseList(&testList);
+	printList(testList);
+	printf("\n");
+	
+	printf("Testing reversal of list with one element:\n");
+	insertAtFront(&testList, 5);
+	printList(testList);
+	printf("Reversing list...\n");
+	reverseList(&testList);
+	printList(testList);
+	printf("\n");
+
+	printf("Testing reversal of list with two elements:\n");
+	insertAtFront(&testList, 8);
+	printList(testList);
+	printf("Reversing list...\n");
+	reverseList(&testList);
+	printList(testList);
+	printf("\n");
+
+	printf("Testing reversal of list with multiple elements:\n");
+	insertAtFront(&testList, 2);
+	insertAtFront(&testList, 3);
+	insertAtFront(&testList, 7);
+	printList(testList);
+	printf("Reversing list...\n");
+	reverseList(&testList);
+	printList(testList);
+	printf("\n");
 	system("pause");
 }
