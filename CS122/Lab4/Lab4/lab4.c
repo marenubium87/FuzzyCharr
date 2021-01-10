@@ -156,6 +156,36 @@ ListNode * mergeLists(ListNode * arrLists[], int numLists) {
 	return mergedList;
 }
 
+//detects if there is a loop in a singly linked list, using 
+//Floyd's cycle detection algorithm (tortoise and hare)
+//returns 1 if a cycle is detected, 0 else
+int detectCycle(ListNode * targetList) {
+	//define tortoise and hare
+	ListNode * tortoise = targetList;
+	ListNode * hare = targetList;
+	while (hare != NULL) {
+		hare = hare->pNext;
+		//we need to check if the hare hits NULL moving forward
+		//only one link
+		if (hare == NULL) {
+			return 0;
+		}
+		//move hare the second link and move tortoise up one
+		hare = hare->pNext;
+		tortoise = tortoise->pNext;
+		//if the two ever point to the same node at any point
+		//it means there is a cycle as the hare must have performed
+		//at least one circuit in the loop and "caught up" with the tortoise
+		if (hare == tortoise) {
+			return 1;
+		}
+	}
+	//if the code ever exits the loop it means the hare hit the end
+	//and thus there is no cycle
+	return 0;
+}
+
+
 
 
 

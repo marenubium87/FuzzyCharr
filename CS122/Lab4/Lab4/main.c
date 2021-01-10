@@ -4,9 +4,9 @@
 #include "lab4test.h"
 
 int main() {
-	printf("CS122 Lab 4\n\n");
-
+	printf("CS122 Lab 4");
 	task4wrapper();
+	task5wrapper();
 
 
 

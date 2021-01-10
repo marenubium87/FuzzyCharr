@@ -16,6 +16,7 @@ void printList(ListNode * targetList) {
 
 //wrapper for the merge lists function test
 void task4wrapper(void) {
+	printf("\n\n  **Testing mergeList (task 4)...\n\n");
 	ListNode * arrLists[5] = { NULL };
 	insertAtFront(&arrLists[0], 3);
 	insertAtFront(&arrLists[0], 5);
@@ -53,5 +54,80 @@ void task4wrapper(void) {
 	for (int i = 0; i < 5; i++) {
 		deleteList(&arrLists[i]);
 	}
-	deleteList(mergedList);
+	deleteList(&mergedList);
+
+	system("pause");
+}
+
+//wrapper for the detect cycle function test
+void task5wrapper(void) {
+	printf("\n\n  **Testing cycle detection (task 5)...\n\n");
+	
+	int numTestsFailed = 0;
+	ListNode * testList = NULL;
+
+
+	insertAtFront(&testList, 5);
+	insertAtFront(&testList, 3);
+	insertAtFront(&testList, 8);
+	insertAtFront(&testList, 11);
+	insertAtFront(&testList, 2);
+	insertAtFront(&testList, 9);
+
+	printf("  -Testing for list with no cycle...  ");
+	if (detectCycle(testList)) {
+		printf("FAILED\n");
+		numTestsFailed++;
+	}
+	else {
+		printf("PASSED\n");
+	}
+
+	//now making the next to last element point to itself
+	printf("  -Testing for single element cycle...  ");
+	ListNode * pCurr = testList;
+	for (int i = 0; i < 4; i++) {
+		pCurr = pCurr->pNext;
+	}
+	ListNode * pTemp = pCurr->pNext;
+	pCurr->pNext = pCurr;
+
+	if (detectCycle(testList)) {
+		printf("PASSED\n");
+	}
+	else {
+		printf("FAILED\n");
+		numTestsFailed++;
+	}
+	//clear the portion of the list that is "lost" from memory
+	free(pTemp);
+
+	//now making the fourth element point to the first one
+	printf("  -Testing for multiple element cycle...  ");
+	pCurr = testList;
+	for (int i = 0; i < 3; i++) {
+		pCurr = pCurr->pNext;
+	}
+	pTemp = pCurr;
+	pCurr->pNext = testList;
+	if (detectCycle(testList)) {
+		printf("PASSED\n");
+	}
+	else {
+		printf("FAILED\n");
+		numTestsFailed++;
+	}
+	//pTemp is still at the original "end" of the list
+	//before it loops back to the "beginning"
+	pTemp->pNext = NULL;
+	//now list is no longer circular and can be deleted
+	free(testList);
+
+	if (numTestsFailed == 0) {
+		printf("ALL detectCycle TESTS PASSED\n\n");
+	}
+	else {
+		printf("detectCycle TESTS FAILED\n\n");
+	}
+	system("pause");
 }

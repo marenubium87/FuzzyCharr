@@ -7,3 +7,6 @@ void printList(ListNode * targetList);
 
 //wrapper for the merge lists function test
 void task4wrapper(void);
+
+//wrapper for the detect cycle function test
+void task5wrapper(void);

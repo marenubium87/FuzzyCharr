@@ -30,6 +30,24 @@ void deleteAtFront(ListNode ** pList);
 //pList pointer to NULL
 void deleteList(ListNode ** pList);
 
+//aux function for mergeLists
+//finds the highest value in 
+//targetArray containing pointers to nodes with data and size targetSize
+//and returns the index of the element containing highest value
+//if there are multiple tied for highest, returns the first instance
+//requires at least one pointer in targetArray to be non-NULL
+int findHighestInArray(ListNode * targetArray[], int targetSize);
+
+//aux function for mergeLists
+//returns 1 if all elements in targetArray read NULL, i.e. all lists
+//have terminated, 0 else
+int allListsExhausted(ListNode * targetArray[], int targetSize);
+
 //takes an array of ordered lists and merges them in descending order
 //returns the destination (merged) list
 ListNode * mergeLists(ListNode * arrLists[], int numLists);
+
+//detects if there is a loop in a singly linked list, using 
+//Floyd's cycle detection algorithm (tortoise and hare)
+//returns 1 if a cycle is detected, 0 else
+int detectCycle(ListNode * targetList);
