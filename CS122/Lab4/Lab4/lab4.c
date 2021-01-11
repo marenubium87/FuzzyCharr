@@ -4,7 +4,7 @@
 
 //makes new node from heap memory and sticks value into it
 //returns pointer to new node or NULL if memory was not allocated
-//aux function for insertAtFront, insertAtRear
+//aux function for insertAtFront, insertAfterTarget
 ListNode * makeNode(int value) {
 	ListNode * pMem = NULL;
 	pMem = (ListNode *)malloc(sizeof(ListNode));
@@ -165,12 +165,11 @@ int detectCycle(ListNode * targetList) {
 	ListNode * hare = targetList;
 	while (hare != NULL) {
 		hare = hare->pNext;
-		//we need to check if the hare hits NULL moving forward
-		//only one link
+		//did the hare hit the end of the list moving forward once?
 		if (hare == NULL) {
 			return 0;
 		}
-		//move hare the second link and move tortoise up one
+		//move hare the second time and move tortoise up one
 		hare = hare->pNext;
 		tortoise = tortoise->pNext;
 		//if the two ever point to the same node at any point
@@ -181,7 +180,7 @@ int detectCycle(ListNode * targetList) {
 		}
 	}
 	//if the code ever exits the loop it means the hare hit the end
-	//and thus there is no cycle
+	//of the list and thus there is no cycle
 	return 0;
 }
 
@@ -204,13 +203,14 @@ ListNode * reverseList(ListNode ** targetList) {
 		*targetList = pNext;
 		return targetList;
 	}
-	//if targetList has 3 or more elements, introduce pSupport which
-	//holds the position of pNext's pNext, else it will get lost when
-	//we "reverse" the direction of pNext's pNext pointer.
+	//if targetList has 3 or more elements, introduce support pointer, 
+	//pSupp, which holds the position of pNext's pNext, else it will 
+	//get lost when we "reverse" the direction of pNext's pNext pointer.
 	//diagram:
 	//	 ... ->	pC -> pN -> pS -> ...
 	//   ... <- pC <- pN    pS -> ...
-	//so now can increment pCurr to pNext and pNext to pSupport.
+	//so now can increment pCurr to pNext and pNext to pSupp,
+	//and move pSupp forward to the next pointer that needs to be "supported"
 	ListNode * pSupp = pNext->pNext;
 	while (pSupp != NULL) {
 		pNext->pNext = pCurr;
@@ -219,7 +219,7 @@ ListNode * reverseList(ListNode ** targetList) {
 		pSupp = pSupp->pNext;
 	}
 	//when pSupp becomes NULL, just need to flip pNext's pNext
-	//one final time, and set head pointer to that
+	//one final time, and set head pointer
 	pNext->pNext = pCurr;
 	*targetList = pNext;
 	return targetList;

@@ -76,5 +76,12 @@ char * copyStrToHeap(char * pStr) {
 			or returns NULL if after num bytes the target character is not found.
 			like a generalized strchr, which does it for a target string.
 
+7.  assuming a singularly linked list...
 
+a.	More efficient to delete last node in an array, assuming the array uses
+	a pointer to the head and tail of the list, and doesn't rely on reading until
+	the first null character or something like that.  Whereas, in a linked list
+	one must traverse through all the nodes to get to the last node (again, assuming
+	the linked implementation doesn't have a tail pointer)
 
+b.  

@@ -9,7 +9,7 @@ typedef struct listNode {
 } ListNode;
 
 //makes new node from heap memory and sticks value into it
-//aux function for insertAtFront, insertAtRear
+//aux function for insertAtFront, insertAfterTarget
 ListNode * makeNode(int value);
 
 //makes new node from heap memory with value stored in node,
