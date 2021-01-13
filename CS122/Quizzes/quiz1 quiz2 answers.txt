@@ -1,0 +1,101 @@
+Quiz 1 Answers
+
+1.
+
+//must use array notation
+char * my_strncpy(char * dest, const char * source, int n) {
+	int i = 0;
+	//still non-null chars to copy
+	while(i < n && source[i] != '\0') {
+		dest[i] = source[i];
+		i++;
+	}
+	//no more chars to copy, padd with null char
+	while(i < n) {
+		dest[i] = '\0';
+		i++;
+	}
+	return dest;
+}
+
+2.
+
+//must use pointer notation
+char * my_strncat(char * dest, const char * source, int n) {
+	//find end of destination
+	int j = 0;
+	while(*(dest + j) != '\0') {
+		j++;
+	}
+	//dest + j is now at the null char in dest
+	int i = 0;
+	while(i < n && *(source + i) != '\0') {
+		*(dest + j) = *(source + i);
+		i++;
+		j++;
+	}
+	//append null char onto end of dest
+	*(dest + j) = '\0';
+	return dest;
+}
+
+3.
+
+//recursively counts the number of characters in target str, exc. null char
+int strlen_recursive(const char * target) {
+	if(*target == '\0') {
+		return 0;
+	}
+	else{
+		return 1 + strlen_recursive(target + 1);
+	}
+}
+
+Quiz 2 Answers
+
+1.
+int insertPosN(struct node **pHead, int n, char * newData) {
+	struct node * pMem = NULL;
+	pMem = (struct node *)malloc(sizeof(struct node));
+	
+	//did memory allocation fail?
+	if(pMem == NULL) {
+		return 0;
+	}
+	strcpy(pMem->data, newData);
+	pMem->pNext = NULL;
+
+	//insert at front
+	if(n == 1 || *pHead == NULL) {
+		pMem->pNext = *pHead;
+		*pHead = pMem;
+		return 1;
+	}
+
+	//insert in middle or tail?
+	struct node * pCurr = *pHead;
+
+	//to avoid a nasty off-by-one error
+	//e.g. if n = 2, we need to insert after the *first* element
+	//so that the target is placed as the second position in the list
+	//means that i will always be one count "ahead" of pCurr
+	int i = 2;
+
+	while(i < n && pCurr->pNext != NULL) {
+		i++;
+		pCurr = pCurr->pNext;
+	}
+	//we're at the correct spot n (with pCurr at location n - 1)
+	//or pCurr's at the end of the list.
+	
+	//are we not at the end?
+	if(pCurr->pNext != NULL) {
+		pMem->pNext = pCurr->pNext;
+		pCurr->pNext = pMem;
+		return 1;
+	}
+	else {
+		pCurr->pNext = pMem;
+		return -1;
+	}
+}
