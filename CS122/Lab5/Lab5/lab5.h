@@ -34,6 +34,9 @@ public:
 	//read from user input
 	void read();
 
+	//output to console
+	void print() const;
+
 	//adding, member fcn
 	Complex & add(Complex const & rhs);
 
@@ -50,3 +53,9 @@ Complex operator+(Complex const & lhs, Complex const & rhs);
 
 //(non-member) overloaded - operator
 Complex operator-(Complex const & lhs, Complex const & rhs);
+
+//overloaded >> operator
+istream & operator>>(istream & lhs, Complex & rhs);
+
+//overloaded << operator
+ostream & operator<<(ostream & lhs, Complex const & rhs);

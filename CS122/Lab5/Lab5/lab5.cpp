@@ -53,7 +53,23 @@ void Complex::setImag(double const newImag) {
 //read from user input
 void Complex::read() {
 	char tempCharr = '\0';
-	cin >> realPart >> tempCharr >> imagPart >> tempCharr;
+	cin >> realPart >> tempCharr >> imagPart;
+	if (tempCharr == '-') {
+		imagPart = -imagPart;
+	}
+	cin >> tempCharr;
+}
+
+//output to console
+void Complex::print() const {
+	cout << realPart;
+	if (imagPart >= 0) {
+		cout << " + ";
+	}
+	else {
+		cout << " - ";
+	}
+	cout << abs(imagPart) << 'i';
 }
 
 //member add fcn
@@ -85,4 +101,40 @@ Complex operator-(Complex const & lhs, Complex const & rhs) {
 	difference.setReal(lhs.getReal() - rhs.getReal());
 	difference.setImag(lhs.getImag() - rhs.getImag());
 	return difference;
+}
+
+//overloaded >> operator
+istream & operator>>(istream & lhs, Complex & rhs) {
+	
+	char tempCharr = '\0';
+	double tempNum = 0.0;
+
+	//extract real part
+	cin >> tempNum;
+	rhs.setReal(tempNum);
+
+	//extract imag part
+	cin >> tempCharr;
+	cin >> tempNum;
+	if (tempCharr == '-') {
+		tempNum = -tempNum;
+	}
+	rhs.setImag(tempNum);
+
+	//clear 'i' symbol
+	cin >> tempCharr;
+	return lhs;
+}
+
+//overloaded << operator
+ostream & operator<<(ostream & lhs, Complex const & rhs) {
+	cout << rhs.getReal();
+	if (rhs.getImag() >= 0) {
+		cout << " + ";
+	}
+	else {
+		cout << " - ";
+	}
+	cout << abs(rhs.getImag()) << 'i';
+	return lhs;
 }
