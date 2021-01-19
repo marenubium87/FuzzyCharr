@@ -1,0 +1,2327 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name="Microsoft Theme 2.00" content="capsules 011">
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 15">
+<meta name=Originator content="Microsoft Word 15">
+<link rel=File-List href="PA4_files/filelist.xml">
+<link rel=Edit-Time-Data href="PA4_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Programming Assignment 4 - Fitness App</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="date"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>andy</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Andy O'Fallon</o:LastAuthor>
+  <o:Revision>10</o:Revision>
+  <o:TotalTime>5660</o:TotalTime>
+  <o:Created>2018-02-12T17:50:00Z</o:Created>
+  <o:LastSaved>2019-02-22T19:40:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1561</o:Words>
+  <o:Characters>8899</o:Characters>
+  <o:Company>Washington State University</o:Company>
+  <o:Lines>74</o:Lines>
+  <o:Paragraphs>20</o:Paragraphs>
+  <o:CharactersWithSpaces>10440</o:CharactersWithSpaces>
+  <o:Version>15.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href="PA4_files/themedata.thmx">
+<link rel=colorSchemeMapping href="PA4_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:DefaultTableStyle Number="155">Table Theme</w:DefaultTableStyle>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SplitPgBreakAndParaMark/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="371">
+  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 9"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="header"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footer"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index heading"/>
+  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of figures"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope return"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="line number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="page number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of authorities"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="macro"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="toa heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 5"/>
+  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Closing"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Signature"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Message Header"/>
+  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Salutation"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Date"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Note Heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Block Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="FollowedHyperlink"/>
+  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Document Map"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Plain Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="E-mail Signature"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Top of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Bottom of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal (Web)"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Acronym"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Cite"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Code"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Definition"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Keyboard"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Preformatted"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Sample"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Typewriter"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Variable"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Table"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation subject"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="No List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Contemporary"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Elegant"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Professional"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Balloon Text"/>
+  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Theme"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 6"/>
+ </w:LatentStyles>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:1;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:0 0 0 0 0 0;}
+@font-face
+	{font-family:"Trebuchet MS";
+	panose-1:2 11 6 3 2 2 2 2 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:647 0 0 0 159 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+h1
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 1 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	mso-font-kerning:16.0pt;
+	font-weight:normal;}
+h2
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 2 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h3
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 3 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:14.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h4
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 4 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h5
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 5 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:5;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h6
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 6 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:6;
+	font-size:8.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-priority:99;
+	mso-style-link:"Header Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 3.0in right 6.0in;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-priority:99;
+	mso-style-link:"Footer Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 3.0in right 6.0in;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:#000099;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:#339966;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:8.0pt;
+	font-family:"Tahoma",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{mso-style-noshow:yes;
+	mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 1";
+	mso-ansi-font-size:16.0pt;
+	mso-bidi-font-size:16.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 3";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#1F4D78;
+	mso-themecolor:accent1;
+	mso-themeshade:127;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 4";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-style:italic;}
+span.Heading5Char
+	{mso-style-name:"Heading 5 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 5";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;}
+span.Heading6Char
+	{mso-style-name:"Heading 6 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 6";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#1F4D78;
+	mso-themecolor:accent1;
+	mso-themeshade:127;}
+span.HeaderChar
+	{mso-style-name:"Header Char";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:Header;
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:black;}
+span.FooterChar
+	{mso-style-name:"Footer Char";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:Footer;
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:black;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Balloon Text";
+	mso-ansi-font-size:8.0pt;
+	mso-bidi-font-size:8.0pt;
+	font-family:"Tahoma",sans-serif;
+	mso-ascii-font-family:Tahoma;
+	mso-hansi-font-family:Tahoma;
+	mso-bidi-font-family:Tahoma;
+	color:black;}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;
+	mso-style-unhide:no;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+ /* Page Definitions */
+ @page
+	{mso-footnote-separator:url("PA4_files/header.htm") fs;
+	mso-footnote-continuation-separator:url("PA4_files/header.htm") fcs;
+	mso-endnote-separator:url("PA4_files/header.htm") es;
+	mso-endnote-continuation-separator:url("PA4_files/header.htm") ecs;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:.8in 1.0in .8in 1.0in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-header:url("PA4_files/header.htm") h1;
+	mso-even-footer:url("PA4_files/header.htm") ef1;
+	mso-footer:url("PA4_files/header.htm") f1;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:103964604;
+	mso-list-type:hybrid;
+	mso-list-template-ids:266361016 375833220 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:image;
+	list-style-image:url("PA4_files/image001.gif");
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;
+	color:windowtext;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:1087190627;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1660594926 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:1094936162;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1769446528 -1257573848 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-start-at:3;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Trebuchet MS",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:Arial;}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l3
+	{mso-list-id:1264997276;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1324872452 -1925310442 2010959806 571097764 403738052 -79653798 -960180720 -269221488 1362501152 624597048;}
+@list l3:level1
+	{mso-level-number-format:image;
+	list-style-image:url("PA4_files/image001.gif");
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1539079895;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1503251474 -641174768 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l4:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;}
+@list l4:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.75in;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:2.25in;
+	text-indent:-9.0pt;}
+@list l4:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.25in;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:3.75in;
+	text-indent:-9.0pt;}
+@list l4:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.25in;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.75in;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:5.25in;
+	text-indent:-9.0pt;}
+@list l5
+	{mso-list-id:2038038536;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1579274918 1418900992 -1452532106 -84611008 -1982818754 1821698714 -1219182416 -1054057836 1854692300 636770592;}
+@list l5:level1
+	{mso-level-number-format:image;
+	list-style-image:url("PA4_files/image001.gif");
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l5:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+table.MsoTableTheme
+	{mso-style-name:"Table Theme";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	border:solid #3366CC 1.0pt;
+	mso-border-alt:solid #3366CC .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid #3366CC;
+	mso-border-insidev:.5pt solid #3366CC;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2049"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white background="PA4_files/image002.gif" lang=EN-US
+link="#000099" vlink="#339966" style='tab-interval:.5in' alink="#99C999">
+<!--[if gte mso 9]><xml>
+ <v:background id="_x0000_s1025" o:bwmode="white" o:targetscreensize="1024,768">
+  <v:fill src="PA4_files/image002.gif" o:title="captext" type="frame"/>
+ </v:background></xml><![endif]-->
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-left:219.0pt;text-indent:-219.0pt'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
+"Trebuchet MS",sans-serif'>CptS<span style='mso-bidi-font-weight:bold'> 122 –
+Data Structures<span
+style='mso-spacerun:yes'>                                                                                            
+</span></span><span style='mso-no-proof:yes'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="Picture_x0020_1" o:spid="_x0000_i1025" type="#_x0000_t75"
+ alt="image010" style='width:111pt;height:73.5pt;visibility:visible;
+ mso-wrap-style:square'>
+ <v:imagedata src="PA4_files/image003.gif" o:title="image010"/>
+</v:shape><![endif]--><![if !vml]><img width=148 height=98
+src="PA4_files/image003.gif" alt=image010 v:shapes="Picture_x0020_1"><![endif]></span></span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
+"Trebuchet MS",sans-serif;color:#990033'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:219.0pt;text-align:center;
+text-indent:-219.0pt'><b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif;color:#990033'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:219.0pt;text-indent:-219.0pt'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
+"Trebuchet MS",sans-serif;color:#990033'>Programming Assignment 4: Basic
+Fitness Application in C++<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:219.0pt;text-align:center;
+text-indent:-219.0pt'><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Assigned:</span></b><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>
+Monday, February 11, 2019<o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Due: </span></b><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>Friday,
+March 1, 2019 by midnight (extended due date)<o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>I.
+Learner Objectives:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>At the
+conclusion of this programming assignment, participants should be able to:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Design,
+implement and test classes in C++<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Declare
+and define <i style='mso-bidi-font-style:normal'>constructors</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Declare
+and define <i style='mso-bidi-font-style:normal'>destructors</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Compare
+and contrast <i style='mso-bidi-font-style:normal'>public</i> and <i
+style='mso-bidi-font-style:normal'>private</i> access specifiers in C++<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Describe
+what is an <i style='mso-bidi-font-style:normal'>attribute</i> or data member
+of a class<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Describe
+what is a <i style='mso-bidi-font-style:normal'>method</i> of a class<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
+and implement <i style='mso-bidi-font-style:normal'>overloaded</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
+and implement overloaded <i style='mso-bidi-font-style:normal'>operators</i>
+(stream insertion and stream extraction)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Distinguish
+between pass-by-<i style='mso-bidi-font-style:normal'>value</i> and pass-by-<i
+style='mso-bidi-font-style:normal'>reference</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Discuss
+<i style='mso-bidi-font-style:normal'>classes</i> versus <i style='mso-bidi-font-style:
+normal'>objects</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo1;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
+basic <i style='mso-bidi-font-style:normal'>file</i> operations on file <i
+style='mso-bidi-font-style:normal'>streams</i><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>II.
+Prerequisites:</span></b><span style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Before
+starting this programming assignment, participants should be able to:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l5 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Analyze
+a basic set of requirements for a problem<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l5 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Compose
+basic C++ language programs<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l5 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Create
+basic test cases for a program<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l5 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
+arrays, strings, and pointers<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>III.
+Overview &amp; Requirements:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>You are
+to write a basic fitness application, in C++, that allows the user of the
+application to manually edit “diet” and “exercise” plans. For this application
+you will need to create three classes: <i style='mso-bidi-font-style:normal'>DietPlan</i>,
+<i style='mso-bidi-font-style:normal'>Exercise<span style='mso-bidi-font-style:
+italic'>Plan, </span></i><span style='mso-bidi-font-style:italic'>and <i>FitnessAppWrapper</i></span>.
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Diet Plan Attributes:<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>The
+class <i>DietPlan</i> is used to represent a <i style='mso-bidi-font-style:
+normal'>daily diet</i> plan. Your class must include three data members to
+represent your <i style='mso-bidi-font-style:normal'>goal</i> calories (an
+integer), plan <i style='mso-bidi-font-style:normal'>name</i> (a std::string),
+and <i style='mso-bidi-font-style:normal'>date</i> for which the plan is
+intended (a std::string). The maximum intake of calories for a day is stored in
+the <i style='mso-bidi-font-style:normal'>goal</i> calories. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Exercise Plan Attributes:<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>The
+class <i style='mso-bidi-font-style:normal'>Exercise<span style='mso-bidi-font-style:
+italic'>Plan</span></i> is used to represent a <i style='mso-bidi-font-style:
+normal'>daily exercise</i> plan. Your class must include three data members to
+represent your <i style='mso-bidi-font-style:normal'>goal</i> steps (an
+integer), plan <i style='mso-bidi-font-style:normal'>name</i> (a std::string),
+and <i style='mso-bidi-font-style:normal'>date</i> for which the plan is
+intended (a std::string). Your <i style='mso-bidi-font-style:normal'>goal</i>
+steps represent the number of desired steps for a day. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Diet and Exercise Plan
+Operations:<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Both the
+<i>DietPlan</i><span style='mso-bidi-font-style:italic'> and </span><i
+style='mso-bidi-font-style:normal'>Exercise<span style='mso-bidi-font-style:
+italic'>Plan</span></i> should provide several <i style='mso-bidi-font-style:
+normal'>member</i> functions including: a constructor, copy constructor, and
+destructor. Remember that you will have to think about other appropriate member
+functions (think about <i>set</i>ter and <i>get</i>ter functions!). Member
+function <i>editGoal ()</i> should prompt the user for a new goal, and use the
+value to change the goal in the plan. Each time a plan is changed, the plan
+must be displayed to the screen, using an overloaded stream insertion operator
+(see below).<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>In the
+same file in which each class declaration exists, three <i style='mso-bidi-font-style:
+normal'>nonmember</i> functions must be declared. Note: an overloaded <i
+style='mso-bidi-font-style:normal'>operator</i> is considered an overloaded <i
+style='mso-bidi-font-style:normal'>function</i>. The overloaded stream
+insertion (&lt;&lt;) for both displaying a plan to the screen and for writing a
+plan to a file, and the extraction (&gt;&gt;) operator for reading a plan from
+a file. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Observation: please notice that
+the <i>DietPlan </i><span style='mso-bidi-font-style:italic'>and </span><i
+style='mso-bidi-font-style:normal'>Exercise<span style='mso-bidi-font-style:
+italic'>Plan </span></i><span style='mso-bidi-font-style:italic'>classes define
+very similar attributes and operations. In the future, we will be able to
+design around these similarities (using inheritance and polymorphism).</span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Fitness Application:<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Each of
+the daily plans will be read from a file. Each file must consist of exactly
+seven daily plans, representing a full week of plans. The daily diet plans will
+be read from a file called “dietPlans.txt” and the daily exercise plans will be
+read from a file called “exercisePlans.txt”. The format of the files must be
+represented in the following way:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Plan name<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Goal <o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Date in the form mm/dd/yyyy<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>(blank line)<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Plan name<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Goal <o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Date in the form mm/dd/yyyy<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></i></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>You must
+read in each of the daily plans by applying an <i style='mso-bidi-font-style:
+normal'>overloaded</i> stream <i style='mso-bidi-font-style:normal'>extraction</i>
+operator: fileStream &gt;&gt; DietPlan or fileStream &gt;&gt; ExercisePlan. The
+overloaded operator must be defined as a <i style='mso-bidi-font-style:normal'>nonmember</i>
+function to the DietPlan and ExercisePlan classes. Each plan is stored into the
+next available position in your linear data structure whether it be an array,
+vector, or linked list. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Observation: Inserting at the end
+of an array and vector requires (amortized) constant time. Inserting at the end
+of a linked list (with only a head pointer) requires linear time. Consider this
+idea as you develop your solution!<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>The
+class <i>FitnessAppWrapper</i> is used to “wrap” the application. This class
+should contain two lists (must be an array, vector, or linked list) of weekly
+(7 days) plans: one diet and one exercise weekly plan. It must also contain two
+fstream objects (input/output file streams): one for each file. It must define
+the following member functions (some prototypes are given to you, but not
+all!): <o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>void runApp (void): starts the
+main application.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>void loadDailyPlan (fstream
+&amp;fileStream, DietPlan &amp;plan): must define two of these functions; one
+for a <i style='mso-bidi-font-style:normal'>DietPlan</i> and one for an <i
+style='mso-bidi-font-style:normal'>ExercisePlan</i>. This function reads one
+record from the given stream. These will be considered overloaded functions!
+Precondition: file is already open!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>void loadWeeklyPlan (fstream
+&amp;fileStream, DietPlan weeklyPlan[ ]): must define two of these functions;
+one for a <i style='mso-bidi-font-style:normal'>DietPlan</i> and one for an <i
+style='mso-bidi-font-style:normal'>ExercisePlan</i>. This function must read in
+all seven daily plans from the given stream. Note: the array parameter would
+change if using a vector or linked list! This function should call <i
+style='mso-bidi-font-style:normal'>loadDailyPlan ()</i> directly. Precondition:
+file is already open!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>displayDailyPlan (): writes a
+daily plan to the screen. You must apply the overloaded stream insertion
+operator here! Note: you must determine the appropriate parameters and return
+type. Once again you must define two of these!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>displayWeeklyPlan (): writes a
+weekly plan to the screen. This function must call <i style='mso-bidi-font-style:
+normal'>displayDailyPlan ()</i>. Note: you must determine the appropriate parameters
+and return type. Once again you must define two of these!<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>storeDailyPlan (): writes a daily
+plan to a file. You must apply the overloaded stream insertion operator here!
+Note: you must determine the appropriate parameters and return type. Once again
+you must define two of these!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>storeWeeklyPlan (): writes a
+weekly plan to a file. This function must call <i style='mso-bidi-font-style:
+normal'>storeDailyPlan ()</i>. You must apply the overloaded stream insertion
+operator here! Note: you must determine the appropriate parameters and return
+type. Once again you must define two of these!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>displayMenu (): displays nine
+menu options. These include: <o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Load weekly diet plan from file.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Load weekly exercise plan from
+file.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Store weekly diet plan to file.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Store weekly exercise plan to
+file.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Display weekly diet plan to
+screen.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Display weekly exercise plan to
+screen.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Edit daily diet plan.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.25in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>8.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Edit daily exercise plan.<o:p></o:p></span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.25in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l4 level1 lfo4'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>9.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Exit.<span
+style='mso-spacerun:yes'>   </span>// Note: this must write the most recent
+weekly plans to the corresponding files.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in;mso-list:l2 level1 lfo3'><![if !supportLists]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-fareast-font-family:"Trebuchet MS";
+mso-bidi-font-family:"Trebuchet MS"'><span style='mso-list:Ignore'>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif'>Other functions? There should be!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Observation: Many of the
+functions in the FitnessAppWrapper class are overloaded. There’s one version
+for use on a DietPlan and one version for use on an ExercisePlan. We know these
+functions are considered overloaded because they have the same name, but different
+parameter types. In the future, we could use templates, and let the compiler
+generate code for us, instead of implementing several versions of the same
+function ourselves.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>BONUS: <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Implement
+classes for <i style='mso-bidi-font-style:normal'>ListNode</i> and <i
+style='mso-bidi-font-style:normal'>List</i> to store the diet and exercise plans.
+You may need to implement a different linked list for each of the plans. In the
+future, this could be resolved by using templates.<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>IV. Submitting Assignments:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal style='mso-list:l1 level1 lfo5;tab-stops:list .5in'><span
+     style='font-family:"Trebuchet MS",sans-serif'>Using the OSBLE+ MS VS
+     plugin, please submit your solution. Please visit </span><span
+     style='font-family:"Trebuchet MS",sans-serif;color:maroon'><a
+     href="https://github.com/WSU-HELPLAB/OSBLE/wiki/Submitting-an-Assignment"><span
+     style='color:maroon'>https://github.com/WSU-HELPLAB/OSBLE/wiki/Submitting-an-Assignment</span></a></span><span
+     style='font-family:"Trebuchet MS",sans-serif'> for more information about
+     submitting using OSBLE+.<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l1 level1 lfo5;tab-stops:list .5in'><span
+     style='font-family:"Trebuchet MS",sans-serif'>Your project must contain at
+     least three header files (.h files) and four C++ source files (which must
+     be .cpp files). There should be one .h file per class declaration. There
+     should be one .cpp for each set of operations belonging to a single class
+     and one for the main () function.<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l1 level1 lfo5;tab-stops:list .5in'><span
+     style='font-family:"Trebuchet MS",sans-serif'>Your project must build properly.
+     The most points an assignment can receive if it does not build properly is
+     65 out of 100. <o:p></o:p></span></li>
+</ol>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>V. Grading Guidelines:</span></b><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>This
+assignment is worth 100 points. Your assignment will be evaluated based on a
+successful compilation and adherence to the program requirements. We will grade
+according to the following criteria:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l3 level1 lfo6;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>5
+pts – Appropriate top-down design, style, and commenting according to class
+standards<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l3 level1 lfo6;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>18
+pts – Appropriate design and implementation of Class <i style='mso-bidi-font-style:
+normal'>DietPlan</i> (including member functions and data members)</span><span
+style='font-family:"Courier New"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>3 pts – 1 pt/each for declaring goal
+calories, plan name, and date<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – declaring and defining a
+constructor<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – declaring and defining a copy
+constructor<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>1 pt – declaring and defining a destructor<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – declaring and defining
+setters/getters<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – declaring and defining an <i
+style='mso-bidi-font-style:normal'>editGoal</i> function<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – others?<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l3 level1 lfo6;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>18
+pts – Appropriate design and implementation of Class <i style='mso-bidi-font-style:
+normal'>ExercisePlan</i> (including member functions and data members)</span><span
+style='font-family:"Courier New"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>3 pts – 1 pt/each for declaring goal steps,
+plan name, and date<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – declaring and defining a
+constructor<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – declaring and defining a copy
+constructor<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>1 pt – declaring and defining a destructor<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – declaring and defining
+setters/getters<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – declaring and defining an <i
+style='mso-bidi-font-style:normal'>editGoal</i> function<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – others?<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l3 level1 lfo6;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>47
+pts – Appropriate implementation of Class <i>FitnessAppWrapper </i>(including
+menu options, etc.)</span><span style='font-family:"Courier New"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>8 pts – 2 pts/each for declaring a list of
+diet plans, a list of exercise plans, a file stream associated with
+“dietPlans.txt”, and a file stream associated with “exercisePlans.txt”<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – declaring and defining <i
+style='mso-bidi-font-style:normal'>runApp</i> function<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – 2 pts/each for declaring and
+defining <i style='mso-bidi-font-style:normal'>loadDailyPlan</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – 2 pts/each for declaring and
+defining <i style='mso-bidi-font-style:normal'>loadWeeklyPlan</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – 2 pts/each for declaring and
+defining <i style='mso-bidi-font-style:normal'>displayDailyPlan</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – 2 pts/each for declaring and
+defining <i style='mso-bidi-font-style:normal'>displayWeeklyPlan</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – 2 pts/each for declaring and
+defining <i style='mso-bidi-font-style:normal'>storeDailyPlan</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>4 pts – 2 pts/each for declaring and
+defining <i style='mso-bidi-font-style:normal'>storeWeeklyPlan</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>2 pts – declaring and defining <i
+style='mso-bidi-font-style:normal'>displayMenu</i> function<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>10.<span style='font:7.0pt "Times New Roman"'> </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-family:"Courier New"'>4
+pts – opening and closing the files<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in;mso-list:l3 level2 lfo6;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-fareast-font-family:"Trebuchet MS";mso-bidi-font-family:"Trebuchet MS"'><span
+style='mso-list:Ignore'>11.<span style='font:7.0pt "Times New Roman"'> </span></span></span><![endif]><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-family:"Courier New"'>5
+pts – others?<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l3 level1 lfo6;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-family:"Courier New"'>12 pts – 2 pts/each for the nonmember
+overloaded stream extraction and stream insertion operators (4 total stream insertion
+operators, 2 total stream extraction operators)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l3 level1 lfo6;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'><img width=11 height=13 src="PA4_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>BONUS:
+Up to 10 pts – Linked list implementation using <i style='mso-bidi-font-style:
+normal'>ListNode</i> and <i style='mso-bidi-font-style:normal'>List </i>classes</span><span
+style='font-family:"Courier New"'><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>
