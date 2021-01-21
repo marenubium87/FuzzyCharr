@@ -1,4 +1,6 @@
-﻿  lab5task2.cpp
+﻿  lab5.cpp
+c:\users\james\fuzzycharr\cs122\lab5\lab5\lab5.cpp(79): error C2065: 'fuck': undeclared identifier
+c:\users\james\fuzzycharr\cs122\lab5\lab5\lab5.cpp(79): error C2143: syntax error: missing ';' before 'this'
   main.cpp
+c:\users\james\fuzzycharr\cs122\lab5\lab5\main.cpp(5): fatal error C1083: Cannot open include file: 'lab5task2.h': No such file or directory
   Generating Code...
-  Lab5.vcxproj -> C:\Users\James\FuzzyCharr\CS122\Lab5\Debug\Lab5.exe

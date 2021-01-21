@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectEuler04", "ProjectEuler04\ProjectEuler04.vcxproj", "{CF927F1D-511E-4D91-879E-5EE65F5A3D20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Debug|x64.ActiveCfg = Debug|x64
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Debug|x64.Build.0 = Debug|x64
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Debug|x86.Build.0 = Debug|Win32
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Release|x64.ActiveCfg = Release|x64
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Release|x64.Build.0 = Release|x64
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Release|x86.ActiveCfg = Release|Win32
+		{CF927F1D-511E-4D91-879E-5EE65F5A3D20}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4B0E964-ACE5-4741-B98C-F4482730CC26}
+	EndGlobalSection
+EndGlobal
