@@ -13,6 +13,8 @@ using std::string;
 using std::fstream;
 using std::ifstream;
 using std::ofstream;
+using std::getline;
+
 
 class DietPlan {
 public:
@@ -32,7 +34,7 @@ public:
 	string getName(void) const { return name; }
 	string getDate(void) const { return date; }
 
-	//others
+	//other member fcns
 	//prompts user for new goal, changes goal accordingly, displays to screen
 	void editGoal(void);
 
@@ -49,4 +51,50 @@ ostream & operator<<(ostream & lhs, DietPlan const & rhs);
 ofstream & operator<<(ofstream & lhs, DietPlan & rhs);
 
 //stream extraction operator, from file
-//fstream & operator>>(fstream & lhs, DietPlan & rhs);
+fstream & operator>>(fstream & lhs, DietPlan & rhs);
+
+//*******************************************************************
+
+class DietPlanNode {
+public:
+	//constructors
+	DietPlanNode();
+	DietPlanNode(DietPlan newPlan, DietPlanNode * pNext = nullptr);
+
+	//accessors, mutators
+	const DietPlan & getPlan(void) const { return plan; }
+	DietPlanNode * getNext(void) const { return pNext; }
+	void setPlan(DietPlan const & newPlan) { plan = newPlan; }
+	void setNext(DietPlanNode * const & newNext) { pNext = newNext; }
+
+private:
+	DietPlan plan;
+	DietPlanNode * pNext;
+};
+
+//*******************************************************************
+
+class DietPlanList {
+public:
+	//constructors, destructors
+	DietPlanList();
+	~DietPlanList();
+	DietPlanList(DietPlanList const & original);
+	DietPlanList & operator=(DietPlanList const & original);
+
+	//accessors, mutators
+	DietPlanNode * getTail() const { return pTail; }
+	void setHead(DietPlanNode * const newHead) { pHead = newHead; }
+	void setTail(DietPlanNode * const newTail) { pTail = newTail; }
+
+	//member fcns
+	void append(DietPlanNode newNode);
+	void deleteAtFront();
+	int isEmpty();
+	int clear();
+	DietPlanNode * search(string nameQuery);
+
+private:
+	DietPlanNode * pHead;
+	DietPlanNode * pTail;
+};

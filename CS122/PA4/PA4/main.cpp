@@ -4,10 +4,16 @@
 #include "FitnessAppWrapper.h"
 
 int main() {
-	int myArr[3] = { 3, 5, 9 };
-	for (int meow : myArr) {
-		cout << meow;
-	}
+	
+	fstream input, output;
+	input.open("dietPlans.txt", std::ios::in);
+	output.open("exercisePlans.txt", std::ios::out);
+
+	DietPlan d1, d2;
+	input >> d1;
+	d1.editGoal();
+	output << d1;
+
 
 	system("pause");
 	return 0;

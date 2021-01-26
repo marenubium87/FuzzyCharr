@@ -11,3 +11,6 @@ using std::ostream;
 using std::endl;
 using std::string;
 using std::fstream;
+using std::ifstream;
+using std::ofstream;
+using std::getline;
