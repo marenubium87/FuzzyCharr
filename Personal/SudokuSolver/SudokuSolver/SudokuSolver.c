@@ -6,18 +6,24 @@
 void displayBoard(int target[][GRID_LEN]) {
 	for (int i = 0; i < GRID_LEN; i++) {
 		if (i % 3 == 0) {
-			printf("--------------------------\n");
+			printf("-------------------------\n");
 		}
 		for (int j = 0; j < GRID_LEN; j++) {
 			if (j % 3 == 0) {
 				printf("| ");
 			}
-			printf("%d ", target[i][j]);
+			if (target[i][j] == 0) {
+				printf("  ");
+			}
+			else {
+				printf("%d ", target[i][j]);
+			}
+			
 		}
-		printf(" |");
+		printf("|");
 		printf("\n");
 	}
-	printf("--------------------------\n");
+	printf("-------------------------\n");
 }
 
 //initializes logic board to 81 rows of:

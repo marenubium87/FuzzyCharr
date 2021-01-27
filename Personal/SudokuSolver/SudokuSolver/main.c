@@ -18,6 +18,8 @@ int main() {
 
 	printf("Initial board state:\n\n");
 	displayBoard(board);
+
+	//YASSSSSSSSS
 	commitSudoku(board);
 
 	system("pause");
