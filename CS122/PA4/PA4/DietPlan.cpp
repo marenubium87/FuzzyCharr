@@ -85,9 +85,99 @@ fstream & operator>>(fstream & lhs, DietPlan & rhs) {
 //DietPlanNode class
 //default constructor
 DietPlanNode::DietPlanNode() {
-
+	plan.setName("");
+	plan.setGoal(0);
+	plan.setDate("");
+	pNext = nullptr;
 }
+
 //constructor with args
-DietPlanNode::DietPlanNode(DietPlan newPlan, DietPlanNode * pNext = nullptr) {
+DietPlanNode::DietPlanNode(DietPlan newPlan, DietPlanNode * newNext) {
+	plan = newPlan;
+	pNext = newNext;
+}
+
+//*******************************************************************
+//DietPlanList class
+
+//default constructor
+DietPlanList::DietPlanList() {
+	pHead = nullptr;
+	pTail = nullptr;
+}
+
+//destructor
+DietPlanList::~DietPlanList() {
+	clear();
+}
+
+//copy constructor
+DietPlanList::DietPlanList(DietPlanList const & original) {
 
 }
+
+//assignment operator
+DietPlanList & DietPlanList::operator=(DietPlanList const & original) {
+	//clears current list to avoid leaking memory
+	clear();
+	DietPlanNode * pCurrRHS = original.pHead;
+	while (pCurrRHS != nullptr) {
+
+	}
+}
+
+//takes newPlan, creates a DietPlanNode using its data
+//appends it to the list, and updates the tail pointer
+void DietPlanList::append(DietPlan const & newPlan) {
+	//creates new node
+	DietPlanNode * pTemp = new DietPlanNode(newPlan);
+	//is list currently empty?
+	if (pHead == nullptr) {
+		pHead = pTemp;
+		pTail = pTemp;
+	}
+	else {
+		pTail->setNext(pTemp);
+		pTail = pTemp;
+	}
+}
+
+//removes the first DietPlanNode in the list
+//does nothing if list is already empty
+void DietPlanList::deleteAtFront() {
+	//is list empty?
+	if (pHead == nullptr) {
+		return;
+	}
+	DietPlanNode * pTemp = pHead;
+	pHead = pHead->getNext();
+	//did we just delete the last element in the list?  if so, reset tail ptr
+	if (pHead == nullptr) {
+		pTail = nullptr;
+	}
+	//free memory
+	delete pTemp;
+}
+
+//returns 1 if list is empty, 0 else
+int DietPlanList::isEmpty() {
+	if (pHead == nullptr) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+//clears the contents of an entire list, freeing memory
+void DietPlanList::clear() {
+	while (pHead != nullptr) {
+		deleteAtFront();
+	}
+}
+
+/*
+DietPlanNode * DietPlanList::search(string const nameQuery) {
+
+}
+*/

@@ -59,10 +59,10 @@ class DietPlanNode {
 public:
 	//constructors
 	DietPlanNode();
-	DietPlanNode(DietPlan newPlan, DietPlanNode * pNext = nullptr);
+	DietPlanNode(DietPlan newPlan, DietPlanNode * newNext = nullptr);
 
 	//accessors, mutators
-	const DietPlan & getPlan(void) const { return plan; }
+	DietPlan const & getPlan(void) const { return plan; }
 	DietPlanNode * getNext(void) const { return pNext; }
 	void setPlan(DietPlan const & newPlan) { plan = newPlan; }
 	void setNext(DietPlanNode * const & newNext) { pNext = newNext; }
@@ -82,19 +82,23 @@ public:
 	DietPlanList(DietPlanList const & original);
 	DietPlanList & operator=(DietPlanList const & original);
 
-	//accessors, mutators
-	DietPlanNode * getTail() const { return pTail; }
-	void setHead(DietPlanNode * const newHead) { pHead = newHead; }
-	void setTail(DietPlanNode * const newTail) { pTail = newTail; }
-
 	//member fcns
-	void append(DietPlanNode newNode);
-	void deleteAtFront();
-	int isEmpty();
-	int clear();
-	DietPlanNode * search(string nameQuery);
+	//takes newPlan, creates a DietPlanNode using its data
+	//appends it to the list, and updates the tail pointer
+	void append(DietPlan const & newPlan);
 
+	//clears the contents of an entire list, freeing memory
+	void clear();
+	
+	int isEmpty();
+	
+	DietPlanNode * search(string nameQuery);
+	
 private:
 	DietPlanNode * pHead;
 	DietPlanNode * pTail;
+
+	//removes the first DietPlanNode in the list
+	//does nothing if list is already empty
+	void deleteAtFront();
 };
