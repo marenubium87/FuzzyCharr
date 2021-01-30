@@ -113,7 +113,7 @@ DietPlanList::~DietPlanList() {
 
 //copy constructor
 DietPlanList::DietPlanList(DietPlanList const & original) {
-
+	*this = original;
 }
 
 //assignment operator
@@ -122,8 +122,10 @@ DietPlanList & DietPlanList::operator=(DietPlanList const & original) {
 	clear();
 	DietPlanNode * pCurrRHS = original.pHead;
 	while (pCurrRHS != nullptr) {
-
+		append(pCurrRHS->getPlan());
+		pCurrRHS = pCurrRHS->getNext();
 	}
+	return *this;
 }
 
 //takes newPlan, creates a DietPlanNode using its data
@@ -176,8 +178,20 @@ void DietPlanList::clear() {
 	}
 }
 
-/*
+//searches list sequentially for first node whose plan's name variable
+//matches nameQuery exactly, and returns the pointer to that node
+//returns nullptr if nameQuery was not found
 DietPlanNode * DietPlanList::search(string const nameQuery) {
+	
+	DietPlanNode * pSearch = this->pHead;
 
+	while (pSearch != nullptr) {
+		if (nameQuery == pSearch->getPlan().getName()) {
+			return pSearch;
+		}
+		pSearch = pSearch->getNext();
+	}
+
+	//traversed through list, didn't find result, pSearch now nullptr
+	return pSearch;
 }
-*/

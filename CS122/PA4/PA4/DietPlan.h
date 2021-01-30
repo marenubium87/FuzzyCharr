@@ -89,12 +89,17 @@ public:
 
 	//clears the contents of an entire list, freeing memory
 	void clear();
-	
+	//returns 1 if list is empty, 0 else
 	int isEmpty();
 	
+	//searches list sequentially for first node whose plan's name variable
+	//matches nameQuery exactly, and returns the pointer to that node
+	//returns nullptr if nameQuery was not found
 	DietPlanNode * search(string nameQuery);
 	
 private:
+	//marks first and last elements of list
+	//both nullptr if list is empty
 	DietPlanNode * pHead;
 	DietPlanNode * pTail;
 
