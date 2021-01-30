@@ -62,7 +62,7 @@ public:
 	DietPlanNode(DietPlan newPlan, DietPlanNode * newNext = nullptr);
 
 	//accessors, mutators
-	DietPlan const & getPlan(void) const { return plan; }
+	DietPlan & getPlan(void) { return plan; }
 	DietPlanNode * getNext(void) const { return pNext; }
 	void setPlan(DietPlan const & newPlan) { plan = newPlan; }
 	void setNext(DietPlanNode * const & newNext) { pNext = newNext; }
@@ -91,11 +91,13 @@ public:
 	void clear();
 	//returns 1 if list is empty, 0 else
 	int isEmpty();
+	//prints out the contents of the list
+	void print() const;
 	
-	//searches list sequentially for first node whose plan's name variable
-	//matches nameQuery exactly, and returns the pointer to that node
-	//returns nullptr if nameQuery was not found
-	DietPlanNode * search(string nameQuery);
+	//searches list sequentially for first node whose plan's name
+	//(day of the week) matches nameQuery exactly, 
+	//and allows the user to modify the goal calories for that day
+	void search(string const & nameQuery);
 	
 private:
 	//marks first and last elements of list

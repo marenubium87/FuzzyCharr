@@ -2,6 +2,12 @@
 
 #include "FitnessAppWrapper.h"
 
+//default constructor
+FitnessAppWrapper::FitnessAppWrapper() {
+	dietPlanFile.open("dietPlans.txt", std::ios::in);
+	exercisePlanFile.open("exercisePlans.txt", std::ios::in);
+}
+
 //starts main application
 void FitnessAppWrapper::runApp(void) {
 	system("cls");
@@ -28,18 +34,22 @@ void FitnessAppWrapper::displayMenu(void) {
 
 //reads one DietPlan record from the given stream
 //precondition - file is already open
-void FitnessAppWrapper::loadDailyPlan(fstream & fileStream, DietPlan & plan) {
-	fileStream >> plan;
+void FitnessAppWrapper::loadDailyPlan(DietPlan & plan) {
+	dietPlanFile >> plan;
 }
 
-//reads in all seven daily plans from the given stream
+//reads in all seven daily diet plans from the given stream
 //calls loadDailyPlan
 //preconditon - file is already open
-void FitnessAppWrapper::loadWeeklyPlan(fstream & fileStream) {
+void FitnessAppWrapper::loadWeeklyDiet() {
 	DietPlan tempPlan;
 	for (int i = 0; i < 7; i++) {
-		loadDailyPlan(fileStream, tempPlan);
+		loadDailyPlan(tempPlan);
 		weeklyDietPlan.append(tempPlan);
 	}
 }
 
+//prints all seven daily plans to the console
+void FitnessAppWrapper::printDiet() {
+	weeklyDietPlan.print();
+}

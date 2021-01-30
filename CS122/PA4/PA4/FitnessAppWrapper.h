@@ -5,10 +5,8 @@
 
 class FitnessAppWrapper {
 public:
-	//constructor
-	FitnessAppWrapper(fstream newDietPlanFile, fstream newExercisePlanFile);
-
-
+	//default constructor
+	FitnessAppWrapper();
 
 	//starts main application
 	void runApp(void);
@@ -18,30 +16,22 @@ public:
 
 	//reads one DietPlan record from the given stream
 	//precondition - file is already open
-	void loadDailyPlan(fstream & fileStream, DietPlan & plan);
+	void loadDailyPlan(DietPlan & plan);
 
 	//reads one ExercisePlan record from the given stream
 	//precondition - file is already open
-	//void loadDailyPlan(fstream & fileStream, ExercisePlan & plan);
+	//void loadDailyPlan(ExercisePlan & plan);
 
-	//reads in all seven daily plans from the given stream
+	//reads in all seven daily diet plans from the given stream
 	//calls loadDailyPlan
 	//preconditon - file is already open
-	void loadWeeklyPlan(fstream & fileStream);
+	void loadWeeklyDiet();
 
-	//writes a daily plan to the screen
-	void displayDailyPlan(DietPlan & plan);
+	//prints all seven daily plans to the console
+	void printDiet();
 
-	//writes a weekly plan to the screen; calls displayDailyPlan
-	void displayWeeklyPlan(DietPlanList & weeklyDietPlan);
-
-	//writes daily plan to file
-	//precondition - file is already open
-	void storeDailyPlan(fstream & fileStream, DietPlan & plan);
-
-	//writes the weekly plan to file; calls storeDailyPlan
-	//precondition - file is already open
-	void storeWeeklyPlan(fstream & fileStream, DietPlan & plan);
+	//write interface for search
+	void searchDiet();
 
 private:
 	fstream dietPlanFile;

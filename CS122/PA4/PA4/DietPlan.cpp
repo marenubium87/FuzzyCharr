@@ -178,20 +178,33 @@ void DietPlanList::clear() {
 	}
 }
 
-//searches list sequentially for first node whose plan's name variable
-//matches nameQuery exactly, and returns the pointer to that node
-//returns nullptr if nameQuery was not found
-DietPlanNode * DietPlanList::search(string const nameQuery) {
-	
-	DietPlanNode * pSearch = this->pHead;
+//prints out the contents of the list to the console
+void DietPlanList::print() const {
+	cout << "Your diet plan for the week of " <<
+		pHead->getPlan().getDate() << ":" << endl << endl;
+	DietPlanNode * pCurr = pHead;
+	while (pCurr != nullptr) {
+		cout << pCurr->getPlan() << endl << endl;
+		pCurr = pCurr->getNext();
+	}
+	cout << "End of plan *** " << endl << endl;
+}
 
-	while (pSearch != nullptr) {
-		if (nameQuery == pSearch->getPlan().getName()) {
-			return pSearch;
+//searches list sequentially for first node whose plan's name
+//(day of the week) matches nameQuery exactly, 
+//and allows the user to modify the goal calories for that day
+void DietPlanList::search(string const & nameQuery) {
+	DietPlanNode * pCurr = pHead;
+	while (pCurr != nullptr) {
+		//refactor this
+		if (pCurr->getPlan().getName() == nameQuery) {
+			pCurr->getPlan().editGoal();
+			return;
 		}
-		pSearch = pSearch->getNext();
+		pCurr = pCurr->getNext();
 	}
 
-	//traversed through list, didn't find result, pSearch now nullptr
-	return pSearch;
+	//if code makes it to here nameQuery was not found in list
+	cout << "Could not find a plan with name '" << nameQuery << "' "
+		<< "in list." << endl << endl;
 }

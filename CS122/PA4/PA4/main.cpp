@@ -10,8 +10,8 @@ int main() {
 	output.open("exercisePlans.txt", std::ios::out);
 
 	FitnessAppWrapper programWrapper;
-	programWrapper.loadWeeklyPlan(input);
-	int c = 5;
+	programWrapper.loadWeeklyDiet();
+	
 
 
 	system("pause");
