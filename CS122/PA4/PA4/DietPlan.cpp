@@ -35,8 +35,7 @@ void DietPlan::editGoal(void) {
 	cout << "Type in a new goal calorie count (number):  ";
 	cin >> input;
 	goal = input;
-	cout << "Your new plan:" << endl << endl << *this << endl;
-	system("pause");
+	cout << "Your new plan:" << endl << endl << *this;
 }
 
 //stream insertion operator, writing to console
@@ -48,6 +47,7 @@ ostream & operator<<(ostream & lhs, DietPlan const & rhs) {
 //stream insertion operator, writing to file
 ofstream & operator<<(ofstream & lhs, DietPlan const & rhs) {
 	lhs << rhs.getName() << endl << rhs.getGoal() << endl << rhs.getDate();
+	lhs << endl << endl;
 	return lhs;
 }
 
@@ -95,6 +95,16 @@ DietPlanNode::DietPlanNode() {
 DietPlanNode::DietPlanNode(DietPlan newPlan, DietPlanNode * newNext) {
 	plan = newPlan;
 	pNext = newNext;
+}
+
+//returns the plan's name in the current dietPlanNode
+string const DietPlanNode::getPlanName() {
+	return plan.getName();
+}
+
+//allows access to the editGoal fcn in DietPlan from this interface
+void DietPlanNode::editPlanGoal() {
+	plan.editGoal();
 }
 
 //*******************************************************************
@@ -187,7 +197,16 @@ void DietPlanList::print() const {
 		cout << pCurr->getPlan() << endl << endl;
 		pCurr = pCurr->getNext();
 	}
-	cout << "End of plan *** " << endl << endl;
+	cout << "End of plan *** ";
+}
+
+//stores the contents of the list to file
+void DietPlanList::store(fstream & outputFile) const {
+	DietPlanNode * pCurr = pHead;
+	while (pCurr != nullptr) {
+		outputFile << pCurr->getPlan() << endl << endl;
+		pCurr = pCurr->getNext();
+	}
 }
 
 //searches list sequentially for first node whose plan's name
@@ -196,9 +215,8 @@ void DietPlanList::print() const {
 void DietPlanList::search(string const & nameQuery) {
 	DietPlanNode * pCurr = pHead;
 	while (pCurr != nullptr) {
-		//refactor this
-		if (pCurr->getPlan().getName() == nameQuery) {
-			pCurr->getPlan().editGoal();
+		if (pCurr->getPlanName() == nameQuery) {
+			pCurr->editPlanGoal();
 			return;
 		}
 		pCurr = pCurr->getNext();
@@ -206,5 +224,5 @@ void DietPlanList::search(string const & nameQuery) {
 
 	//if code makes it to here nameQuery was not found in list
 	cout << "Could not find a plan with name '" << nameQuery << "' "
-		<< "in list." << endl << endl;
+		<< "in list.";
 }

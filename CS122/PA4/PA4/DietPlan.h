@@ -67,6 +67,13 @@ public:
 	void setPlan(DietPlan const & newPlan) { plan = newPlan; }
 	void setNext(DietPlanNode * const & newNext) { pNext = newNext; }
 
+	//returns the plan's name in the current dietPlanNode
+	string const getPlanName();
+
+	//other methods
+	//allows access to the editGoal fcn in DietPlan from this interface
+	void editPlanGoal();
+
 private:
 	DietPlan plan;
 	DietPlanNode * pNext;
@@ -87,12 +94,12 @@ public:
 	//appends it to the list, and updates the tail pointer
 	void append(DietPlan const & newPlan);
 
-	//clears the contents of an entire list, freeing memory
-	void clear();
 	//returns 1 if list is empty, 0 else
 	int isEmpty();
 	//prints out the contents of the list
 	void print() const;
+	//stores the contents of the list to file
+	void store(fstream & outputFile) const;
 	
 	//searches list sequentially for first node whose plan's name
 	//(day of the week) matches nameQuery exactly, 
@@ -108,4 +115,7 @@ private:
 	//removes the first DietPlanNode in the list
 	//does nothing if list is already empty
 	void deleteAtFront();
+
+	//clears the contents of an entire list, freeing memory
+	void clear();
 };

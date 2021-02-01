@@ -5,15 +5,8 @@
 
 int main() {
 	
-	fstream input, output;
-	input.open("dietPlans.txt", std::ios::in);
-	output.open("exercisePlans.txt", std::ios::out);
-
 	FitnessAppWrapper programWrapper;
-	programWrapper.loadWeeklyDiet();
+	programWrapper.runApp();
 	
-
-
-	system("pause");
 	return 0;
 }

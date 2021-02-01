@@ -1,5 +1,5 @@
 Monday
-3
+1701
 06/10/2047
 
 Tuesday
@@ -7,7 +7,7 @@ Tuesday
 06/11/2047
 
 Wednesday
-9999999
+666
 06/12/2047
 
 Thursday
@@ -25,3 +25,4 @@ Saturday
 Sunday
 2589
 06/16/2047
+
