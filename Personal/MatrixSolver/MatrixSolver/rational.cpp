@@ -25,6 +25,8 @@ Rational::Rational(int const newNum, int const newDen) {
 	else {
 		num = newNum;
 	}
+	//call reduce here
+	this->reduce();
 }
 
 //copy constructor
@@ -85,6 +87,11 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 		}
 	}
 
+	//call reduce here
+	if (rhs.getDen() != 0) {
+		rhs.reduce();
+	}
+
 	return lhs;
 }
 
@@ -98,4 +105,24 @@ ostream & operator<<(ostream & lhs, Rational const & rhs) {
 		cout << "/" << rhs.getDen();
 	}
 	return lhs;
+}
+
+
+
+
+
+
+//checks to see if two rational numbers are equivalent
+//somewhat computationally intensive as it calls reduce()
+bool operator==(Rational & lhs, Rational & rhs) {
+	lhs.reduce();
+	rhs.reduce();
+	if (lhs.getSgn() == rhs.getSgn() &&
+		lhs.getNum() == rhs.getNum() &&
+		lhs.getDen() == rhs.getDen()) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

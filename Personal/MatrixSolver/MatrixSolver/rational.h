@@ -48,3 +48,20 @@ private:
 istream & operator>>(istream & lhs, Rational & rhs);
 
 ostream & operator<<(ostream & lhs, Rational const & rhs);
+
+//returns greatest common divisor of n1 and n2
+//implements Stein's algorithm for computational speed
+unsigned int findGCD(int const n1, int const n2);
+
+Rational & operator+(Rational const & lhs, Rational const & rhs);
+
+Rational & operator-(Rational const & lhs, Rational const & rhs);
+
+Rational & operator*(Rational const & lhs, Rational const & rhs);
+
+Rational & operator/(Rational const & lhs, Rational const & rhs);
+
+//checks to see if two rational numbers are equivalent
+//somewhat computationally intensive as it calls reduce()
+bool operator==(Rational const & lhs, Rational const & rhs);
+
