@@ -1,4 +1,5 @@
 //header for rational class
+#pragma once
 
 #include <iostream>
 #include <cmath>
@@ -35,7 +36,7 @@ public:
 	void setSgn(int const newSgn);
 
 	//methods
-	//reduces fraction to lowest form
+	//reduces fraction to lowest terms, requires findGCD
 	void reduce();
 
 private:
@@ -51,17 +52,20 @@ ostream & operator<<(ostream & lhs, Rational const & rhs);
 
 //returns greatest common divisor of n1 and n2
 //implements Stein's algorithm for computational speed
-unsigned int findGCD(int const n1, int const n2);
+unsigned int findGCD(int n1, int n2);
 
-Rational & operator+(Rational const & lhs, Rational const & rhs);
+//also reduces result
+Rational operator+(Rational const & lhs, Rational const & rhs);
 
-Rational & operator-(Rational const & lhs, Rational const & rhs);
+//also reduces result
+Rational operator-(Rational const & lhs, Rational const & rhs);
 
-Rational & operator*(Rational const & lhs, Rational const & rhs);
+//also reduces result
+Rational operator*(Rational const & lhs, Rational const & rhs);
 
-Rational & operator/(Rational const & lhs, Rational const & rhs);
+//also reduces result
+Rational operator/(Rational const & lhs, Rational const & rhs);
 
 //checks to see if two rational numbers are equivalent
-//somewhat computationally intensive as it calls reduce()
 bool operator==(Rational const & lhs, Rational const & rhs);
 
