@@ -6,8 +6,6 @@
 
 int main() {
 	testWrapper();
-	//findGCD(31886, 15943);
-	
 
 	system("pause");
 	return 0;

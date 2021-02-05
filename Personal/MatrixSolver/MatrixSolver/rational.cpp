@@ -54,7 +54,14 @@ void Rational::setSgn(int const newSgn) {
 
 //reduces fraction to lowest terms, requires findGCD
 void Rational::reduce() {
-
+	//if the numerator is zero, then lowest form is 0/1
+	if (num == 0) {
+		den = 1;
+		return;
+	}
+	int GCD = findGCD(num, den);
+	num /= GCD;
+	den /= GCD;
 }
 
 //reads rational input from console
@@ -114,7 +121,16 @@ ostream & operator<<(ostream & lhs, Rational const & rhs) {
 
 //returns greatest common divisor of n1 and n2
 //implements Stein's algorithm for computational speed
+//precondition - n1 > 0, n2 > 0
 unsigned int findGCD(int n1, int n2) {
+	//checks precondition - if fails prints warning and returns 0
+	//(which is never a valid GCD)
+	if (n1 <= 0 || n2 <= 0) {
+		cout << "Warning: invalid arguments (<= 0) in find GCD" << endl;
+		cout << "Function did not execute; returning 0" << endl;
+		return 0;
+	}
+
 	//if the two numbers are equal to each other then they
 	//are by definition the GCD
 	if (n1 == n2) {
@@ -128,6 +144,7 @@ unsigned int findGCD(int n1, int n2) {
 		n2 = n2 >> 1;
 		commonPwrsOfTwo++;
 	}
+
 	//if one number still even
 	while (n1 % 2 == 0) {
 		n1 = n1 >> 1;
@@ -137,15 +154,16 @@ unsigned int findGCD(int n1, int n2) {
 	}
 
 	//both numbers now odd
-	//assign n1 to c so that if n1 = n2 already that is already the
+	//assign n1 to c so that if n1 = n2 already that will simply be the
 	//non-powers of 2 component of the GCD
 	int c = n1;
 	while (n1 != n2) {
 		//c is the (positive) difference between n1 and n2
-		//premise: GCD(smaller of n1 and n2, c) is the same
+		//premise of Stein's alg: GCD(smaller of n1 and n2, c) is the same
 		//as GCD(n1, n2), so replace the larger of n1 and n2 by c
 		
 		c = n1 - n2;
+		//c cannot be 0 here b/c that would imply n1 == n2 earlier
 		if (c < 0) {
 			c *= -1;
 		}
@@ -163,24 +181,51 @@ unsigned int findGCD(int n1, int n2) {
 	}
 	//at this point n1 = n2 = c 
 	//GCD is now c * 2 ^ (commonPwrsOfTwo)
-	c = c << commonPwrsOfTwo;
-	return c;
+	int GCD = c << commonPwrsOfTwo;
+	return GCD;
 }
 
 //also reduces result
-//Rational operator+(Rational const & lhs, Rational const & rhs) {
-//	int tempInt = 0;
-//	Rational result;
-//	//figure out numerator, including negative signs
-//
-//
-//	
-//}
+Rational operator+(Rational const & lhs, Rational const & rhs) {
+	int tempInt = 0;
+	Rational result;
+	//assume sign is positive, fix later if necessary
+	result.setSgn(1);
+	//for a/b + c/d, denom is simple b*d, will reduce later
+	result.setDen(lhs.getDen() * rhs.getDen());
+	//figure out numerator, including negative signs
+	tempInt = lhs.getSgn() * lhs.getNum() * rhs.getDen() +
+		rhs.getSgn() * rhs.getNum() * lhs.getDen();
+	//is what will be the numerator negative?
+	if (tempInt < 0) {
+		result.setSgn(-1);
+		tempInt = -tempInt;
+	}
+	result.setNum(tempInt);
+	result.reduce();
+	return result;
+}
 
 //also reduces result
-//Rational operator-(Rational const & lhs, Rational const & rhs) {
-//
-//}
+Rational operator-(Rational const & lhs, Rational const & rhs) {
+	int tempInt = 0;
+	Rational result;
+	//assume sign is positive, fix later if necessary
+	result.setSgn(1);
+	//for a/b + c/d, denom is simple b*d, will reduce later
+	result.setDen(lhs.getDen() * rhs.getDen());
+	//figure out numerator, including negative signs
+	tempInt = lhs.getSgn() * lhs.getNum() * rhs.getDen() -
+		rhs.getSgn() * rhs.getNum() * lhs.getDen();
+	//is what will be the numerator negative?
+	if (tempInt < 0) {
+		result.setSgn(-1);
+		tempInt = -tempInt;
+	}
+	result.setNum(tempInt);
+	result.reduce();
+	return result;
+}
 
 //also reduces result
 Rational operator*(Rational const & lhs, Rational const & rhs) {
