@@ -261,3 +261,13 @@ bool operator==(Rational & lhs, Rational & rhs) {
 		return false;
 	}
 }
+
+//bool operator!=
+//
+//bool operator>=
+//
+//bool operator<=
+//
+//bool operator>
+//
+//bool operator<

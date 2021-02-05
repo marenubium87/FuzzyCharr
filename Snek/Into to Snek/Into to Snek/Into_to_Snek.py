@@ -64,3 +64,59 @@ for num in list1[0:2]:
 #prints 4 maows, not 5... b/c remember range is [0, 4)
 for num in range(0, 4):
     print("Maow!")
+
+#defines a dictionary
+dict1 = {"cat": 69, "noms": 420, "fluffy": 666} #in format key:value
+print(dict1["cat"])     #prints 69
+print(dict1)            #prints out entire dictionary with key/value pairs
+print(dict1.get("noms"))    #prints 420
+print(dict1.keys())     #prints out "cat" "noms" "fluffy"
+
+#dictionary keys can be numbers, strings... but ideally make all keys one type
+#and all values another type, even though python will support mixed types
+
+#valid!
+for key in dict1.keys():
+    print(key)
+
+#can also do
+if "cat" in dict1.keys():
+    print("I'm a kitty")
+
+#be aware that this is a thing
+for key, value in dict1.items():
+    print(key, value)
+
+#be very careful, for set notation uses {} just as dictionary does
+#set contains only unique items, will not print second "steak"
+set1 = {"steak", "lamb", "chicken", "steak"}
+print(set1)
+
+#reversed creates an iterator, not a new list
+newList = [1, 2, 3, 4]
+for items in reversed(newList):
+    print(items)
+
+#sorted however will create a new list
+for items in sorted(newList):
+    print(items)
+
+#tuples ~ like pared down structs
+#immutable, but a tuple can contain lists whose contents are mutable
+person = ("John", 1234567890, "Fluffy")
+print(person[0])    #John
+
+#functions
+def showKitties(myKittyCollection):
+    for key, value in myKittyCollection.items():
+        print(key)
+    return "All done"
+print(showKitties(dict1))
+
+#libraries and things
+import math
+print(math.ceil(6.9))
+
+#can also do 
+#import math as kittens
+#print(kittens.ceil(6.9))

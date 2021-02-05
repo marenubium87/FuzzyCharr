@@ -67,5 +67,5 @@ Rational operator*(Rational const & lhs, Rational const & rhs);
 Rational operator/(Rational const & lhs, Rational const & rhs);
 
 //checks to see if two rational numbers are equivalent
-bool operator==(Rational const & lhs, Rational const & rhs);
+bool operator==(Rational & lhs, Rational & rhs);
 
