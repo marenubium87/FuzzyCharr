@@ -16,7 +16,7 @@ using std::string;
 class Rational {
 public:
 	//constructors, destructors
-	Rational() { num = 0; den = 1; sgn = 1; }
+	Rational() { num = 0; den = 1; sign = 1; }
 	//newDen cannot equal 0
 	Rational(int const newNum, int const newDen = 1);
 	Rational(Rational const & original);
@@ -26,33 +26,33 @@ public:
 	Rational & operator=(Rational const & rhs);
 
 	//accessors, mutators
-	unsigned int getNum() const { return num; }
-	unsigned int getDen() const { return den; }
-	int getSgn() const { return sgn; }
+	int getNum() const { return num; }
+	int getDen() const { return den; }
+	int getSign() const { return sign; }
 
-	void setNum(unsigned int const newNum) { num = newNum; }
-	void setDen(unsigned int const newDen) { den = newDen; }
+	void setNum(int const newNum) { num = newNum; }
+	void setDen(int const newDen) { den = newDen; }
 	//includes error message for invalid input
-	void setSgn(int const newSgn);
+	void setSign(int const newSign);
 
 	//methods
 	//reduces fraction to lowest terms, requires findGCD
 	void reduce();
 
 private:
-	unsigned int num;
-	unsigned int den;
+	int num;
+	int den;
 	// = +1 or -1 only
-	int sgn;
+	int sign;
 };
 
 istream & operator>>(istream & lhs, Rational & rhs);
 
-ostream & operator<<(ostream & lhs, Rational const & rhs);
+ostream & operator<<(ostream & lhs, Rational & rhs);
 
 //returns greatest common divisor of n1 and n2
 //implements Stein's algorithm for computational speed
-unsigned int findGCD(int n1, int n2);
+int findGCD(int n1, int n2);
 
 //also reduces result
 Rational operator+(Rational const & lhs, Rational const & rhs);
@@ -69,3 +69,13 @@ Rational operator/(Rational const & lhs, Rational const & rhs);
 //checks to see if two rational numbers are equivalent
 bool operator==(Rational & lhs, Rational & rhs);
 
+//checks to see if two rational numbers are not equivalent
+bool operator!=(Rational & lhs, Rational & rhs);
+
+bool operator>=(Rational & lhs, Rational & rhs);
+
+bool operator<=(Rational & lhs, Rational & rhs);
+
+bool operator>(Rational & lhs, Rational & rhs);
+
+bool operator<(Rational & lhs, Rational & rhs);

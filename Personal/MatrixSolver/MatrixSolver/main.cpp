@@ -3,25 +3,21 @@
 
 #include "rational.h"
 #include "tests.h"
+#include "matrix.h"
 
 int main() {
 	//testWrapper();
-	Rational r1(1, 2), r2(-3, 10), r3;
-	r3 = r1 + r2;
-	cout << r1 << " + " << r2 << " = " << r3 << endl;
-	r3 = r1 - r2;
-	cout << r1 << " - " << r2 << " = " << r3 << endl;
-	r3 = r1 * r2;
-	cout << r1 << " * " << r2 << " = " << r3 << endl;
-	r3 = r1 / r2;
-	cout << r1 << " / " << r2 << " = " << r3 << endl;
+	//Matrix A(5, 4);
+	Rational r1(-6, 15), r2(-4, 5);
+	cout << "r1 is " << r1 << " and r2 is " << r2 << endl << endl;
+	cout << "==" << (r1 == r2) << endl;
+	cout << "!=" << (r1 != r2) << endl;
+	cout << ">=" << (r1 >= r2) << endl;
+	cout << ">" << (r1 > r2) << endl;
+	cout << "<=" << (r1 <= r2) << endl;
+	cout << "<" << (r1 < r2) << endl;
 
-	Rational r4(9, 12), r5(5, 10);
-	cout << r4 << " is ";
-	if (!(r4 == r5)) {
-		cout << "not ";
-	}
-	cout << "equivalent to " << r5 << endl;
+
 
 	system("pause");
 	return 0;

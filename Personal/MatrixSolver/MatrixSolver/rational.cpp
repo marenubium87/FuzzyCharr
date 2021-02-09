@@ -5,13 +5,13 @@
 //constructor
 //precondition:  newDen cannot be zero
 Rational::Rational(int const newNum, int const newDen) {
-	sgn = 1;
+	sign = 1;
 
 	if (newDen == 0) {
 		cout << "Error creating rational; denominator cannot be zero" << endl;
 	}
 	else if (newDen < 0) {
-		sgn = -sgn;
+		sign = -sign;
 		den = -newDen;
 	}
 	else {
@@ -19,7 +19,7 @@ Rational::Rational(int const newNum, int const newDen) {
 	}
 
 	if (newNum < 0) {
-		sgn = -sgn;
+		sign = -sign;
 		num = -newNum;
 	}
 	else {
@@ -38,24 +38,25 @@ Rational::Rational(Rational const & original) {
 Rational & Rational::operator=(Rational const & rhs) {
 	num = rhs.num;
 	den = rhs.den;
-	sgn = rhs.sgn;
+	sign = rhs.sign;
 	return *this;
 }
 
 //includes error message for invalid input
-void Rational::setSgn(int const newSgn) {
-	if (newSgn != 1 && newSgn != -1) {
-		cout << "Error in fcn: setSgn" << endl << "intput is " << newSgn
+void Rational::setSign(int const newSign) {
+	if (newSign != 1 && newSign != -1) {
+		cout << "Error in fcn: setSign" << endl << "intput is " << newSign
 			<< ", +1 or -1 expected" << endl;
 		return;
 	}
-	sgn = newSgn;
+	sign = newSign;
 }
 
 //reduces fraction to lowest terms, requires findGCD
 void Rational::reduce() {
 	//if the numerator is zero, then lowest form is 0/1
 	if (num == 0) {
+		sign = 1;
 		den = 1;
 		return;
 	}
@@ -70,12 +71,12 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 	int tempInt = 0;
 	cin >> tempInt;
 	if (tempInt < 0) {
-		rhs.setSgn(-1);
+		rhs.setSign(-1);
 		rhs.setNum(-tempInt);
 	}
 	else
 	{
-		rhs.setSgn(1);
+		rhs.setSign(1);
 		rhs.setNum(tempInt);
 	}
 
@@ -91,7 +92,7 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 			cout << "Probable unreliable output beyond this point." << endl;
 		}
 		else if (tempInt < 0) {
-			rhs.setSgn(rhs.getSgn() * -1);
+			rhs.setSign(rhs.getSign() * -1);
 			rhs.setDen(-tempInt);
 		}
 		else {
@@ -108,8 +109,8 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 }
 
 //displays rational to console
-ostream & operator<<(ostream & lhs, Rational const & rhs) {
-	if (rhs.getSgn() == -1) {
+ostream & operator<<(ostream & lhs, Rational & rhs) {
+	if (rhs.getSign() == -1) {
 		cout << "-";
 	}
 	cout << rhs.getNum();
@@ -122,7 +123,7 @@ ostream & operator<<(ostream & lhs, Rational const & rhs) {
 //returns greatest common divisor of n1 and n2
 //implements Stein's algorithm for computational speed
 //precondition - n1 > 0, n2 > 0
-unsigned int findGCD(int n1, int n2) {
+int findGCD(int n1, int n2) {
 	//checks precondition - if fails prints warning and returns 0
 	//(which is never a valid GCD)
 	if (n1 <= 0 || n2 <= 0) {
@@ -137,12 +138,12 @@ unsigned int findGCD(int n1, int n2) {
 		return n1;
 	}
 
-	int commonPwrsOfTwo = 0;
+	int commonPowersOfTwo = 0;
 	//if both numbers still even
 	while (n1 % 2 == 0 && n2 % 2 == 0) {
 		n1 = n1 >> 1;
 		n2 = n2 >> 1;
-		commonPwrsOfTwo++;
+		commonPowersOfTwo++;
 	}
 
 	//if one number still even
@@ -180,8 +181,8 @@ unsigned int findGCD(int n1, int n2) {
 		}
 	}
 	//at this point n1 = n2 = c 
-	//GCD is now c * 2 ^ (commonPwrsOfTwo)
-	int GCD = c << commonPwrsOfTwo;
+	//GCD is now c * 2 ^ (commonPowersOfTwo)
+	int GCD = c << commonPowersOfTwo;
 	return GCD;
 }
 
@@ -190,15 +191,15 @@ Rational operator+(Rational const & lhs, Rational const & rhs) {
 	int tempInt = 0;
 	Rational result;
 	//assume sign is positive, fix later if necessary
-	result.setSgn(1);
+	result.setSign(1);
 	//for a/b + c/d, denom is simple b*d, will reduce later
 	result.setDen(lhs.getDen() * rhs.getDen());
 	//figure out numerator, including negative signs
-	tempInt = lhs.getSgn() * lhs.getNum() * rhs.getDen() +
-		rhs.getSgn() * rhs.getNum() * lhs.getDen();
+	tempInt = lhs.getSign() * lhs.getNum() * rhs.getDen() +
+		rhs.getSign() * rhs.getNum() * lhs.getDen();
 	//is what will be the numerator negative?
 	if (tempInt < 0) {
-		result.setSgn(-1);
+		result.setSign(-1);
 		tempInt = -tempInt;
 	}
 	result.setNum(tempInt);
@@ -211,15 +212,15 @@ Rational operator-(Rational const & lhs, Rational const & rhs) {
 	int tempInt = 0;
 	Rational result;
 	//assume sign is positive, fix later if necessary
-	result.setSgn(1);
+	result.setSign(1);
 	//for a/b + c/d, denom is simple b*d, will reduce later
 	result.setDen(lhs.getDen() * rhs.getDen());
 	//figure out numerator, including negative signs
-	tempInt = lhs.getSgn() * lhs.getNum() * rhs.getDen() -
-		rhs.getSgn() * rhs.getNum() * lhs.getDen();
+	tempInt = lhs.getSign() * lhs.getNum() * rhs.getDen() -
+		rhs.getSign() * rhs.getNum() * lhs.getDen();
 	//is what will be the numerator negative?
 	if (tempInt < 0) {
-		result.setSgn(-1);
+		result.setSign(-1);
 		tempInt = -tempInt;
 	}
 	result.setNum(tempInt);
@@ -230,7 +231,7 @@ Rational operator-(Rational const & lhs, Rational const & rhs) {
 //also reduces result
 Rational operator*(Rational const & lhs, Rational const & rhs) {
 	Rational result;
-	result.setSgn(lhs.getSgn() * rhs.getSgn());
+	result.setSign(lhs.getSign() * rhs.getSign());
 	result.setNum(lhs.getNum() * rhs.getNum());
 	result.setDen(lhs.getDen() * rhs.getDen());
 	result.reduce();
@@ -240,7 +241,7 @@ Rational operator*(Rational const & lhs, Rational const & rhs) {
 //also reduces result
 Rational operator/(Rational const & lhs, Rational const & rhs) {
 	Rational result;
-	result.setSgn(lhs.getSgn() * rhs.getSgn());
+	result.setSign(lhs.getSign() * rhs.getSign());
 	result.setNum(lhs.getNum() * rhs.getDen());
 	result.setDen(lhs.getDen() * rhs.getNum());
 	result.reduce();
@@ -249,12 +250,8 @@ Rational operator/(Rational const & lhs, Rational const & rhs) {
 
 //checks to see if two rational numbers are equivalent
 bool operator==(Rational & lhs, Rational & rhs) {
-	//reduces both fractions before attempting match
-	lhs.reduce();
-	rhs.reduce();
-	if (lhs.getSgn() == rhs.getSgn() &&
-		lhs.getNum() == rhs.getNum() &&
-		lhs.getDen() == rhs.getDen()) {
+	if (lhs.getSign() * lhs.getNum() * rhs.getDen() ==
+		rhs.getSign() * rhs.getNum() * lhs.getDen()) {
 		return true;
 	}
 	else {
@@ -262,12 +259,35 @@ bool operator==(Rational & lhs, Rational & rhs) {
 	}
 }
 
-//bool operator!=
-//
-//bool operator>=
-//
-//bool operator<=
-//
-//bool operator>
-//
-//bool operator<
+//checks to see if two rational numbers are not equivalent
+bool operator!=(Rational & lhs, Rational & rhs) {
+	return !(lhs == rhs);
+}
+
+bool operator>=(Rational & lhs, Rational & rhs) {
+	if (lhs.getSign() * lhs.getNum() * rhs.getDen() >=
+		rhs.getSign() * rhs.getNum() * lhs.getDen()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool operator<=(Rational & lhs, Rational & rhs) {
+	if (lhs.getSign() * lhs.getNum() * rhs.getDen() <=
+		rhs.getSign() * rhs.getNum() * lhs.getDen()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool operator>(Rational & lhs, Rational & rhs) {
+	return !(lhs <= rhs);
+}
+
+bool operator<(Rational & lhs, Rational & rhs) {
+	return !(lhs >= rhs);
+}

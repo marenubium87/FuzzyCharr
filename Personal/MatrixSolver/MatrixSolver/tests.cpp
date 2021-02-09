@@ -134,7 +134,7 @@ bool bulkTestGCD() {
 		y = primes[rand() % 14];
 	}
 
-	int randVal = rand() % 20000;
+	int randVal = rand() % 200000;
 	//set up n1 and n2 such that the GCD will be 1 + randVal every time
 
 	int n1 = (1 + randVal) * x;
