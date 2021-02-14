@@ -24,6 +24,10 @@ Rational::Rational(int const newNum, int const newDen) {
 	}
 	else {
 		num = newNum;
+		//fixes an issue where "-0" could be a valid output
+		if (num == 0) {
+			sign = 1;
+		}
 	}
 	//call reduce here
 	this->reduce();
@@ -42,14 +46,59 @@ Rational & Rational::operator=(Rational const & rhs) {
 	return *this;
 }
 
+//sets numerator, adjusts sign as necessary
+//num attribute should always be positive
+void Rational::setNum(int const newNum) {
+	if (newNum < 0) {
+		sign = -sign;
+		num = -newNum;
+	}
+	else {
+		num = newNum;
+		//fixes an issue where "-0" could be a valid output
+		if (num == 0) {
+			sign = 1;
+		}
+	}
+}
+
+//sets denominator, adjusts sign as necessary
+//den attribute should always be positive
+void Rational::setDen(int const newDen) {
+	if (newDen == 0) {
+		cout << "Error in fcn: setDen" << endl;
+		cout << "Denominator cannot be zero" << endl;
+		cout << "No changes made." << endl;
+		return;
+	}
+	else if (newDen < 0) {
+		sign = -sign;
+		den = -newDen;
+	}
+	else {
+		den = newDen;
+	}
+}
+
 //includes error message for invalid input
 void Rational::setSign(int const newSign) {
 	if (newSign != 1 && newSign != -1) {
-		cout << "Error in fcn: setSign" << endl << "intput is " << newSign
-			<< ", +1 or -1 expected" << endl;
+		cout << "Error in fcn: setSign" << endl << "input is " << newSign
+			<< ", +1 or -1 expected" << endl << "No changes made." << endl;
+		return;
+	}
+	//avoids creating "-0" for outputs
+	if (num == 0) {
 		return;
 	}
 	sign = newSign;
+}
+
+//assigns a rational to a new value
+void Rational::setVal(int const newSign, int const newNum, int const newDen) {
+	setNum(newNum);
+	setDen(newDen);
+	setSign(newSign);
 }
 
 //reduces fraction to lowest terms, requires findGCD
@@ -100,22 +149,74 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 		}
 	}
 
-	//call reduce here
-	if (rhs.getDen() != 0) {
+	//reduces fraction
+	if (rhs.getDen() > 1) {
 		rhs.reduce();
 	}
 
 	return lhs;
 }
 
+//reads rational from file
+fstream & operator>>(fstream & lhs, Rational & rhs) {
+	char tempCharr = '\0';
+	int tempInt = 0;
+	lhs >> tempInt;
+	if (tempInt < 0) {
+		rhs.setSign(-1);
+		rhs.setNum(-tempInt);
+	}
+	else
+	{
+		rhs.setSign(1);
+		rhs.setNum(tempInt);
+	}
+
+	//did the user only enter a whole number?  no problem, let's check.
+	if (lhs.peek() == ' ') {
+		rhs.setDen(1);
+	}
+	else {
+		lhs >> tempCharr;
+		lhs >> tempInt;
+		if (tempInt == 0) {
+			cout << endl << "Error: denominator cannot be zero." << endl;
+			cout << "Probable unreliable output beyond this point." << endl;
+		}
+		else if (tempInt < 0) {
+			rhs.setSign(rhs.getSign() * -1);
+			rhs.setDen(-tempInt);
+		}
+		else {
+			rhs.setDen(tempInt);
+		}
+	}
+
+	//reduces fraction
+	if (rhs.getDen() > 1) {
+		rhs.reduce();
+	}
+
+	return lhs;
+}
+
+
 //displays rational to console
 ostream & operator<<(ostream & lhs, Rational & rhs) {
 	if (rhs.getSign() == -1) {
 		cout << "-";
 	}
-	cout << rhs.getNum();
-	if (rhs.getDen() != 1) {
-		cout << "/" << rhs.getDen();
+	else {
+		cout << " ";
+	}
+	cout << setw(NUM_PADDING) << rhs.getNum();
+	if (rhs.getDen() != 1 && rhs.getNum() != 0) {
+		cout << "/" << setw(DEN_PADDING) << rhs.getDen();
+	}
+	else {
+		for (int i = 0; i < DEN_PADDING + 1; i++) {
+			cout << " ";
+		}
 	}
 	return lhs;
 }

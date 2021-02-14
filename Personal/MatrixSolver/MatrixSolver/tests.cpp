@@ -152,6 +152,18 @@ bool bulkTestGCD() {
 	}
 }
 
+//wrapper to test rational bool operations (== != >= <= > <)
+void testRationalBoolOperations() {
+	Rational r1(-6, 15), r2(-4, 5);
+	cout << "r1 is " << r1 << " and r2 is " << r2 << endl << endl;
+	cout << "==" << (r1 == r2) << endl;
+	cout << "!=" << (r1 != r2) << endl;
+	cout << ">=" << (r1 >= r2) << endl;
+	cout << ">" << (r1 > r2) << endl;
+	cout << "<=" << (r1 <= r2) << endl;
+	cout << "<" << (r1 < r2) << endl;
+}
+
 //wrapper to run bulk GCD tests
 void bulkGCDTestWrapper() {
 	int passed = 0;
@@ -178,4 +190,5 @@ void testWrapper() {
 
 	testGCD();
 	bulkGCDTestWrapper();
+	testRationalBoolOperations();
 }

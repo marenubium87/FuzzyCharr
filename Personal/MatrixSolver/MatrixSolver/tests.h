@@ -9,6 +9,9 @@ bool testGCD();
 //aux test function for GCD, meant to be run in bulk
 bool bulkTestGCD();
 
+//wrapper to test rational bool operations (== != >= <= > <)
+void testRationalBoolOperations();
+
 //wrapper to run bulk GCD tests
 void bulkGCDTestWrapper();
 

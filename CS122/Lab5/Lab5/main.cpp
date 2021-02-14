@@ -2,7 +2,7 @@
 //17 Jan 2021
 
 #include "lab5.h"
-#include "lab5task2.h"
+//#include "lab5task2.h"
 
 int main() {
 	Complex c1(5.5, 3.2);

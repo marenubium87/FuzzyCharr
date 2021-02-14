@@ -1,9 +1,16 @@
 //header for rational class
 #pragma once
 
+//number of spaces to pad numerator and denominator
+//should be at least the number of digits of the largest numerator/denominator
+#define NUM_PADDING 2
+#define DEN_PADDING 2
+
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <iomanip>
+#include <fstream>
 
 using std::cin;
 using std::cout;
@@ -12,6 +19,10 @@ using std::ostream;
 using std::fstream;
 using std::endl;
 using std::string;
+using std::setw;
+using std::left;
+using std::right;
+using std::fstream;
 
 class Rational {
 public:
@@ -30,10 +41,12 @@ public:
 	int getDen() const { return den; }
 	int getSign() const { return sign; }
 
-	void setNum(int const newNum) { num = newNum; }
-	void setDen(int const newDen) { den = newDen; }
+	void setNum(int const newNum);
+	void setDen(int const newDen);
 	//includes error message for invalid input
 	void setSign(int const newSign);
+	//assigns a rational to a new value
+	void setVal(int const newSign, int const newNum, int const newDen);
 
 	//methods
 	//reduces fraction to lowest terms, requires findGCD
@@ -46,8 +59,13 @@ private:
 	int sign;
 };
 
+//reads rational from console
 istream & operator>>(istream & lhs, Rational & rhs);
 
+//reads rational from file
+fstream & operator>>(fstream & lhs, Rational & rhs);
+
+//displays rational to console
 ostream & operator<<(ostream & lhs, Rational & rhs);
 
 //returns greatest common divisor of n1 and n2

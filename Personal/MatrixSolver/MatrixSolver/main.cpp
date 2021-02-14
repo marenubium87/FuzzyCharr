@@ -7,16 +7,22 @@
 
 int main() {
 	//testWrapper();
-	//Matrix A(5, 4);
-	Rational r1(-6, 15), r2(-4, 5);
-	cout << "r1 is " << r1 << " and r2 is " << r2 << endl << endl;
-	cout << "==" << (r1 == r2) << endl;
-	cout << "!=" << (r1 != r2) << endl;
-	cout << ">=" << (r1 >= r2) << endl;
-	cout << ">" << (r1 > r2) << endl;
-	cout << "<=" << (r1 <= r2) << endl;
-	cout << "<" << (r1 < r2) << endl;
+	Rational r1(0, 1);
+	Matrix A(3, 4);
+	Matrix B;
+	//doThings(B);
+	for (int i = 0; i < A.getRows(); i++) {
+		for (int j = 0; j < A.getCols(); j++) {
+			r1.setVal(-1, i-j, i+j+1);
+			A[i][j] = r1;
+		}
+	}
+	A[2][1].setSign(-3);
+	cout << A;
+	doThings(A);
 
+	A[2][1] = r1;
+	cout << A;
 
 
 	system("pause");
