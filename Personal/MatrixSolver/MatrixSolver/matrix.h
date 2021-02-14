@@ -46,12 +46,6 @@ public:
 	//overloaded [] operator for 2D matrix operations
 	Rational * operator[](int i);
 
-	//overloaded get/set cell fcns
-	//returns the rational at the cell (row, col) for the matrix
-	Rational & cell(int row, int col) const;
-	//sets the rational at the cell (row, col) to target
-	void cell(int row, int col, Rational const & target);
-
 	//calls Rational's reduce on every entry of the matrix
 	void reduce();
 

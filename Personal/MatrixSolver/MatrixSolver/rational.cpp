@@ -9,6 +9,10 @@ Rational::Rational(int const newNum, int const newDen) {
 
 	if (newDen == 0) {
 		cout << "Error creating rational; denominator cannot be zero" << endl;
+		cout << "Setting rational to zero instead, and aborting." << endl;
+		num = 0;
+		den = 1;
+		return;
 	}
 	else if (newDen < 0) {
 		sign = -sign;
@@ -95,10 +99,9 @@ void Rational::setSign(int const newSign) {
 }
 
 //assigns a rational to a new value
-void Rational::setVal(int const newSign, int const newNum, int const newDen) {
+void Rational::setVal(int const newNum, int const newDen) {
 	setNum(newNum);
 	setDen(newDen);
-	setSign(newSign);
 }
 
 //reduces fraction to lowest terms, requires findGCD

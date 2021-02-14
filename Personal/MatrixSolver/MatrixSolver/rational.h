@@ -46,7 +46,7 @@ public:
 	//includes error message for invalid input
 	void setSign(int const newSign);
 	//assigns a rational to a new value
-	void setVal(int const newSign, int const newNum, int const newDen);
+	void setVal(int const newNum, int const newDen);
 
 	//methods
 	//reduces fraction to lowest terms, requires findGCD

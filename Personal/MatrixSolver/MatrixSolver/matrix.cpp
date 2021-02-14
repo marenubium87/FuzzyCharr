@@ -3,6 +3,8 @@
 #include "matrix.h"
 
 //initializes matrix with number of newRows and newCols from heap
+//if no arguments, creates a "null" matrix with no memory allocated
+//for the array
 Matrix::Matrix(int newRows, int newCols) {
 	rows = newRows;
 	cols = newCols;
@@ -21,20 +23,8 @@ Matrix::Matrix(int newRows, int newCols) {
 
 //copy constructor
 Matrix::Matrix(Matrix const & original) {
-	rows = original.getRows();
-	cols = original.getCols();
-
-	//if original matrix is empty...
-	if (original.arr == nullptr) {
-		arr = nullptr;
-	}
-	//makes deep copy of matrix as opposed to shallow copy of pointer only
-	else {
-		arr = new Rational[rows * cols];
-		for (int i = 0; i < rows * cols; i++) {
-			arr[i] = original.arr[i];
-		}
-	}
+	arr = nullptr;
+	*this = original;
 }
 
 //overloaded assignment operator
@@ -54,16 +44,6 @@ Matrix & Matrix::operator=(Matrix const & rhs) {
 	return *this;
 }
 
-//returns the rational at the cell (row)(col) for the matrix
-Rational & Matrix::cell(int row, int col) const {
-	return arr[row * cols + col];
-}
-
-//sets the rational at the cell (row, col) to target
-void Matrix::cell(int row, int col, Rational const & target) {
-	arr[row * cols + col] = target;
-}
-
 //calls Rational's reduce on every entry of the matrix
 void Matrix::reduce() {
 	for (int i = 0; i < rows * cols; i++) {
@@ -72,13 +52,7 @@ void Matrix::reduce() {
 }
 
 //overloaded [] operator for 2D matrix operations
-//warns user and returns nullptr if row argument is out of bounds
 Rational * Matrix::operator[](int i) {
-	if (i >= rows || i < 0) {
-		cout << "Error: [ ] referencing out of bounds row in matrix";
-		cout << "Returning nullptr instead." << endl;
-		return nullptr;
-	}
 	return (arr + i * cols);
 }
 

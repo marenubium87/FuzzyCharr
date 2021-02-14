@@ -1,6 +1,5 @@
 ﻿  main.cpp
   matrix.cpp
-  rational.cpp
   tests.cpp
   Generating Code...
-  MatrixSolver.vcxproj -> C:\Users\James\FuzzyCharr\Personal\MatrixSolver\Debug\MatrixSolver.exe
+  MatrixSolver.vcxproj -> D:\FuzzyCharr\Personal\MatrixSolver\Debug\MatrixSolver.exe

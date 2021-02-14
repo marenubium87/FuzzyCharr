@@ -6,14 +6,14 @@
 #include "matrix.h"
 
 int main() {
-	//testWrapper();
+	testWrapper();
 	Rational r1(0, 1);
 	Matrix A(3, 4);
 	Matrix B;
 	//doThings(B);
 	for (int i = 0; i < A.getRows(); i++) {
 		for (int j = 0; j < A.getCols(); j++) {
-			r1.setVal(-1, i-j, i+j+1);
+			r1.setVal(i-j, i+j+1);
 			A[i][j] = r1;
 		}
 	}

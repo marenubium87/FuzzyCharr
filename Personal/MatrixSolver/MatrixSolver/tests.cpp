@@ -15,9 +15,9 @@ using std::string;
 bool testGCD() {
 	int numFails = 0;
 	int numTests = 0;
-	cout << "Testing find GCD ..." << endl;
+	cout << "TESTING FIND GCD ..." << endl;
 	cout << "(Ignore all error messages until test passed/failed status)"
-		<< endl;
+		<< endl << endl;
 	//testing both numbers = 1
 	if (findGCD(1, 1) != 1) {
 		numFails++;
@@ -152,18 +152,6 @@ bool bulkTestGCD() {
 	}
 }
 
-//wrapper to test rational bool operations (== != >= <= > <)
-void testRationalBoolOperations() {
-	Rational r1(-6, 15), r2(-4, 5);
-	cout << "r1 is " << r1 << " and r2 is " << r2 << endl << endl;
-	cout << "==" << (r1 == r2) << endl;
-	cout << "!=" << (r1 != r2) << endl;
-	cout << ">=" << (r1 >= r2) << endl;
-	cout << ">" << (r1 > r2) << endl;
-	cout << "<=" << (r1 <= r2) << endl;
-	cout << "<" << (r1 < r2) << endl;
-}
-
 //wrapper to run bulk GCD tests
 void bulkGCDTestWrapper() {
 	int passed = 0;
@@ -183,6 +171,124 @@ void bulkGCDTestWrapper() {
 	cout << endl << endl;
 }
 
+//wrapper to test rational bool operations (== != >= <= > <)
+void testRationalBoolOperations() {
+	Rational r1(-6, 15), r2(-4, 5);
+	cout << "r1 is " << r1 << " and r2 is " << r2 << endl << endl;
+	cout << "==" << (r1 == r2) << endl;
+	cout << "!=" << (r1 != r2) << endl;
+	cout << ">=" << (r1 >= r2) << endl;
+	cout << ">" << (r1 > r2) << endl;
+	cout << "<=" << (r1 <= r2) << endl;
+	cout << "<" << (r1 < r2) << endl;
+}
+
+//tests rational constructors
+void testRationalConstructors() {
+	cout << "TESTING RATIONAL CONSTRUCTION..." << endl
+		<< "(Ignore all error messages until test passed/failed status)" << endl << endl;
+	int numTestsFailed = 0;
+	int numTestsTotal = 0;
+	//default construction
+	Rational a;
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//construction with denominator = 0
+	Rational b(3, 0);
+	if (!(b.getSign() == 1 && b.getNum() == 0 && b.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//construction of whole number
+	Rational b1(-4);
+	if (!(b1.getSign() == -1 && b1.getNum() == 4 && b1.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//construction of nonreduced whole number
+	Rational c(18, 3);
+	if (!(c.getSign() == 1 && c.getNum() == 6 && c.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//construction with various degenerate versions of zero
+	Rational c1(-0, 4);
+	if (!(c1.getSign() == 1 && c1.getNum() == 0 && c1.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	Rational c2(0, -5);
+	if (!(c2.getSign() == 1 && c2.getNum() == 0 && c2.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	Rational c3(-0, -3);
+	if (!(c3.getSign() == 1 && c3.getNum() == 0 && c3.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//construction of various negative sign combinations
+	Rational d(-5, 6);
+	if (!(d.getSign() == -1 && d.getNum() == 5 && d.getDen() == 6)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	Rational e(5, -6);
+	if (!(e.getSign() == -1 && e.getNum() == 5 && e.getDen() == 6)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	
+	Rational f(-5, -6);
+	if (!(f.getSign() == 1 && f.getNum() == 5 && f.getDen() == 6)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	cout << endl << "Total tests complete: " << numTestsTotal << endl
+		<< "Tests Passed: " << numTestsTotal - numTestsFailed
+		<< ", Tests Failed: " << numTestsFailed << endl;
+	if (numTestsFailed == 0) {
+		cout << "ALL RATIONAL CONSTRUCTOR TESTS PASSED";
+	}
+	else {
+		cout << "RATIONAL CONSTRUCTOR TESTS FAILED";
+	}
+	cout << endl << endl;
+}
+
+//tests setting values and signs
+void testSetValSetSign() {
+	cout << "TESTING SETTING SIGNS AND VALUES..." << endl
+		<< "(Ignore all error messages until test passed/failed status)" << endl << endl;
+	int numTestsFailed = 0;
+	int numTestsTotal = 0;
+
+	Rational a;
+	a.setVal(3, 5);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+
+
+}
+
+//tests reduce fcn
+void testReduce() {
+
+}
+
 //wrapper function for all tests
 void testWrapper() {
 	//seed RNG
@@ -191,4 +297,9 @@ void testWrapper() {
 	testGCD();
 	bulkGCDTestWrapper();
 	testRationalBoolOperations();
+	system("pause");
+	system("cls");
+	testRationalConstructors();
+	system("pause");
 }
+
