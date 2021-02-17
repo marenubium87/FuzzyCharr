@@ -266,40 +266,327 @@ void testRationalConstructors() {
 	cout << endl << endl;
 }
 
-//tests setting values and signs
-void testSetValSetSign() {
-	cout << "TESTING SETTING SIGNS AND VALUES..." << endl
+//tests setNum, setDen, setSign
+void testSetNumDenSign() {
+	cout << "TESTING SETTING NUM, DEN, SIGN..." << endl
 		<< "(Ignore all error messages until test passed/failed status)" << endl << endl;
 	int numTestsFailed = 0;
 	int numTestsTotal = 0;
 
 	Rational a;
-	a.setVal(3, 5);
+	//guaranteed to work for positive num and positive den
+	//if this test fails the remaining tests should be aborted
+	a.setVal(3, 5, 0);
 	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
 		numTestsFailed++;
 	}
 	numTestsTotal++;
 
+	//*************************************
+	//testing setNum
+	a.setNum(10, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 10 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
 
+	//setting numerator to zero
+	a.setVal(3, 5, 0);
+	a.setNum(0, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
 
+	//degenerate zero should not flip sign
+	a.setNum(-0, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//setting numerator negative
+	a.setVal(3, 5, 0);
+	a.setNum(-8, 0);
+	if (!(a.getSign() == -1 && a.getNum() == 8 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//set numerator positive again
+	a.setNum(9, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 9 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//*************************************
+	//testing setDen
+	a.setVal(3, 5, 0);
+	a.setDen(7, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 7)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//illegal attempt to set den = 0
+	a.setDen(0, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 7)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//set den negative
+	a.setDen(-7, 0);
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 7)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//set den positive again
+	a.setDen(13, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 13)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//*************************************
+	//testing setSign
+	a.setVal(3, 5, 0);
+	//attempting to set sign to nonsensical value
+	a.setSign(3);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//setting sign to -1
+	a.setSign(-1);
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//setting sign to +1 again
+	a.setSign(1);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	a.setVal(0, 4, 0);
+	//trying to flip the sign when the fraction is zero should do nothing
+	a.setSign(-1);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 4)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	cout << endl << "Total tests complete: " << numTestsTotal << endl
+		<< "Tests Passed: " << numTestsTotal - numTestsFailed
+		<< ", Tests Failed: " << numTestsFailed << endl;
+	if (numTestsFailed == 0) {
+		cout << "ALL SET NUM, DEN, SIGN TESTS PASSED";
+	}
+	else {
+		cout << "SET NUM, DEN, SIGN TESTS FAILED";
+	}
+	cout << endl << endl;
+}
+
+//tests setVal fcn
+void testSetVal() {
+	cout << "TESTING SETVAL..." << endl
+		<< "(Ignore all error messages until test passed/failed status)" << endl << endl;
+	int numTestsFailed = 0;
+	int numTestsTotal = 0;
+
+	Rational a;
+	//positive num and den
+	a.setVal(3, 5, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//negative num and den
+	a.setVal(-3, -5, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//one of num or den positive
+	a.setVal(-3, 5, 0);
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	a.setVal(3, -5, 0);
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//illegally setting den to zero
+	a.setVal(3, 0, 0);
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//setting numerator to zero, denominator negative
+	a.setVal(0, -6, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 6)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//degenerate zero scenarios
+	a.setVal(-0, -6, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 6)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	a.setVal(-0, 6, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 6)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//setting to whole numbers
+	a.setVal(3);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	a.setVal(-7);
+	if (!(a.getSign() == -1 && a.getNum() == 7 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	a.setVal(0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	a.setVal(-0);
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	cout << endl << "Total tests complete: " << numTestsTotal << endl
+		<< "Tests Passed: " << numTestsTotal - numTestsFailed
+		<< ", Tests Failed: " << numTestsFailed << endl;
+	if (numTestsFailed == 0) {
+		cout << "ALL SETVAL TESTS PASSED";
+	}
+	else {
+		cout << "SETVAL TESTS FAILED";
+	}
+	cout << endl << endl;
 }
 
 //tests reduce fcn
 void testReduce() {
+	cout << "TESTING REDUCE METHOD..." << endl
+		<< "(Ignore all error messages until test passed/failed status)" << endl << endl;
+	int numTestsFailed = 0;
+	int numTestsTotal = 0;
 
+	Rational a;
+	//already in lowest terms
+	a.setVal(3, 5, 0);
+	a.reduce();
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 5)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//whole number, no reduction
+	a.setVal(7);
+	a.reduce();
+	if (!(a.getSign() == 1 && a.getNum() == 7 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//reduce zero, should do nothing
+	a.setVal(0);
+	a.reduce();
+	if (!(a.getSign() == 1 && a.getNum() == 0 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//reduce
+	a.setVal(6, 9, 0);
+	a.reduce();
+	if (!(a.getSign() == 1 && a.getNum() == 2 && a.getDen() == 3)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//reduce negative
+	a.setVal(-18, 24, 0);
+	a.reduce();
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 4)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//reduce into whole number
+	a.setVal(55, 55, 0);
+	a.reduce();
+	if (!(a.getSign() == 1 && a.getNum() == 1 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+	a.setVal(-16, 4, 0);
+	a.reduce();
+	if (!(a.getSign() == -1 && a.getNum() == 4 && a.getDen() == 1)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	cout << endl << "Total tests complete: " << numTestsTotal << endl
+		<< "Tests Passed: " << numTestsTotal - numTestsFailed
+		<< ", Tests Failed: " << numTestsFailed << endl;
+	if (numTestsFailed == 0) {
+		cout << "ALL REDUCE TESTS PASSED";
+	}
+	else {
+		cout << "REDUCE TESTS FAILED";
+	}
+	cout << endl << endl;
 }
 
 //wrapper function for all tests
 void testWrapper() {
 	//seed RNG
 	srand((unsigned int)time_t(NULL));
-
+	/*
 	testGCD();
 	bulkGCDTestWrapper();
 	testRationalBoolOperations();
 	system("pause");
 	system("cls");
+	
 	testRationalConstructors();
 	system("pause");
+	system("cls");
+	
+	testSetNumDenSign();
+	system("pause");
+	system("cls");
+
+	testSetVal();
+	system("pause");
+	system("cls");
+	*/
+	testReduce();
+	system("pause");
+
 }
 

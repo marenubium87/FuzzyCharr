@@ -18,8 +18,11 @@ void testRationalBoolOperations();
 //tests rational constructors
 void testRationalConstructors();
 
-//tests setting values and signs
-void testSetValSetSign();
+//tests setNum, setDen, setSign
+void testSetNumDenSign();
+
+//tests setVal fcn
+void testSetVal();
 
 //tests reduce fcn
 void testReduce();

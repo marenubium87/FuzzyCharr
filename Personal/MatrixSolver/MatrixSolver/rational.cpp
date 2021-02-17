@@ -52,23 +52,26 @@ Rational & Rational::operator=(Rational const & rhs) {
 
 //sets numerator, adjusts sign as necessary
 //num attribute should always be positive
-void Rational::setNum(int const newNum) {
+//also reduces fraction by result, can force not to reduce for speed
+void Rational::setNum(int const newNum, int reduce) {
 	if (newNum < 0) {
-		sign = -sign;
+		sign = -1;
 		num = -newNum;
 	}
+	//numerator is non-negative
 	else {
+		sign = 1;
 		num = newNum;
-		//fixes an issue where "-0" could be a valid output
-		if (num == 0) {
-			sign = 1;
-		}
+	}
+	if (reduce) {
+		this->reduce();
 	}
 }
 
 //sets denominator, adjusts sign as necessary
 //den attribute should always be positive
-void Rational::setDen(int const newDen) {
+//also reduces fraction by result, can force not to reduce for speed
+void Rational::setDen(int const newDen, int reduce) {
 	if (newDen == 0) {
 		cout << "Error in fcn: setDen" << endl;
 		cout << "Denominator cannot be zero" << endl;
@@ -76,11 +79,16 @@ void Rational::setDen(int const newDen) {
 		return;
 	}
 	else if (newDen < 0) {
-		sign = -sign;
+		sign = -1;
 		den = -newDen;
 	}
+	//denom is positive
 	else {
+		sign = 1;
 		den = newDen;
+	}
+	if (reduce) {
+		this->reduce();
 	}
 }
 
@@ -98,20 +106,58 @@ void Rational::setSign(int const newSign) {
 	sign = newSign;
 }
 
-//assigns a rational to a new value
-void Rational::setVal(int const newNum, int const newDen) {
-	setNum(newNum);
-	setDen(newDen);
+//sets a new value for a rational
+void Rational::setVal(int const newNum, int const newDen, int reduce) {
+	
+	if (newDen == 0) {
+		cout << "Error in fcn: setVal" << endl;
+		cout << "Denominator cannot be zero" << endl;
+		cout << "No changes made." << endl;
+		return;
+	}
+
+	//assume sign is +1 and adjust as necessary
+	sign = 1;
+
+	if (newNum < 0) {
+		sign *= -1;
+		num = -newNum;
+	}
+	else {
+		num = newNum;
+	}
+
+	if (newDen < 0) {
+		sign *= -1;
+		den = -newDen;
+		//prevents degenerate forms such as -0
+		if (num == 0) {
+			sign = 1;
+		}
+	}
+	else {
+		den = newDen;
+	}
+
+	if (reduce) {
+		this->reduce();
+	}
 }
 
 //reduces fraction to lowest terms, requires findGCD
 void Rational::reduce() {
+	//whole number, already reduced, do nothing
+	if (den == 1) {
+		return;
+	}
+
 	//if the numerator is zero, then lowest form is 0/1
 	if (num == 0) {
 		sign = 1;
 		den = 1;
 		return;
 	}
+
 	int GCD = findGCD(num, den);
 	num /= GCD;
 	den /= GCD;
@@ -202,7 +248,6 @@ fstream & operator>>(fstream & lhs, Rational & rhs) {
 
 	return lhs;
 }
-
 
 //displays rational to console
 ostream & operator<<(ostream & lhs, Rational & rhs) {

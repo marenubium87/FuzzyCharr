@@ -29,6 +29,7 @@ public:
 	//constructors, destructors
 	Rational() { num = 0; den = 1; sign = 1; }
 	//newDen cannot equal 0
+	//if single argument is input, will assume whole number
 	Rational(int const newNum, int const newDen = 1);
 	Rational(Rational const & original);
 	~Rational() {}
@@ -41,12 +42,20 @@ public:
 	int getDen() const { return den; }
 	int getSign() const { return sign; }
 
-	void setNum(int const newNum);
-	void setDen(int const newDen);
+	//sets attribute but also adjusts sign as necessary so that
+	//num and den are always positive
+	//also reduces fraction by result, can force not to reduce for speed
+	void setNum(int const newNum, int reduce = 1);
+	//also includes error checking when newDen = 0
+	void setDen(int const newDen, int reduce = 1);
+	
 	//includes error message for invalid input
 	void setSign(int const newSign);
 	//assigns a rational to a new value
-	void setVal(int const newNum, int const newDen);
+	//also includes error checking when newDen = 0
+	//also reduces fraction by result, can force not to reduce for speed
+	//will set to whole number if single argument is input
+	void setVal(int const newNum, int const newDen = 1, int reduce = 1);
 
 	//methods
 	//reduces fraction to lowest terms, requires findGCD

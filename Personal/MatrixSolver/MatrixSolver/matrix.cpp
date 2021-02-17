@@ -14,7 +14,7 @@ Matrix::Matrix(int newRows, int newCols) {
 	}
 	else {
 		arr = new Rational[rows * cols];
-		Rational zero(0, 1);
+		Rational zero(0);
 		for (int i = 0; i < rows * cols; i++) {
 			arr[i] = zero;
 		}
