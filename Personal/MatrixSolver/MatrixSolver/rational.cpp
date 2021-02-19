@@ -79,12 +79,12 @@ void Rational::setDen(int const newDen, int reduce) {
 		return;
 	}
 	else if (newDen < 0) {
-		sign = -1;
+		sign = -sign;
 		den = -newDen;
 	}
 	//denom is positive
 	else {
-		sign = 1;
+		//sign = 1;
 		den = newDen;
 	}
 	if (reduce) {
@@ -169,32 +169,35 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 	int tempInt = 0;
 	cin >> tempInt;
 	if (tempInt < 0) {
+		//this order does matter; else setSign sees that num is 0
+		//and won't apply the negative sign properly.
+		rhs.setNum(-tempInt, 0);
 		rhs.setSign(-1);
-		rhs.setNum(-tempInt);
 	}
 	else
 	{
+		rhs.setNum(tempInt, 0);
 		rhs.setSign(1);
-		rhs.setNum(tempInt);
 	}
 
 	//did the user only enter a whole number?  no problem, let's check.
 	if (cin.peek() == '\n') {
-		rhs.setDen(1);
+		rhs.setDen(1, 0);
 	}
 	else {
 		cin >> tempCharr;
 		cin >> tempInt;
 		if (tempInt == 0) {
-			cout << endl << "Error: denominator cannot be zero." << endl;
+			cout << endl << "Error: denominator cannot be 0." << endl;
+			cout << "No changes made to denominator value." << endl;
 			cout << "Probable unreliable output beyond this point." << endl;
 		}
 		else if (tempInt < 0) {
 			rhs.setSign(rhs.getSign() * -1);
-			rhs.setDen(-tempInt);
+			rhs.setDen(-tempInt, 0);
 		}
 		else {
-			rhs.setDen(tempInt);
+			rhs.setDen(tempInt, 0);
 		}
 	}
 
@@ -212,32 +215,35 @@ fstream & operator>>(fstream & lhs, Rational & rhs) {
 	int tempInt = 0;
 	lhs >> tempInt;
 	if (tempInt < 0) {
+		//this order does matter; else setSign sees that num is 0
+		//and won't apply the negative sign properly.
+		rhs.setNum(-tempInt, 0);
 		rhs.setSign(-1);
-		rhs.setNum(-tempInt);
 	}
 	else
 	{
+		rhs.setNum(tempInt, 0);
 		rhs.setSign(1);
-		rhs.setNum(tempInt);
 	}
 
 	//did the user only enter a whole number?  no problem, let's check.
-	if (lhs.peek() == ' ') {
-		rhs.setDen(1);
+	if (lhs.peek() == ' ' || lhs.peek() == '\n' || lhs.peek() == EOF) {
+		rhs.setDen(1, 0);
 	}
 	else {
 		lhs >> tempCharr;
 		lhs >> tempInt;
 		if (tempInt == 0) {
-			cout << endl << "Error: denominator cannot be zero." << endl;
+			cout << endl << "Error: denominator cannot be 0." << endl;
+			cout << "No changes made to denominator value." << endl;
 			cout << "Probable unreliable output beyond this point." << endl;
 		}
 		else if (tempInt < 0) {
 			rhs.setSign(rhs.getSign() * -1);
-			rhs.setDen(-tempInt);
+			rhs.setDen(-tempInt, 0);
 		}
 		else {
-			rhs.setDen(tempInt);
+			rhs.setDen(tempInt, 0);
 		}
 	}
 
@@ -341,17 +347,21 @@ Rational operator+(Rational const & lhs, Rational const & rhs) {
 	Rational result;
 	//assume sign is positive, fix later if necessary
 	result.setSign(1);
-	//for a/b + c/d, denom is simple b*d, will reduce later
-	result.setDen(lhs.getDen() * rhs.getDen());
 	//figure out numerator, including negative signs
 	tempInt = lhs.getSign() * lhs.getNum() * rhs.getDen() +
 		rhs.getSign() * rhs.getNum() * lhs.getDen();
 	//is what will be the numerator negative?
 	if (tempInt < 0) {
+		result.setNum(-tempInt, 0);
 		result.setSign(-1);
-		tempInt = -tempInt;
 	}
-	result.setNum(tempInt);
+	else {
+		result.setNum(tempInt, 0);
+	}
+	
+	//for a/b + c/d, denom is b*d
+	result.setDen(lhs.getDen() * rhs.getDen(), 0);
+
 	result.reduce();
 	return result;
 }
@@ -362,17 +372,21 @@ Rational operator-(Rational const & lhs, Rational const & rhs) {
 	Rational result;
 	//assume sign is positive, fix later if necessary
 	result.setSign(1);
-	//for a/b + c/d, denom is simple b*d, will reduce later
-	result.setDen(lhs.getDen() * rhs.getDen());
 	//figure out numerator, including negative signs
 	tempInt = lhs.getSign() * lhs.getNum() * rhs.getDen() -
 		rhs.getSign() * rhs.getNum() * lhs.getDen();
 	//is what will be the numerator negative?
 	if (tempInt < 0) {
+		result.setNum(-tempInt, 0);
 		result.setSign(-1);
-		tempInt = -tempInt;
 	}
-	result.setNum(tempInt);
+	else {
+		result.setNum(tempInt, 0);
+	}
+
+	//for a/b - c/d, denom is b * d
+	result.setDen(lhs.getDen() * rhs.getDen(), 0);
+
 	result.reduce();
 	return result;
 }
@@ -380,21 +394,35 @@ Rational operator-(Rational const & lhs, Rational const & rhs) {
 //also reduces result
 Rational operator*(Rational const & lhs, Rational const & rhs) {
 	Rational result;
+	result.setNum(lhs.getNum() * rhs.getNum(), 0);
+	result.setDen(lhs.getDen() * rhs.getDen(), 0);
 	result.setSign(lhs.getSign() * rhs.getSign());
-	result.setNum(lhs.getNum() * rhs.getNum());
-	result.setDen(lhs.getDen() * rhs.getDen());
 	result.reduce();
 	return result;
 }
 
 //also reduces result
+//throws error and aborts operation if rhs = 0
 Rational operator/(Rational const & lhs, Rational const & rhs) {
 	Rational result;
-	result.setSign(lhs.getSign() * rhs.getSign());
-	result.setNum(lhs.getNum() * rhs.getDen());
-	result.setDen(lhs.getDen() * rhs.getNum());
-	result.reduce();
-	return result;
+
+	if (rhs.getNum() == 0) {
+		cout << "Error: division by zero detected!" << endl;
+		cout << "Aborting division operation, no changes made." << endl;
+		result.setNum(lhs.getNum(), 0);
+		result.setDen(lhs.getDen(), 0);
+		result.setSign(lhs.getSign());
+		return result;
+	}
+	else {
+		
+		result.setDen(lhs.getDen() * rhs.getNum(), 0);
+		result.setNum(lhs.getNum() * rhs.getDen(), 0);
+		result.setSign(lhs.getSign() * rhs.getSign());
+		result.reduce();
+		return result;
+	}
+
 }
 
 //checks to see if two rational numbers are equivalent

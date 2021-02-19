@@ -6,25 +6,23 @@
 #include "matrix.h"
 
 int main() {
-	testWrapper();
+	
 	Rational r1(0, 1);
-	Matrix A(3, 4);
+	//Matrix A(3, 4);
 	Matrix B;
 	//doThings(B);
-	for (int i = 0; i < A.getRows(); i++) {
-		for (int j = 0; j < A.getCols(); j++) {
-			r1.setVal(i-j, i+j+1);
-			A[i][j] = r1;
-		}
-	}
-	A[2][1].setSign(-3);
+	
+	Matrix A;
+	fstream input("input.txt", std::ios::in);
+	input >> A;
 	cout << A;
-	doThings(A);
-
-	A[2][1] = r1;
-	cout << A;
-
-
+	
+	A.rref();
+	
+	//Rational r1;
+	//cin >> r1;
+	//cout << endl << r1;
+	
 	system("pause");
 	return 0;
 }

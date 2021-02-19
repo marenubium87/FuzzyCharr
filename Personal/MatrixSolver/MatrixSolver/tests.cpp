@@ -9,6 +9,9 @@ using std::ostream;
 using std::fstream;
 using std::endl;
 using std::string;
+using std::setw;
+using std::left;
+using std::right;
 
 //test function for GCD
 //returns true if all tests passed, false else
@@ -171,16 +174,173 @@ void bulkGCDTestWrapper() {
 	cout << endl << endl;
 }
 
+//wrapper to test rational operations + - * /
+//on r1 and r2; visible flag outputs all results when on
+//by default, successful test will not output results
+void testRationalOperations(Rational r1, Rational r2, int visibleFlag) {
+	if (visibleFlag) {
+		cout << "Testing rational operations..." << endl << endl;
+	}
+
+	double act, exp;
+	Rational r3(0);
+
+	r3 = r1 + r2;
+	act = double(r3.getSign() * r3.getNum()) / r3.getDen();
+	exp = double((r1.getSign() * r1.getNum() * r2.getDen()
+		+ r2.getSign() * r2.getNum() * r1.getDen())) /
+		(r1.getDen() * r2.getDen());
+	if (act != exp || visibleFlag == 1) {
+		cout << "Test error!" << endl;
+		cout << "r1 is:  " << r1 << endl;
+		cout << "r2 is:  " << r2 << endl << endl;
+		cout << "r1 + r2 = " << r3 << " or approx. " << act
+			<< " (" << exp << " expected)" << endl;
+		system("pause");
+		system("cls");
+	}
+
+	r3 = r1 - r2;
+	act = double(r3.getSign() * r3.getNum()) / r3.getDen();
+	exp = double((r1.getSign() * r1.getNum() * r2.getDen()
+		- r2.getSign() * r2.getNum() * r1.getDen())) /
+		(r1.getDen() * r2.getDen());
+	if (act != exp || visibleFlag == 1) {
+		cout << "Test error!" << endl;
+		cout << "r1 is:  " << r1 << endl;
+		cout << "r2 is:  " << r2 << endl << endl;
+		cout << "r1 - r2 = " << r3 << " or approx. " << act
+			<< " (" << exp << " expected)" << endl;
+		system("pause");
+		system("cls");
+	}
+
+	r3 = r1 * r2;
+	act = double(r3.getSign() * r3.getNum()) / r3.getDen();
+	exp = double(r1.getSign() * r2.getSign() * r1.getNum() * r2.getNum()) /
+		(r1.getDen() * r2.getDen());
+	if (act != exp || visibleFlag == 1) {
+		cout << "Test error!" << endl;
+		cout << "r1 is:  " << r1 << endl;
+		cout << "r2 is:  " << r2 << endl << endl;
+		cout << "r1 * r2 = " << r3 << " or approx. " << act
+			<< " (" << exp << " expected)" << endl;
+		system("pause");
+		system("cls");
+	}
+
+	if (r2.getNum() != 0) {
+		r3 = r1 / r2;
+		act = double(r3.getSign() * r3.getNum()) / r3.getDen();
+		exp = double(r1.getSign() * r2.getSign() * r1.getNum() * r2.getDen()) /
+			(r1.getDen() * r2.getNum());
+	}
+
+	if (act != exp || visibleFlag == 1) {
+		cout << "Test error!" << endl;
+		cout << "r1 is:  " << r1 << endl;
+		cout << "r2 is:  " << r2 << endl << endl;
+		cout << "r1 / r2 = " << r3 << " or approx. " << act
+			<< " (" << exp << " expected)" << endl;
+		system("pause");
+		system("cls");
+	}
+}
+
+//wrapper to run bulk rational operations tests
+void bulkRationalOperationsTest() {
+	
+	int n1 = 0, n2 = 0, n3 = 0, n4 = 0;
+	int trialsMax = 200000, range = 20, offset = range / 2;
+	int visibleFlag = 0;
+	
+	for (int i = 1; i <= trialsMax; i++) {
+		if (i % 1000 == 0) {
+			system("cls");
+			cout << "Running test " << i << " of " << trialsMax
+				<< " ..." << endl;
+		}
+
+		n1 = rand() % range - offset;
+		n2 = rand() % range - offset;
+		n3 = rand() % range - offset;
+		n4 = rand() % range - offset;
+		while (n2 == 0) {
+			n2 = rand() % 2000 - 1000;
+		}
+		while (n4 == 0) {
+			n4 = rand() % 2000 - 1000;
+		}
+
+		Rational r1(n1, n2);
+		Rational r2(n3, n4);
+		testRationalOperations(r1, r2, visibleFlag);
+
+		//system("pause");
+		//system("cls");
+	}
+}
+
 //wrapper to test rational bool operations (== != >= <= > <)
 void testRationalBoolOperations() {
-	Rational r1(-6, 15), r2(-4, 5);
-	cout << "r1 is " << r1 << " and r2 is " << r2 << endl << endl;
-	cout << "==" << (r1 == r2) << endl;
-	cout << "!=" << (r1 != r2) << endl;
-	cout << ">=" << (r1 >= r2) << endl;
-	cout << ">" << (r1 > r2) << endl;
-	cout << "<=" << (r1 <= r2) << endl;
-	cout << "<" << (r1 < r2) << endl;
+	cout << "Testing rational boolean operations..." << endl << endl
+		<< "Given: " << endl << endl;
+
+	Rational r1(-4), r2(12, -3);
+	cout << "r1 is " << r1 << endl << "r2 is " << r2 << endl << endl;
+	cout << r1 << "== " << r2 << setw(10);
+	if (r1 == r2) {
+		cout << "TRUE";
+	}
+	else {
+		cout << "FALSE";
+	}
+	cout << endl;
+
+	cout << r1 << "!= " << r2 << setw(10);
+	if (r1 != r2) {
+		cout << "TRUE";
+	}
+	else {
+		cout << "FALSE";
+	}
+	cout << endl;
+
+	cout << r1 << ">= " << r2 << setw(10);
+	if (r1 >= r2) {
+		cout << "TRUE";
+	}
+	else {
+		cout << "FALSE";
+	}
+	cout << endl;
+
+	cout << r1 << "<= " << r2 << setw(10);
+	if (r1 <= r2) {
+		cout << "TRUE";
+	}
+	else {
+		cout << "FALSE";
+	}
+	cout << endl;
+
+	cout << r1 << ">  " << r2 << setw(10);
+	if (r1 > r2) {
+		cout << "TRUE";
+	}
+	else {
+		cout << "FALSE";
+	}
+	cout << endl;
+
+	cout << r1 << "<  " << r2 << setw(10);
+	if (r1 < r2) {
+		cout << "TRUE";
+	}
+	else {
+		cout << "FALSE";
+	}
+	cout << endl;
 }
 
 //tests rational constructors
@@ -337,15 +497,22 @@ void testSetNumDenSign() {
 	numTestsTotal++;
 
 	//set den negative
-	a.setDen(-7, 0);
-	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 7)) {
+	a.setDen(-5, 0);
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 5)) {
 		numTestsFailed++;
 	}
 	numTestsTotal++;
 
-	//set den positive again
+	//set den positive again, but fraction should still be negative
 	a.setDen(13, 0);
-	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 13)) {
+	if (!(a.getSign() == -1 && a.getNum() == 3 && a.getDen() == 13)) {
+		numTestsFailed++;
+	}
+	numTestsTotal++;
+
+	//set den negative again, to flip fraction back positive
+	a.setDen(-17, 0);
+	if (!(a.getSign() == 1 && a.getNum() == 3 && a.getDen() == 17)) {
 		numTestsFailed++;
 	}
 	numTestsTotal++;
@@ -566,14 +733,27 @@ void testReduce() {
 void testWrapper() {
 	//seed RNG
 	srand((unsigned int)time_t(NULL));
-	/*
-	testGCD();
+	
+	/*testGCD();
 	bulkGCDTestWrapper();
+	system("pause");
+	system("cls");*/
+
+	Rational r1(5, 3);
+	Rational r2(-2, 1);
+	testRationalOperations(r1, r2, 1);
+	system("pause");
+	system("cls");
+
 	testRationalBoolOperations();
 	system("pause");
 	system("cls");
+
+	bulkRationalOperationsTest();
+	system("pause");
+	system("cls");
 	
-	testRationalConstructors();
+	/*testRationalConstructors();
 	system("pause");
 	system("cls");
 	
@@ -584,9 +764,9 @@ void testWrapper() {
 	testSetVal();
 	system("pause");
 	system("cls");
-	*/
+	
 	testReduce();
-	system("pause");
+	system("pause");*/
 
 }
 

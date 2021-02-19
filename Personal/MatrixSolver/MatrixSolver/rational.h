@@ -3,8 +3,8 @@
 
 //number of spaces to pad numerator and denominator
 //should be at least the number of digits of the largest numerator/denominator
-#define NUM_PADDING 2
-#define DEN_PADDING 2
+#define NUM_PADDING 4
+#define DEN_PADDING 4
 
 #include <iostream>
 #include <cmath>
@@ -91,6 +91,7 @@ Rational operator-(Rational const & lhs, Rational const & rhs);
 Rational operator*(Rational const & lhs, Rational const & rhs);
 
 //also reduces result
+//throws error and aborts operation if rhs = 0
 Rational operator/(Rational const & lhs, Rational const & rhs);
 
 //checks to see if two rational numbers are equivalent

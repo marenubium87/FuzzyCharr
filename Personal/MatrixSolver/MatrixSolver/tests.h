@@ -12,6 +12,14 @@ bool bulkTestGCD();
 //wrapper to run bulk GCD tests
 void bulkGCDTestWrapper();
 
+//wrapper to test rational operations + - * /
+//on r1 and r2; visible flag outputs all results when on
+//by default, successful test will not output results
+void testRationalOperations(Rational r1, Rational r2, int visibleFlag);
+
+//wrapper to run bulk rational operations tests
+void bulkRationalOperationsTest();
+
 //wrapper to test rational bool operations (== != >= <= > <)
 void testRationalBoolOperations();
 
