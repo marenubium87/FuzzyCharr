@@ -78,6 +78,15 @@ private:
 	int cols;
 	//pointer to the [0][0] element
 	Rational * arr;
+
+	//tries to swap target row with a row beneath it, j, if
+	//the [j][i + offset] value is not zero
+	void swapIfAble(int targetRow, int offset);
+
+	//performs eliminations of all other rows using the target row
+	//and prints out results to console
+	//auxiliary function for rref
+	void performRowEliminations(int targetRow);
 };
 
 //prints out matrix to the console

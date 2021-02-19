@@ -15,7 +15,7 @@ int main() {
 	Matrix A;
 	fstream input("input.txt", std::ios::in);
 	input >> A;
-	cout << A;
+	//cout << A;
 	
 	A.rref();
 	

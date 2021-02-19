@@ -198,9 +198,16 @@ bool Matrix::isInconsistentRow(int targetRow) {
 }
 
 //attempts to transform matrix to reduced row echelon form
-	//using elementary row operations
+//using elementary row operations
+//NOTE:  For all on-screen output, rows and columns are referenced
+//using standard mathematical terminology, that is, the top left cell
+//in a matrix is row 1 col 1, not row 0 col 0
 void Matrix::rref() {
+	cout << "Initial matrix" << endl;
+	cout << *this;
+
 	Rational zero(0);
+	//increment through rows
 	for (int i = 0; i < rows; i++) {
 		//perform a check - is the matrix in an inconsistent (no soln) state?
 		//if so, abort, since there's no point to do rref at this point
@@ -212,43 +219,68 @@ void Matrix::rref() {
 			}
 		}
 		
-		//is the [i][i] entry zero?
-		if ((*this)[i][i] == zero) {
-			//do we have a row below this one to swap it with?
-			for (int j = i + 1; j < rows; j++) {
-				if ((*this)[j][i] != zero) {
-					swapRows(i, j);
-					cout << "Swapping row " << i << " with row " << j << endl;
-					cout << *this;
-					break;
-				}
+		//flips when row operations are performed at the current pivot
+		int rowOpsPerformed = 0;
+		//column offset to deal with degenerate matrices
+		//start with offset being zero, if entire columns end up being zero
+		//offset will kick in
+		int offset = 0;
+		while (!rowOpsPerformed && i + offset < cols) {
+			//is the [i][i + offset] entry zero?
+			if ((*this)[i][i + offset] == zero) {
+				//do we have a row somewhere below this one to swap it with?
+				swapIfAble(i, offset);
 			}
-		}
-		//so either the [i][i] entry is nonzero, or a successful swap
-		//was performed
-		if ((*this)[i][i] != zero) {
-			//normalize the row, especially the [i][i] entry, and use it
-			//to eliminate column i
-			normalizeRow(i);
-			cout << "Normalizing row " << i << endl;
-			cout << *this;
-
-			for (int k = 0; k < rows; k++) {
+			//so either the [i][i + offset] entry is nonzero
+			//or a successful swap was performed
+			if ((*this)[i][i + offset] != zero) {
+				//row normalization
+				normalizeRow(i);
+				cout << "Normalizing row " << i + 1 << endl;
+				cout << *this;
 				//use current row to eliminate column entries in all other
 				//rows not equal to current row
-				if (k != i) {
-					rowEliminate(i, k);
-					cout << "Eliminating column entry in row " << k
-						<< " using row " << i << endl;
-					cout << *this;
-				}
+				performRowEliminations(i);
+				rowOpsPerformed++;
+			}
+			//if a swap didn't happen it means the column had all zero entries
+			//time to offset to the next column over and try again
+			else {
+				offset++;
 			}
 		}
-		//if no successful swap performed, implies everything in column i
-		//corresponding to current pivot row i is zero, so we just move on.
 	}
 	cout << "Row operations complete." << endl;
 	cout << *this;
+}
+
+//tries to swap target row with a row beneath it, j, if
+//the [j][i + offset] value is not zero
+void Matrix::swapIfAble(int targetRow, int offset) {
+	Rational zero(0);
+	for (int j = targetRow + 1; j < rows; j++) {
+		if ((*this)[j][targetRow + offset] != zero) {
+			swapRows(targetRow, j);
+			cout << "Swapping row " << targetRow + 1 << " with row " 
+				<< j + 1 << endl;
+			cout << *this;
+			break;
+		}
+	}
+}
+
+//performs eliminations of all other rows using the target row
+//and prints out results to console
+//auxiliary function for rref
+void Matrix::performRowEliminations(int targetRow) {
+	for (int k = 0; k < rows; k++) {
+		if (k != targetRow) {
+			rowEliminate(targetRow, k);
+			cout << "Eliminating column entry in row " << k + 1
+				<< " using row " << targetRow + 1 << endl;
+			cout << *this;
+		}
+	}
 }
 
 //prints out matrix to the console
@@ -271,6 +303,7 @@ ostream & operator<<(ostream & lhs, Matrix & rhs) {
 		}
 		cout << endl << endl;
 	}
+	cout << endl;
 	return lhs;
 }
 

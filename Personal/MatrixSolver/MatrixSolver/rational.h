@@ -3,8 +3,8 @@
 
 //number of spaces to pad numerator and denominator
 //should be at least the number of digits of the largest numerator/denominator
-#define NUM_PADDING 4
-#define DEN_PADDING 4
+#define NUM_PADDING 3
+#define DEN_PADDING 2
 
 #include <iostream>
 #include <cmath>
