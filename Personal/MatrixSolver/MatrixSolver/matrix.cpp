@@ -206,6 +206,7 @@ void Matrix::rref() {
 	cout << "Initial matrix" << endl;
 	cout << *this;
 
+	cout << endl << "PERFORMING RREF PROCEDURE..." << endl << endl;
 	Rational zero(0);
 	//increment through rows
 	for (int i = 0; i < rows; i++) {
@@ -288,22 +289,22 @@ ostream & operator<<(ostream & lhs, Matrix & rhs) {
 	int rows = rhs.getRows();
 	int cols = rhs.getCols();
 
-	cout << "Target matrix composition:" << endl;
+	lhs << "Target matrix composition:" << endl;
 	for (int i = 0; i < (NUM_PADDING + DEN_PADDING + 1 + VAL_PADDING) * 
 			(cols) + 1; i++) {
-		cout << DELIM;
+		lhs << DELIM;
 	}
-	cout << endl << endl << right;
+	lhs << endl << endl << right;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
-			cout << rhs[i][j];
+			lhs << rhs[i][j];
 			for (int i = 0; i < VAL_PADDING; i++) {
-				cout << " ";
+				lhs << " ";
 			}
 		}
-		cout << endl << endl;
+		lhs << endl << endl;
 	}
-	cout << endl;
+	lhs << endl;
 	return lhs;
 }
 

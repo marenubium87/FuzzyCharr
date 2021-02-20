@@ -191,7 +191,9 @@ void testRationalOperations(Rational r1, Rational r2, int visibleFlag) {
 		+ r2.getSign() * r2.getNum() * r1.getDen())) /
 		(r1.getDen() * r2.getDen());
 	if (act != exp || visibleFlag == 1) {
-		cout << "Test error!" << endl;
+		if (visibleFlag == 0) {
+			cout << "Test error!" << endl;
+		}
 		cout << "r1 is:  " << r1 << endl;
 		cout << "r2 is:  " << r2 << endl << endl;
 		cout << "r1 + r2 = " << r3 << " or approx. " << act
@@ -206,7 +208,9 @@ void testRationalOperations(Rational r1, Rational r2, int visibleFlag) {
 		- r2.getSign() * r2.getNum() * r1.getDen())) /
 		(r1.getDen() * r2.getDen());
 	if (act != exp || visibleFlag == 1) {
-		cout << "Test error!" << endl;
+		if (visibleFlag == 0) {
+			cout << "Test error!" << endl;
+		}
 		cout << "r1 is:  " << r1 << endl;
 		cout << "r2 is:  " << r2 << endl << endl;
 		cout << "r1 - r2 = " << r3 << " or approx. " << act
@@ -220,7 +224,9 @@ void testRationalOperations(Rational r1, Rational r2, int visibleFlag) {
 	exp = double(r1.getSign() * r2.getSign() * r1.getNum() * r2.getNum()) /
 		(r1.getDen() * r2.getDen());
 	if (act != exp || visibleFlag == 1) {
-		cout << "Test error!" << endl;
+		if (visibleFlag == 0) {
+			cout << "Test error!" << endl;
+		}
 		cout << "r1 is:  " << r1 << endl;
 		cout << "r2 is:  " << r2 << endl << endl;
 		cout << "r1 * r2 = " << r3 << " or approx. " << act
@@ -237,7 +243,9 @@ void testRationalOperations(Rational r1, Rational r2, int visibleFlag) {
 	}
 
 	if (act != exp || visibleFlag == 1) {
-		cout << "Test error!" << endl;
+		if (visibleFlag == 0) {
+			cout << "Test error!" << endl;
+		}
 		cout << "r1 is:  " << r1 << endl;
 		cout << "r2 is:  " << r2 << endl << endl;
 		cout << "r1 / r2 = " << r3 << " or approx. " << act
@@ -257,7 +265,9 @@ void bulkRationalOperationsTest() {
 	for (int i = 1; i <= trialsMax; i++) {
 		if (i % 1000 == 0) {
 			system("cls");
-			cout << "Running test " << i << " of " << trialsMax
+			cout << "Bulk rational operations test..." << endl
+			<< "Failed scenarios will be displayed below." << endl
+			<< "Running test " << i << " of " << trialsMax
 				<< " ..." << endl;
 		}
 
@@ -275,10 +285,8 @@ void bulkRationalOperationsTest() {
 		Rational r1(n1, n2);
 		Rational r2(n3, n4);
 		testRationalOperations(r1, r2, visibleFlag);
-
-		//system("pause");
-		//system("cls");
 	}
+	cout << endl << "Bulk testing complete." << endl;
 }
 
 //wrapper to test rational bool operations (== != >= <= > <)
@@ -475,7 +483,7 @@ void testSetNumDenSign() {
 
 	//set numerator positive again
 	a.setNum(9, 0);
-	if (!(a.getSign() == 1 && a.getNum() == 9 && a.getDen() == 5)) {
+	if (!(a.getSign() == -1 && a.getNum() == 9 && a.getDen() == 5)) {
 		numTestsFailed++;
 	}
 	numTestsTotal++;
@@ -734,39 +742,38 @@ void testWrapper() {
 	//seed RNG
 	srand((unsigned int)time_t(NULL));
 	
-	/*testGCD();
+	testGCD();
 	bulkGCDTestWrapper();
 	system("pause");
-	system("cls");*/
-
+	system("cls");
+	
 	Rational r1(5, 3);
 	Rational r2(-2, 1);
 	testRationalOperations(r1, r2, 1);
-	system("pause");
 	system("cls");
-
-	testRationalBoolOperations();
-	system("pause");
-	system("cls");
-
+	
 	bulkRationalOperationsTest();
 	system("pause");
 	system("cls");
 	
-	/*testRationalConstructors();
+	testRationalBoolOperations();
+	system("pause");
+	system("cls");
+	
+	testRationalConstructors();
 	system("pause");
 	system("cls");
 	
 	testSetNumDenSign();
 	system("pause");
 	system("cls");
-
+	
 	testSetVal();
 	system("pause");
 	system("cls");
 	
 	testReduce();
-	system("pause");*/
-
+	system("pause");
+	system("cls");
 }
 

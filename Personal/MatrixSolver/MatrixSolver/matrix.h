@@ -23,6 +23,8 @@ using std::string;
 using std::setw;
 using std::left;
 using std::right;
+using std::ofstream;
+
 
 
 class Matrix {

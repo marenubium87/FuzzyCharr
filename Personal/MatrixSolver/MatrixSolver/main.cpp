@@ -6,23 +6,14 @@
 #include "matrix.h"
 
 int main() {
-	
-	Rational r1(0, 1);
-	//Matrix A(3, 4);
-	Matrix B;
-	//doThings(B);
-	
+	testWrapper();
+
 	Matrix A;
 	fstream input("input.txt", std::ios::in);
 	input >> A;
-	//cout << A;
 	
 	A.rref();
-	
-	//Rational r1;
-	//cin >> r1;
-	//cout << endl << r1;
-	
+
 	system("pause");
 	return 0;
 }

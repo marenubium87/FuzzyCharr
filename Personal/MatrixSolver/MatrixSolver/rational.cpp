@@ -55,12 +55,11 @@ Rational & Rational::operator=(Rational const & rhs) {
 //also reduces fraction by result, can force not to reduce for speed
 void Rational::setNum(int const newNum, int reduce) {
 	if (newNum < 0) {
-		sign = -1;
+		sign = -sign;
 		num = -newNum;
 	}
 	//numerator is non-negative
 	else {
-		sign = 1;
 		num = newNum;
 	}
 	if (reduce) {
@@ -84,7 +83,6 @@ void Rational::setDen(int const newDen, int reduce) {
 	}
 	//denom is positive
 	else {
-		//sign = 1;
 		den = newDen;
 	}
 	if (reduce) {
@@ -167,7 +165,7 @@ void Rational::reduce() {
 istream & operator>>(istream & lhs, Rational & rhs) {
 	char tempCharr = '\0';
 	int tempInt = 0;
-	cin >> tempInt;
+	lhs >> tempInt;
 	if (tempInt < 0) {
 		//this order does matter; else setSign sees that num is 0
 		//and won't apply the negative sign properly.
@@ -181,12 +179,12 @@ istream & operator>>(istream & lhs, Rational & rhs) {
 	}
 
 	//did the user only enter a whole number?  no problem, let's check.
-	if (cin.peek() == '\n') {
+	if (lhs.peek() == '\n') {
 		rhs.setDen(1, 0);
 	}
 	else {
-		cin >> tempCharr;
-		cin >> tempInt;
+		lhs >> tempCharr;
+		lhs >> tempInt;
 		if (tempInt == 0) {
 			cout << endl << "Error: denominator cannot be 0." << endl;
 			cout << "No changes made to denominator value." << endl;
@@ -258,18 +256,18 @@ fstream & operator>>(fstream & lhs, Rational & rhs) {
 //displays rational to console
 ostream & operator<<(ostream & lhs, Rational & rhs) {
 	if (rhs.getSign() == -1) {
-		cout << "-";
+		lhs << "-";
 	}
 	else {
-		cout << " ";
+		lhs << " ";
 	}
-	cout << setw(NUM_PADDING) << rhs.getNum();
+	lhs << setw(NUM_PADDING) << rhs.getNum();
 	if (rhs.getDen() != 1 && rhs.getNum() != 0) {
-		cout << "/" << setw(DEN_PADDING) << rhs.getDen();
+		lhs << "/" << setw(DEN_PADDING) << rhs.getDen();
 	}
 	else {
 		for (int i = 0; i < DEN_PADDING + 1; i++) {
-			cout << " ";
+			lhs << " ";
 		}
 	}
 	return lhs;
