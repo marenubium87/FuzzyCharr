@@ -204,7 +204,7 @@ print(longString)
 #remember this?
 #mapList1 = list(map(plusOne, srcList1))
 #can also write as
-mapList1 = list(marg_path(lambda x : x + 1, srcList1))
+mapList1 = list((lambda x : x + 1, srcList1))
 #filterList = list(filter(isCat, srcList2))
 #can also write as
 filterList = list(filter(lambda string : string[-3:] == "Cat", srcList2))
