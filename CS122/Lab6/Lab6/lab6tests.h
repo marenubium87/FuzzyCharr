@@ -11,7 +11,6 @@ bool isEmptyTest();
 //testing enqueue function, returns true if test passed, false otherwise
 bool enqueueTest();
 
-/*
 //testing dequeue function, returns true if test passed, false otherwise
 bool dequeueTest();
 
@@ -20,8 +19,3 @@ bool peekTest();
 
 //testing clear function, returns true if test passed, false otherwise
 bool clearTest();
-
-//testing operators >> and <<, returns true if test passed, false otherwise
-bool operatorTests();
-
-*/
