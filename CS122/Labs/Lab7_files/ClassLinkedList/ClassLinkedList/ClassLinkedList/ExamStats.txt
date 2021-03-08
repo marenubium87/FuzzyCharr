@@ -1,0 +1,4 @@
+Processed 10 entries.
+Low is 36
+High is 99
+Mean is 75.6
