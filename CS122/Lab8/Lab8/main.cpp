@@ -7,12 +7,7 @@ int main() {
 
 	treeOperations();
 
-	ifstream input;
-	input.open("input.txt", std::ios::in);
-	string kitties[20];
-	readNames(input, kitties);
-	BSTSort(kitties);
-	
-	system("pause");
+	sortOperations();
+
 	return 0;
 }

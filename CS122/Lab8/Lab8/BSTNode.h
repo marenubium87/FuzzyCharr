@@ -4,6 +4,7 @@
 #include <string>
 #include <Windows.h>
 #include <fstream>
+#include <iomanip>
 
 using std::cin;
 using std::cout;

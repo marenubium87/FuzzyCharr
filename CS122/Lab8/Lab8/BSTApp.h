@@ -10,6 +10,12 @@ void treeOperations(void);
 //precondition:  namesArray has enough elements to store all entries from input
 void readNames(ifstream & input, string namesArray[]);
 
+//prints elements of target string array to console
+void printArray(string target[]);
+
 //uses a BST to sort source array
 //calls insertIntoTree and extract method
 void BSTSort(string source[]);
+
+//wrapper to test bst sort operations in main
+void sortOperations(void);

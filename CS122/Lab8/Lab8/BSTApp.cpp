@@ -76,6 +76,17 @@ void readNames(ifstream & input, string namesArray[]) {
 	}
 }
 
+//prints elements of target string array to console
+void printArray(string target[]) {
+	int i = 0;
+	cout << "Target string array composition:" << endl << endl;
+	while (target[i] != "") {
+		cout << std::setw(3) << i << "  \"" << target[i] << "\"" << endl;
+		i++;
+	}
+	cout << endl;
+}
+
 //uses a BST to sort source array
 void BSTSort(string source[]) {
 	BST maowmaow;
@@ -88,4 +99,19 @@ void BSTSort(string source[]) {
 	}
 
 	maowmaow.extractAll(source);
+}
+
+//wrapper to test bst sort operations in main
+void sortOperations(void) {
+	ifstream input;
+	input.open("input.txt", std::ios::in);
+	string kitties[20];
+
+	readNames(input, kitties);
+	cout << "Read inputs from file." << endl << endl;
+	printArray(kitties);
+	cout << "Sorting array via BST." << endl << endl;
+	BSTSort(kitties);
+	printArray(kitties);
+	system("pause");
 }
