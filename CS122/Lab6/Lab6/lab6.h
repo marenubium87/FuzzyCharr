@@ -77,7 +77,6 @@ public:
 	friend bool dequeueTest();
 	friend bool peekTest();
 	friend bool clearTest();
-	friend bool operatorTests();
 
 private:
 	//clears the entire queue, freeing memory
