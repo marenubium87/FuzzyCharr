@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Environment files
+*.env
+
+# Intellisense stuff
+*.suo
+*.vs/
