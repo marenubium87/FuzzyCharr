@@ -1,0 +1,52 @@
+Q0
+
+a.  Deleting last node
+array:  O(1)	//directly access and delete
+LL:		O(n)	//even if tail pointer present, have to traverse to the 
+				//penultimate node to set its pNext to NULL
+array wins
+
+b.  Deleting first node
+array:  O(n)	//have to move all the other elements forward one to fill void
+LL:		O(1)	//can be done with two assignments and a deletion
+
+LL wins
+
+c.  Deleting arbitrary node
+array:  O(n)	//have to fill voids after deletion
+LL:		O(n)	//have to traverse to the element one wishes to delete
+
+draw
+
+d.  Insert at Tail
+array:	O(1)	//assumes end of array is marked
+LL:		O(1)	//assumes tail pointer present
+
+draw
+
+e.  Insert at Front
+array:	O(n)	//have to shuffle elements back if array is noncircular
+LL:		O(1)	//2 operations
+
+LL wins in most cases
+
+f.  Insert arbitrary
+array:  O(n)	//have to move elements to make room
+LL:		O(n)	//have to traverse LL to the proper insertion point
+
+draw
+
+g.  Access
+array:  O(1)	//direct access via index
+LL:		O(n)	//have to traverse
+
+array wins
+
+Q1
+
+A stack is a LIFO data structure.  The function call stack is a good example
+of a stack.  We use stacks when we want this specific behavior, such as in
+the function call stack or like in a card game, where cards are placed and
+drawn from the top of the deck, or at a restaurant, where a plate of steaks
+has each prepared steak placed on top of the preceding steaks, and they are
+also served from top to bottom.
