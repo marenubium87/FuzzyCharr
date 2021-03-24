@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1321
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinSearchPractice", "BinSearchPractice\BinSearchPractice.vcxproj", "{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Debug|x64.ActiveCfg = Debug|x64
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Debug|x64.Build.0 = Debug|x64
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Debug|x86.ActiveCfg = Debug|Win32
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Debug|x86.Build.0 = Debug|Win32
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Release|x64.ActiveCfg = Release|x64
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Release|x64.Build.0 = Release|x64
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Release|x86.ActiveCfg = Release|Win32
+		{ABCA3BB8-2B23-4950-87BD-1F6E6F189838}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {835245F5-CA28-47ED-8819-FDFC5096F9A2}
+	EndGlobalSection
+EndGlobal

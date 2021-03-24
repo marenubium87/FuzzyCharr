@@ -1,0 +1,121 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.pythonPath": "C:\\Users\\James\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "editor.fontSize": 20,
+        
+    "editor.semanticTokenColorCustomizations": {
+        "[Default Dark+]": {
+
+            "rules":{
+                "newOperator": "#64c1f0",
+                "property": "#469da2",
+                "namespace": "#c8c8c8",
+                "comment": "#bcaec8",
+                "method":"#91ccf9",
+                "operatorOverload": "#68acff",               
+
+            }
+
+
+        }
+    },
+
+    "editor.tokenColorCustomizations": {
+        "semanticHighlightingEnabled": false,
+        "textMateRules": [
+            {
+                "_comment": "comments",
+                "scope":[
+                    "comment.line.number-sign.python",
+                ],
+                "settings": {
+                    "foreground": "#bcaec8"
+                }
+            },
+            
+            {
+                "_comment": "function calls",
+                "scope":[
+                    "meta.function-call.python"
+
+                ],
+                "settings": {
+                    "foreground": "#70b9e9"
+                }
+            },
+
+            {
+                "_comment": "python built-in functions",
+                "scope":[
+                    "support.function.builtin.python"
+
+                ],
+                "settings": {
+                    "foreground": "#e9b648"
+                }
+            },
+
+            {
+                "_comment": "keywords",
+                "scope":[
+                    "keyword.control.flow.python",
+                    "keyword.control.import.python",
+                    "keyword.operator.logical.python",
+                    "storage.type.function.python"
+
+                ],
+                "settings": {
+                    "foreground": "#b5e6ff"
+                }
+            },
+
+            {
+                "_comment": "punctuation",
+                "scope":[
+                    "punctuation.definition.arguments.begin.python",
+                    "punctuation.definition.arguments.end.python"
+                ],
+                "settings": {
+                    "foreground": "#d6d6d6"
+                }
+            },
+
+            {
+                "_comment": "attributes",
+                "scope":[
+                    "meta.attribute.python"
+                ],
+                "settings": {
+                    "foreground": "#53bd73"
+                }
+            },
+
+            {
+                "_comment": "string literals",
+                "scope":[
+                    "string.quoted.single.python"
+
+                ],
+                "settings": {
+                    "foreground": "#ffc7af"
+                }
+            },
+
+            
+            {
+                "_comment": "constants",
+                "scope":[
+                    "constant.other.caps.python",
+                    "constant.language.python"
+                ],
+                "settings": {
+                    "foreground": "#bd6ec0"
+                }
+            },
+
+        ]
+    },
+ 
+}   
+    
