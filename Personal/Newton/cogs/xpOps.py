@@ -52,8 +52,8 @@ class xpOps(commands.Cog):
             f'Currently at level {curLevel} \n' +
             f'{curXP} of {lvlXP} XP to level {curLevel + 1}')
 
-            f = open(r"data/leveling.txt", mode = 'w')
-            f.write(f'{curLevel} {curXP}')
+            xpFile = open(r"data/leveling.txt", mode = 'w')
+            xpFile.write(f'{curLevel} {curXP}')
             await asyncio.sleep(MSG_DELAY)
             await ctx.send(response)
 
