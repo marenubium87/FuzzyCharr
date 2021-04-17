@@ -5,12 +5,17 @@
 //mergeSort implementation
 //pass in 0, arraySize - 1 for left and right respectively
 void mergeSort(int arr[], int left, int right) {
-	int tempArr[ARR_SIZE];
+	
+	//we don't sort size one arrays in this household
+	if (right - left < 1) {
+		return;
+	}
 
+	int tempArr[ARR_SIZE];
 	sort(arr, tempArr, left, right);
 }
 
-//helper called by mergeSort
+//recursive helper called by mergeSort
 void sort(int arr[], int tempArr[], int left, int right) {
 	if (left == right) {
 		return;
@@ -32,7 +37,8 @@ void sort(int arr[], int tempArr[], int left, int right) {
 //are start indices for subarrays in arr[], and leftLength and rightLength
 //are number of elements each subarray contains.
 //builds the correct merged array in tempArr and then pastes it back
-//in the correct location in the original array.
+//in the correct location in the original array, so that the constructed
+//subarray can be used again in the next call, if applicable.
 void merge(int arr[], int tempArr[],
 	int leftStart, int leftLength,
 	int rightStart, int rightLength) {
@@ -42,7 +48,7 @@ void merge(int arr[], int tempArr[],
 	//tempArray's index
 	int k = leftStart;
 
-	//while both lists not at end yet
+	//while both arrays not at end yet
 	while (i < leftStart + leftLength && j < rightStart + rightLength) {
 		//compare elements at those indices
 		if (arr[i] >= arr[j]) {
@@ -55,9 +61,10 @@ void merge(int arr[], int tempArr[],
 		}
 		k++;
 	}
-	//one of the lists is exhausted now, but which one?
+
+	//one of the arrays is exhausted now, but which one?
 	if (!(j < rightStart + rightLength)) {
-		//if unexhausted list is i
+		//if unexhausted array is i
 		while (i < leftStart + leftLength) {
 			tempArr[k] = arr[i];
 			i++;
@@ -65,14 +72,15 @@ void merge(int arr[], int tempArr[],
 		}
 	}
 	else if (!(i < leftStart + leftLength)) {
-		//if unexhauseted list is j
+		//if unexhausted array is j
 		while (j < rightStart + rightLength) {
 			tempArr[k] = arr[j];
 			j++;
 			k++;
 		}
 	}
-	//both lists should be exhausted now, need to paste over the sublist
+
+	//both lists should be exhausted now, need to paste over the subarray
 	//back into the main array in the correct location
 	for (k = leftStart; k < leftStart + leftLength + rightLength; k++) {
 		arr[k] = tempArr[k];
