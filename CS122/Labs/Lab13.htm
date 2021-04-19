@@ -1,0 +1,2665 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+xmlns:html="http://www.w3.org/TR/REC-html40"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta name="Microsoft Theme 2.00" content="capsules 011">
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 15">
+<meta name=Originator content="Microsoft Word 15">
+<link rel=File-List href="Lab13_files/filelist.xml">
+<link rel=Edit-Time-Data href="Lab13_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Lab 13 - More Polymorphism in C++</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="date"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="stockticker"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>andy</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Andy O'Fallon</o:LastAuthor>
+  <o:Revision>16</o:Revision>
+  <o:TotalTime>5708</o:TotalTime>
+  <o:Created>2015-04-20T23:17:00Z</o:Created>
+  <o:LastSaved>2019-04-11T20:15:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1408</o:Words>
+  <o:Characters>8027</o:Characters>
+  <o:Company>Washington State University</o:Company>
+  <o:Lines>66</o:Lines>
+  <o:Paragraphs>18</o:Paragraphs>
+  <o:CharactersWithSpaces>9417</o:CharactersWithSpaces>
+  <o:Version>15.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href="Lab13_files/themedata.thmx">
+<link rel=colorSchemeMapping href="Lab13_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:DefaultTableStyle Number="155">Table Theme</w:DefaultTableStyle>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SplitPgBreakAndParaMark/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="371">
+  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 9"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="header"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footer"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index heading"/>
+  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of figures"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope return"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="line number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="page number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of authorities"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="macro"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="toa heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 5"/>
+  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Closing"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Signature"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Message Header"/>
+  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Salutation"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Date"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Note Heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Block Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="FollowedHyperlink"/>
+  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Document Map"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Plain Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="E-mail Signature"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Top of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Bottom of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal (Web)"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Acronym"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Cite"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Code"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Definition"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Keyboard"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Preformatted"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Sample"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Typewriter"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Variable"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Table"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation subject"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="No List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Contemporary"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Elegant"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Professional"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Balloon Text"/>
+  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Theme"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 6"/>
+ </w:LatentStyles>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:1;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:0 0 0 0 0 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
+@font-face
+	{font-family:"Trebuchet MS";
+	panose-1:2 11 6 3 2 2 2 2 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:647 0 0 0 159 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+h1
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 1 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	mso-font-kerning:16.0pt;
+	font-weight:normal;}
+h2
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 2 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h3
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 3 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:14.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h4
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 4 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h5
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 5 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:5;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+h6
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 6 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:6;
+	font-size:8.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:#000099;
+	font-weight:normal;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-priority:99;
+	mso-style-link:"Header Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 3.0in right 6.0in;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-priority:99;
+	mso-style-link:"Footer Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 3.0in right 6.0in;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-link:"Body Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:14.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+a:link, span.MsoHyperlink
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:#000099;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:#339966;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+tt
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	font-family:"Courier New";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:8.0pt;
+	font-family:"Tahoma",sans-serif;
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 1";
+	mso-ansi-font-size:16.0pt;
+	mso-bidi-font-size:16.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 3";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#1F4D78;
+	mso-themecolor:accent1;
+	mso-themeshade:127;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 4";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-style:italic;}
+span.Heading5Char
+	{mso-style-name:"Heading 5 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 5";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#2E74B5;
+	mso-themecolor:accent1;
+	mso-themeshade:191;}
+span.Heading6Char
+	{mso-style-name:"Heading 6 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 6";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:"Calibri Light";
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#1F4D78;
+	mso-themecolor:accent1;
+	mso-themeshade:127;}
+span.HeaderChar
+	{mso-style-name:"Header Char";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:Header;
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:black;}
+span.FooterChar
+	{mso-style-name:"Footer Char";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:Footer;
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:black;}
+span.BodyTextChar
+	{mso-style-name:"Body Text Char";
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Body Text";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:black;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Balloon Text";
+	mso-ansi-font-size:8.0pt;
+	mso-bidi-font-size:8.0pt;
+	font-family:"Tahoma",sans-serif;
+	mso-ascii-font-family:Tahoma;
+	mso-hansi-font-family:Tahoma;
+	mso-bidi-font-family:Tahoma;
+	color:black;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+ /* Page Definitions */
+ @page
+	{mso-footnote-separator:url("Lab13_files/header.htm") fs;
+	mso-footnote-continuation-separator:url("Lab13_files/header.htm") fcs;
+	mso-endnote-separator:url("Lab13_files/header.htm") es;
+	mso-endnote-continuation-separator:url("Lab13_files/header.htm") ecs;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:.8in 1.0in .8in 1.0in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-header:url("Lab13_files/header.htm") h1;
+	mso-even-footer:url("Lab13_files/header.htm") ef1;
+	mso-footer:url("Lab13_files/header.htm") f1;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:103964604;
+	mso-list-type:hybrid;
+	mso-list-template-ids:266361016 375833220 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:image;
+	list-style-image:url("Lab13_files/image001.gif");
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;
+	color:windowtext;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:999315046;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1126888924 375833220 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-number-format:image;
+	list-style-image:url("Lab13_files/image001.gif");
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;
+	color:windowtext;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+table.MsoTableTheme
+	{mso-style-name:"Table Theme";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	border:solid #3366CC 1.0pt;
+	mso-border-alt:solid #3366CC .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid #3366CC;
+	mso-border-insidev:.5pt solid #3366CC;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2049"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white background="Lab13_files/image002.gif" lang=EN-US
+link="#000099" vlink="#339966" style='tab-interval:.5in' alink="#99C999">
+<!--[if gte mso 9]><xml>
+ <v:background id="_x0000_s1025" o:bwmode="white" o:targetscreensize="1024,768">
+  <v:fill src="Lab13_files/image002.gif" o:title="captext" type="frame"/>
+ </v:background></xml><![endif]-->
+
+<div class=WordSection1>
+
+<p class=MsoHeader style='margin-left:219.0pt;text-indent:-219.0pt'><b><span
+style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif'>CptS 122 – Data
+Structures<span
+style='mso-spacerun:yes'>                                                                        
+</span></span></b><b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif;mso-no-proof:
+yes'><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="Picture_x0020_1" o:spid="_x0000_i1025" type="#_x0000_t75"
+ alt="image010" style='width:111.75pt;height:73.5pt;visibility:visible;
+ mso-wrap-style:square'>
+ <v:imagedata src="Lab13_files/image003.gif" o:title="image010"/>
+</v:shape><![endif]--><![if !vml]><img width=149 height=98
+src="Lab13_files/image003.gif" alt=image010 v:shapes="Picture_x0020_1"><![endif]></span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
+"Trebuchet MS",sans-serif;color:#990033'><o:p></o:p></span></b></p>
+
+<p class=MsoHeader align=center style='margin-left:219.0pt;text-align:center;
+text-indent:-219.0pt'><b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;font-family:"Trebuchet MS",sans-serif;color:#990033'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoHeader style='margin-left:219.0pt;text-indent:-219.0pt'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
+"Trebuchet MS",sans-serif;color:#990033'>Lab 13: Polymorphism in C++<o:p></o:p></span></b></p>
+
+<p class=MsoHeader align=center style='margin-left:219.0pt;text-align:center;
+text-indent:-219.0pt'><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Assigned:</span></b><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'> Week
+of April 15, 2019</span><span style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Due: </span></b><span
+style='font-family:"Trebuchet MS",sans-serif;mso-bidi-font-weight:bold'>At the
+end of the lab session<o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>I.
+Learner Objectives:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>At the conclusion
+of this programming assignment, participants should be able to:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Design,
+implement and test classes in C++ which apply polymorphism<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
+inheritance and polymorphism to model and simulate Animals and Pets<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>II.
+Prerequisites:</span></b><span style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Before
+starting this programming assignment, participants should be able to:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Analyze
+a basic set of requirements for a problem<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Create
+test cases for a program<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Design,
+implement and test classes in C++ which apply inheritance<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Compare
+and contrast inheritance (“is-a”) relationships versus composition (“has-a”)
+relationships<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Declare
+and define <i style='mso-bidi-font-style:normal'>constructors</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Declare
+and define <i style='mso-bidi-font-style:normal'>destructors</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Compare
+and contrast <i style='mso-bidi-font-style:normal'>public</i> and <i
+style='mso-bidi-font-style:normal'>private</i> access specifiers in C++<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Describe
+what is an <i style='mso-bidi-font-style:normal'>attribute</i> or data member
+of a class<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Describe
+what is a <i style='mso-bidi-font-style:normal'>method</i> of a class<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Apply
+and implement <i style='mso-bidi-font-style:normal'>overloaded</i> functions<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Distinguish
+between pass-by-<i style='mso-bidi-font-style:normal'>value</i> and pass-by-<i
+style='mso-bidi-font-style:normal'>reference</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Discuss
+<i style='mso-bidi-font-style:normal'>classes</i> versus <i style='mso-bidi-font-style:
+normal'>objects</i><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>Describe
+and define <i style='mso-bidi-font-style:normal'>inheritance</i><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><st1:stockticker w:st="on"><b><span style='font-family:"Trebuchet MS",sans-serif'>III</span></b></st1:stockticker><b><span
+style='font-family:"Trebuchet MS",sans-serif'>. Overview &amp; Requirements:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>This lab, along with your TA, will help you navigate
+through designing, implementing, and testing polymorphism with classes in C++.
+It will also, once again, help you with understanding how to apply inheritance
+to an application.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>Labs are held in a “closed” environment such that
+you may ask your TA questions. Please use your TAs knowledge to your advantage.
+You are required to move at the pace set forth by your TA. Please help other
+students in need when you are finished with a task. You may work in pairs if
+you wish. However, I encourage you to compose your own solution to each
+problem. Have a great time! Labs are a vital part to your education in CptS 122
+so work diligently.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:"Trebuchet MS",sans-serif'>Tasks:<o:p></o:p></span></b></p>
+
+<p><b style='mso-bidi-font-weight:normal'><span style='font-family:"Trebuchet MS",sans-serif'>NOTE:
+</span></b><span style='font-family:"Trebuchet MS",sans-serif'>Parts of this
+lab are courtesy of Jack Hagemeister.<o:p></o:p></span></p>
+
+<p><b style='mso-bidi-font-weight:normal'><span style='font-family:"Trebuchet MS",sans-serif'>Please
+work in your teams for this lab!!!!<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'>Task
+1. <o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>To gain a better understanding of polymorphic and
+virtual functions start with the following simple example. Notice we have not
+defined a virtual function yet.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:green;mso-no-proof:yes'>// Task1.h</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&lt;iostream&gt;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>using</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> std::cout;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>using</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> std::endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>class</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Base<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>public</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span></span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> testFunction ();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>};<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>class</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Derived : </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>public</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'> Base<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>public</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span></span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> testFunction ();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>};<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'>// Task1.cpp<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&quot;Task1.h&quot;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Base::testFunction ()<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span>cout &lt;&lt; </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'>&quot;Base class&quot;</span><span style='font-size:10.0pt;font-family:
+"Courier New";color:windowtext;mso-no-proof:yes'> &lt;&lt; endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Derived::testFunction ()<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span>cout &lt;&lt; </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'>&quot;Derived class&quot;</span><span style='font-size:10.0pt;font-family:
+"Courier New";color:windowtext;mso-no-proof:yes'> &lt;&lt; endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'>// main.cpp<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&quot;Task1.h&quot;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>int</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> main(</span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>void</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'>)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span>Base* ptr = </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>new</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Base;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span>ptr -&gt; testFunction ();<span
+style='mso-tab-count:2'>         </span></span><span style='font-size:10.0pt;
+font-family:"Courier New";color:green;mso-no-proof:yes'>// prints &quot;Base
+class&quot;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>delete</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> ptr;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span>ptr = </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>new</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Derived;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span>ptr -&gt; testFunction ();<span
+style='mso-tab-count:2'>         </span></span><span style='font-size:10.0pt;
+font-family:"Courier New";color:green;mso-no-proof:yes'>// prints &quot;Base
+class&quot; because the base class function is not virtual<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>delete</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> ptr;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>    </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>return</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> 0;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'>}</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>Now modify the code with the following (all other
+code should remain the same).<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>class</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Base<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>public</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span></span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>virtual
+void</span><span style='font-size:10.0pt;font-family:"Courier New";color:windowtext;
+mso-no-proof:yes'> testFunction ();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>};<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'>Compile and run your program with this modification.
+You’ll notice the second </span><span style='font-family:"Courier New";
+mso-bidi-font-weight:bold'>testFunction()</span><span style='font-family:"Trebuchet MS",sans-serif;
+mso-bidi-font-weight:bold'> call generates the message “Derived class”. Welcome
+to polymorphism!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Task 2.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>You will
+first build two classes, Mammal and Dog. Dog will inherit from Mammal. Below is
+the Mammal class code. Once you have the Mammal class built, build a second
+class Dog that will inherit publicly from Mammal. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:green;mso-no-proof:yes'>// Mammal.h<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:green;mso-no-proof:yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#pragma</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>once<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&lt;iostream&gt;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>using</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> std::cout;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>using</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> std::endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>class</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Mammal<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>public</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span>Mammal(</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>);<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span>~Mammal(</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>);<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span></span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>virtual</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>void</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'> Move() </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>const</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span></span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>virtual</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>void</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'> Speak() </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>const</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>protected</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:2'>            </span></span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>int</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> itsAge;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'>};<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:green;mso-no-proof:yes'>// Mammal.cpp<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:green;mso-no-proof:yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&quot;Mammal.h&quot;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>Mammal::Mammal(</span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>void</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'>):itsAge(1)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span>cout &lt;&lt; </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'>&quot;Mammal constructor...&quot;</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'> &lt;&lt; endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>Mammal::~Mammal(</span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>void</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'>)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span>cout &lt;&lt; </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'>&quot;Mammal destructor...&quot;</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'> &lt;&lt; endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Mammal::Move() </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>const<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span>cout &lt;&lt; </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'>&quot;Mammal moves a step!&quot;</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:windowtext;mso-no-proof:yes'> &lt;&lt; endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>void</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Mammal::Speak() </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:blue;mso-no-proof:yes'>const<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-tab-count:1'>      </span>cout &lt;&lt; </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:#A31515;mso-no-proof:
+yes'>&quot;What does a mammal speak? Mammilian!&quot;</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> &lt;&lt; endl;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'>}</span><span style='font-size:10.0pt;
+font-family:"Courier New";color:green;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Once you
+have completed class Mammal and Dog, build the following main program.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&quot;Mammal.h&quot;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>#include</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> </span><span style='font-size:10.0pt;font-family:"Courier New";
+color:#A31515;mso-no-proof:yes'>&quot;Dog.h&quot;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>int</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> main ()<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'>{<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span>Mammal *pDog = </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>new</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> Dog;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span>pDog-&gt;Move();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span>pDog-&gt;Speak();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:green;mso-no-proof:yes'>//Dog *pDog2 =
+new Dog;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:green;mso-no-proof:yes'>//pDog2-&gt;Move();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:green;mso-no-proof:yes'>//pDog2-&gt;Speak();<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:green;mso-no-proof:
+yes'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'><span style='mso-spacerun:yes'>   </span></span><span style='font-size:
+10.0pt;font-family:"Courier New";color:blue;mso-no-proof:yes'>return</span><span
+style='font-size:10.0pt;font-family:"Courier New";color:windowtext;mso-no-proof:
+yes'> 0;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+color:windowtext;mso-no-proof:yes'>}</span><span style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>What
+does it output, is that what you expected?<span style='mso-spacerun:yes'> 
+</span>Remove the keyword virtual from the class mammal and try it again. Now
+what happens? Next, put in another pointer to pDog2 in the main program, but
+this time make it a pointer to a Dog, not a mammal and create a new dog. Now
+what happens? What you should realize is that by making the method Speak
+virtual, we can have a little different behavior through dynamic (runtime)
+binding. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Task 3.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Develop
+additional classes for Cat, Horse, and GuineaPig overriding the move and speak
+methods. (If you do not know guinea pigs go “weep weep”)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Next,
+test with the modified main:<o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-size:10.0pt;
+font-family:"Courier New";color:blue'>int</span></b><span style='font-size:
+10.0pt;font-family:"Courier New"'> main </span><b><span style='font-size:10.0pt;
+font-family:"Courier New";color:navy'>()</span></b><span style='font-size:10.0pt;
+font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><b><span style='font-size:10.0pt;
+font-family:"Courier New";color:navy'>{</span></b><span style='font-size:10.0pt;
+font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span>Mammal</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>*</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> theArray</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>[</span></b><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>5</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>];</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span>Mammal</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>*</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>int</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> choice</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>,</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>for</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>(</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>i </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>0</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>5</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>++)</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>{</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span>cout </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;&lt;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> &quot;(1)dog (2)cat
+(3)horse (4)guinea pig: &quot;</span><b><span style='font-size:10.0pt;
+font-family:"Courier New";color:navy'>;</span></b><span style='font-size:10.0pt;
+font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span>cin </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> choice</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>switch</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>(</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>choice</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>)</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>{</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>case</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>1</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>:</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>new</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> Dog</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>break</span></b><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>case</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>2</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>:</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>new</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> Cat</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>break</span></b><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>case</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>3</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>:</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>new</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> Horse</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>break</span></b><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>case</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>4</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>:</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>new</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> GuineaPig</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>break</span></b><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>default</span></b><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>:</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>new</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> Mammal</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>         </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>break</span></b><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>}</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span>theArray</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>[</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>]</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> ptr</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>}</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>for</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>(</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>=</span></b><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>0</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>5</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>++)</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>      </span>theArray</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>[</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>i</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>]-&gt;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'>Speak</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>();</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-layout-grid-align:none;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Courier New"'><span style='mso-spacerun:yes'>   </span></span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:blue'>return</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+style='font-size:10.0pt;font-family:"Courier New";color:maroon'>0</span><b><span
+style='font-size:10.0pt;font-family:"Courier New";color:navy'>;</span></b><span
+style='font-size:10.0pt;font-family:"Courier New"'><u1:p></u1:p><o:p></o:p></span></p>
+
+<p class=MsoBodyText><span style='font-size:10.0pt;font-family:"Courier New"'>}<o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Some things to note:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>If the
+Dog object had a method, WagTail(), which is not in the Mammal, you could not
+use the pointer to Mammal to access that method (unless you cast it to be a
+pointer to Dog). Because WagTail() is not a virtual function, and because it is
+not in a Mammal object, you can't get there without either a Dog object or a
+Dog pointer to the Dog object!!!<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>The
+virtual function magic (polymorphic behavior) operates only on pointers and
+references. Passing an object by value will not enable the virtual functions to
+be invoked.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Some questions that you should
+understand:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Are
+inherited members and functions passed along to subsequent generations? If Dog
+derives from Mammal, and Mammal derives from Animal, does Dog inherit Animal's
+functions and data?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>A. Yes.
+As derivation continues, derived classes inherit the sum of all the functions
+and data in all their base classes.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Q. If,
+in the example above, Mammal overrides a function in Animal, which does Dog
+get, the original or the overridden function?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>A. If
+Dog inherits from Mammal, it gets the function in the state Mammal has it: the
+overridden function.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Q. Can a
+derived class make a public base function private?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>A. Yes,
+and it remains private for all subsequent derivations.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Q. Why
+not make all class functions virtual?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>A. There
+is overhead with the first virtual function in the creation of a v-table. After
+that, the overhead is trivial. Many C++ programmers feel that if one function
+is virtual, all others should be. Other programmers disagree, feeling that
+there should always be a reason for what you do.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Q. If a
+function (SomeFunc()) is virtual in a base class and is also overloaded, so as
+to take either an integer or two integers, and the derived class overrides the
+form taking one integer, what is called when a pointer to a derived object
+calls the two-integer form?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>A. The
+overriding of the one-int form hides the entire base class function, and thus
+you will get a compile error complaining that that function requires only one
+int.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Here are some more questions:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>1. What
+is a v-table?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>2. What
+is a virtual destructor?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>3. How
+do you show the declaration of a virtual constructor?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>4. How
+can you create a virtual copy constructor?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>5. How do
+you invoke a base member function from a derived class in which you've
+overridden that function?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>6. How
+do you invoke a base member function from a derived class in which you have not
+overridden that function?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>7. If a
+base class declares a function to be virtual, and a derived class does not use
+the term virtual when overriding that class, is it still virtual when inherited
+by a third-generation class?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>8. What
+is the protected keyword used for?<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>Some more exercises:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>1. Show
+the declaration of a virtual function that takes an integer parameter and
+returns void.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>2. Show
+the declaration of a class Square, which derives from Rectangle, which in turn
+derives from Shape.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>3. If,
+in Exercise 2, Shape takes no parameters, Rectangle takes two (length and
+width), but Square takes only one (length), show the constructor initialization
+for Square.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>4. Write
+a virtual copy constructor for the class Square (in Exercise 3).<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>5. BUG
+BUSTERS: What is wrong with this code snippet? <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>void
+SomeFunction (Shape); <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>Shape *
+pRect = new Rectangle; <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>SomeFunction(*pRect);
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>6. BUG
+BUSTERS: What is wrong with this code snippet? <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'>class
+Shape() { public: Shape(); virtual ~Shape(); virtual Shape(const Shape&amp;);
+};<o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>IV. Submitting Labs:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>You
+are not required to submit your lab solutions. However, you should keep them in
+a folder that you may continue to access throughout the semester. You should
+not store your solutions to the local C: drive on the EME 120/128 machines.
+These files are erased on a daily basis.<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Trebuchet MS",sans-serif'>V. Grading Guidelines:</span></b><span
+style='font-family:"Trebuchet MS",sans-serif'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Trebuchet MS",sans-serif'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-list:l1 level1 lfo4;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol;color:windowtext'><span
+style='mso-list:Ignore'><img width=11 height=13 src="Lab13_files/image001.gif"
+alt="*"><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style='font-family:"Trebuchet MS",sans-serif'>This
+lab is worth 10 points. Your lab grade is assigned based on completeness and
+effort. To receive full credit for the lab you must show up on time and
+continue to work on the problems until the TA has dismissed you.<o:p></o:p></span></p>
+
+</div>
+
+<!--mstheme-->
+</body>
+
+</html>
