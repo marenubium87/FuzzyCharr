@@ -1,0 +1,20 @@
++1060  //read counter into location 60
++2060  //load location 60 (counter) into accum
++2161  //store accum to location 61 (makes a copy of counter)
++1063  //first pass.  read new value into location 63 - is current highest value
++4012  //branch to decrementing the counter, no checks needed.
++2063  //load value in location 63 (current highest value) into accum
++1062  //read new value into location 62
++3162  //subtract accum by location 62
++4110  //if result is negative, it means new value is larger, go to inst. 10
++4012  //if not, skip the "result negative" branch and go to inst. 12
++2062  //start of result is negative branch, load new value into accum
++2163  //we know this is larger than previous highest, so make it the new highest, end of branch
++2060  //load the counter
++3119  //subtract the accum (counter) by the value 1
++2160  //store new value of accum (counter) into location 60
++4217  //if accum is zero, no more loops, go to instruction 17
++4005  //but if accum is still positive, repeat from instruction 05.
++1163  //at this point the highest number should be in location 63 so just write it
++4300  //end of program execution
++0001  //the value 1, used in instruction 11

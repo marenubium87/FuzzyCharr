@@ -124,13 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PA7.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PA7.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="simpletron1.sml" />
+    <None Include="simpletron2.sml" />
+    <None Include="simpletron3.sml" />
+    <None Include="simpletron4.sml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="simpletron2a.txt" />
+    <Text Include="simpletron3a.txt" />
+    <Text Include="simpletron4a.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

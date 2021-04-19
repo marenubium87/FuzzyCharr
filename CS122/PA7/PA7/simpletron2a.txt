@@ -1,0 +1,15 @@
++1070  //store six values in locations 70 - 75
++1071
++1072
++1073
++1074
++1075
++2070  //load location 70 into accum
++3071  //add locations 71 - 75 into accum
++3072
++3073
++3074
++3075
++2180  //store result in location 80
++1180  //write location 80 to console
++4300  //halt

@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PA7.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PA7.h">
@@ -31,5 +28,25 @@
     <None Include="simpletron1.sml">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="simpletron2.sml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="simpletron3.sml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="simpletron4.sml">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="simpletron2a.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="simpletron3a.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="simpletron4a.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
