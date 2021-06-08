@@ -16,6 +16,18 @@ class xpOps(commands.Cog):
     @commands.command()
     async def assignXP(self, ctx, xp):
         if TRUSTED_USERS.get(str(ctx.message.author.id)) == "Aerie":
+            await asyncio.sleep(MSG_DELAY)
+            await ctx.send(f'Please give a reason:')
+
+            #Makes sure that response will only be registered if following
+            #conditions are met:
+            #(specifically, if it's me)
+            def check(msg):
+                return msg.author == ctx.author
+            
+            await self.bot.wait_for('message', check=check)
+            await ctx.send("So noted.")
+
             f = open(r"data/leveling.txt", mode = 'r')
 
             #0th entry is level, 1st entry is xp
