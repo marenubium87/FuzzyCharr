@@ -157,6 +157,8 @@ public:
 		while(!isEmpty()) {
 			removeElementAt(0);
 		}
+		_front = nullptr;
+		_end = nullptr;
 
 		//traverse other and create elements with those values
 		for(int i = 0; i < other.getSize(); i++) {
@@ -195,6 +197,10 @@ public:
 	{
 		cout << " [x] Initializer List Constructor executed. " << endl;
 		// Add a copy of every element in values to ourselves
+		const T * iter = nullptr;
+		for(iter = values.begin(); iter < values.end(); iter++) {
+			addElement(*iter);
+		}
 	}
 
 
@@ -204,18 +210,37 @@ public:
 	{
 		cout << "  [x] LinkedList Destructor executed. " << endl;
 		// Delete every node in our internal linked list
+		while(_size > 0) {
+			removeElementAt(0);
+		}
+		_front = nullptr;
+		_end = nullptr;
+		_last_accessed_node = nullptr;
 	}
 
 	// Copy assignment operator
 	//  MA TODO: Implement!
 	virtual LinkedList<T> &operator=(const LinkedList<T> &other)
 	{
-		// Note: might want to make sure we don't copy ourselves!
+		
 		cout << " [x] Copy *assignment* operator called. " << endl;
+		// Note: might want to make sure we don't copy ourselves!
+		if(&other == this) {
+			return *this;
+		}
 
 		// Delete our elements
+		while(_size > 0){
+			removeElementAt(0);
+		}
+		_front = nullptr;
+		_end = nullptr;
 
 		// Add in other's elements
+		//traverse other and create elements with those values
+		for(int i = 0; i < other.getSize(); i++) {
+			addElement(other.getElementAt(i));
+		}
 
 		return *this;
 	}
@@ -227,10 +252,22 @@ public:
 	{
 		cout << " [x] Move *assignment* operator called. " << endl;
 		// Delete our own elements
-
+		while(_size > 0) {
+			removeElementAt(0);
+		}
 		// Grab other data for ourselves
+		_front = other._front;
+		_end = other._end;
+		_size = other._size;
+		_last_accessed_index = other._last_accessed_index;
+		_last_accessed_node = other._last_accessed_node;
 
-		// Reset their pointers to nullptr
+		// Reset pointers in other to nullptr
+		other._front = nullptr;
+		other._end = nullptr;
+		other._last_accessed_node = nullptr;
+		other._size = 0;
+		other._last_accessed_index = 0;
 
 		return *this;
 	}
