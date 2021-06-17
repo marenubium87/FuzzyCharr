@@ -229,7 +229,7 @@ class BST {
     /* MA TODO: Implement */
     BST( const BST &other ) : root( NULL ) {
         cout << " [d] Copy constructor called. " << endl;
-        cout << " TODO: Implement copy constructor. " << endl;
+        root = cloneTree(other.root);
     }
 
     /* Move constructor */
@@ -243,7 +243,9 @@ class BST {
     /* MA TODO: Implement */
     BST& operator=(BST & other) {
         cout << " [d] Copy assignment operator called. " << endl;
-        cout << " TODO: Implement copy assignment operator. " << endl;
+        makeEmpty();
+        root = cloneTree(other.root);
+        return *this;
     }
 
     /* Move assignment operator */
@@ -251,6 +253,7 @@ class BST {
     BST& operator=(BST && other) {
         cout << " [d] Move assignment operator called. " << endl;
         cout << " TODO: Implement move assignment operator. " << endl;
+        return *this;
     }
 
     /* Public API */
@@ -312,7 +315,7 @@ class BST {
     }
 
     bool contains( T value ) {
-        containsHelper(this->root, value);
+        return containsHelper(this->root, value);
     }
 
     Node<T> * getRoot() { return(root); }  // Gives out our root pointer for testing
