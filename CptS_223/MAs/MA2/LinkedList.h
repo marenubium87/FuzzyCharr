@@ -41,7 +41,7 @@ protected:
 	{
 		return _front;
 	}
-  */
+	*/
 
 	ListNode<T> *getEnd()
 	{
@@ -152,6 +152,16 @@ public:
 	{
 		cout << " [x] Copy Constructor executed. " << endl;
 		// Copy every element in other to ourselves
+
+		//first empties out the current list if applicable
+		while(!isEmpty()) {
+			removeElementAt(0);
+		}
+
+		//traverse other and create elements with those values
+		for(int i = 0; i < other.getSize(); i++) {
+			addElement(other.getElementAt(i));
+		}
 	}
 
 
@@ -160,10 +170,22 @@ public:
 	LinkedList(LinkedList<T> &&other)
 	{
 		cout << " [x] Move Constructor executed. " << endl;
+
 		// Copy the pointers within other to ourselves
+		_front = other._front;
+		_end = other._end;
+		
 		//  Also copy their class varibles (_last_accessed_index, etc)
+		_size = other._size;
+		_last_accessed_index = other._last_accessed_index;
+		_last_accessed_node = other._last_accessed_node;
 
 		// Reset pointers in other to nullptr
+		other._front = nullptr;
+		other._end = nullptr;
+		other._last_accessed_node = nullptr;
+		other._size = 0;
+		other._last_accessed_index = 0;
 	}
 
 

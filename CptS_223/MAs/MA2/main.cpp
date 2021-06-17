@@ -57,9 +57,13 @@ void linkedListTest()
 	//**************************************************************************//
 	// Use move constructor
 	cout << " [x] Test #3: Move constructor behavior" << endl;
-	LinkedList<int> tmp = LinkedList<int>{1, 2, 3, 4, 5};
+	LinkedList<int> temp{};
+	for (int i = 1; i < 6; i++)
+	{
+		temp.addElement(i);
+	}
 	//LinkedList<int> moved1{ LinkedList<int>{1, 2, 3, 4, 5} };
-	LinkedList<int> moved1 = std::move(tmp);
+	LinkedList<int> moved1 = std::move(temp);
 	cout << "   [x] Result:" << endl;
 	cout << "   [x]  Expected:\t1 2 3 4 5" << endl;
 	cout << "   [x]  Actual:\t\t";
