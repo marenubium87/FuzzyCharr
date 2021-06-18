@@ -6,7 +6,7 @@
 
 # Variables
 GPP     = g++
-CFLAGS  = -g -std=c++14
+CFLAGS  = -g -std=c++11
 RM      = rm -f
 BINNAME = bigFiveList
 
