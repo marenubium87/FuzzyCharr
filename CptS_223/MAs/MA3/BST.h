@@ -120,13 +120,24 @@ class BST {
     /* MA TODO: Implement */
     void printLevelOrderHelper(Node<T> *root) {
         if (!root) return;
-        /*
-        MA TODO:
-        */
-        cout << endl;
-        cout << "printLevelOrderHelper UNIMPLEMENTED AT THIS TIME -- REPLACE!" << endl;
-        cout << " ** Required to use the STL queue class (that's a huge hint)!" << endl;
-        cout << " ** Doing this with a loop will be easier than recursion." << endl;
+        //stores pointers to tree nodes to be accessed later
+        queue<Node<T> *> Q;
+        Node<T> * pCurr = nullptr;
+        Q.push(root);
+        while(!Q.empty()) {
+            //dequeue and print out current element
+            pCurr = Q.front();
+            Q.pop();
+            cout << pCurr->value << ' ';
+
+            //enqueue pointers to children for next pass (if not null)
+            if(pCurr->left != nullptr) {
+                Q.push(pCurr->left);
+            }
+            if(pCurr->right != nullptr) {
+                Q.push(pCurr->right);
+            }
+        }
     }
 
     /* Generate vector of tree values to return */
@@ -134,13 +145,27 @@ class BST {
     vector<T> & returnLevelOrderHelper(Node<T> *root) {
         vector<T> * ret = new vector<T>{};
         if (!root) return( *ret );
-        /*
-        MA TODO:
-        */
-        cout << endl;
-        cout << " returnLevelOrderHelper UNIMPLEMENTED AT THIS TIME -- REPLACE!" << endl;
-        cout << " ** Required to use the STL queue class (that's a huge hint)!" << endl;
-        cout << " ** Doing this with a loop will be easier than recursion." << endl;
+
+        //set up queue for tree pointers and insert root
+        queue<Node<T>*> Q;
+        Node<T> * pCurr = nullptr;
+        Q.push(root);
+
+        while(!Q.empty()) {
+            //dequeue, insert value into vector
+            pCurr = Q.front();
+            Q.pop();
+            ret->push_back(pCurr->value);
+
+            //queue up pointers to children if they exist
+            if(pCurr->left != nullptr) {
+                Q.push(pCurr->left);
+            }
+            if(pCurr->right != nullptr) {
+                Q.push(pCurr->right);
+            }
+        }
+
         return( *ret );
     }
 
@@ -229,32 +254,44 @@ class BST {
     /* MA TODO: Implement */
     BST( const BST &other ) : root( NULL ) {
         cout << " [d] Copy constructor called. " << endl;
-        if(this == &other) {
-            return;
-        }
-        cloneTree(other.root);
+        root = cloneTree(other.root);
     }
 
     /* Move constructor */
     /* MA TODO: Implement */
     BST ( BST && other ) : root( NULL ) {
         cout << " [d] Move constructor called " << endl;
-        cout << " TODO: Implement move constructor. " << endl;
+        //take other's root
+        root = other.root;
+        //clear other's root pointer
+        other.root = nullptr;
     }
 
     /* Copy assignment operator */
     /* MA TODO: Implement */
     BST& operator=(BST & other) {
         cout << " [d] Copy assignment operator called. " << endl;
+        //make sure we're not copying to self
+        if(this == &other) {
+            return *this;
+        }
         //clear self first
-
+        makeEmpty();
+        root = cloneTree(other.root);
+        return *this;
     }
 
     /* Move assignment operator */
     /* MA TODO: Implement */
     BST& operator=(BST && other) {
         cout << " [d] Move assignment operator called. " << endl;
-        cout << " TODO: Implement move assignment operator. " << endl;
+        //clear self first
+        makeEmpty();
+        //take other's root
+        root = other.root;
+        //clear other's root pointer
+        other.root = nullptr;
+        return *this;
     }
 
     /* Public API */
@@ -316,7 +353,7 @@ class BST {
     }
 
     bool contains( T value ) {
-        containsHelper(this->root, value);
+        return containsHelper(this->root, value);
     }
 
     Node<T> * getRoot() { return(root); }  // Gives out our root pointer for testing

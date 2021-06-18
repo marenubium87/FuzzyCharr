@@ -57,7 +57,9 @@ void test_copy_assignment_operator() {
     cout << " [t] Testing copy= constructor" << endl;
     BST<int> bstsrc = BST<int>({4,2,1,3,6,5,7,9,8});
     BST<int> bstcopy = BST<int>({5,6,7});
-    cout << "  BST to copy over starts: \t"; bstcopy.printLevelOrder(); cout << endl;
+    //WHY IS THIS HERE???
+    /*cout << "  BST to copy over starts: \t"; bstcopy.printLevelOrder(); cout << endl;
+    */
     cout << "  Invoking copy assingment operator." << endl;
 
     bstcopy = bstsrc;      // Invoke copy= constructor
