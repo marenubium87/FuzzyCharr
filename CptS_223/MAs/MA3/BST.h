@@ -229,7 +229,10 @@ class BST {
     /* MA TODO: Implement */
     BST( const BST &other ) : root( NULL ) {
         cout << " [d] Copy constructor called. " << endl;
-        cout << " TODO: Implement copy constructor. " << endl;
+        if(this == &other) {
+            return;
+        }
+        cloneTree(other.root);
     }
 
     /* Move constructor */
@@ -243,7 +246,8 @@ class BST {
     /* MA TODO: Implement */
     BST& operator=(BST & other) {
         cout << " [d] Copy assignment operator called. " << endl;
-        cout << " TODO: Implement copy assignment operator. " << endl;
+        //clear self first
+
     }
 
     /* Move assignment operator */
