@@ -3,6 +3,7 @@ import re
 import os
 import asyncio
 import math
+from datetime import date
 
 trustedUsersList = os.getenv("TRUSTED_USERS_LIST").split(", ")
 TRUSTED_USERS = {os.getenv(name.upper()): name for name in trustedUsersList}
@@ -25,14 +26,23 @@ class xpOps(commands.Cog):
             def check(msg):
                 return msg.author == ctx.author
             
-            await self.bot.wait_for('message', check=check)
+            reason = await self.bot.wait_for('message', check=check)
+            await asyncio.sleep(MSG_DELAY)
             await ctx.send("So noted.")
 
-            f = open(r"data/leveling.txt", mode = 'r')
+            #opens leveling documents for writing
+            #appends to leveling notes
+            f1 = open(r"data/leveling.txt", mode = 'r')
+            f2 = open(r"data/levelingNotes.txt", mode = 'a')
 
             #0th entry is level, 1st entry is xp
-            levelData = f.read().split(' ')
-            f.close()
+            levelData = f1.read().split(' ')
+            f1.close()
+
+            #append to log file
+            f2.write(f'{date.today().isoformat()}  Assigned {xp} XP for ' +
+            f'\'{reason.content}\'\n')
+            f2.close()
 
             #reads current level and xp, adds xp to be committed
             curLevel = int(levelData[0])
@@ -66,6 +76,7 @@ class xpOps(commands.Cog):
 
             xpFile = open(r"data/leveling.txt", mode = 'w')
             xpFile.write(f'{curLevel} {curXP}')
+            xpFile.close()
             await asyncio.sleep(MSG_DELAY)
             await ctx.send(response)
 
