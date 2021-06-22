@@ -6,7 +6,7 @@
 
 # Variables
 GPP     = g++
-CFLAGS  = -g -std=c++0x
+CFLAGS  = -g -std=c++11
 RM      = rm -f
 BINNAME = bstheights
 

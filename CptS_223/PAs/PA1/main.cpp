@@ -83,6 +83,7 @@ int main( int argc, char* argv[] ) {
 	if( argc > 1 && !strcmp(argv[1], "--test") )
 	{
 		cout << " [x] Program in test mode, doing simple tests. " << endl;
+
 		runTests();  // testing should just do a simple tree insert set and search
 	}
 	else
