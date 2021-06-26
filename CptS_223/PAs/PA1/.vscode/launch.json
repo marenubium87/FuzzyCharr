@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bstheights",
-            "args": ["--test"],
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

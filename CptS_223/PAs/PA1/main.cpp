@@ -12,11 +12,16 @@
  */
 
 #include <iostream>
+#include <iomanip>
 #include <queue>
 #include <cstring>
+#include <fstream>
+#include <math.h>
 #include "BST.h"
 #include "TestData.h"
+
 using namespace std;
+using std::fstream;
 
 /*
  *  Interface to run all tests if --test is passed on command line
@@ -44,8 +49,10 @@ void runTests() {
   cout << " [x] Resulting print out test:      ";
 	bst_test->printPreOrder();
   cout << endl;
+  cout << "Number of nodes is " << bst_test->nodesCount() << endl;
 
-	cout << " [x] Should print a tree height of  : 5" << endl;
+	//changed to 4 with permission from instructor
+	cout << " [x] Should print a tree height of  : 4" << endl;
   cout << " [x] Currently calculating height of: ";
   cout << bst_test->height();
   cout << endl;
@@ -57,7 +64,62 @@ void runTests() {
  */
 void genCSV() {
 	cout << " [x] Generating CSV output file. " << endl;
-	cout << " [!!!] UNIMPLEMENTED - Need to generate the CSV file based on the tree height growth." << endl;
+
+	TestData testValues;
+	BST<int> sorted, balanced, scram0, scram1, scram2, scram3, scram4;
+
+	fstream output;
+	output.open("data.csv", std::ios::out);
+
+	//write header line
+	output << "N,log_2(N),Sorted,Balanced,Scrambled0,Scrambled1,"
+		<< "Scrambled2,Scrambled3,Scrambled4" << endl;
+
+	//write line for n = 0 (so that poor computer doesn't try to do log_2(0))
+	output << "0,N/A,-1,-1,-1,-1,-1,-1,-1" << endl;
+
+	int n = 0;
+	int nextSortedVal = testValues.get_next_sorted();
+	int nextBalancedVal = testValues.get_next_balanced();
+	int nextScramVal0 = testValues.get_next_scrambled(0);
+	int nextScramVal1 = testValues.get_next_scrambled(1);
+	int nextScramVal2 = testValues.get_next_scrambled(2);
+	int nextScramVal3 = testValues.get_next_scrambled(3);
+	int nextScramVal4 = testValues.get_next_scrambled(4);
+
+	while(nextSortedVal >= 0) {
+		n++;
+
+		if(n % 100 == 0) {
+			cout << "Working line " << n << endl;
+		}
+
+		if(n > 200) {
+			break;
+		}
+
+		sorted.add(nextSortedVal);
+		balanced.add(nextBalancedVal);
+		scram0.add(nextScramVal0);
+		scram1.add(nextScramVal1);
+		scram2.add(nextScramVal2);
+		scram3.add(nextScramVal3);
+		scram4.add(nextScramVal4);
+
+		output << n << "," << setprecision(3) << log2(double(n)) << ","
+			<< sorted.height() << "," << balanced.height() << ","
+			<< scram0.height() << "," << scram1.height() << "," 
+			<< scram2.height() << "," << scram3.height() << "," 
+			<< scram4.height() << endl;
+
+		nextSortedVal = testValues.get_next_sorted();
+		nextBalancedVal = testValues.get_next_balanced();
+		nextScramVal0 = testValues.get_next_scrambled(0);
+		nextScramVal1 = testValues.get_next_scrambled(1);
+		nextScramVal2 = testValues.get_next_scrambled(2);
+		nextScramVal3 = testValues.get_next_scrambled(3);
+		nextScramVal4 = testValues.get_next_scrambled(4);
+	}
 
 	/*  Sample of how to use the TestData structure for getting the test data sets
 	int sorted = testing->get_next_sorted();  
@@ -73,6 +135,10 @@ void genCSV() {
 		// fill trees with data from TestData
 		//  -- as you fill, get the heights and output to CSV file: log_2 N, height sorted, height balanced, height scrambled[0..4]
     //  -- fill until the get_next_* functions return -1
+
+
+
+	output.close();
 }
 
 
