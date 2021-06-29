@@ -90,12 +90,8 @@ void genCSV() {
 	while(nextSortedVal >= 0) {
 		n++;
 
-		if(n % 100 == 0) {
-			cout << "Working line " << n << endl;
-		}
-
-		if(n > 200) {
-			break;
+		if(n % 50 == 0) {
+			cout << "\r" << "Inserted " << n << " elements into trees...";
 		}
 
 		sorted.add(nextSortedVal);
@@ -137,7 +133,7 @@ void genCSV() {
     //  -- fill until the get_next_* functions return -1
 
 
-
+	cout << "\n";
 	output.close();
 }
 
