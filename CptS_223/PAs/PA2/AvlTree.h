@@ -81,11 +81,10 @@ class AvlTree
     /**
      * Test if the tree is logically empty.
      * Return true if empty, false otherwise.
-     *  TODO: Implement
      */
     bool isEmpty( ) const
     {
-        return false;  // so not correct
+        return root == nullptr;
     }
 
     /**
@@ -215,11 +214,15 @@ class AvlTree
 
     /**
      * Internal method to count nodes in tree
-     *  TODO: Implement
      */
     int size( AvlNode * & t )
     {
-      return(-1);
+      if(t == nullptr) {
+        return 0;
+      }
+      else {
+        return 1 + size(t->left) + size(t->right);
+      }
     }
 
     /**
@@ -231,18 +234,34 @@ class AvlTree
      */
     void insert( const Comparable & x, AvlNode * & t )
     {
-       // Definitely to do
+       if(t == nullptr) {
+         t = new AvlNode(x, nullptr, nullptr);
+       }
+       else if(x < t->element) {
+         insert(x, t->left);
+       }
+       else {
+         insert(x, t->right);
+       }
     }
 
     /**
      * Internal method to find the smallest item in a subtree t.
      * Return node containing the smallest item.
      *  You'll need this for deletes
-     *  TODO: Implement
      */
     AvlNode * findMin( AvlNode *t ) const
     {
-      return t; // placeholder
+      //empty tree scenario taken care of by calling method
+
+      //furthest left element
+      if(t->left == nullptr) {
+        return t;
+      }
+      //not there yet, keep going
+      else {
+        return findMin(t->left);
+      }
     }
 
     /**
@@ -252,58 +271,94 @@ class AvlTree
      */
     AvlNode * findMax( AvlNode *t ) const
     {
-        return t;  // placeholder
-    }
+        //empty tree scenario taken care of by calling method
 
+        //furthest right
+        if(t->right == nullptr) {
+          return t;
+        }
+        //not there yet
+        else {
+          return findMax(t->right);
+        }
+    }
 
     /**
      * Internal method to test if an item is in a subtree.
      * x is item to search for.
      * t is the node that roots the tree.
-     *  TODO: Implement
      */
     bool contains( const Comparable & x, AvlNode *t ) const
     {
-      return false;    // Lolz
+      //reached end, found nothing
+      if(t == nullptr) {
+        return false;
+      }
+      //found the correct element, stop searching
+      else if(x == t->element) {
+        return true;
+      }
+      //search left subtree
+      else if(x < t->element) {
+        return contains(x, t->left);
+      }
+      //search right subtree
+      else {
+        return contains(x, t->right);
+      }
     }
 
 /******************************************************/
 
     /**
      * Internal method to make subtree empty.
-     *  TODO: implement for destructor
      * 
      */
     void makeEmpty( AvlNode * & t )
     {
-        cout << " [!] makeEmpty not implemented " << endl;
+        //post order deletion
+        if(t != nullptr) {
+          makeEmpty(t->left);
+          makeEmpty(t->right);
+          delete t;
+        }
     }
 
     /**
      * Internal method to print a subtree rooted at t in sorted order.
-     *  TODO: Implement
      */
     void printInOrder( AvlNode *t ) const
     {
-      cout << "  [!] Printing In Order";
+      if(t != nullptr) {
+        printInOrder(t->left);
+        cout << t->element << " ";
+        printInOrder(t->right);
+      }
+      
     }
 
     /**
      * Internal method to print a subtree rooted at t in pre order.
-     *  TODO: Implement
      */
     void printPreOrder( AvlNode *t ) const
     {
-      cout << "  [!] Printing Pre order";
+      if(t != nullptr) {
+        cout << t->element << " ";
+        printPreOrder(t->left);
+        printPreOrder(t->right);
+      }
     }
 
     /**
      * Internal method to print a subtree rooted at t in post order.
-     *  TODO: Implement
      */
     void printPostOrder( AvlNode *t ) const
     {
-      cout << "   [!] Printing post order";
+      if(t != nullptr) {
+        printPostOrder(t->left);
+        printPostOrder(t->right);
+        cout << t->element << " ";
+      }
     }
 
     /**
@@ -325,7 +380,33 @@ class AvlTree
      */
     int height( AvlNode *t ) const
     {
-			return(-2);  // DEFINITELY not true
+      if(t == nullptr) {
+        return -1;
+      }
+      else {
+        return t->height;
+      }
+			
+    }
+
+    //helper to update the height of a given node
+    void updateHeight(AvlNode *t) {
+      //leaf
+      if(t->left == nullptr && t->right == nullptr) {
+        t->height = 0;
+      }
+      //left child only
+      else if(t->right == nullptr) {
+        t->height = height(t->left) + 1;
+      }
+      //right child only
+      else if(t->left == nullptr) {
+        t->height = height(t->right) + 1;
+      }
+      //has two children
+      else {
+        t->height = max(height(t->left), height(t->right)) + 1;
+      }
     }
 
 
