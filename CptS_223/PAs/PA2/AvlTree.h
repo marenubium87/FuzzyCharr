@@ -177,11 +177,23 @@ class AvlTree
 
     /**
      * Remove x from the tree. Nothing is done if x is not found.
-     *  TODO: Implement
+     *  strategy:  replace x with x's max element in its left subtree,
+     *  then delete x
      */
     void remove( const Comparable & x )
     {
-        //cout << "[!] Sorry, remove unimplemented; " << x << " still present" << endl;
+      if(!contains(x)) {
+        return;
+      }
+
+      //is the element to be deleted the root element?
+      if(root->element == x) {
+        //do things here
+        return;
+      }
+
+      removeHelper(root, x);
+
     }
 
 
@@ -230,7 +242,6 @@ class AvlTree
      * x is the item to insert.
      * t is the node that roots the subtree.
      * Set the new root of the subtree.
-     *  TODO: Implement
      */
     void insert( const Comparable & x, AvlNode * & t )
     {
@@ -243,6 +254,13 @@ class AvlTree
        else {
          insert(x, t->right);
        }
+
+       //check for inbalance
+       if(detectImbalance(t)) {
+         performRotation(t, x);
+       }
+       updateHeight(t);
+
     }
 
     /**
@@ -267,7 +285,6 @@ class AvlTree
     /**
      * Internal method to find the largest item in a subtree t.
      * Return node containing the largest item.
-     *  TODO: Implement
      */
     AvlNode * findMax( AvlNode *t ) const
     {
@@ -376,7 +393,6 @@ class AvlTree
     // Avl manipulations
     /**
      * Return the height of node t or -1 if NULL.
-     *  TODO: Implement
      */
     int height( AvlNode *t ) const
     {
@@ -386,29 +402,19 @@ class AvlTree
       else {
         return t->height;
       }
-			
     }
 
-    //helper to update the height of a given node
+    //returns true if absolute difference between left and right subtree
+    //of node t is greater than 1
+    bool detectImbalance(AvlNode *t) {
+      return height(t->left) - height(t->right) > 1 ||
+        height(t->left) - height(t->right) < -1;
+    }
+
+    //helper to update the height of a given node based on heights of children
     void updateHeight(AvlNode *t) {
-      //leaf
-      if(t->left == nullptr && t->right == nullptr) {
-        t->height = 0;
-      }
-      //left child only
-      else if(t->right == nullptr) {
-        t->height = height(t->left) + 1;
-      }
-      //right child only
-      else if(t->left == nullptr) {
-        t->height = height(t->right) + 1;
-      }
-      //has two children
-      else {
         t->height = max(height(t->left), height(t->right)) + 1;
-      }
     }
-
 
     int max( int lhs, int rhs ) const
     {
@@ -419,20 +425,32 @@ class AvlTree
      * Rotate binary tree node with left child.
      * For AVL trees, this is a single rotation for case 1.
      * Update heights, then set new root.
-     *  TODO: Implement
      */
     void rotateWithLeftChild( AvlNode * & k2 )
     {
+      AvlNode * temp = k2;
+      k2 = k2->left;
+      temp->left = k2->right;
+      k2->right = temp;
+
+      //update new child's height
+      updateHeight(k2->right);
     }
 
     /**
      * Rotate binary tree node with right child.
      * For AVL trees, this is a single rotation for case 4.
      * Update heights, then set new root.
-     *  TODO: Implement
      */
     void rotateWithRightChild( AvlNode * & k1 )
     {
+      AvlNode * temp = k1;
+      k1 = k1->right;
+      temp->right = k1->left;
+      k1->left = temp;
+
+      //update new child's height
+      updateHeight(k1->left);
     }
 
     /**
@@ -440,10 +458,11 @@ class AvlTree
      * with its right child; then node k3 with new left child.
      * For AVL trees, this is a double rotation for case 2.
      * Update heights, then set new root.
-     *  TODO: Implement
      */
     void doubleWithLeftChild( AvlNode * & k3 )
     {
+      rotateWithRightChild(k3->left);
+      rotateWithLeftChild(k3);
     }
 
     /**
@@ -451,10 +470,54 @@ class AvlTree
      * with its left child; then node k1 with new right child.
      * For AVL trees, this is a double rotation for case 3.
      * Update heights, then set new root.
-     *  TODO: Implement
      */
     void doubleWithRightChild( AvlNode * & k1 )
     {
+      rotateWithLeftChild(k1->right);
+      rotateWithRightChild(k1);
+    }
+
+    //performs correct rotations based on value of insertion target
+    //relative to the location that imbalance was detected
+    void performRotation(AvlNode * & k, int target) {
+      if(target < k->element) {
+        if(target < k->left->element) {
+          //single rotate right
+          rotateWithLeftChild(k);
+        }
+        else {
+          //left-right rotation
+          doubleWithLeftChild(k);
+        }
+      }
+      else {
+        if(target < k->right->element) {
+          //right-left rotation
+          doubleWithRightChild(k);
+        }
+        else {
+          rotateWithRightChild(k);
+        }
+      }
+    }
+
+    //recursive method to remove element x (which exists AND is not the root)
+    //from the tree
+    void removeHelper(AVLNode * & pTree, int & x) {
+      if(pTree->element > x) {
+        removeHelper(pTree->left, x);
+      }
+      else if(pTree->element < x) {
+        removeHelper(pTree->right, x);
+      }
+      //only remaining option is pTree is where we want to delete
+      else {
+        AVLNode * pTemp = pTree;
+        //use largest element of left subtree as replacement
+        AVLNode * pReplace = findMax(pTree->left);
+        
+        
+      }
     }
 };
 
