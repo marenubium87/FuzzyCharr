@@ -177,18 +177,10 @@ class AvlTree
 
     /**
      * Remove x from the tree. Nothing is done if x is not found.
-     *  strategy:  replace x with x's max element in its left subtree,
-     *  then delete x
      */
     void remove( const Comparable & x )
     {
       if(!contains(x)) {
-        return;
-      }
-
-      //is the element to be deleted the root element?
-      if(root->element == x) {
-        //do things here
         return;
       }
 
@@ -407,13 +399,20 @@ class AvlTree
     //returns true if absolute difference between left and right subtree
     //of node t is greater than 1
     bool detectImbalance(AvlNode *t) {
-      return height(t->left) - height(t->right) > 1 ||
+      if(t == nullptr) {
+        return false;
+      }
+      else {
+        return height(t->left) - height(t->right) > 1 ||
         height(t->left) - height(t->right) < -1;
+      }
     }
 
     //helper to update the height of a given node based on heights of children
     void updateHeight(AvlNode *t) {
+      if(t != nullptr) {
         t->height = max(height(t->left), height(t->right)) + 1;
+      }
     }
 
     int max( int lhs, int rhs ) const
@@ -501,9 +500,33 @@ class AvlTree
       }
     }
 
+    //performs correct rotations based on a deletion
+    //relative to the location that imblanace was detected
+    void performRotation(AvlNode * & k) {
+      //after a deletion, which subtree has greater height?
+      if(height(k->left) - height(k->right) > 0) {
+        //does the left child have a right (grand)child?
+        if(k->left->right != nullptr) {
+          doubleWithLeftChild(k);
+        }
+        else {
+          rotateWithLeftChild(k);
+        }
+      }
+      else {
+        //does the right child have a left (grand)child?
+        if(k->right->left != nullptr) {
+          doubleWithRightChild(k);
+        }
+        else {
+          rotateWithRightChild(k);
+        }
+      }
+    }
+
     //recursive method to remove element x (which exists AND is not the root)
     //from the tree
-    void removeHelper(AVLNode * & pTree, int & x) {
+    void removeHelper(AvlNode * & pTree, const Comparable & x) {
       if(pTree->element > x) {
         removeHelper(pTree->left, x);
       }
@@ -512,12 +535,44 @@ class AvlTree
       }
       //only remaining option is pTree is where we want to delete
       else {
-        AVLNode * pTemp = pTree;
-        //use largest element of left subtree as replacement
-        AVLNode * pReplace = findMax(pTree->left);
+        AvlNode * pTemp = pTree;
         
-        
+        if(pTree->right != nullptr) {
+          if(pTree->left != nullptr) {
+            //if the node pointed to by pTree has no nullptrs
+            //plan:  replace element with largest element of left subtree,
+            //then call remove fcn again on left subtree to erase element
+            AvlNode * pReplace = findMax(pTree->left);
+            pTree->element = pReplace->element;
+            pReplace->element = x;
+            removeHelper(pTree->left, x);
+          }
+          else {
+            //pTree only has right ptr, connect pTree to pTree's child
+            pTree = pTree->right;
+            delete pTemp;
+          }
+        }
+        else {
+          if(pTree->left != nullptr) {
+            //pTree only has left ptr, connect to child
+            pTree = pTree->left;
+            delete pTemp;
+          }
+          else {
+            //no children, leaf node, just delete
+            delete pTemp;
+            pTree = nullptr;
+          }
+        }
       }
+
+      //check for imbalances
+      if(detectImbalance(pTree)) {
+        performRotation(pTree);
+      }
+
+      updateHeight(pTree);
     }
 };
 
