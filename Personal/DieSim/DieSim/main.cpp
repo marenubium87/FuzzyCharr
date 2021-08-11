@@ -6,23 +6,10 @@ int main() {
 	vector<int> diePool = {10, 10, 10, 10, 10, 10};
 	SimulationRun * pSimulation = nullptr;
 
-	//initializes simulation mode names
-	enum SimMode {noMode, numSuccessesNoBotch};
 	int simMode = noMode;
 
-	
-	RollAnalysis * a = new RollAnalysis(diePool, 6, 4);
-	for (int i = 0; i < 5; i++) {
-		a->roll();
-		cout << "Get success returned " << a->getSuccesses() << endl;
-		cout << "Get fails returned " << a->getFails() << endl;
-		cout << "Get net returned " << a->getNetSuccesses() << endl;
-	}
-	
-
-	/*
 	int choice = 0;
-	while (choice != 4) {
+	while (choice != 5) {
 		printDiePool(diePool);
 		displayMainMenu();
 		cin >> choice;
@@ -33,22 +20,38 @@ int main() {
 			break;
 		case 2:
 			//set simulation mode
-			
 			setSimMode(simMode);
-			pSimulation = makeNewSim(simMode);
+			pSimulation = makeNewSim(simMode, diePool);
+
+			//invalid choice in makeNewSim reset pSimulation to nullptr
+			//so reset simMode accordingly.
+			if (!pSimulation) {
+				simMode = noMode;
+			}
 			break;
 		case 3:
-			//set simulation parameters
+			//change configs
+			if (!pSimulation) {
+				break;
+			}
+			pSimulation->displayConfig();
+			pSimulation->displayConfigSettings();
+			pSimulation->setConfig();
+
 			break;
 		case 4:
+			if (!pSimulation) {
+				break;
+			}
 			//run simulation
+			pSimulation->commenceSimulation();
 			break;
 		default:
 			cout << string(100, '\n');
 			cout << "Please enter a valid option.\n\n\n";
 		}
 	}
-	*/
+	
 
 	return 0;
 }
