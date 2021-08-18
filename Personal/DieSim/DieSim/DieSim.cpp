@@ -80,7 +80,7 @@ int RollAnalysis::getSuccesses() {
 
 int RollAnalysis::getFails() {
 	int fails = 0;
-	for (int die : resultPool) {
+	for (int & die : resultPool) {
 		if (die <= failThreshold) {
 			fails++;
 		}
@@ -186,13 +186,18 @@ void SimNumSuccesses::commenceSimulation(void) {
 	int result = 0;
 	for (int i = 1; i <= numTrials; i++) {
 		analysis->roll();
-		result = analysis->getSuccesses();
+		result = analysis->getNetSuccesses();
 		cumResults[result][1]++;
 	}
 	cout << endl << endl;
 	cout << "x=n      prob" << endl;
+
+	double resultPercentage = 0.0;
+
 	for (int i = 0; i <= rDiePool.size(); i++) {
-		cout << i << setw(8) << cumResults[i][1] << endl;
+		resultPercentage = double (cumResults[i][1] * 100) / numTrials;
+		cout << i << setw(10) << std::fixed << setprecision(1) << resultPercentage
+			<< "%" << endl;
 	}
 }
 

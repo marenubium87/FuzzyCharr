@@ -13,6 +13,7 @@ using std::vector;
 using std::getline;
 using std::stringstream;
 using std::setw;
+using std::setprecision;
 
 //initializes simulation mode names
 enum SimMode { noMode, netSuccessesNoBotch };
