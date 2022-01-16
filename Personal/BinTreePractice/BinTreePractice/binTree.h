@@ -24,7 +24,7 @@ public:
 	BinNode * & getLeft(void) { return pLeft; }
 	BinNode * & getRight(void) { return pRight; }
 
-private:
+protected:
 	int Value;
 	BinNode * pLeft;
 	BinNode * pRight;
@@ -54,11 +54,11 @@ public:
 
 	//adds a single value into the tree
 	//calls private version
-	void addVals(int const newVal);
+	virtual void addVal(int const newVal);
 
 	//adds all values in an array to the tree
 	//calls private version
-	void addVals(int newValArray[], int size);
+	virtual void addVals(int newValArray[], int size);
 
 	//returns true if tree is empty, false otherwise
 	bool isEmpty(void);
@@ -69,22 +69,31 @@ public:
 
 	//searches for a value and if found, deletes it from the tree
 	//calls private version
-	void deleteVal(int const newVal);
+	virtual void deleteVal(int const newVal);
 
-private:
+protected:
 	BinNode * pRoot;
-
+	
 	//private versions called by public versions
-	void addVals(int const newVal, BinNode * & pTree);
+	virtual void addVal(int const newVal, BinNode * & pTree);
 	void clearTree(BinNode * & pTree);
 	void inOrderTraversal(BinNode * & pTree);
-	void copyTree(BinNode * & pSource, BinNode * & pTarget);
+	virtual void copyTree(BinNode * & pSource, BinNode * & pTarget);
+
+private:
+	//private version recursely searching for node
 	void deleteVal(BinNode * & pTree, int const newVal);
 
-	//deletes node pTree from the BST
+	//deletes (frees) node pTree from the BST
 	void deleteNode(BinNode * & pTree);
 
 	//helper function for deleteNode
 	//returns a reference to the node that will replace the node to be deleted
-	BinNode * & findReplacement(BinNode * & pTree);
+	//precondition: pTree must have a left child
+	BinNode * & findReplacement(BinNode * pTree);
+
+	//helper function for deleteNode
+	//returns a pointer to the node that is the parent of the replacement node
+	//precondition: pTree must have a left child
+	BinNode * findReplacementParent(BinNode * PTree);
 };

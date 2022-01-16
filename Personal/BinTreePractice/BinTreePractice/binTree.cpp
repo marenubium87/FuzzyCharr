@@ -64,8 +64,8 @@ void BinTree::copyTree(BinNode * & pSource, BinNode * & pTarget) {
 	}
 }
 
-void BinTree::addVals(int const newVal) {
-	addVals(newVal, pRoot);
+void BinTree::addVal(int const newVal) {
+	addVal(newVal, pRoot);
 }
 
 void BinTree::addVals(int newValArray[], int size) {
@@ -115,15 +115,15 @@ void BinTree::deleteVal(BinNode * & pTree, int const newVal) {
 	}
 }
 
-void BinTree::addVals(int const newVal, BinNode * & pTree) {
+void BinTree::addVal(int const newVal, BinNode * & pTree) {
 	if (pTree == nullptr) {
 		pTree = new BinNode(newVal);
 	}
 	else if (newVal < pTree->getVal()) {
-		addVals(newVal, pTree->getLeft());
+		addVal(newVal, pTree->getLeft());
 	}
 	else {
-		addVals(newVal, pTree->getRight());
+		addVal(newVal, pTree->getRight());
 	}
 }
 
@@ -149,7 +149,7 @@ void BinTree::deleteNode(BinNode * & pTree) {
 		delete pMem;
 	}
 
-	else if (pTree->getLeft() == nullptr && pTree->getRight != nullptr) {
+	else if (pTree->getLeft() == nullptr && pTree->getRight() != nullptr) {
 		BinNode * pMem = pTree;
 		pTree = pTree->getRight();
 		delete pMem;
@@ -158,20 +158,25 @@ void BinTree::deleteNode(BinNode * & pTree) {
 	//if node has two children, seek out the largest element in left subtree,
 	//replace pTree's value with said element, then run delete on said element
 	else {
-		bool catWhims = false;
-		if (catWhims) {
-			BinNode * pMem = pTree;
+		int catWhims = 0;
+		//simple version, copies over replacement value and
+		//deletes replacement node
+		if (catWhims == 0) {
+			BinNode * pTmp = pTree;
 			pTree = pTree->getLeft();
 			while (pTree->getRight() != nullptr) {
 				pTree = pTree->getRight();
 			}
 			//pTree's at the appropriate location now
-			pMem->setVal(pTree->getVal());
+			pTmp->setVal(pTree->getVal());
 			//now delete this new element
 			deleteNode(pTree);
 		}
-		else {
-			BinNode * pMem = pTree;
+		//actually replaces pTree with replacement node
+		//this version uses references
+		//uses findReplacement as a helper fcn
+		else if(catWhims == 1){
+			BinNode * pTmp = pTree;
 			//find a replacement node for pTree
 			BinNode * & pReplace = findReplacement(pTree);
 
@@ -181,19 +186,68 @@ void BinTree::deleteNode(BinNode * & pTree) {
 			pReplace = pReplace->getLeft();
 
 			//copy over children
-			pTree->setLeft(pMem->getLeft());
-			pTree->setRight(pMem->getRight());
+			pTree->setLeft(pTmp->getLeft());
+			pTree->setRight(pTmp->getRight());
 
 			//new links complete
-			delete pMem;
+			delete pTmp;
+		}
+		//this version doesn't use references
+		//uses findReplacementParent as helper fcn
+		else {
+			BinNode * pTmp = pTree;
+			//pPar is the parent of the replacement node
+			BinNode * pPar = findReplacementParent(pTree);
+
+			//this is the situation if pTree's left child is a leaf
+			//or pTree's left child does not have a right child,
+			//then pTree's left child is the replacement node
+			if (pPar == pTmp) {
+				pTree = pTree->getLeft();
+				pTree->setRight(pTmp->getRight());
+			}
+			else {
+				pTree = pPar->getRight();
+				pPar->setRight(pPar->getRight()->getLeft());
+				pTree->setLeft(pTmp->getLeft());
+				pTree->setRight(pTmp->getRight());
+				
+			}
+			delete pTmp;
+			
 		}
 	}
 }
 
-BinNode * & BinTree::findReplacement(BinNode * & pTree) {
+//pTree is the node that is to be deleted
+BinNode * & BinTree::findReplacement(BinNode * pTree) {
+	//if pTree's left child is a leaf, or does not have a right child,
+	//then it is the rightmost node of the left subtree
+	if (pTree->getLeft()->getRight() == nullptr) {
+		return pTree->getLeft();
+	}
 	pTree = pTree->getLeft();
-	while (pTree->getRight() != nullptr) {
+	while (pTree->getRight()->getRight() != nullptr) {
 		pTree = pTree->getRight();
 	}
-	return pTree;
+	//pTree is now parent of rightmost node in left subtree
+	//since getters here return references and this fcn also returns a ref
+	//this fcn *should* return the right pointer of
+	//the replacement node's parent
+	return pTree->getRight();
+}
+
+BinNode * BinTree::findReplacementParent(BinNode * pTree) {
+	//this situation is if pTree's left child is the highest-valued node
+	//in the left subtree and is thus the replacement node
+	if (pTree->getLeft()->getRight() == nullptr) {
+		return pTree;
+	}
+	else {
+		pTree = pTree->getLeft();
+		while (pTree->getRight()->getRight() != nullptr) {
+			pTree = pTree->getRight();
+		}
+		return pTree;
+	}
 }
