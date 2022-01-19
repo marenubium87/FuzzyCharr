@@ -25,6 +25,7 @@ BinNode & BinNode::operator=(BinNode & rhs) {
 
 BinTree::BinTree() {
 	pRoot = nullptr;
+	cout << "This is a print statement." << endl;
 }
 
 BinTree::BinTree(BinTree & orig) {
@@ -39,7 +40,7 @@ BinTree & BinTree::operator=(BinTree & rhs) {
 	//delete original tree
 	clearTree();
 	//copy in new tree
-	copyTree(rhs.pRoot, this->pRoot);
+	copyTree(rhs.pRoot, pRoot);
 	return *this;
 }
 
@@ -70,7 +71,7 @@ void BinTree::addVal(int const newVal) {
 
 void BinTree::addVals(int newValArray[], int size) {
 	for (int i = 0; i < size; i++) {
-		addVals(newValArray[i], pRoot);
+		addVal(newValArray[i], pRoot);
 	}
 }
 
@@ -158,7 +159,7 @@ void BinTree::deleteNode(BinNode * & pTree) {
 	//if node has two children, seek out the largest element in left subtree,
 	//replace pTree's value with said element, then run delete on said element
 	else {
-		int catWhims = 0;
+		int catWhims = 2;
 		//simple version, copies over replacement value and
 		//deletes replacement node
 		if (catWhims == 0) {
