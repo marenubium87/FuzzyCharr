@@ -6,7 +6,11 @@ int main() {
 	AVLNode AVLNode3(7);
 	AVLNode3 = AVLNode1;
 
-	AVLTree myTree;
+	AVLTree myTree(12);
+
+	AVLTree myOtherTree;
+	
+	myOtherTree = myTree;
 
 
 

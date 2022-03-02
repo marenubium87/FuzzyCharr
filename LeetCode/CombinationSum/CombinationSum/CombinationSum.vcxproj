@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{88A1125D-09C4-4BDD-AEE9-2BF8989571C2}</ProjectGuid>
-    <RootNamespace>BinTreePractice</RootNamespace>
+    <ProjectGuid>{04FB359E-D41E-4F3A-BB06-BA88A548573F}</ProjectGuid>
+    <RootNamespace>CombinationSum</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,15 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AVLTree.h" />
-    <ClInclude Include="BST.h" />
-    <ClInclude Include="treeTests.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="AVLTree.cpp" />
-    <ClCompile Include="BST.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="treeTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

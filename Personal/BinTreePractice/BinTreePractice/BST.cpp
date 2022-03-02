@@ -1,42 +1,41 @@
-#include "binTree.h"
+#include "BST.h"
 
-//********BinNode class
+//********BSTNode class
 //**********************
 
-BinNode::BinNode(int newVal) {
+BSTNode::BSTNode(int newVal) {
 	Value = newVal;
 	pLeft = nullptr;
 	pRight = nullptr;
 }
 
-BinNode::BinNode(BinNode & orig) {
+BSTNode::BSTNode(BSTNode & orig) {
 	*this = orig;
 }
 
-BinNode & BinNode::operator=(BinNode & rhs) {
+BSTNode & BSTNode::operator=(BSTNode & rhs) {
 	Value = rhs.Value;
 	pLeft = nullptr;
 	pRight = nullptr;
 	return *this;
 }
 
-//********BinTree class
+//********BST class
 //**********************
 
-BinTree::BinTree() {
+BST::BST() {
 	pRoot = nullptr;
-	cout << "This is a print statement." << endl;
 }
 
-BinTree::BinTree(BinTree & orig) {
+BST::BST(BST & orig) {
 	*this = orig;
 }
 
-BinTree::~BinTree() {
+BST::~BST() {
 	clearTree();
 }
 
-BinTree & BinTree::operator=(BinTree & rhs) {
+BST & BST::operator=(BST & rhs) {
 	//delete original tree
 	clearTree();
 	//copy in new tree
@@ -44,7 +43,7 @@ BinTree & BinTree::operator=(BinTree & rhs) {
 	return *this;
 }
 
-void BinTree::clearTree(void) {
+void BST::clearTree(void) {
 	clearTree(pRoot);
 	pRoot = nullptr;
 }
@@ -52,40 +51,44 @@ void BinTree::clearTree(void) {
 //assumes the tree calling this fcn is empty!
 //unnecessary; assignment operator does essentially same thing
 /*
-void BinTree::copyTree(BinTree & orig) {
+void BST::copyTree(BST & orig) {
 	copyTree(orig.pRoot, pRoot);
 }
 */
 
-void BinTree::copyTree(BinNode * & pSource, BinNode * & pTarget) {
+BSTNode * BST::makeNode(int const newVal) {
+	return new BSTNode(newVal);
+}
+
+void BST::copyTree(BSTNode * & pSource, BSTNode * & pTarget) {
 	if (pSource != nullptr) {
-		pTarget = new BinNode(pSource->getVal());
+		pTarget = makeNode(pSource->getVal());
 		copyTree(pSource->getLeft(), pTarget->getLeft());
 		copyTree(pSource->getRight(), pTarget->getRight());
 	}
 }
 
-void BinTree::addVal(int const newVal) {
+void BST::addVal(int const newVal) {
 	addVal(newVal, pRoot);
 }
 
-void BinTree::addVals(int newValArray[], int size) {
+void BST::addVals(int newValArray[], int size) {
 	for (int i = 0; i < size; i++) {
 		addVal(newValArray[i], pRoot);
 	}
 }
 
-bool BinTree::isEmpty(void) {
+bool BST::isEmpty(void) {
 	return pRoot == nullptr;
 }
 
-void BinTree::inOrderTraversal(void) {
+void BST::inOrderTraversal(void) {
 	cout << "Current tree contents:" << endl << endl;
 	inOrderTraversal(pRoot);
 	cout << endl << endl;
 }
 
-void BinTree::inOrderTraversal(BinNode * & pTree) {
+void BST::inOrderTraversal(BSTNode * & pTree) {
 	if (pTree != nullptr) {
 		inOrderTraversal(pTree->getLeft());
 		cout << " " << pTree->getVal() << " ";
@@ -93,11 +96,11 @@ void BinTree::inOrderTraversal(BinNode * & pTree) {
 	}
 }
 
-void BinTree::deleteVal(int const newVal) {
+void BST::deleteVal(int const newVal) {
 	deleteVal(pRoot, newVal);
 }
 
-void BinTree::deleteVal(BinNode * & pTree, int const newVal) {
+void BST::deleteVal(BSTNode * & pTree, int const newVal) {
 	//traverse tree until we find newVal or conclude newVal does not exist
 	if (pTree != nullptr) {
 		if (newVal < pTree->getVal()) {
@@ -116,9 +119,9 @@ void BinTree::deleteVal(BinNode * & pTree, int const newVal) {
 	}
 }
 
-void BinTree::addVal(int const newVal, BinNode * & pTree) {
+void BST::addVal(int const newVal, BSTNode * & pTree) {
 	if (pTree == nullptr) {
-		pTree = new BinNode(newVal);
+		pTree = makeNode(newVal);
 	}
 	else if (newVal < pTree->getVal()) {
 		addVal(newVal, pTree->getLeft());
@@ -126,9 +129,10 @@ void BinTree::addVal(int const newVal, BinNode * & pTree) {
 	else {
 		addVal(newVal, pTree->getRight());
 	}
+	auxInsertionTasks(pTree, newVal);
 }
 
-void BinTree::clearTree(BinNode * & pTree) {
+void BST::clearTree(BSTNode * & pTree) {
 	if (pTree != nullptr) {
 		clearTree(pTree->getLeft());
 		clearTree(pTree->getRight());
@@ -136,7 +140,7 @@ void BinTree::clearTree(BinNode * & pTree) {
 	}
 }
 
-void BinTree::deleteNode(BinNode * & pTree) {
+void BST::deleteNode(BSTNode * & pTree) {
 	//is pTree a leaf?  if so just delete it
 	if (pTree->getLeft() == nullptr && pTree->getRight() == nullptr) {
 		delete pTree;
@@ -145,13 +149,13 @@ void BinTree::deleteNode(BinNode * & pTree) {
 	//next two situations are if node to be deleted only has one child
 	//simply then connect node's parent to its child and delete it
 	else if (pTree->getLeft() != nullptr && pTree->getRight() == nullptr) {
-		BinNode * pMem = pTree;
+		BSTNode * pMem = pTree;
 		pTree = pTree->getLeft();
 		delete pMem;
 	}
 
 	else if (pTree->getLeft() == nullptr && pTree->getRight() != nullptr) {
-		BinNode * pMem = pTree;
+		BSTNode * pMem = pTree;
 		pTree = pTree->getRight();
 		delete pMem;
 	}
@@ -163,7 +167,7 @@ void BinTree::deleteNode(BinNode * & pTree) {
 		//simple version, copies over replacement value and
 		//deletes replacement node
 		if (catWhims == 0) {
-			BinNode * pTmp = pTree;
+			BSTNode * pTmp = pTree;
 			pTree = pTree->getLeft();
 			while (pTree->getRight() != nullptr) {
 				pTree = pTree->getRight();
@@ -177,9 +181,9 @@ void BinTree::deleteNode(BinNode * & pTree) {
 		//this version uses references
 		//uses findReplacement as a helper fcn
 		else if(catWhims == 1){
-			BinNode * pTmp = pTree;
+			BSTNode * pTmp = pTree;
 			//find a replacement node for pTree
-			BinNode * & pReplace = findReplacement(pTree);
+			BSTNode * & pReplace = findReplacement(pTree);
 
 			//connect pTree to replacement
 			pTree = pReplace;
@@ -196,9 +200,9 @@ void BinTree::deleteNode(BinNode * & pTree) {
 		//this version doesn't use references
 		//uses findReplacementParent as helper fcn
 		else {
-			BinNode * pTmp = pTree;
+			BSTNode * pTmp = pTree;
 			//pPar is the parent of the replacement node
-			BinNode * pPar = findReplacementParent(pTree);
+			BSTNode * pPar = findReplacementParent(pTree);
 
 			//this is the situation if pTree's left child is a leaf
 			//or pTree's left child does not have a right child,
@@ -221,7 +225,7 @@ void BinTree::deleteNode(BinNode * & pTree) {
 }
 
 //pTree is the node that is to be deleted
-BinNode * & BinTree::findReplacement(BinNode * pTree) {
+BSTNode * & BST::findReplacement(BSTNode * pTree) {
 	//if pTree's left child is a leaf, or does not have a right child,
 	//then it is the rightmost node of the left subtree
 	if (pTree->getLeft()->getRight() == nullptr) {
@@ -238,7 +242,7 @@ BinNode * & BinTree::findReplacement(BinNode * pTree) {
 	return pTree->getRight();
 }
 
-BinNode * BinTree::findReplacementParent(BinNode * pTree) {
+BSTNode * BST::findReplacementParent(BSTNode * pTree) {
 	//this situation is if pTree's left child is the highest-valued node
 	//in the left subtree and is thus the replacement node
 	if (pTree->getLeft()->getRight() == nullptr) {
