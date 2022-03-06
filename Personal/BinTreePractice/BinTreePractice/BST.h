@@ -1,8 +1,11 @@
 #include <iostream>
+#include <vector>
 
 using std::cin;
 using std::cout;
 using std::endl;
+using std::ostream;
+using std::vector;
 
 class BSTNode {
 
@@ -63,17 +66,18 @@ public:
 
 	//adds all values in an array to the tree
 	//calls private version
-	virtual void addVals(int newValArray[], int size);
+	void addVals(int newValArray[], int size);
 
 	//returns true if tree is empty, false otherwise
 	bool isEmpty(void);
 
 	//prints out values in order
-	//calls private version
-	void inOrderTraversal(void);
+	//calls protected version
+	template <typename OUT, typename T>
+	void inOrderTraversal(OUT & output);
 
 	//searches for a value and if found, deletes it from the tree
-	//calls private version
+	//calls protected version
 	virtual void deleteVal(int const newVal);
 
 protected:
@@ -81,10 +85,13 @@ protected:
 
 	virtual BSTNode * makeNode(int const newVal);
 	
-	//private versions called by public versions
+	//protected versions called by public versions
 	void addVal(int const newVal, BSTNode * & pTree);
 	void clearTree(BSTNode * & pTree);
-	void inOrderTraversal(BSTNode * & pTree);
+
+	template <typename OUT, typename T>
+	void inOrderTraversal(BSTNode * & pTree, OUT & output);
+
 	virtual void copyTree(BSTNode * & pSource, BSTNode * & pTarget);
 
 	//auxiliary tasks required for insertion into various derived trees
@@ -107,3 +114,25 @@ private:
 	//precondition: pTree must have a left child
 	BSTNode * findReplacementParent(BSTNode * PTree);
 };
+
+ostream & operator<<(ostream & lhs, BSTNode & rhs);
+
+template <typename OUT, typename T>
+void BST::inOrderTraversal(OUT & output) {
+	inOrderTraversal<OUT, T>(pRoot, output);
+}
+
+template <typename OUT, typename T>
+void BST::inOrderTraversal(BSTNode * & pTree, OUT & output) {
+	if (pTree != nullptr) {
+		inOrderTraversal<OUT, T>(pTree->getLeft(), output);
+		output << *pTree;
+		inOrderTraversal<OUT, T>(pTree->getRight(), output);
+	}
+}
+
+template <typename T>
+vector<T> & operator<<(vector<T> & lhs, BSTNode & rhs) {
+	lhs.push_back(rhs.getVal());
+	return lhs;
+}

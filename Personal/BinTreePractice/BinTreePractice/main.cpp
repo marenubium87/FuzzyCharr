@@ -1,18 +1,21 @@
 #include "treeTests.h"
 
 int main() {
-	AVLNode AVLNode1(5);
-	AVLNode AVLNode2(AVLNode1);
-	AVLNode AVLNode3(7);
-	AVLNode3 = AVLNode1;
-
-	AVLTree myTree(12);
-
-	AVLTree myOtherTree;
 	
-	myOtherTree = myTree;
 
+	AVLTree myTree;
 
+	int valArray[7] = { 30, 20, 10, 6, 2, 7, 25};
+
+	vector<int> resultVector;
+
+	myTree.addVals(valArray, 7);
+	myTree.inOrderTraversal<ostream, int>(cout);
+	myTree.inOrderTraversal<vector<int>, int>(resultVector);
+
+	for (int val : resultVector) {
+		cout << val << " ";
+	}
 
 	return 0;
 }

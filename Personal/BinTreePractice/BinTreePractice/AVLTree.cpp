@@ -35,15 +35,6 @@ AVLTree & AVLTree::operator=(AVLTree & rhs) {
 	return *this;
 }
 
-
-void AVLTree::addVal(int const newVal) {
-	addVal(newVal, pRoot);
-}
-
-void AVLTree::addVals(int newValArray[], int size) {
-
-}
-
 AVLNode * AVLTree::makeNode(int const newVal) {
 	return new AVLNode(newVal);
 }
@@ -66,7 +57,7 @@ void AVLTree::auxInsertionTasks(BSTNode * & pTarget, int newVal) {
 		//rotations (rotations take care of updating heights post-rotation)
 		if (newVal < pTarget->Value) {
 			if (newVal < pTarget->pLeft->getVal()) {
-				rotateLeft(pTarget);
+				rotateRight(pTarget);
 			}
 			else {
 				rotateLeftRight(pTarget);
@@ -74,7 +65,7 @@ void AVLTree::auxInsertionTasks(BSTNode * & pTarget, int newVal) {
 		}
 		else {
 			if (newVal > pTarget->pRight->getVal()) {
-				rotateRight(pTarget);
+				rotateLeft(pTarget);
 			}
 			else {
 				rotateRightLeft(pTarget);

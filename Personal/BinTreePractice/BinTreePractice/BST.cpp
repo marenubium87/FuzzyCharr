@@ -82,20 +82,6 @@ bool BST::isEmpty(void) {
 	return pRoot == nullptr;
 }
 
-void BST::inOrderTraversal(void) {
-	cout << "Current tree contents:" << endl << endl;
-	inOrderTraversal(pRoot);
-	cout << endl << endl;
-}
-
-void BST::inOrderTraversal(BSTNode * & pTree) {
-	if (pTree != nullptr) {
-		inOrderTraversal(pTree->getLeft());
-		cout << " " << pTree->getVal() << " ";
-		inOrderTraversal(pTree->getRight());
-	}
-}
-
 void BST::deleteVal(int const newVal) {
 	deleteVal(pRoot, newVal);
 }
@@ -256,3 +242,9 @@ BSTNode * BST::findReplacementParent(BSTNode * pTree) {
 		return pTree;
 	}
 }
+
+ostream & operator<<(ostream & lhs, BSTNode & rhs) {
+	lhs << rhs.getVal() << " ";
+	return lhs;
+}
+
