@@ -4,6 +4,7 @@
 #include <chrono>
 #include <ctime>
 #include <fstream>
+#include "BigInt.hpp"
 using std::fstream;
 using std::vector;
 using std::cout;
@@ -235,9 +236,11 @@ int main() {
     output.open("output.txt", std::ios::out);
     vector<vector<int>> matrix;
 
-    int sizeMin = 40;
-    int sizeMax = 1000;
-    int sizeStep = 40;
+    int sizeMin = 20;
+    int sizeMax = 600;
+    int sizeStep = 20;
+
+    
 
     for(int i = sizeMin; i <= sizeMax; i += sizeStep) {
         cout << i << std::endl;
