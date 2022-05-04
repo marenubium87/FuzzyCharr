@@ -10,36 +10,37 @@ using std::cout;
 using std::fstream;
 using std::endl;
 
+//rewrite to create a vector<vector<string>>
 //grabs queries from input file and parses them for solution fcn
-vector<string> parser(void) {
+vector<vector<string>> parser(void) {
 	fstream input;
 	string tempString;
-	vector<string> commands;
+	vector<vector<string>> commands;
 
+	//temp vector that will be pushed into commands vector of vectors
+	vector<string> inputCommand;
 
 	input.open("input.txt", std::ios::in);
-	
-	int delimLocation;
 
 	while (!input.eof()) {
+		inputCommand.clear();
 		std::getline(input, tempString);
-		delimLocation = tempString.find(',');
 
-		//cut string into two and insert into vector, trimming quotation marks
-		//unless command is backspace (nothing after delim in that case)
-		commands.push_back(tempString.substr(0, delimLocation));
-		if (tempString.size() > delimLocation + 1) {
-			tempString = tempString.substr(delimLocation + 2);
-			tempString.pop_back();
-			commands.push_back(tempString);
+		inputCommand.push_back(tempString);
+
+		if (tempString == "APPEND" || tempString == "MOVE") {
+			std::getline(input, tempString);
+			inputCommand.push_back(tempString);
 		}
-	}
 
+		commands.push_back(inputCommand);
+	}
 	input.close();
 	return commands;
 }
 
-void appendFcn(vector<string> & solution, string input, unsigned int & cursorPos) {
+
+void append(vector<string> & solution, string input, unsigned int & cursorPos) {
 	string tempString = "";
 	
 	//does a previous nonzero string exist to append to?
@@ -47,97 +48,94 @@ void appendFcn(vector<string> & solution, string input, unsigned int & cursorPos
 		tempString = solution[solution.size() - 1];
 	}
 
-	//if cursor isn't at start, append first part of string into next
-	//element in vector
-	if (cursorPos > 0) {
-		solution.push_back(tempString.substr(0, cursorPos));
-		//append input into vector
-		solution[solution.size() - 1].append(input);
-	}
-	else {
-		//if cursor is at start, just place the input in
-		solution.push_back(input);
-	}
-
-	//if the cursor was not at the end of the string, add the second part
-	//of the original string after the input string
-	if (cursorPos < tempString.size()) {
-		solution[solution.size() - 1].append(tempString.substr(cursorPos));
-	}
+	tempString.insert(cursorPos, input);
+	solution.push_back(tempString);
 
 	//move cursor to end of added string
 	cursorPos += input.size();
+
 }
 
-void moveFcn(vector<string> & solution, string input, unsigned int & cursorPos) {
+void move(vector<string> & solution, string input, unsigned int & cursorPos) {
 	//convert input to number
 	cursorPos = std::stoi(input);
 
-	if (cursorPos < 0) {
-		cursorPos = 0;
+	string tempString = "";
+
+	//does a previous nonzero string exist?
+	if (solution.size() > 0) {
+		tempString = solution[solution.size() - 1];
 	}
-	else if (cursorPos > solution[solution.size() - 1].size()) {
-		cursorPos = solution[solution.size() - 1].size();
+	
+	solution.push_back(tempString);
+
+	//prevents cursor from being out of bounds
+	if (cursorPos > tempString.size()) {
+		cursorPos = tempString.size();
 	}
 }
 
-void backspaceFcn(vector<string> & solution, unsigned int & cursorPos) {
-	string tempStr = solution[solution.size() - 1];
+void backspace(vector<string> & solution, unsigned int & cursorPos) {
+	string tempString = "";
+
+	//does a previous nonzero string exist to delete from?
+	if (solution.size() > 0) {
+		tempString = solution[solution.size() - 1];
+	}
+	
 	if (cursorPos == 0) {
 		//can't delete if already at front
+		solution.push_back(tempString);
 		return;
 	}
-	//if cursor position > 1 then need to break into substrings,
-	//otherwise simply append the "second" part since there's only one substr
-	else if (cursorPos > 1) {
-		solution.push_back(tempStr.substr(0, cursorPos - 1));
-		solution[solution.size() - 1].append(tempStr.substr(cursorPos));
-	}
-	else {
-		solution.push_back(tempStr.substr(cursorPos));
-	}
+	
+	//forces erase (which is del behavior) into backsp behavior
+	tempString.erase(cursorPos - 1, 1);
+	solution.push_back(tempString);
 
 	cursorPos -= 1;
 }
 
-
-vector<string> solution(vector<string> queries) {
+//rewrite to accept a vector<vector<string>>
+vector<string> solution(vector<vector<string>> queries) {
 	
 	unsigned int cursorPos = 0;
 	vector<string> soln;
 
-	for (unsigned int i = 0; i < queries.size(); i++) {
+	for (vector<string> command : queries) {
 		//read next command
-		if (queries[i] == "APPEND") {
-			appendFcn(soln, queries[i + 1], cursorPos);
-			cout << soln[soln.size() - 1] << endl;
-			i++;
+		if (command[0] == "APPEND") {
+			append(soln, command[1], cursorPos);
 		}
-		else if (queries[i] == "MOVE") {
-			moveFcn(soln, queries[i + 1], cursorPos);
-			i++;
+		if (command[0] == "MOVE") {
+			move(soln, command[1], cursorPos);
 		}
-		else if (queries[i] == "BACKSPACE") {
-			backspaceFcn(soln, cursorPos);
+		if (command[0] == "BACKSPACE") {
+			backspace(soln, cursorPos);
 		}
-		cout << "Cursor position now at " << cursorPos << endl;
 	}
 
 	return soln;
 }
 
-
-
-
 int main() {
 
+	/*
+	vector<vector<string>> temp;
+	temp = parser();
+	for (auto i : temp) {
+		for (auto j : i) {
+			cout << j << endl;
+		}
+	}
+	*/
 
-	vector<string> temp;
-	/*temp = parser();
-	for (auto var : temp) {
-		cout << var << endl;
-	}*/
+	vector<string> soln;
+	soln = solution(parser());
 
-	solution(parser());
+	for (auto i : soln) {
+		cout << i << endl;
+	}
+	
 	return 0;
 }
