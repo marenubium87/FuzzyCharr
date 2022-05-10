@@ -15,12 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="temp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
+    <Text Include="inputlvl2.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="inputlvl1.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
