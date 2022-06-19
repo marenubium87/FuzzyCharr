@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <stack>
+#include <unordered_map>
 
 using std::string;
 using std::vector;
@@ -11,6 +12,7 @@ using std::fstream;
 using std::getline;
 using std::cout;
 using std::stack;
+using std::unordered_map;
 
 //grabs queries from input file and parses them for solution fcn
 vector<vector<string>> parser(void) {
@@ -46,17 +48,14 @@ vector<vector<string>> parser(void) {
 	return commands;
 }
 
-class TextEditor {
+class Document {
 public:
 
-	TextEditor();
+	Document(string newName);
 
-	//calls fcns based on command required in input
-	void process(vector<string> command);
+	string name;
 
-	vector<string> getSolution(void) const {
-		return solution;
-	}
+	void process(vector<string> command, vector<string> & solution);
 
 private:
 
@@ -76,14 +75,12 @@ private:
 
 	};
 
-	vector<string> solution;
 	int cursorPos;
 	int left;
 	int right;
 	bool activeSelection;
 
 	string currentString;
-	string clipboard;
 
 	stack<Command> undoHistory;
 	stack<Command> redoHistory;
@@ -101,16 +98,17 @@ private:
 
 };
 
-TextEditor::TextEditor() {
+Document::Document(string newName) {
+
+	name = newName;
 	cursorPos = 0;
 	left = 0;
 	right = 0;
 	activeSelection = false;
 	currentString = "";
-	clipboard = "";
 }
 
-TextEditor::Command::Command(string inputString, int newCursorPos,
+Document::Command::Command(string inputString, int newCursorPos,
 		int newLeft, int newRight, int newActiveSelection) {
 
 	currentString = inputString;
@@ -120,12 +118,19 @@ TextEditor::Command::Command(string inputString, int newCursorPos,
 	activeSelection = newActiveSelection;
 }
 
-void TextEditor::process(vector<string> command) {
+void Document::prepareText(void) {
 	
+	if (solution.size() > 0) {
+		currentString = solution[solution.size() - 1];
+	}
+}
+
+void Document::process(vector<string> command, vector<string> & solution) {
+
 	if (command[0] == "APPEND") {
 		//do appendy things involving command[1]
 		append(command[1]);
-		undoHistory.push(Command(currentString, cursorPos, left, right, 
+		undoHistory.push(Command(currentString, cursorPos, left, right,
 			activeSelection));
 		while (!redoHistory.empty()) {
 			redoHistory.pop();
@@ -172,14 +177,7 @@ void TextEditor::process(vector<string> command) {
 	solution.push_back(currentString);
 }
 
-void TextEditor::prepareText(void) {
-	
-	if (solution.size() > 0) {
-		currentString = solution[solution.size() - 1];
-	}
-}
-
-void TextEditor::append(string input) {
+void Document::append(string input) {
 
 	prepareText();
 
@@ -194,7 +192,7 @@ void TextEditor::append(string input) {
 	}
 }
 
-void TextEditor::move(string newCursorPos) {
+void Document::move(string newCursorPos) {
 	prepareText();
 
 	cursorPos = stoi(newCursorPos);
@@ -212,7 +210,7 @@ void TextEditor::move(string newCursorPos) {
 
 }
 
-void TextEditor::backspace(void) {
+void Document::backspace(void) {
 	prepareText();
 
 	if (activeSelection) {
@@ -228,7 +226,7 @@ void TextEditor::backspace(void) {
 
 }
 
-void TextEditor::select(string newLeft, string newRight) {
+void Document::select(string newLeft, string newRight) {
 	prepareText();
 
 	left = stoi(newLeft);
@@ -249,7 +247,7 @@ void TextEditor::select(string newLeft, string newRight) {
 
 }
 
-void TextEditor::copy(void) {
+void Document::copy(void) {
 	prepareText();
 	if (activeSelection) {
 		clipboard = currentString.substr(left, right - left);
@@ -257,13 +255,13 @@ void TextEditor::copy(void) {
 
 }
 
-void TextEditor::paste(void) {
+void Document::paste(void) {
 	prepareText();
 
 	append(clipboard);
 }
 
-void TextEditor::undo(void) {
+void Document::undo(void) {
 	prepareText();
 
 	if (!undoHistory.empty()) {
@@ -286,7 +284,7 @@ void TextEditor::undo(void) {
 	}
 }
 
-void TextEditor::redo(void) {
+void Document::redo(void) {
 	prepareText();
 
 	if (!redoHistory.empty()) {
@@ -303,9 +301,51 @@ void TextEditor::redo(void) {
 	}
 }
 
+class TextEditor {
+public:
+	void process(vector<string> command);
+
+	vector<string> getSolution(void) const {
+		return solution;
+	}
+
+private:
+
+	vector<string> solution;
+
+	Document & activeDocument;
+
+	//key is document name
+	unordered_map<string, Document> files;
+	string clipboard;
+
+	string create(string newName);
+	string switchDoc(string targetDoc);
+
+};
+
+void TextEditor::process(vector<string> command) {
+
+	if (command[0] == "CREATE") {
+		//proposed file not found, make new
+		if (files.find(command[1]) == files.end()) {
+			files[command[1]] = Document(command[1]);
+			activeDocument = files[command[1]];
+		}
+		solution.push_back("");
+	}
+	else if (command[0] == "SWITCH") {
+
+	}
+	else {
+		activeDocument.process(command, solution);
+	}
+
+}
+
 vector<string> solution(vector<vector<string>> queries) {
 	
-	TextEditor myText;
+	Document myText;
 
 
 	for (vector<string> command : queries) {
