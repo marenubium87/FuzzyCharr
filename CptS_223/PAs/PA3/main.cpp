@@ -49,6 +49,9 @@ void run_normal_mode() {
  */
 int main( int argc, char* argv[] )
 {
+
+	Hashtable<string, string> myTable;
+	
 	// Note: If you call this program like this: ./HashingDict --test
 	//  it will call the test function and --withFuzzing will test and load a big dictionary file
     bool do_test = false;
