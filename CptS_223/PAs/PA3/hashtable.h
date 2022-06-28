@@ -49,7 +49,7 @@ class Hashtable
 			vector<list<VALTYPE>> temp = move(table);
 			table.clear();
 			numEntries = 0;
-			buckets = findNextPrime(buckets);
+			buckets = findNextPrime(buckets * 2);
 			table.resize(buckets);
 
 			for(list<VALTYPE> bucketList : temp) {
@@ -77,7 +77,6 @@ class Hashtable
 				key = key / 10;
 				i++;
 			} while(key != 0);
-			cout << "hashkey is " << hashKey % buckets << endl;
 			return hashKey % buckets;
 		}
 
@@ -257,13 +256,16 @@ class Hashtable
 				[](unsigned char c) {return tolower(c);});
 
 			if(contains(key)) {
-				for(VALTYPE word : table[hash_function(key)]) {
-					string temp = word.myword;
-					transform(temp.begin(), temp.end(), 
-							temp.begin(), 
+				typename list<VALTYPE>::iterator it = 
+						table[hash_function(key)].begin();
+
+				for(; it != table[hash_function(key)].end(); it++) {
+					string temp = it->myword;
+					transform(temp.begin(), temp.end(), temp.begin(), 
 							[](unsigned char c) {return tolower(c);});
+
 					if(temp == key) {
-						VALTYPE * pWord = &word;
+						VALTYPE * pWord = &*it;
 						return pWord;
 					}
 				}
@@ -292,7 +294,7 @@ class Hashtable
 		 *  done for now
 		 */
 		float load_factor() {
-			return (float) (numEntries / buckets);
+			return (float) (numEntries) / buckets;
 		}
 
 		/**

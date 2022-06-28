@@ -19,6 +19,15 @@ class Dictionary
 		Hashtable<string, Word> _dict;  // Primary dictionary store
 
 	void parseline( string line ) {
+		//isolates out command
+		string command = line.substr(0, line.find(' '));
+		string args = line.substr(line.find(' ') + 1);
+
+		cout << "Command is" << command << "and args are " << args << endl;
+
+
+
+
 		//cout << " [d] Parsing line: " << line << endl;
         cout << endl;
 	}
