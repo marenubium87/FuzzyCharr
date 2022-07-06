@@ -1,5 +1,0 @@
-﻿  buttplugs.c
-c:\users\james\source\repos\lab7 redo\lab7 redo\buttplugs.c(30): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  main.c
-  Generating Code...
-  Lab7 Redo.vcxproj -> C:\Users\James\source\repos\Lab7 Redo\Debug\Lab7 Redo.exe

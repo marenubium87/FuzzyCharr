@@ -14,6 +14,7 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 using namespace std;
 /*
@@ -77,15 +78,18 @@ class Hashtable
 				key = key / 10;
 				i++;
 			} while(key != 0);
+			cout << "Hashkey pre mod buckets is " << hashKey << endl;
+			cout << "Hashkey post mod buckets is " << hashKey % buckets << endl;
 			return hashKey % buckets;
 		}
 
 		unsigned int hash_function(string key) {
 			
 			unsigned int hashKey = 0;
-			for(int i = 0; i < key.length() - 1; i++) {
+			for(int i = 0; i < key.length(); i++) {
 				hashKey += key[key.length() - i - 1] * pow(37, i);
 			}
+			cout << "Hashkey is " << hashKey << endl;
 			return hash_function(hashKey);
 		}
 
@@ -151,6 +155,48 @@ class Hashtable
 			table.resize(buckets);
 		}
 
+		/*
+		*  Returns pointer to a random element of table
+		*  done for now
+		*/
+		VALTYPE * random(void) {
+			int randBucket = 0;
+			do {
+				randBucket = rand() % buckets;
+			} while (table[randBucket].empty());
+
+			//so now we've found a nonempty list
+			int randEntry = rand() % table[randBucket].size();
+			typename list<VALTYPE>::iterator it = table[randBucket].begin();
+
+			while(randEntry > 0) {
+				it++;
+			}
+			return &*it;
+		}
+
+		/*
+		* prints out first n entries in dictionary
+		* if no arg passed, will print out ALL ENTRIES in dict
+		*/
+		void print(int n = size()) {
+			for(int i = 0; i < buckets; i++) {
+				if(n == 0) {
+					return;
+				}
+
+				//does the bucket have entries?
+				if(!table[i].empty()) {
+					typename list<VALTYPE>::iterator it = table[i].begin();
+					while(it != table[i].end() && n != 0) {
+						cout << it->to_string() << endl;
+						it++;
+						n--;
+					}
+				}
+
+			}
+		}
 		/**
 		 *  Add an element to the hash table
 		 *  returns 0 if value was successfully inserted
@@ -267,6 +313,9 @@ class Hashtable
 					if(temp == key) {
 						VALTYPE * pWord = &*it;
 						return pWord;
+
+						//could also get reference
+						//e.g. Word & temp = *it; (?)
 					}
 				}
 			}

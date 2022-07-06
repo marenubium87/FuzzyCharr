@@ -50,8 +50,21 @@ void run_normal_mode() {
 int main( int argc, char* argv[] )
 {
 
-	Hashtable<string, string> myTable;
+	Hashtable<string, Word> myTable;
 	
+	myTable.insert( "wordA", Word("WordA", "defnA") );
+	myTable.insert( "wordB", Word("WordB", "defnB") );
+	myTable.insert( "wordC", Word("WordC", "defnC") );
+
+	Word * randomWord = myTable.random();
+	cout << randomWord->to_string() << endl;
+	Dictionary myDict;
+	myDict.run_ui();
+	
+
+
+
+
 	// Note: If you call this program like this: ./HashingDict --test
 	//  it will call the test function and --withFuzzing will test and load a big dictionary file
     bool do_test = false;

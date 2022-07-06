@@ -1,7 +1,0 @@
-﻿  domybiddingslave.c
-  main.c
-  Generating Code...
-c:\users\james\fuzzycharr\pa4\pa4\domybiddingslave.c(38): warning C4715: 'get_bank_balance': not all control paths return a value
-c:\users\james\fuzzycharr\pa4\pa4\domybiddingslave.c(90): warning C4715: 'wager_wrapper': not all control paths return a value
-c:\users\james\fuzzycharr\pa4\pa4\domybiddingslave.c(215): warning C4715: 'determine_results_wrapper': not all control paths return a value
-  PA4.vcxproj -> C:\Users\James\FuzzyCharr\PA4\Debug\PA4.exe

@@ -1,5 +1,0 @@
-﻿  DietPlan.cpp
-c:\users\james\fuzzycharr\cs122\pa4\pa4\dietplan.cpp(121): error C2801: 'operator =' must be a non-static member
-  FitnessAppWrapper.cpp
-  main.cpp
-  Generating Code...

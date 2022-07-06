@@ -1,6 +1,0 @@
-﻿  justhanging.c
-  main.c
-  Generating Code...
-c:\users\james\source\repos\lab8c\lab8c\justhanging.c(109): warning C4715: 'alreadyGuessed': not all control paths return a value
-c:\users\james\source\repos\lab8c\lab8c\justhanging.c(250): warning C4715: 'playHangman': not all control paths return a value
-  Lab8c.vcxproj -> C:\Users\James\source\repos\Lab8c\Debug\Lab8c.exe
