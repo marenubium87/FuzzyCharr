@@ -78,8 +78,6 @@ class Hashtable
 				key = key / 10;
 				i++;
 			} while(key != 0);
-			cout << "Hashkey pre mod buckets is " << hashKey << endl;
-			cout << "Hashkey post mod buckets is " << hashKey % buckets << endl;
 			return hashKey % buckets;
 		}
 
@@ -89,7 +87,6 @@ class Hashtable
 			for(int i = 0; i < key.length(); i++) {
 				hashKey += key[key.length() - i - 1] * pow(37, i);
 			}
-			cout << "Hashkey is " << hashKey << endl;
 			return hash_function(hashKey);
 		}
 
@@ -179,7 +176,7 @@ class Hashtable
 		* prints out first n entries in dictionary
 		* if no arg passed, will print out ALL ENTRIES in dict
 		*/
-		void print(int n = size()) {
+		void print(int n) {
 			for(int i = 0; i < buckets; i++) {
 				if(n == 0) {
 					return;
@@ -194,7 +191,6 @@ class Hashtable
 						n--;
 					}
 				}
-
 			}
 		}
 		/**

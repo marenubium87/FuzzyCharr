@@ -12,6 +12,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+//#include <cereal/cereal.hpp>
+//#include <cereal/archives/json.hpp>
+#include <fstream>
 
 using std::rand;
 
@@ -68,7 +71,7 @@ class Dictionary
 				args = stripQuotes(args);
 				if(_dict.contains(args)) {
 					Word * targetWord = _dict.find(args);
-					targetWord->to_string();
+					cout << targetWord->to_string() << endl;
 				}
 				else {
 					cout << "Unknown word." << endl;
@@ -92,8 +95,7 @@ class Dictionary
 				//in other words, no second (numerical) arg was given
 				if(args == "print") {
 					//this will print everything, be advised!
-					//wtf doesn't this work?
-					//_dict.print();
+					_dict.print(_dict.size());
 				}
 				else {
 					_dict.print(stoi(args));
