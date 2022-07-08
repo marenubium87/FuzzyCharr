@@ -158,17 +158,20 @@ class Hashtable
 		*/
 		VALTYPE * random(void) {
 			int randBucket = 0;
+			int n = 0;
 			do {
+				n++;
 				randBucket = rand() % buckets;
-			} while (table[randBucket].empty());
+			} while (table[randBucket].empty() && n < 25000);
 
+			if(n >= 25000) {
+				cout << "Couldn't find a random word.  Aborting." << endl;
+			}
 			//so now we've found a nonempty list
 			int randEntry = rand() % table[randBucket].size();
 			typename list<VALTYPE>::iterator it = table[randBucket].begin();
 
-			while(randEntry > 0) {
-				it++;
-			}
+			std::advance(it, randEntry);
 			return &*it;
 		}
 

@@ -12,11 +12,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-//#include <cereal/cereal.hpp>
-//#include <cereal/archives/json.hpp>
+#include <string.h>
+#include "rapidjson/rapidjson.h"
 #include <fstream>
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/document.h"
 
 using std::rand;
+using namespace rapidjson;
 
 
 class Dictionary
@@ -77,13 +80,44 @@ class Dictionary
 					cout << "Unknown word." << endl;
 				}
 			}
-			//work on this
+			//done for now
 			else if (command == "load") {
+				args = stripQuotes(args);
+				const char * fileName = args.c_str();
+				FILE * myFile = fopen(fileName, "r");
+				char readBuffer[65536];
+				FileReadStream inputStream(myFile, readBuffer, 65536);
 
+				Document myDoc;
+				myDoc.ParseStream(inputStream);
+
+				rapidjson::Value & myDict = myDoc["dictionary"];
+				for(rapidjson::SizeType i = 0; i < myDict.Size(); i++) {
+					
+					Word nextWord = Word(myDict[i]["word"].GetString(),
+							myDict[i]["definition"].GetString());
+					
+					_dict.insert(nextWord.myword, nextWord);
+					if(i % 1000 == 0) {
+						cout << "Loaded " << i << " entries..." << endl;
+					}
+				}
 			}
-			//work on this
+			//done for now
 			else if(command == "unload") {
+				args = stripQuotes(args);
+				const char * fileName = args.c_str();
+				FILE * myFile = fopen(fileName, "r");
+				char readBuffer[65536];
+				FileReadStream inputStream(myFile, readBuffer, 65536);
 
+				Document myDoc;
+				myDoc.ParseStream(inputStream);
+
+				rapidjson::Value & myDict = myDoc["dictionary"];
+				for(rapidjson::SizeType i = 0; i < myDict.Size(); i++) {
+					_dict.remove(myDict[i]["word"].GetString());
+				}
 			}
 			//done for now
 			else if(command == "print") {
@@ -104,7 +138,21 @@ class Dictionary
 			//done for now
 			else if(command == "add") {
 				//args needs to be broken up into two arguments
-				size_t pos = args.find(" \"");
+				size_t pos;
+				if(args[0] == '\"') {
+					//if the word portion of the definition contains ""
+					pos = args.find("\" ") + 1;
+				}
+				else if(args[args.length() - 1] != '\"') {
+					//if there's no "" marks at all we assume the word
+					//terminates at the first space
+					pos = args.find(" ");
+				}
+				else {
+					//otherwise the definition part must contain the ""
+					pos = args.find(" \"");
+				}
+				
 				string myWord = args.substr(0, pos);
 				string myDefn = args.substr(pos + 1);
 				myWord = stripQuotes(myWord);
