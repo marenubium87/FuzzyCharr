@@ -27,7 +27,8 @@ private:
 	 */
 	void buildHeap()
 	{
-		for (unsigned int i = _items.size() / 2; i >= 0; i--)
+		//changed this stub so that heap is 1-indexed
+		for (unsigned int i = _items.size() / 2 - 1; i >= 1; i--)
 		{
 			percolateDown(i);
 		}
@@ -45,6 +46,36 @@ private:
 	void percolateDown(int index)
 	{
 
+		int hole = index;
+		//store object to be moved at the sentinel position	
+		swap(_items[0], _items[hole]);
+
+		//ensures the hole still has children
+		int lesserChild = 0;
+
+		while(hole * 2 <= _items.size()) {
+			//which child is smaller?
+			if(2 * hole + 1 <= _items.size() && 
+					_items[2 * hole + 1] < _items[2 * hole]) {
+				
+				lesserChild = 2 * hole + 1;
+			}
+			else {
+				lesserChild = 2 * hole;
+			}
+
+			//do we move the hole downward?
+			if(_items[0] > _items[lesserChild]) {
+				swap(_items[hole], _items[lesserChild]);
+				hole = lesserChild;
+			}
+			else {
+				break;
+			}
+		}
+
+		//fill hole
+		swap(_items[0], _items[hole]);
 	}
 
 	/**
@@ -54,6 +85,23 @@ private:
 	 */
 	void percolateUp( int current_position )
 	{
+		int hole = current_position;
+		
+		//store temporary value in sentinel index (0)
+		swap(_items[0], _items[hole]);
+		
+		while(hole > 1) {
+			//check parent
+			if(_items[hole / 2] > _items[0]) {
+				swap(_items[hole], _items[hole / 2]);
+				hole /= 2;
+			}
+			else {
+				break;
+			}
+		}
+		//fill hole back in
+		swap(_items[hole], _items[0]);
 
 	}
 
@@ -65,6 +113,10 @@ public:
 	 */
 	Heap()
 	{
+		_items.clear();
+		//because heap is 1-indexed, place sentinel value at index 0
+		_items.push_back(T(0));
+
 	}
 
 	/**
@@ -72,6 +124,9 @@ public:
 	 */
 	Heap(const vector<T> &unsorted)
 	{
+		//because heap is 1-indexed, place sentinel value at index 0
+		_items.push_back(T(0));
+
 		for (unsigned int i = 0; i < unsorted.size(); i++)
 		{
 			_items.push_back(unsorted[i]);
@@ -84,9 +139,12 @@ public:
 	 */
 	void insert(T item)
 	{
-		unsigned int current_position = size(); // Get index location
-		_items.push_back(item);                 // Add data to end
-		percolateUp( current_position );        // Adjust up, as needed
+		//because heap is 1-indexed, and size() returns number of
+		//non-sentinel values in the array (count starting from 1),
+		//index of any new element will be at size() + 1
+		unsigned int current_position = size() + 1; // Get index location
+		_items.push_back(item);                     // Add data to end
+		percolateUp( current_position );            // Adjust up, as needed
 	}
 
 
@@ -96,8 +154,9 @@ public:
 	 */
 	T& getFirst()
 	{
-		if( size() > 0 )
-			return _items[0];
+		//changed this so that heap is 1-indexed
+		if( size() > 1 )
+			return _items[1];
 		else
 			throw std::out_of_range("No elements in Heap.");
 	}
@@ -108,14 +167,17 @@ public:
 	 */
 	T deleteMin()
 	{
-		int last_index = size() - 1;             // Calc last item index
-		int root_index = 0;                      // Root index (for readability)
+		int last_index = size();             // Calc last item index
+
+		//changed this so that heap is 1-indexed
+		int root_index = 1;                      // Root index (for readability)
 
 		T min_item = _items[root_index];         // Keep item to return
 		_items[root_index] = _items[last_index]; // Move last item to root
 		_items.erase(_items.end() - 1);          // Erase last element entry
 
-		percolateDown(0);                        // Fix heap property
+		//changed this so that heap is 1-indexed
+		percolateDown(1);                        // Fix heap property
 		return min_item;
 
 	}
@@ -126,7 +188,8 @@ public:
 	 */
 	bool isEmpty() const
 	{
-		return _items.size() == 0;
+		//heap will have sentinel value built-in even when empty
+		return _items.size() == 1;
 	}
 
 
@@ -135,7 +198,8 @@ public:
 	 */
 	int size() const
 	{
-		return _items.size();
+		//changed this b/c heap is 1-indexed
+		return _items.size() - 1;
 	}
 
 	/**
@@ -144,7 +208,8 @@ public:
 	string to_s() const
 	{
 		string ret = "";
-		for(unsigned int i = 0; i < _items.size(); i++)
+		//changed this so that heap is 1-indexed
+		for(unsigned int i = 1; i < _items.size(); i++)
      	{
 			ret += to_string(_items[i]) + " ";
 		}
@@ -156,7 +221,8 @@ public:
 	 */
 	void print() const
 	{
-		for(int i = 0; i < _items.size(); i++)
+		//changed this so that heap is 1-indexed
+		for(int i = 1; i < _items.size(); i++)
      	{
 			cout << _items[i] << " ";
 		}
@@ -168,7 +234,8 @@ public:
 	 */
 	void printArray() const
 	{
-		for(unsigned int i = 0; i < _items.size(); i++)
+		//changed this so that heap is 1-indexed
+		for(unsigned int i = 1; i <= size(); i++)
 		{
 			cout << "  [x] Heap element [" << i << "]. key=" 
 			     << _items[i] << endl;
@@ -182,10 +249,11 @@ public:
 	{
 		int rownum = 1;
 		cout << "   [x] Row #" << rownum  << " -    ";
-		for( unsigned int i = 0; i < _items.size(); i++ )
+		//changed this so that heap is 1-indexed
+		for( unsigned int i = 1; i <= size(); i++ )
 		{
 			cout << _items[i] << " ";
-			if( pow(2, rownum) - 1 == i + 1 )
+			if( pow(2, rownum) - 1 == i )
 			{
 				rownum++;
 				cout << endl << "   [x] Row #" << rownum  << " -    ";
