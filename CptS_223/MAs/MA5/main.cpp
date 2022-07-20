@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
 		cout << "  [WTFII] - RIP your CPU, don't say I didn't warn you. " << endl;
 		cout << "  [WTFIIT] - My desktop took X Seconds to complete - " << endl;
 		cout << "  [WTFIV]   - Use 'time make humongoustest' to see it for you" << endl;
-		sortingTests(3000000);
+		sortingTests(300000);
 		cout << " [x] Program in ***HUMONGOUS*** test mode complete. " << endl;
 	}
 	else

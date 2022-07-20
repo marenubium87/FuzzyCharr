@@ -18,49 +18,54 @@
 using namespace std;
 
 //mid defined as (left + right) / 2, integer truncation
-void placePivotAtMid(vector<int> & a, int left, int right) {
+void placePivotAtMid(vector<int> & a, int left, int right, SortStats & stats) {
 	int mid = (left + right) / 2;
 
-	if(a[left] < a[mid]) {
-		if(a[left] > a[right]) {
+	if(++stats.compares && a[left] < a[mid]) {
+		if(++stats.compares && a[left] > a[right]) {
 			//a[left] is the appropriate pivot in this situation
+			stats.moves++;
 			swap(a[left], a[mid]);
 		}
 		else {
 			//appropriate pivot is the smaller of a[mid] and a[right]
-			if(a[mid] > a[right]) {
+			if(++stats.compares && a[mid] > a[right]) {
+				stats.moves++;
 				swap(a[mid], a[right]);
 			}
 		}
 	}
 	else {
-		if(a[left] < a[right]) {
+		if(++stats.compares && a[left] < a[right]) {
 			//a[left] is the appropriate pivot in this situation
+			stats.moves++;
 			swap(a[left], a[mid]);
 		}
 		else {
 			//appropriate pivot is the greater of a[mid] and a[right]
-			if(a[mid] < a[right]) {
+			if(++stats.compares && a[mid] < a[right]) {
+				stats.moves++;
 				swap(a[mid], a[right]);
 			}
 		}
 	}
 }
 
-void quickSort(vector<int> & a, int left, int right) {
+void quickSort(vector<int> & a, int left, int right, SortStats & stats) {
 	//one (or less) element (sub)array
-	if(right - left < 1) {
+	if(++stats.compares && right - left < 1) {
 		return;
 	}
 	//two element (sub)array
-	if(right - left == 1) {
-		if(a[left] > a[right]) {
+	if(++stats.compares && right - left == 1) {
+		if(++stats.compares && a[left] > a[right]) {
+			stats.moves++;
 			swap(a[left], a[right]);
 		}
 		return;
 	}
 
-	placePivotAtMid(a, left, right);
+	placePivotAtMid(a, left, right, stats);
 
 	int i = left;
 	int j = right;
@@ -68,15 +73,16 @@ void quickSort(vector<int> & a, int left, int right) {
 
 	//move pointers toward pivots, stopping when a swap is needed
 	while(i < j) {
-		while(i < p && a[i] <= a[p]) {
+		while(++stats.compares && i < p && a[i] <= a[p]) {
 			i++;
 		}
-		while(j > p && a[j] >= a[p]) {
+		while(++stats.compares && j > p && a[j] >= a[p]) {
 			j--;
 		}
 
 		//if at least one pointer isn't at the pivot
 		if(i != p || j != p) {
+			stats.moves++;
 			swap(a[i], a[j]);
 			//if we moved the pivot, update pivot location
 			if(i == p) {
@@ -89,8 +95,8 @@ void quickSort(vector<int> & a, int left, int right) {
 		//eventually both pointers will be at the pivot and we're done	
 	}
 	
-	quickSort(a, left, p - 1);
-	quickSort(a, p + 1, right);
+	quickSort(a, left, p - 1, stats);
+	quickSort(a, p + 1, right, stats);
 }
 
 
@@ -101,7 +107,7 @@ void instrumentedQuickSort( vector<int> & a, SortStats & stats )
 	clock_t time_begin = clock();       // Grab time before the sort
 
     // MA TODO: implement quicksort and track compares + moves
-	quickSort(a, 0, a.size() - 1);
+	quickSort(a, 0, a.size() - 1, stats);
 
 	clock_t time_end = clock();         // Grab time after the sort
 	stats.sortTime = double(time_end - time_begin) / CLOCKS_PER_SEC;
