@@ -200,6 +200,43 @@ public:
 
 		// End of hints - Dijkstra's Algorithm Goes here:
 
+		//push starting vertex into queue
+		dijkstra_queue.push(_vertices[startingID]);
+		_vertices[startingID]->setPathWeight(0);
+
+		while(!dijkstra_queue.empty()) {
+			Vertex * current = dijkstra_queue.top();
+			
+			//dequeue current element
+			dijkstra_queue.pop();
+			
+			//skip if we've already been here
+			if(!current->is_known())
+			{
+				current->set_known();
+				for(auto iter = current->getEdges().begin(); 
+						iter != current->getEdges().end(); iter++) {
+					
+					//update path weights to each destination using edges of current,
+					//and updates parent,
+					//IF the potential new path is shorter than the old path
+					double newWeight = current->getPathWeight() + 
+						current->getEdgeWeight(iter->first);
+					if(iter->first->getPathWeight() > newWeight) {
+						iter->first->setPathWeight(newWeight);
+						iter->first->set_path(current);
+					}
+					//toss into priority queue if destination vertex isn't known yet
+					if(!iter->first->is_known()) {
+						dijkstra_queue.push(iter->first);
+					}
+				}
+			}
+			
+			
+		}
+
+
 	}
 	// DONE WITH MA
 

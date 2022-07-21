@@ -64,10 +64,10 @@ public:
 	Vertex *get_path() { return _path; }
 
 	void addEdge(Vertex *vertex, double weight) { _edges[vertex] = weight; }
-	int getEdgeWeight(Vertex *edge) { return _edges[edge]; }
+	double getEdgeWeight(Vertex *edge) { return _edges[edge]; }
 	unordered_map<Vertex *, double> &getEdges() { return _edges; }
 	void removeEdge(Vertex *vertex) { _edges.erase(vertex); }
-	int edges_size() { _edges.size(); }
+	int edges_size() { return _edges.size(); }
 };
 
 /**
