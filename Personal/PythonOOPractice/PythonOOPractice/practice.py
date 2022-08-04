@@ -9,12 +9,23 @@
         self.pay = pay
         Employee.num_employees += 1
 
+    @property
+    def email(self):
+        return(f'{self.first}.{self.last}@email.com')
+
     def printAll(self):
         print(f'{self.first} {self.last}')
 
     @classmethod
     def set_raise_amt(cls, amount):
         cls.raise_amount = amount
+
+    def __repr__(self):
+        return f'(\'{self.first}\', {self.last}, {self.pay})'
+
+    def __str__(self):
+        return f"{self.first} {self.last}"
+
 
 class Manager(Employee):
     def __init__(self, first, last, pay, employees = None):
@@ -39,7 +50,11 @@ class Manager(Employee):
 dev_1 = Employee('Bob', 'Jenkins', 60000)
 dev_2 = Employee('Andrew', 'Grant', 70000)
 
-mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
+mgr_1 = Manager('Sue', 'Smith', 90000, [])
 mgr_1.add_emp(dev_2)
+mgr_1.remove_emp(dev_2)
 
-mgr_1.print_emps()
+print(dev_1)
+print(repr(dev_1))
+
+print(dev_1.email)
