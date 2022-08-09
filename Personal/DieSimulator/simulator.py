@@ -4,12 +4,12 @@ import random as rand
 
 rand.seed(5)
 
-user_die_entry = input("Add dice: ").split('+')
-die_list = []
-for group in user_die_entry:
-    die_tuple = tuple(group.split('d'))
-    die_tuple = tuple((int(x) for x in die_tuple))
-    die_list.append(die_tuple)
+# user_die_entry = input("Add dice: ").split('+')
+# die_list = []
+# for group in user_die_entry:
+#     die_tuple = tuple(group.split('d'))
+#     die_tuple = tuple((int(x) for x in die_tuple))
+#     die_list.append(die_tuple)
 
 #expects a list of tuples listing number of and type of dice
 #e.g. [{6, 12}, {3, 4}] is 6d12 + 3d4
@@ -23,4 +23,6 @@ def perform_roll(die_list):
     print(results_list)
     return results_list
 
-perform_roll(die_list)
+#perform_roll(die_list)
+
+print(list(map((lambda x, y: x + y), [1, 2, 3], [4, 5, 6])))
