@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import random as rand
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,33 +7,38 @@ import numpy as np
 
 rand.seed()
 
-# user_die_entry = input("Add dice: ").split('+')
-# die_list = []
-# for group in user_die_entry:
-#     die_tuple = tuple(group.split('d'))
-#     die_tuple = tuple((int(x) for x in die_tuple))
-#     die_list.append(die_tuple)
+num_trials = 80000
+truncate_threshold = 0.05
+num_drops = 2
 
-#expects a list of tuples listing number of and type of dice
-#e.g. [(6, 12), (3, 4)] is 6d12 + 3d4
-#returns a list of int die rolls
+die_list = [(4, 3)]
 
-num_trials = 50000
-die_list = [(6, 6)]
 
-def perform_roll(die_list):
-    die_results_list = []
+def perform_roll(die_list, num_drops):
+    '''
+    Performs a single roll of all dice specified in die_list
+    Drops num_drops lowest dice, then returns a list of remaining
+    dice rolls in the particular roll.
+    '''
+    single_roll = []
+    #die group in form {number of, type}
     for die_group in die_list:
+        #throws die_group[0] number of dice
         for die in range(die_group[0]):
-            die_results_list.append(rand.randrange(1, die_group[1] + 1))
-    return die_results_list
+            single_roll.append(rand.randrange(1, die_group[1] + 1))
+    
+    #drops lowest num_drops dice
+    for i in range(num_drops):
+        single_roll.remove(min(single_roll))
 
-def perform_sim(die_list, trials):
-    die_results_list = []
+    return single_roll
+
+def perform_sim(die_list, trials, num_drops):
+    single_roll = []
     sum_results_list = []
     for roll in range(1, trials + 1):
-        die_results_list = perform_roll(die_list)
-        sum_results_list.append(sum(die_results_list))
+        single_roll = perform_roll(die_list, num_drops)
+        sum_results_list.append(sum(single_roll))
     return sum_results_list
 
 def combine_data(results_list):
@@ -45,14 +51,34 @@ def combine_data(results_list):
 
     return freq_dict
 
+def decimalize_outcomes(d, n, threshold=0):
+    '''
+    Converts dictionary d with keys as outcomes such that values
+    are divided by n number of trials, so that outcomes are now probabilities
+    instead of counts.
 
-combined_data = combine_data(perform_sim(die_list, num_trials))
+    Also removes outcomes (keys) from dict d if their associated probability
+    value falls below threshold.
+    '''
+    to_delete = []
+    for outcome in d:
+        d[outcome] = d[outcome] / n * 100
+        if d[outcome] < threshold:
+            to_delete.append(outcome)
+
+    for value in to_delete:
+        d.pop(value)
+
+
+freq_dict = combine_data(perform_sim(die_list, num_trials, num_drops))
+decimalize_outcomes(freq_dict, num_trials, truncate_threshold)
+
 x_sorted = []
 y_sorted = []
 
-for key in sorted(combined_data.keys()):
+for key in sorted(freq_dict.keys()):
     x_sorted.append(key)
-    y_sorted.append(combined_data[key])
+    y_sorted.append(freq_dict[key])
 
 print(x_sorted)
 print(y_sorted)
