@@ -1,90 +1,137 @@
 from dataclasses import dataclass
+from os import name
 import random as rand
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
-#create number and type of dice as tuples in a list
-
-rand.seed()
-
-num_trials = 80000
-truncate_threshold = 0.05
-num_drops = 2
-
-die_list = [(4, 3)]
-
-
-def perform_roll(die_list, num_drops):
+def perform_roll(d, n):
     '''
-    Performs a single roll of all dice specified in die_list
-    Drops num_drops lowest dice, then returns a list of remaining
-    dice rolls in the particular roll.
+    d: dice, specified in list of tuples in form (num in group, type of group)
+
+    example: [(6,20), (4, 8)] is 6d20+4d8
+
+    n: number of (lowest) dice to drop
+
+    Performs a single roll of d, drops n lowest dice, then returns a list of 
+    remaining dice rolls in this particular roll.
     '''
     single_roll = []
     #die group in form {number of, type}
-    for die_group in die_list:
-        #throws die_group[0] number of dice
-        for die in range(die_group[0]):
-            single_roll.append(rand.randrange(1, die_group[1] + 1))
-    
-    #drops lowest num_drops dice
-    for i in range(num_drops):
+    for group in d:
+        #rolls group[0] number of dice of type group[1]
+        for die in range(group[0]):
+            # +1 since dice are in form [1, n], not [0, n)
+            single_roll.append(rand.randrange(1, group[1] + 1))
+
+    #drops lowest n dice
+    for i in range(n):
         single_roll.remove(min(single_roll))
 
     return single_roll
 
-def perform_sim(die_list, trials, num_drops):
+def perform_sim(d, t, n):
+    '''
+    d: dice, specified in list of tuples in form (num in group, type of group)
+
+    t: number of trials
+
+    n: number of (lowest) dice to drop 
+
+    Performs an entire simulation of t trials for die list d
+    and number of drops n, and returns a list of the total (sum)
+    of each trial in simulation.
+    '''
+    rand.seed()
     single_roll = []
     sum_results_list = []
-    for roll in range(1, trials + 1):
-        single_roll = perform_roll(die_list, num_drops)
+
+    #using this range instead of (0, t) for accurate simulation count
+    for roll in range(1, t + 1):
+        single_roll = perform_roll(d, n)
         sum_results_list.append(sum(single_roll))
     return sum_results_list
 
-def combine_data(results_list):
-    freq_dict = {}
-    for value in results_list:
-        if value in freq_dict:
-            freq_dict[value] += 1
-        else:
-            freq_dict[value] = 1
+def tally_results(r):
+    '''
+    r: a list of results (outcomes) from performing a simulation.
 
+    Tallies up results list r into a dictionary of unique outcomes
+    of the form (outcome : frequency) for each (k : v) pair
+    '''
+    freq_dict = {}
+    for outcome in r:
+        if outcome in freq_dict:
+            freq_dict[outcome] += 1
+        else:
+            #create entry outcome not yet recorded in dictionary
+            freq_dict[outcome] = 1
     return freq_dict
 
-def decimalize_outcomes(d, n, threshold=0):
+def decimalize_outcomes(fd, t, ct=0):
     '''
-    Converts dictionary d with keys as outcomes such that values
-    are divided by n number of trials, so that outcomes are now probabilities
-    instead of counts.
+    fd:  Frequency dictionary of outcomes, usu. output by tally_results fcn
 
-    Also removes outcomes (keys) from dict d if their associated probability
-    value falls below threshold.
+    t:  Number of trials in simulation
+
+    ct:  Cutoff threshold as a percent
+
+    Modifies frequency dictionary fd such that values corresponding to outcomes
+    are now probabilities (percents) instead of counts.  Also removes outcomes
+    from dictionary if their associated probability is below cutoff threshold ct.
     '''
     to_delete = []
-    for outcome in d:
-        d[outcome] = d[outcome] / n * 100
-        if d[outcome] < threshold:
+    for outcome in fd:
+        #rounds to 6 dec. places to avoid floating point inaccuracies in output.
+        fd[outcome] = round(fd[outcome] / t * 100, 6)
+        if fd[outcome] < ct:
             to_delete.append(outcome)
 
     for value in to_delete:
-        d.pop(value)
+        fd.pop(value)
 
+    return fd
 
-freq_dict = combine_data(perform_sim(die_list, num_trials, num_drops))
-decimalize_outcomes(freq_dict, num_trials, truncate_threshold)
+def generate_plot(fd):
 
-x_sorted = []
-y_sorted = []
+    #generates sorted x and y lists
+    x_sorted = []
+    y_sorted = []
+    for outcome in sorted(fd.keys()):
+        x_sorted.append(outcome)
+        y_sorted.append(fd[outcome])
 
-for key in sorted(freq_dict.keys()):
-    x_sorted.append(key)
-    y_sorted.append(freq_dict[key])
+    fig, ax = plt.subplots()
+    p1 = ax.bar(x_sorted, y_sorted)
 
-print(x_sorted)
-print(y_sorted)
+    #creates x-index from smallest to largest outcome, and sets x-ticks to that
+    ind_x = np.arange(x_sorted[0], x_sorted[-1] + 1, 1)
+    ax.set_xticks(ind_x, ind_x)
+    ax.set_xlabel('Outcomes')
 
+    #grid spacing parameter here
+    gs = 4
+    #uses above grid spacing to set up y-axis
+    y_max = max(fd.values())
+    y_max = math.ceil(y_max / gs) * gs
+    ind_y = np.arange(0, y_max + 1, gs)
+    ax.set_yticks(ind_y, ind_y)
 
-plt.bar(x_sorted, y_sorted)
+    ax.set_ylabel('Probability (%)')
+    #plots horizontal (y) grid lines and draws them under the bars
+    ax.set_axisbelow(True)
+    plt.grid(axis = 'y', linestyle='dashed')
 
-plt.xticks(x_sorted)
-plt.show()
+    #shows labels above each bar indicating percentages
+    ax.bar_label(p1, fmt='%.1f')
+    plt.show()
+
+num_trials = 80000
+#percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
+cutoff_threshold = 0.05
+#number of lowest dice to discard
+num_drops = 2
+die_list = [(4, 6)]
+freq_dict = tally_results(perform_sim(die_list, num_trials, num_drops))
+freq_dict = decimalize_outcomes(freq_dict, num_trials, cutoff_threshold)
+generate_plot(freq_dict)
