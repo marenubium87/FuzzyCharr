@@ -11,38 +11,31 @@ import PySimpleGUI as sg
 matplotlib.use('TkAgg')
 
 class Simulator:
-    #in form [(num dice in subgroup, type of subgroup)]
-    #e.g. [(2,6), (3,20)] is 2d6 + 3d20
-    die_list = [(2, 6)]
-    num_trials = 3
+    #dictionary where keys are types of dice and vals are number of that die
+    #e.g. 6 : 2 would mean 2d6
+    dice = { 6 : 4}
+    num_trials = 50000
     #number of lowest dice to discard
-    num_drops = 0
+    num_drops = 1
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
     cutoff_threshold = 0.1
-    #stores outcomes and frequencies on any given simulation run
-    freq_dict = {}
+    #dictionary storing outcomes as keys and frequencies as values for
+    #any given simulation run
+    freq = {}
 
     @classmethod
     def perform_roll(cls):
         '''
-        d: dice, specified in list of tuples in form (num in group, type of group)
-
-        example: [(6,20), (4, 8)] is 6d20+4d8
-
-        n: number of (lowest) dice to drop
-
-        Performs a single roll of d, drops n lowest dice, then returns a list of 
-        remaining dice rolls in this particular roll.
+        Performs a single roll using dice dictionary, drops num_drops dice, 
+        then returns a list of remaining dice rolls in this particular roll.
         '''
         single_roll = []
-        #die group in form {number of, type}
-        for group in cls.die_list:
-            #rolls group[0] number of dice of type group[1]
-            for die in range(group[0]):
-                # +1 since dice are in form [1, n], not [0, n)
-                single_roll.append(rand.randrange(1, group[1] + 1))
+        for type in cls.dice:
+            for die in range(cls.dice[type]):
+                # +1 since dice values are in form [1, n], not [0, n)
+                single_roll.append(rand.randrange(1, type + 1))
 
-        #drops lowest n dice
+        #drops lowest num_drops dice
         for i in range(cls.num_drops):
             single_roll.remove(min(single_roll))
 
@@ -51,78 +44,58 @@ class Simulator:
     @classmethod
     def perform_sim(cls):
         '''
-        d: dice, specified in list of tuples in form (num in group, type of group)
-
-        t: number of trials
-
-        n: number of (lowest) dice to drop 
-
-        Performs an entire simulation of t trials for die list d
-        and number of drops n, and returns a list of the total (sum)
-        of each trial in simulation.
+        Performs a simulation run using the die pool and number of trials
+        loaded in the Simulator class, saving the result to the
+        frequency dictionary.
         '''
         rand.seed()
+        #resets frequency dictionary from any past simulation run(s)
+        cls.freq.clear()
         single_roll = []
-        sum_results_list = []
 
         #using this range instead of (0, t) for accurate simulation count
         for roll in range(1, cls.num_trials + 1):
             single_roll = cls.perform_roll()
-            sum_results_list.append(sum(single_roll))
-        return sum_results_list
-
-    @classmethod
-    def tally_results(cls, r):
-        '''
-        r: a list of results (outcomes) from performing a simulation.
-
-        Tallies up results list r into a dictionary of unique outcomes
-        of the form (outcome : frequency) for each (k : v) pair
-        '''
-        cls.freq_dict.clear()
-
-        for outcome in r:
-            if outcome in cls.freq_dict:
-                cls.freq_dict[outcome] += 1
+            outcome = sum(single_roll) 
+            if outcome in cls.freq:
+                cls.freq[outcome] += 1
             else:
                 #create entry outcome not yet recorded in dictionary
-                cls.freq_dict[outcome] = 1
+                cls.freq[outcome] = 1
 
     @classmethod
     def decimalize_outcomes(cls):
         '''
-        fd:  Frequency dictionary of outcomes, usu. output by tally_results fcn
-
-        t:  Number of trials in simulation
-
-        ct:  Cutoff threshold as a percent
-
-        Modifies frequency dictionary fd such that values corresponding to outcomes
+        Modifies frequency dictionary such that values corresponding to outcomes
         are now probabilities (percents) instead of counts.  Also removes outcomes
-        from dictionary if their associated probability is below cutoff threshold ct.
+        from dictionary if their associated probability is below cutoff threshold.
         '''
         to_delete = []
-        for outcome in cls.freq_dict:
+        for outcome in cls.freq:
             #rounds to 6 dec. places to avoid floating point inaccuracies in output.
-            cls.freq_dict[outcome] = round(cls.freq_dict[outcome] / 
+            cls.freq[outcome] = round(cls.freq[outcome] / 
                 cls.num_trials * 100, 6)
-            if cls.freq_dict[outcome] < cls.cutoff_threshold:
+            if cls.freq[outcome] < cls.cutoff_threshold:
                 to_delete.append(outcome)
 
         for value in to_delete:
-            cls.freq_dict.pop(value)
+            cls.freq.pop(value)
 
     @classmethod
     def generate_plot(cls):
+        '''
+        Sets up matplotlib plot from freq dictionary in class
+        and returns figure of plot.
+        '''
         #grid spacing parameter
         gs = 4
 
         #generates sorted x and y lists
         x_sorted = []
         y_sorted = []
-        for outcome in sorted(cls.freq_dict.keys()):
+        for outcome in sorted(cls.freq.keys()):
             x_sorted.append(outcome)
-            y_sorted.append(cls.freq_dict[outcome])
+            y_sorted.append(cls.freq[outcome])
 
         fig, ax = plt.subplots()
         p1 = ax.bar(x_sorted, y_sorted)
@@ -133,7 +106,7 @@ class Simulator:
         ax.set_xlabel('Outcome')
 
         #uses above grid spacing to set up y-axis
-        y_max = max(cls.freq_dict.values())
+        y_max = max(cls.freq.values())
         y_max = math.ceil(y_max / gs) * gs
         ind_y = np.arange(0, y_max + 1, gs)
         ax.set_yticks(ind_y, ind_y)
@@ -149,9 +122,23 @@ class Simulator:
         
     @classmethod
     def simulation_wrapper(cls):
-        cls.tally_results(cls.perform_sim())
+        '''
+        Runs entire simulation and generates plot.
+        '''
+        cls.perform_sim()
         cls.decimalize_outcomes()
-        cls.generate_plot()
+        return cls.generate_plot()
+
+    @classmethod
+    def get_total_dice(cls):
+        '''
+        Helper fcn: returns total dice currently in pool.
+        '''
+        result = 0
+        #dice pool is not empty
+        if cls.dice:
+            result = sum(cls.dice.values())
+        return result
 
 #matplotlib helper code
 def draw_figure(canvas, figure):
@@ -159,5 +146,3 @@ def draw_figure(canvas, figure):
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
-
-Simulator.simulation_wrapper()
