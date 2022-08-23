@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-from os import name
 import random as rand
 import matplotlib
 import matplotlib.pyplot as plt
@@ -13,15 +11,23 @@ matplotlib.use('TkAgg')
 class Simulator:
     #dictionary where keys are types of dice and vals are number of that die
     #e.g. 6 : 2 would mean 2d6
-    dice = { 6 : 4}
-    num_trials = 50000
+    dice = { 20 : 2}
+
+    num_trials = 150000
+
     #number of lowest dice to discard
     num_drops = 1
+
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
     cutoff_threshold = 0.1
+
     #dictionary storing outcomes as keys and frequencies as values for
     #any given simulation run
     freq = {}
+
+    #for plot use
+    x_sorted = []
+    y_sorted = []
 
     @classmethod
     def perform_roll(cls):
@@ -80,6 +86,7 @@ class Simulator:
 
         for value in to_delete:
             cls.freq.pop(value)
+        print(cls.freq)
 
     @classmethod
     def generate_plot(cls):
@@ -91,17 +98,17 @@ class Simulator:
         gs = 4
 
         #generates sorted x and y lists
-        x_sorted = []
-        y_sorted = []
+        cls.x_sorted.clear()
+        cls.y_sorted.clear()
         for outcome in sorted(cls.freq.keys()):
-            x_sorted.append(outcome)
-            y_sorted.append(cls.freq[outcome])
+            cls.x_sorted.append(outcome)
+            cls.y_sorted.append(cls.freq[outcome])
 
         fig, ax = plt.subplots()
-        p1 = ax.bar(x_sorted, y_sorted)
+        p1 = ax.bar(cls.x_sorted, cls.y_sorted)
 
         #creates x-index from smallest to largest outcome, and sets x-ticks to that
-        ind_x = np.arange(x_sorted[0], x_sorted[-1] + 1, 1)
+        ind_x = np.arange(cls.x_sorted[0], cls.x_sorted[-1] + 1, 1)
         ax.set_xticks(ind_x, ind_x)
         ax.set_xlabel('Outcome')
 
@@ -123,7 +130,7 @@ class Simulator:
     @classmethod
     def simulation_wrapper(cls):
         '''
-        Runs entire simulation and generates plot.
+        Runs entire simulation and returns a figure of the plot.
         '''
         cls.perform_sim()
         cls.decimalize_outcomes()
