@@ -1,3 +1,6 @@
+#Handles the main simulation, number crunching, plotting,
+#and matplotlib interfaces.
+
 import random as rand
 import matplotlib
 import matplotlib.pyplot as plt
@@ -11,12 +14,18 @@ matplotlib.use('TkAgg')
 class Simulator:
     #dictionary where keys are types of dice and vals are number of that die
     #e.g. 6 : 2 would mean 2d6
-    dice = { 20 : 2}
+    dice = {}
 
-    num_trials = 150000
+    #available modes {SUM, SUCC}
+    mode = 'SUM'
+
+    #threshold, if in # of successes mode
+    succ_threshold = 0
+
+    num_trials = 1500
 
     #number of lowest dice to discard
-    num_drops = 1
+    num_drops = 0
 
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
     cutoff_threshold = 0.1
@@ -28,6 +37,44 @@ class Simulator:
     #for plot use
     x_sorted = []
     y_sorted = []
+
+    @classmethod
+    def modify_dice(cls, d, o, n=1):
+        '''
+        Modifies simulator's die pool by adding or subtracting dice of type d
+        and string operation o, whose values are as follows:
+
+        +:  adds one die of the type to the die pool
+        -:  subtracts one die of the type to the die pool
+        =:  sets the dice of the type to the value n
+
+        '''
+        if o == '+':
+            if d in cls.dice:
+                cls.dice[d] += n
+            else:
+                cls.dice[d] = n
+        if o == '-':
+            if d in cls.dice:
+                cls.dice[d] -= n
+            else:
+                #if key not in dict then subtracting dice does nothing
+                pass
+        if o == '=':
+            cls.dice[d] = n
+
+        #final check, prunes any invalid entries to make sure dictionary
+        #is in a valid state
+        to_delete = []
+        for die_type in cls.dice:
+            if cls.dice[die_type] < 1:
+                to_delete.append(die_type)
+
+        for die_type in to_delete:
+            cls.dice.pop(die_type)
+
+        #checking output, can safely comment out in prod code
+        print(cls.dice)
 
     @classmethod
     def perform_roll(cls):
@@ -97,6 +144,14 @@ class Simulator:
         #grid spacing parameter
         gs = 4
 
+        #closes previous figures, if any
+        plt.close('all')
+
+        #figure width and height in inches
+        fig_w = 9
+        fig_h = 5
+        fig_dpi = 180
+
         #generates sorted x and y lists
         cls.x_sorted.clear()
         cls.y_sorted.clear()
@@ -104,7 +159,11 @@ class Simulator:
             cls.x_sorted.append(outcome)
             cls.y_sorted.append(cls.freq[outcome])
 
+        #init figure and axes
         fig, ax = plt.subplots()
+
+        #sets figure width and height in inches
+        fig.set_size_inches(fig_w, fig_h)
         p1 = ax.bar(cls.x_sorted, cls.y_sorted)
 
         #creates x-index from smallest to largest outcome, and sets x-ticks to that
@@ -125,6 +184,12 @@ class Simulator:
 
         #shows labels above each bar indicating percentages
         ax.bar_label(p1, fmt='%.1f')
+
+        plt.tight_layout()
+
+        #for testing purposes
+        #plt.show()
+
         return plt.gcf()
         
     @classmethod
