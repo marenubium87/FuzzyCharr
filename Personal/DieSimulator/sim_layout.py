@@ -126,8 +126,11 @@ manual_frm = sg.Frame('Manual Control', manual_layout)
 #DIE POOL FRAME STUFFS HERE
 
 die_pool_layout = [
+    #makes this element write-only so that it's not included in values dict
     [sg.Multiline(size=(15, 4), 
-        key='-POOL_CONTENTS-')],
+        key='-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY, 
+        #disabled means contents can't be modified in any way
+        autoscroll=True, disabled=True)],
     [sg.Button('Reset Die Pool', key='-POOL_RESET-')]
 ]
 
@@ -137,8 +140,9 @@ die_pool_frm = sg.Frame('Die Pool', die_pool_layout)
 
 drop_layout = [
     [sg.Combo(['Do not drop', 'Drop lowest', 'Drop highest'], 'Do not drop',
-        size=10, key='-DROP_SELECT-')],
-    [sg.Spin(0, key='-DROP_NUM-', disabled=True),
+        size=10, key='-DROP_SELECT-', enable_events=True)],
+    [sg.Spin([0], initial_value=0, key='-DROP_NUM-', disabled=True,
+        enable_events=True),
     sg.Text(' Dice')]
 ]
 
@@ -160,7 +164,8 @@ mode_frm = sg.Frame('Mode', mode_layout)
 #REROLL FRAME STUFFS HERE
 
 reroll_layout = [
-    [sg.Checkbox('Reroll dice', pad=(5,(0,2)), key='-REROLL_SELECT-')],
+    [sg.Checkbox('Reroll dice', pad=(5,(0,2)), key='-REROLL_SELECT-', 
+        checkbox_color='white', enable_events=True)],
     [sg.Spin(list(range(0,20)), 0, disabled=True, key='-REROLL_THRESH-'), 
         sg.Text('and below')]
 ]

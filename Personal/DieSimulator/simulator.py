@@ -18,15 +18,15 @@ class Simulator:
 
     #available modes {SUM, SUCC}
     mode = 'SUM'
-
     #threshold, if in # of successes mode
     succ_threshold = 0
 
-    num_trials = 1500
-
-    #number of lowest dice to discard
+    #available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
+    drop_mode = 'Do not drop'
+    #number of dice to drop
     num_drops = 0
 
+    num_trials = 1500
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
     cutoff_threshold = 0.1
 
@@ -77,6 +77,27 @@ class Simulator:
         print(cls.dice)
 
     @classmethod
+    def reset_die_pool(cls):
+        '''
+        Helper fcn; empties the dice dictionary and resets params relevant
+        to dice pool (drops and success threshold)
+        '''
+        cls.dice.clear()
+        cls.succ_threshold = 0
+        cls.num_drops = 0
+        
+    @classmethod
+    def get_total_dice(cls):
+        '''
+        Helper fcn: returns total dice currently in pool.
+        '''
+        result = 0
+        #dice pool is not empty
+        if cls.dice:
+            result = sum(cls.dice.values())
+        return result
+
+    @classmethod
     def perform_roll(cls):
         '''
         Performs a single roll using dice dictionary, drops num_drops dice, 
@@ -89,8 +110,12 @@ class Simulator:
                 single_roll.append(rand.randrange(1, type + 1))
 
         #drops lowest num_drops dice
-        for i in range(cls.num_drops):
-            single_roll.remove(min(single_roll))
+        if cls.drop_mode != 'Do not drop':
+            for i in range(cls.num_drops):
+                if cls.drop_mode == 'Drop lowest':
+                    single_roll.remove(min(single_roll))
+                elif cls.drop_mode == 'Drop highest':
+                    single_roll.remove(max(single_roll))
 
         return single_roll
 
@@ -200,17 +225,6 @@ class Simulator:
         cls.perform_sim()
         cls.decimalize_outcomes()
         return cls.generate_plot()
-
-    @classmethod
-    def get_total_dice(cls):
-        '''
-        Helper fcn: returns total dice currently in pool.
-        '''
-        result = 0
-        #dice pool is not empty
-        if cls.dice:
-            result = sum(cls.dice.values())
-        return result
 
 #matplotlib helper code
 def draw_figure(canvas, figure):
