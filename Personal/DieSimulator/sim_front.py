@@ -46,6 +46,10 @@ while True:
     if event == '-REROLL_SELECT-':
         sops.reroll_select_ops(window, window['-REROLL_SELECT-'].get())
 
+    #handles events dealing with the number of trials input and button
+    if event[1:11] == 'NUM_TRIALS':
+        sops.num_trials_ops(window, event, values)
+
     #runs simulation sequence assuming that dice pool is not empty
     if event == '-ENGAGE-' and sim.Simulator.dice:
         #clear previous canvas
@@ -57,6 +61,7 @@ while True:
 
     #element updates that must be performed regardless of event
     sops.element_update(window)
+
     window.refresh()
 
 window.close() 

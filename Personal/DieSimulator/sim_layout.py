@@ -1,6 +1,7 @@
 #Handles theming and layout of the main GUI.
 
 import PySimpleGUI as sg
+import simulator as sim
 
 #THEME GOES HERE
 my_theme = {    'BACKGROUND': '#AAB8D0',    #blue-gray
@@ -8,7 +9,7 @@ my_theme = {    'BACKGROUND': '#AAB8D0',    #blue-gray
             'INPUT': '#5EF57A',             #light green
             'TEXT_INPUT': '#F73232',        #red
             'SCROLL': '#550D63',            #dark purple
-            'BUTTON': ('#F2A97F', '#242F50'), #peach, navy
+            'BUTTON': ('#FFD6CC', '#242F50'), #light peach, navy
             'PROGRESS': ('#406FFF', '#C8D5FF'), #med blue, light blue
             'BORDER': 1,
             'SLIDER_DEPTH': 0,
@@ -125,28 +126,16 @@ manual_frm = sg.Frame('Manual Control', manual_layout)
 
 #DIE POOL FRAME STUFFS HERE
 
-die_pool_layout = [
+dice_pool_layout = [
     #makes this element write-only so that it's not included in values dict
     [sg.Multiline(size=(15, 4), 
         key='-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY, 
         #disabled means contents can't be modified in any way
         autoscroll=True, disabled=True)],
-    [sg.Button('Reset Die Pool', key='-POOL_RESET-')]
+    [sg.Button('Reset Dice Pool', key='-POOL_RESET-')]
 ]
 
-die_pool_frm = sg.Frame('Die Pool', die_pool_layout)
-
-#DROP FRAME STUFFS HERE
-
-drop_layout = [
-    [sg.Combo(['Do not drop', 'Drop lowest', 'Drop highest'], 'Do not drop',
-        size=10, key='-DROP_SELECT-', enable_events=True)],
-    [sg.Spin([0], initial_value=0, key='-DROP_NUM-', disabled=True,
-        enable_events=True),
-    sg.Text(' Dice')]
-]
-
-drop_frm = sg.Frame('Drops', drop_layout)
+dice_pool_frm = sg.Frame('Dice Pool', dice_pool_layout)
 
 #MODE FRAME STUFFS HERE
 mode_layout = [
@@ -166,28 +155,60 @@ mode_frm = sg.Frame('Mode', mode_layout)
 reroll_layout = [
     [sg.Checkbox('Reroll dice', pad=(5,(0,2)), key='-REROLL_SELECT-', 
         checkbox_color='white', enable_events=True)],
-    [sg.Spin(list(range(0,20)), 0, disabled=True, key='-REROLL_THRESH-'), 
+    [sg.Spin(list(range(0,20)), 0, disabled=True, key='-REROLL_THRESH-',
+        enable_events=True, size=2), 
         sg.Text('and below')]
 ]
 
 reroll_frm = sg.Frame('Reroll', reroll_layout)
 
+
+#DROP FRAME STUFFS HERE
+
+drop_layout = [
+    [sg.Combo(['Do not drop', 'Drop lowest', 'Drop highest'], 'Do not drop',
+        size=11, key='-DROP_SELECT-', enable_events=True)],
+    [sg.Spin([0], initial_value=0, key='-DROP_NUM-', disabled=True,
+        enable_events=True),
+    sg.Text(' Dice')]
+]
+
+drop_frm = sg.Frame('Drops', drop_layout)
+
+#TRIALS FRAME STUFFS HERE
+trials_layout = [
+    [
+        sg.Text('Number of trials:', pad =(5, 0)),
+        sg.Input(size=15, key='-NUM_TRIALS-', 
+            default_text=sim.Simulator.num_trials, pad =(6, 0),
+            enable_events=True)
+    ],
+    [
+        sg.Text('Est. 90% CI: +/-', pad=((5,0), 10)), 
+        sg.Text(f'{sim.Simulator.calculate_MoE()}%', pad=(0, 10), size=6,
+            justification='right', key='-NUM_TRIALS_CI-'), 
+        sg.Button('Update', pad=((18,5), 5), key='-NUM_TRIALS_COMMIT-')
+    ]
+]
+
+trials_frm = sg.Frame('Trials', trials_layout)
+
 #SUBCOLUMN STUFF HERE
 
-col_sub_left = sg.Column([
-    [drop_frm, reroll_frm],
-    [sg.Text('Number of trials:', pad =(5, (10, 0))), 
-        sg.Input(size=15, key='-NUM_TRIALS-', pad =(5, (10, 0)))]
-])
+col_L1 = sg.Column([[reroll_frm, drop_frm], [trials_frm]])
+
+col_L2 = sg.Column([
+    [mode_frm],
+    [sg.Button(' Run Simulation ', size=13, key='-ENGAGE-')],
+    [sg.Button(' Save Output... ', size=13, key='-SAVE_OUTPUT-')]  
+    ], element_justification='center')
 
 #LEFT COLUMN STUFFS HERE
 
 col_left = [
     [dice_frm],
-    [manual_frm, die_pool_frm],
-    sg.vtop([mode_frm, col_sub_left]),
-    [sg.Button('  Run Simulation  ', pad=((5,50), 20), key='-ENGAGE-'),
-    sg.Button('Save Output to File', key='-SAVE_OUTPUT-')]
+    [manual_frm, dice_pool_frm],
+    sg.vtop([col_L1, col_L2]),
 ]
 
 #RIGHT COLUMN STUFFS HERE

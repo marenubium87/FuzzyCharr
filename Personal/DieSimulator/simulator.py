@@ -18,17 +18,19 @@ class Simulator:
 
     #available modes {SUM, SUCC}
     mode = 'SUM'
-    #threshold, if in # of successes mode
+    #threshold for a die roll to be counted as a success
     succ_threshold = 0
 
     #available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
-    drop_mode = 'Do not drop'
+    mode_drop = 'Do not drop'
     #number of dice to drop
     num_drops = 0
 
-    num_trials = 1500
+    reroll_threshold = 0
+
+    num_trials = 1000
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
-    cutoff_threshold = 0.1
+    cutoff_threshold = 0.2
 
     #dictionary storing outcomes as keys and frequencies as values for
     #any given simulation run
@@ -98,24 +100,67 @@ class Simulator:
         return result
 
     @classmethod
+    def drop_dice(cls, roll):
+        '''
+        Helper fcn: drops highest or lowest dice from previous roll,
+        then returns
+        '''
+        if cls.mode_drop != 'Do not drop':
+            for i in range(cls.num_drops):
+                if cls.mode_drop == 'Drop lowest':
+                    roll.remove(min(roll))
+                elif cls.mode_drop == 'Drop highest':
+                    roll.remove(max(roll))
+        return roll
+
+    @classmethod
+    def calculate_MoE(cls):
+        '''
+        Helper function.  Calculates the margin of error for each outcome
+        using the expected CI (conservative estimate using 
+        binomial dist, p=0.5) based on number of trials.
+        '''
+        #current value is for 90% CI
+        z_star = 1.645
+
+        moe = math.sqrt(0.5 * 0.5 / cls.num_trials) * 100 * z_star
+        return round(moe, 1)
+
+    @classmethod
+    def generate_dice_str(cls):
+        '''
+        Helper function.  Generates a string from the current dice pool
+        in 1d2+3d4 format.
+        '''
+        dice_str = ''
+        for die_type in cls.dice:
+            dice_str += f'+{cls.dice[die_type]}d{die_type}'
+        #removes leading '+'
+        return dice_str[1:]
+
+    @classmethod
     def perform_roll(cls):
         '''
         Performs a single roll using dice dictionary, drops num_drops dice, 
         then returns a list of remaining dice rolls in this particular roll.
         '''
         single_roll = []
+        new_result = 0
+
+        #performs roll and rerolls dice until above reroll threshold
         for type in cls.dice:
             for die in range(cls.dice[type]):
-                # +1 since dice values are in form [1, n], not [0, n)
-                single_roll.append(rand.randrange(1, type + 1))
+                while True:
+                    # +1 since dice values are in form [1, n], not [0, n)
+                    new_result = rand.randrange(1, type + 1)
+                    #strict inequality as reroll treshold defined as the highest
+                    #value that needs to be rerolled
+                    if new_result > cls.reroll_threshold:
+                        break
+                single_roll.append(new_result)
 
-        #drops lowest num_drops dice
-        if cls.drop_mode != 'Do not drop':
-            for i in range(cls.num_drops):
-                if cls.drop_mode == 'Drop lowest':
-                    single_roll.remove(min(single_roll))
-                elif cls.drop_mode == 'Drop highest':
-                    single_roll.remove(max(single_roll))
+        #drops appropriate number of dice
+        single_roll = cls.drop_dice(single_roll)
 
         return single_roll
 
@@ -134,7 +179,7 @@ class Simulator:
         #using this range instead of (0, t) for accurate simulation count
         for roll in range(1, cls.num_trials + 1):
             single_roll = cls.perform_roll()
-            outcome = sum(single_roll) 
+            outcome = sum(single_roll)
             if outcome in cls.freq:
                 cls.freq[outcome] += 1
             else:
@@ -158,7 +203,9 @@ class Simulator:
 
         for value in to_delete:
             cls.freq.pop(value)
-        print(cls.freq)
+
+        #for debugging purposes, can delete
+        #print(cls.freq)
 
     @classmethod
     def generate_plot(cls):
@@ -167,7 +214,7 @@ class Simulator:
         and returns figure of plot.
         '''
         #grid spacing parameter
-        gs = 4
+        gs = 5
 
         #closes previous figures, if any
         plt.close('all')
@@ -210,11 +257,27 @@ class Simulator:
         #shows labels above each bar indicating percentages
         ax.bar_label(p1, fmt='%.1f')
 
+        #Title string concatenation
+        dice_str = cls.generate_dice_str()
+        
+        reroll_str = ''
+        if cls.reroll_threshold > 0:
+            reroll_str = (f', Reroll {cls.reroll_threshold}s'
+                f' and below')
+
+        drop_str = ''
+        if cls.mode_drop != 'Do not drop':
+            drop_str = f', {cls.mode_drop} {cls.num_drops}'
+
+        trials_str = f', {cls.num_trials} trials'
+
+        plt.title(f'Probability Distribution of {dice_str}{reroll_str}'
+            f'{drop_str}{trials_str}')
+
         plt.tight_layout()
 
-        #for testing purposes
+        #for testing purposes, can comment out
         #plt.show()
-
         return plt.gcf()
         
     @classmethod
