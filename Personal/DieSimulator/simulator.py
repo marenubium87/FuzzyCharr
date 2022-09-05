@@ -11,6 +11,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import PySimpleGUI as sg
 matplotlib.use('TkAgg')
 
+version = '0.9.0'
+
 class Simulator:
     #dictionary where keys are types of dice and vals are number of that die
     #e.g. 6 : 2 would mean 2d6
@@ -32,6 +34,9 @@ class Simulator:
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
     cutoff_threshold = 0.2
 
+    #the confidence level selected for the simulation
+    CI_level = 90
+
     #dictionary storing outcomes as keys and frequencies as values for
     #any given simulation run
     freq = {}
@@ -40,15 +45,20 @@ class Simulator:
     x_sorted = []
     y_sorted = []
 
+    #plot figure
+    fig = None
+
     @classmethod
     def modify_dice(cls, d, o, n=1):
         '''
-        Modifies simulator's die pool by adding or subtracting dice of type d
-        and string operation o, whose values are as follows:
-
+        Modifies simulator's dice dictionary entry of die type d
+        with string operation o, and number n.  If d doesn't exist 
+        in the dictionary it will be created.
+        
+        Acceptable values for o are as follows:
         +:  adds one die of the type to the die pool
-        -:  subtracts one die of the type to the die pool
-        =:  sets the dice of the type to the value n
+        -:  subtracts one die of the type from the die pool
+        =:  sets the number of dice of type to n
 
         '''
         if o == '+':
@@ -69,7 +79,7 @@ class Simulator:
         #is in a valid state
         to_delete = []
         for die_type in cls.dice:
-            if cls.dice[die_type] < 1:
+            if int(cls.dice[die_type]) < 1:
                 to_delete.append(die_type)
 
         for die_type in to_delete:
@@ -79,7 +89,7 @@ class Simulator:
         print(cls.dice)
 
     @classmethod
-    def reset_die_pool(cls):
+    def clear_die_pool(cls):
         '''
         Helper fcn; empties the dice dictionary and resets params relevant
         to dice pool (drops and success threshold)
@@ -87,6 +97,7 @@ class Simulator:
         cls.dice.clear()
         cls.succ_threshold = 0
         cls.num_drops = 0
+        cls.reroll_threshold = 0
         
     @classmethod
     def get_total_dice(cls):
@@ -120,10 +131,13 @@ class Simulator:
         using the expected CI (conservative estimate using 
         binomial dist, p=0.5) based on number of trials.
         '''
-        #current value is for 90% CI
-        z_star = 1.645
+        #z-star critical values for various confidence intervals
+        z_star_dict = {70:1.036, 80:1.281, 90:1.645, 95:1.96,
+            97:2.17, 99:2.576}
 
-        moe = math.sqrt(0.5 * 0.5 / cls.num_trials) * 100 * z_star
+        moe = math.sqrt(0.5 * 0.5 / cls.num_trials)
+        moe = moe * 100 * z_star_dict[cls.CI_level]
+        
         return round(moe, 1)
 
     @classmethod
@@ -214,7 +228,7 @@ class Simulator:
         and returns figure of plot.
         '''
         #grid spacing parameter
-        gs = 5
+        gs = 2.5
 
         #closes previous figures, if any
         plt.close('all')
@@ -258,7 +272,12 @@ class Simulator:
         ax.bar_label(p1, fmt='%.1f')
 
         #Title string concatenation
+        mode_str_dict = {'SUM':'Sum', 'SUCC':'Successes'}
         dice_str = cls.generate_dice_str()
+        
+        succ_thresh_str = ''
+        if cls.succ_threshold > 0:
+            succ_thresh_str = f'(Threshold: >= {cls.succ_threshold})'
         
         reroll_str = ''
         if cls.reroll_threshold > 0:
@@ -268,10 +287,11 @@ class Simulator:
         drop_str = ''
         if cls.mode_drop != 'Do not drop':
             drop_str = f', {cls.mode_drop} {cls.num_drops}'
-
+        
         trials_str = f', {cls.num_trials} trials'
 
-        plt.title(f'Probability Distribution of {dice_str}{reroll_str}'
+        plt.title(f'Probability Dist. for {mode_str_dict[cls.mode]}'
+            f'{succ_thresh_str} of {dice_str}{reroll_str}'
             f'{drop_str}{trials_str}')
 
         plt.tight_layout()

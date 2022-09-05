@@ -6,7 +6,7 @@ import simulator as sim
 #THEME GOES HERE
 my_theme = {    'BACKGROUND': '#AAB8D0',    #blue-gray
             'TEXT': '#1015C9',              #dark blue
-            'INPUT': '#5EF57A',             #light green
+            'INPUT': '#C0FFBF',             #light green
             'TEXT_INPUT': '#F73232',        #red
             'SCROLL': '#550D63',            #dark purple
             'BUTTON': ('#FFD6CC', '#242F50'), #light peach, navy
@@ -117,9 +117,9 @@ dice_frm = sg.Frame('Common Dice', [[col_d4, col_d6, col_d8, col_d10,
 manual_layout = [
     [sg.Text('Dice to roll:')],
     [sg.Text(text='e.g. 1d2+3d4', pad=(5, (0,2)))],
-    [sg.Input(size=17, key='-MAN_INPUT-')],
-    [sg.Button('Replace', key='-MAN_REPLACE-'), 
-        sg.Button('Append', key='-MAN_APPEND-')]
+    [sg.Input(size=17, key='-MAN_INPUT-', enable_events=True)],
+    [sg.Button('Replace', key='-MAN_REPLACE-', pad=(5, (3, 5))), 
+        sg.Button('Append', key='-MAN_APPEND-', pad=(5, (3, 5)))]
 ]
 
 manual_frm = sg.Frame('Manual Control', manual_layout)
@@ -132,7 +132,7 @@ dice_pool_layout = [
         key='-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY, 
         #disabled means contents can't be modified in any way
         autoscroll=True, disabled=True)],
-    [sg.Button('Reset Dice Pool', key='-POOL_RESET-')]
+    [sg.Button('Clear Dice Pool', key='-POOL_CLEAR-', pad=(5, (3, 5)))]
 ]
 
 dice_pool_frm = sg.Frame('Dice Pool', dice_pool_layout)
@@ -156,8 +156,8 @@ reroll_layout = [
     [sg.Checkbox('Reroll dice', pad=(5,(0,2)), key='-REROLL_SELECT-', 
         checkbox_color='white', enable_events=True)],
     [sg.Spin(list(range(0,20)), 0, disabled=True, key='-REROLL_THRESH-',
-        enable_events=True, size=2), 
-        sg.Text('and below')]
+        enable_events=True, size=2, pad=(5, (5, 4))), 
+        sg.Text('and below', pad=((2, 5), (5, 4)))]
 ]
 
 reroll_frm = sg.Frame('Reroll', reroll_layout)
@@ -169,8 +169,8 @@ drop_layout = [
     [sg.Combo(['Do not drop', 'Drop lowest', 'Drop highest'], 'Do not drop',
         size=11, key='-DROP_SELECT-', enable_events=True)],
     [sg.Spin([0], initial_value=0, key='-DROP_NUM-', disabled=True,
-        enable_events=True),
-    sg.Text(' Dice')]
+        enable_events=True, pad=(5, (5, 4))),
+    sg.Text('Dice', pad=(5, (5, 4)))]
 ]
 
 drop_frm = sg.Frame('Drops', drop_layout)
@@ -179,28 +179,44 @@ drop_frm = sg.Frame('Drops', drop_layout)
 trials_layout = [
     [
         sg.Text('Number of trials:', pad =(5, 0)),
-        sg.Input(size=15, key='-NUM_TRIALS-', 
-            default_text=sim.Simulator.num_trials, pad =(6, 0),
-            enable_events=True)
+        sg.Input(size=6, key='-NUM_TRIALS-', 
+            default_text=sim.Simulator.num_trials, pad =(4, 0),
+            enable_events=True),
+        sg.Button('Update', pad=((5,5), 5), key='-NUM_TRIALS_COMMIT-')
     ],
     [
-        sg.Text('Est. 90% CI: +/-', pad=((5,0), 10)), 
-        sg.Text(f'{sim.Simulator.calculate_MoE()}%', pad=(0, 10), size=6,
-            justification='right', key='-NUM_TRIALS_CI-'), 
-        sg.Button('Update', pad=((18,5), 5), key='-NUM_TRIALS_COMMIT-')
+        sg.Text('Est. MoE: +/-', pad=((5,0), 5)),
+        sg.Text(f'{sim.Simulator.calculate_MoE()}%', pad=((0, 5), 5), size=5,
+            justification='right', key='-NUM_TRIALS_MOE-'),
+        sg.Text('CI (%):', pad=((4, 0), 5)),
+        sg.Combo(['70', '80', '90', '95', '97', '99'], enable_events=True,
+            default_value=90, size=2, key='-NUM_TRIALS_CI-', pad=((5, 5), 5))
+        
+        
     ]
 ]
 
 trials_frm = sg.Frame('Trials', trials_layout)
 
+#CREDITS FRAME HERE
+
+credits_layout = [
+    [sg.Text('Made with <3 by Aerie')],
+    [sg.Text(f'v {sim.version} Eval Copy')]
+]
+
+credits_frm = sg.Frame('About', credits_layout)
+
 #SUBCOLUMN STUFF HERE
 
-col_L1 = sg.Column([[reroll_frm, drop_frm], [trials_frm]])
+col_L1 = sg.Column([[reroll_frm, drop_frm], [trials_frm], [credits_frm]],
+    element_justification='left')
 
 col_L2 = sg.Column([
     [mode_frm],
-    [sg.Button(' Run Simulation ', size=13, key='-ENGAGE-')],
-    [sg.Button(' Save Output... ', size=13, key='-SAVE_OUTPUT-')]  
+    [sg.Button(' Run Simulation ', size=13, key='-ENGAGE-', pad=(5, (10, 2)))],
+    [sg.Button(' Save Output... ', size=13, key='-SAVE_OUTPUT-',
+        pad=(5, (5, 5)))]  
     ], element_justification='center')
 
 #LEFT COLUMN STUFFS HERE
@@ -214,7 +230,7 @@ col_left = [
 #RIGHT COLUMN STUFFS HERE
 
 col_right = [
-    [sg.Canvas(size=(900, 480), key='-CANVAS-', pad=(10, 10))]
+    [sg.Canvas(size=(900, 500), key='-CANVAS-', pad=(10, 10))]
 ]
 
 #FULL LAYOUT HERE
