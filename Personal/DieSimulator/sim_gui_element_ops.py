@@ -37,7 +37,9 @@ def element_update(window):
             biggest_die = max(sim.Simulator.dice)
 
         mst = window['-MODE_SUCC_THRESH-']
-        mst.update(values=list(range(0, biggest_die + 1)))
+        #range starts at 1 because it makes no sense to ever have
+        #a success threshold of 0
+        mst.update(values=list(range(1, biggest_die + 1)))
         
         #resets threshold for situation where a larger faced die is removed
         if int(mst.get()) > biggest_die:
@@ -125,7 +127,7 @@ def mode_ops(window, event):
             mst.update(disabled=True, value=0)
             sim.Simulator.succ_threshold = 0
         if event == 'SUCC':
-            mst.update(disabled=False)
+            mst.update(disabled=False, value=1)
     
 def drop_ops(window, mode):
     '''

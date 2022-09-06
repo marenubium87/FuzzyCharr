@@ -6,6 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import matplotlib.ticker as mpltick
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 matplotlib.use('TkAgg')
@@ -30,8 +31,6 @@ class Simulator:
     reroll_threshold = 0
 
     num_trials = 60000
-    #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
-    cutoff_threshold = 0.2
 
     #the confidence level selected for the simulation
     CI_level = 90
@@ -178,6 +177,14 @@ class Simulator:
         return single_roll
 
     @classmethod
+    def get_successes(cls, r):
+        s = 0
+        for outcome in r:
+            if outcome >= cls.succ_threshold:
+                s += 1
+        return s
+
+    @classmethod
     def perform_sim(cls):
         '''
         Performs a simulation run using the die pool and number of trials
@@ -189,12 +196,15 @@ class Simulator:
         cls.freq.clear()
         single_roll = []
 
-        #HEY!  GOTTA DO SUCCESSES HERE!!!######
-
         #using this range instead of (0, t) for accurate simulation count
         for roll in range(1, cls.num_trials + 1):
             single_roll = cls.perform_roll()
-            outcome = sum(single_roll)
+
+            if cls.mode == 'SUM':
+                outcome = sum(single_roll)
+            elif cls.mode == 'SUCC':
+                outcome = cls.get_successes(single_roll)
+
             if outcome in cls.freq:
                 cls.freq[outcome] += 1
             else:
@@ -206,14 +216,21 @@ class Simulator:
         '''
         Modifies frequency dictionary such that values corresponding to outcomes
         are now probabilities (percents) instead of counts.  Also removes outcomes
-        from dictionary if their associated probability is below cutoff threshold.
+        from dictionary if their associated probability is below a dynamic
+        cutoff threshold calculated by the cutoff sensitivity parameter.
         '''
+        #defined as the number of times smaller than the maximum outcome
+        #for a value to be removed.
+        cutoff_sensitivity = 100
+        cutoff_threshold = max(cls.freq.values()) / cls.num_trials
+        cutoff_threshold /= cutoff_sensitivity
+        
         to_delete = []
         for outcome in cls.freq:
             #rounds to 6 dec. places to avoid floating point inaccuracies in output.
             cls.freq[outcome] = round(cls.freq[outcome] / 
                 cls.num_trials * 100, 6)
-            if cls.freq[outcome] < cls.cutoff_threshold:
+            if cls.freq[outcome] < cutoff_threshold:
                 to_delete.append(outcome)
 
         for value in to_delete:
@@ -228,16 +245,25 @@ class Simulator:
         Sets up matplotlib plot from freq dictionary in class
         and returns figure of plot.
         '''
-        #grid spacing parameter
-        gs = 2.5
 
+        #if the data is too scattered such that there's no entries
+        #that made it above the cutoff threshold.
+        if not cls.freq:
+            return
         #closes previous figures, if any
         plt.close('all')
 
-        #figure width and height in inches
+        #figure width and height in inches on screen
         fig_w = 9
         fig_h = 5
-        fig_dpi = 180
+
+        #spacing for x-tick and value labels; 2 means every other one, etc.
+        lbl_sp = 1
+        #number of entries on chart before skipping algorithm kicks in
+        lbl_sp_thresh = 32
+        if len(cls.freq.keys()) > lbl_sp_thresh:
+            lbl_sp = math.ceil(len(cls.freq.keys()) / lbl_sp_thresh)
+
 
         #generates sorted x and y lists
         cls.x_sorted.clear()
@@ -245,40 +271,67 @@ class Simulator:
         for outcome in sorted(cls.freq.keys()):
             cls.x_sorted.append(outcome)
             cls.y_sorted.append(cls.freq[outcome])
-
+        
         #init figure and axes
         fig, ax = plt.subplots()
-
+        
         #sets figure width and height in inches
         fig.set_size_inches(fig_w, fig_h)
         p1 = ax.bar(cls.x_sorted, cls.y_sorted)
 
-        #creates x-index from smallest to largest outcome, and sets x-ticks to that
-        ind_x = np.arange(cls.x_sorted[0], cls.x_sorted[-1] + 1, 1)
-        ax.set_xticks(ind_x, ind_x)
-        ax.set_xlabel('Outcome')
+    #X-AXIS STUFF STARTS HERE
 
-        #uses above grid spacing to set up y-axis
-        y_max = max(cls.freq.values())
-        y_max = math.ceil(y_max / gs) * gs
-        ind_y = np.arange(0, y_max + 1, gs)
+        #creates x-index from smallest to largest values, and sets x-ticks
+        ind_x = np.arange(cls.x_sorted[0], cls.x_sorted[-1] + 1, 
+            max(int((cls.x_sorted[-1] - cls.x_sorted[0]) / 20), 1))
+
+        ax.set_xlabel('Outcome')
+        ax.set_xticks(ind_x, ind_x)
+        if max(ind_x) > 300:
+            ax.xaxis.set_major_formatter(mpltick.FormatStrFormatter('%.2e'))
+
+        
+    #X-AXIS STUFF ENDS HERE
+
+    #Y-AXIS GRIDLINE STUFF STARTS HERE
+        #parameter determining how many y-gridlines should be displayed
+        #(excluding 0); graph will adjust scaling to satisfy this
+        y_gl = 6
+        y_spacing = math.ceil(max(cls.freq.values()) / y_gl)
+        y_max = min(y_spacing * y_gl,
+            max(cls.freq.values()) * 1.5
+        )
+        ind_y = np.linspace(0, y_max, y_gl + 1)
+        ind_y = [round(x, 2) for x in ind_y]
         ax.set_yticks(ind_y, ind_y)
+        if max(ind_y) < 5:
+            ax.yaxis.set_major_formatter(mpltick.FormatStrFormatter('%.2f'))
 
         ax.set_ylabel('Probability (%)')
         #plots horizontal (y) grid lines and draws them under the bars
         ax.set_axisbelow(True)
         plt.grid(axis = 'y', linestyle='dashed')
+    #Y-AXIS GRIDLINE STUFF ENDS HERE
 
-        #shows labels above each bar indicating percentages
-        ax.bar_label(p1, fmt='%.1f')
+    #DATA LABEL STUFF STARTS HERE
+        if lbl_sp == 1:
+            ax.bar_label(p1, fmt='%.1f')
+        # else:
+        #     data_labels = [str(round(x, 1)) for x in cls.y_sorted]
+        #     for i in range(0, len(data_labels)):
+        #         if i % lbl_sp != 0:
+        #             data_labels[i] = ''
 
-        #Title string concatenation
+        #     ax.bar_label(p1, fmt='%.1f', labels=data_labels, padding=30)
+    #DATA LABEL STUFF ENDS HERE
+
+    #TITLE RELATED STUFF STARTS HERE
         mode_str_dict = {'SUM':'Sum', 'SUCC':'Successes'}
         dice_str = cls.generate_dice_str()
         
         succ_thresh_str = ''
         if cls.succ_threshold > 0:
-            succ_thresh_str = f'(Threshold: >= {cls.succ_threshold})'
+            succ_thresh_str = f' (Threshold: >= {cls.succ_threshold})'
         
         reroll_str = ''
         if cls.reroll_threshold > 0:
@@ -294,6 +347,8 @@ class Simulator:
         plt.title(f'Probability Dist. for {mode_str_dict[cls.mode]}'
             f'{succ_thresh_str} of {dice_str}{reroll_str}'
             f'{drop_str}{trials_str}')
+
+    #TITLE RELATED STUFF ENDS HERE
 
         plt.tight_layout()
 

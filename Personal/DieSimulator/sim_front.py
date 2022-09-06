@@ -78,4 +78,4 @@ while True:
 
     window.refresh()
 
-window.close() 
+window.close()
