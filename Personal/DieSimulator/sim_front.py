@@ -69,7 +69,7 @@ while True:
     #saves figure to file
     if event == '-SAVE_OUTPUT-':
         if sim.Simulator.fig is not None:
-            file_path = sg.popup_get_file('Choose path to save figure (PNG)', 
+            file_path = sg.popup_get_file('Choose path to save figure (PNG):', 
                 save_as=True, title='Save Figure')
             sim.plt.savefig(f'{file_path}.png')
 

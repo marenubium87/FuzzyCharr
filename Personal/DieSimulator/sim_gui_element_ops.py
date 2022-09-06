@@ -16,6 +16,8 @@ def parse_input(s):
             return {}
         if int(temp[0]) < 1 or int(temp[1]) < 1:
             return {}
+        temp[0] = int(temp[0])
+        temp[1] = int(temp[1])
         if temp[1] in d:
             d[temp[1]] = d[temp[1]] + temp[0]
         else:
@@ -45,7 +47,7 @@ def element_update(window):
         sim.Simulator.succ_threshold = mst.get()
 
     #update of die pool and write to die pool multiline element
-    pool = window['-POOL_CONTENTS-'+sim.sg.WRITE_ONLY_KEY]
+    pool = window['-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY]
     pool_str = ''
     pool.update(pool_str)
     if sim.Simulator.dice:

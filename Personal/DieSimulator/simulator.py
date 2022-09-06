@@ -8,10 +8,9 @@ import numpy as np
 import math
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import PySimpleGUI as sg
 matplotlib.use('TkAgg')
 
-version = '0.9.0'
+version = '0.9.3'
 
 class Simulator:
     #dictionary where keys are types of dice and vals are number of that die
@@ -30,7 +29,7 @@ class Simulator:
 
     reroll_threshold = 0
 
-    num_trials = 1000
+    num_trials = 60000
     #percent threshold (0.05 means 0.05%, not 5%) to omit outcome values
     cutoff_threshold = 0.2
 
@@ -189,6 +188,8 @@ class Simulator:
         #resets frequency dictionary from any past simulation run(s)
         cls.freq.clear()
         single_roll = []
+
+        #HEY!  GOTTA DO SUCCESSES HERE!!!######
 
         #using this range instead of (0, t) for accurate simulation count
         for roll in range(1, cls.num_trials + 1):
