@@ -18,13 +18,13 @@ my_theme = {    'BACKGROUND': '#AAB8D0',    #blue-gray
 sg.theme_add_new('mytheme', my_theme)
 sg.theme('mytheme')
 
-#COMMON DICE FRAME STUFFS HERE
-b_size = 3
+#COMMON DICE FRAME STUFFS STARTS HERE
 
+#button size
+b_size = 3
 #button padding, pixels
 b_pad = 5
 b_vpad = 3
-
 #dist btwn leftmost button and frame, and rightmost button and frame
 b_margin = 15
 
@@ -112,8 +112,11 @@ col_d20 = sg.Column([
 dice_frm = sg.Frame('Common Dice', [[col_d4, col_d6, col_d8, col_d10,
         col_d12, col_d20]])
 
-#MANUAL INPUT FRAME STUFFS HERE
+#COMMON DICE FRAME STUFFS ENDS HERE
 
+######
+
+#MANUAL INPUT FRAME STUFFS STARTS HERE
 manual_layout = [
     [sg.Text('Dice to roll:')],
     [sg.Text(text='e.g. 1d2+3d4', pad=(5, (0,2)))],
@@ -124,8 +127,11 @@ manual_layout = [
 
 manual_frm = sg.Frame('Manual Control', manual_layout)
 
-#DIE POOL FRAME STUFFS HERE
+#MANUAL INPUT FRAME STUFFS ENDS HERE
 
+######
+
+#DIE POOL FRAME STUFFS STARTS HERE
 dice_pool_layout = [
     #makes this element write-only so that it's not included in values dict
     [sg.Multiline(size=(15, 4), 
@@ -137,21 +143,28 @@ dice_pool_layout = [
 
 dice_pool_frm = sg.Frame('Dice Pool', dice_pool_layout)
 
-#MODE FRAME STUFFS HERE
+#DIE POOL FRAME STUFFS ENDS HERE
+
+######
+
+#MODE FRAME STUFFS STARTS HERE
 mode_layout = [
     [sg.Radio(text='Sum', default=True, group_id=1, enable_events=True,
         pad=(5,0), circle_color = 'white', key='-MODE_SUM-')],
     [sg.Radio(text='Successes', group_id=1, enable_events=True,
         pad=(5,0), circle_color = 'white', key='-MODE_SUCC-')],
     [sg.Text('Threshold:', pad=((5, 0), 0)), 
-    sg.Spin([0], initial_value=0, disabled=True, key='-MODE_SUCC_THRESH-', 
+    sg.Spin([1], initial_value=1, disabled=True, key='-MODE_SUCC_THRESH-', 
         enable_events=True, size=2)]
 ]
 
 mode_frm = sg.Frame('Mode', mode_layout)
 
-#REROLL FRAME STUFFS HERE
+#MODE FRAME STUFFS ENDS HERE
 
+######
+
+#REROLL FRAME STUFFS STARTS HERE
 reroll_layout = [
     [sg.Checkbox('Reroll dice', pad=(5,(0,2)), key='-REROLL_SELECT-', 
         checkbox_color='white', enable_events=True)],
@@ -162,8 +175,11 @@ reroll_layout = [
 
 reroll_frm = sg.Frame('Reroll', reroll_layout)
 
+#REROLL FRAME STUFFS ENDS HERE
 
-#DROP FRAME STUFFS HERE
+######
+
+#DROP FRAME STUFFS STARTS HERE
 
 drop_layout = [
     [sg.Combo(['Do not drop', 'Drop lowest', 'Drop highest'], 'Do not drop',
@@ -175,7 +191,11 @@ drop_layout = [
 
 drop_frm = sg.Frame('Drops', drop_layout)
 
-#TRIALS FRAME STUFFS HERE
+#DROP FRAME STUFFS ENDS HERE
+
+######
+
+#TRIALS FRAME STUFFS STARTS HERE
 trials_layout = [
     [
         sg.Text('Number of trials:', pad =(5, 0)),
@@ -198,17 +218,25 @@ trials_layout = [
 
 trials_frm = sg.Frame('Trials', trials_layout)
 
-#CREDITS FRAME HERE
+#TRIALS FRAME STUFFS ENDS HERE
+
+######
+
+#CREDITS FRAME STUFFS STARTS HERE
+version = sim.os.getenv('VERSION')
 
 credits_layout = [
     [sg.Text('Made with <3 by Aerie')],
-    [sg.Text(f'v {sim.version} Eval Copy')]
+    [sg.Text(f'v {version} Eval Copy')]
 ]
 
 credits_frm = sg.Frame('About', credits_layout)
 
-#SUBCOLUMN STUFF HERE
+#CREDITS FRAME STUFFS ENDS HERE
 
+######
+
+#(LEFT) SUBCOLUMNS STUFFS STARTS HERE
 col_L1 = sg.Column([[reroll_frm, drop_frm], [trials_frm], [credits_frm]],
     element_justification='left')
 
@@ -219,23 +247,37 @@ col_L2 = sg.Column([
         pad=(5, (5, 5)))]  
     ], element_justification='center')
 
-#LEFT COLUMN STUFFS HERE
+#(LEFT) SUBCOLUMNS STUFFS ENDS HERE
 
+######
+
+#LEFT AND RIGHT COLUMN STUFFS STARTS HERE
 col_left = [
     [dice_frm],
     [manual_frm, dice_pool_frm],
     sg.vtop([col_L1, col_L2]),
 ]
 
-#RIGHT COLUMN STUFFS HERE
-
 col_right = [
-    [sg.Canvas(size=(900, 500), key='-CANVAS-', pad=(10, 10))]
+    [sg.Canvas(size=
+        (
+            
+            int(sim.os.getenv('PLOT_WIDTH')) * int(sim.os.getenv('PLOT_DPI')), 
+            int(sim.os.getenv('PLOT_HEIGHT')) * int(sim.os.getenv('PLOT_DPI'))
+        ),
+        key='-CANVAS-', pad=(10, 10))]
 ]
 
-#FULL LAYOUT HERE
+#LEFT AND RIGHT COLUMN STUFFS ENDS HERE
+
+######
+
+#FULL LAYOUT
 
 layout = [
-    [sg.Column(col_left, vertical_alignment = 'top', element_justification='center'), 
-        sg.VerticalSeparator(), sg.Column(col_right)]
+    [
+        sg.Column(col_left, vertical_alignment = 'top', 
+            element_justification='center'), 
+        sg.VerticalSeparator(), sg.Column(col_right)
+    ]
 ]

@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 import matplotlib.ticker as mpltick
+import os
+from dotenv import load_dotenv
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 matplotlib.use('TkAgg')
-
-version = '0.9.3'
 
 class Simulator:
     #dictionary where keys are types of dice and vals are number of that die
@@ -21,7 +21,7 @@ class Simulator:
     #available modes {SUM, SUCC}
     mode = 'SUM'
     #threshold for a die roll to be counted as a success
-    succ_threshold = 0
+    succ_threshold = 1
 
     #available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
     mode_drop = 'Do not drop'
@@ -30,10 +30,10 @@ class Simulator:
 
     reroll_threshold = 0
 
-    num_trials = 60000
+    num_trials = int(os.getenv('DEFAULT_TRIALS'))
 
     #the confidence level selected for the simulation
-    CI_level = 90
+    CI_level = int(os.getenv('DEFAULT_CI_LEVEL'))
 
     #dictionary storing outcomes as keys and frequencies as values for
     #any given simulation run
@@ -45,6 +45,9 @@ class Simulator:
 
     #plot figure
     fig = None
+
+    #interface for TKinter fig adaptor
+    fig_agg = None
 
     @classmethod
     def modify_dice(cls, d, o, n=1):
@@ -93,7 +96,7 @@ class Simulator:
         to dice pool (drops and success threshold)
         '''
         cls.dice.clear()
-        cls.succ_threshold = 0
+        cls.succ_threshold = 1
         cls.num_drops = 0
         cls.reroll_threshold = 0
         
@@ -245,7 +248,6 @@ class Simulator:
         Sets up matplotlib plot from freq dictionary in class
         and returns figure of plot.
         '''
-
         #if the data is too scattered such that there's no entries
         #that made it above the cutoff threshold.
         if not cls.freq:
@@ -254,13 +256,13 @@ class Simulator:
         plt.close('all')
 
         #figure width and height in inches on screen
-        fig_w = 9
-        fig_h = 5
+        fig_w = os.getenv('PLOT_WIDTH')
+        fig_h = os.getenv('PLOT_HEIGHT')
 
         #spacing for x-tick and value labels; 2 means every other one, etc.
-        lbl_sp = 1
+        lbl_sp = int(os.getenv('PLOT_LBL_SPACING'))
         #number of entries on chart before skipping algorithm kicks in
-        lbl_sp_thresh = 32
+        lbl_sp_thresh = int(os.getenv('PLOT_LBL_SPACING_THRESH'))
         if len(cls.freq.keys()) > lbl_sp_thresh:
             lbl_sp = math.ceil(len(cls.freq.keys()) / lbl_sp_thresh)
 
@@ -276,7 +278,11 @@ class Simulator:
         fig, ax = plt.subplots()
         
         #sets figure width and height in inches
-        fig.set_size_inches(fig_w, fig_h)
+        fig.set_size_inches(
+            int(os.getenv('PLOT_WIDTH')),
+            int(os.getenv('PLOT_HEIGHT'))
+
+        )
         p1 = ax.bar(cls.x_sorted, cls.y_sorted)
 
     #X-AXIS STUFF STARTS HERE
@@ -314,8 +320,8 @@ class Simulator:
     #Y-AXIS GRIDLINE STUFF ENDS HERE
 
     #DATA LABEL STUFF STARTS HERE
-        if lbl_sp == 1:
-            ax.bar_label(p1, fmt='%.1f')
+        # if lbl_sp == 1:
+        #     ax.bar_label(p1, fmt='%.1f')
         # else:
         #     data_labels = [str(round(x, 1)) for x in cls.y_sorted]
         #     for i in range(0, len(data_labels)):
@@ -330,7 +336,7 @@ class Simulator:
         dice_str = cls.generate_dice_str()
         
         succ_thresh_str = ''
-        if cls.succ_threshold > 0:
+        if cls.succ_threshold > 1:
             succ_thresh_str = f' (Threshold: >= {cls.succ_threshold})'
         
         reroll_str = ''

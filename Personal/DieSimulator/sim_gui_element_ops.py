@@ -32,21 +32,23 @@ def element_update(window):
         
         #that is, the biggest value a die can contain
         #needed for success threshold and rerolls
-        biggest_die = 0
-        if sim.Simulator.dice:
-            biggest_die = max(sim.Simulator.dice)
-
         mst = window['-MODE_SUCC_THRESH-']
-        #range starts at 1 because it makes no sense to ever have
-        #a success threshold of 0
-        mst.update(values=list(range(1, biggest_die + 1)))
-        
-        #resets threshold for situation where a larger faced die is removed
-        if int(mst.get()) > biggest_die:
-            mst.update(value=biggest_die)
-        
+        if sim.Simulator.dice:
+            biggest_die = 0
+            mst.update(disabled=False)
+            #range starts at 1 because it makes no sense to ever have
+            #a success threshold of 0
+            biggest_die = max(sim.Simulator.dice)
+            mst.update(values=list(range(1, biggest_die + 1)))
+            #resets threshold for situation where a larger faced die is removed
+            if int(mst.get()) > biggest_die:
+                mst.update(value=biggest_die)
+        else:
+            #disables and resets spinner if dice pool is empty
+            mst.update(value=1, values=[1], disabled=True)
+
         #update success threshold from value in spinner
-        sim.Simulator.succ_threshold = mst.get()
+        sim.Simulator.succ_threshold = int(mst.get())
 
     #update of die pool and write to die pool multiline element
     pool = window['-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY]
@@ -119,13 +121,13 @@ def man_ops(window, event, values):
                 sim.Simulator.modify_dice(type, '+', new_dice_dict[type])
 
 def mode_ops(window, event):
-    #success threshold is updated in universal element update
+    #success threshold is updated in universal element update, and not here
     if event in ['SUM', 'SUCC']:
         mst = window['-MODE_SUCC_THRESH-']
         sim.Simulator.mode = event
         if event == 'SUM':
-            mst.update(disabled=True, value=0)
-            sim.Simulator.succ_threshold = 0
+            mst.update(disabled=True, value=1)
+            sim.Simulator.succ_threshold = 1
         if event == 'SUCC':
             mst.update(disabled=False, value=1)
     
@@ -182,3 +184,12 @@ def num_trials_ops(window, event, values):
     if event == '-NUM_TRIALS_CI-':
         sim.Simulator.CI_level = int(window['-NUM_TRIALS_CI-'].get())
         print(sim.Simulator.CI_level)
+
+def engage_ops(window):
+    #clear previous canvas
+    if sim.Simulator.fig_agg is not None:
+        sim.Simulator.fig_agg.get_tk_widget().forget()
+
+    sim.Simulator.fig = sim.Simulator.simulation_wrapper()
+    sim.Simulator.fig_agg = sim.draw_figure(window['-CANVAS-'].TKCanvas,
+        sim.Simulator.fig)

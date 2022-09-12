@@ -21,7 +21,7 @@ excluded module named _frozen_importlib - imported by importlib (optional), impo
 missing module named posix - imported by os (conditional, optional), shutil (conditional), importlib._bootstrap_external (conditional)
 missing module named resource - imported by posix (top-level), test.support (optional)
 missing module named grp - imported by shutil (optional), tarfile (optional), pathlib (delayed), distutils.archive_util (optional)
-missing module named pwd - imported by posixpath (delayed, conditional), shutil (optional), tarfile (optional), pathlib (delayed, conditional, optional), http.server (delayed, optional), webbrowser (delayed), netrc (delayed, conditional), getpass (delayed), distutils.util (delayed, conditional, optional), distutils.archive_util (optional)
+missing module named pwd - imported by posixpath (delayed, conditional), shutil (optional), tarfile (optional), http.server (delayed, optional), webbrowser (delayed), netrc (delayed, conditional), getpass (delayed), distutils.util (delayed, conditional, optional), pathlib (delayed, conditional, optional), distutils.archive_util (optional)
 missing module named pyimod02_importers - imported by C:\Users\James\AppData\Local\Programs\Python\Python38\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgutil.py (top-level), C:\Users\James\AppData\Local\Programs\Python\Python38\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgres.py (top-level)
 missing module named _uuid - imported by uuid (optional)
 missing module named netbios - imported by uuid (delayed)

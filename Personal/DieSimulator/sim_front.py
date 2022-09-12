@@ -5,19 +5,18 @@ import simulator as sim
 import sim_layout as slay
 import sim_gui_element_ops as sops
 
-def create_window():
-    return sg.Window(f'Aerie Dice Roll Simulator v {sim.version} Eval Copy', 
-        layout = slay.layout, finalize=True, use_default_focus=False)
+print(int(sim.os.getenv('PLOT_WIDTH')) * int(sim.os.getenv('PLOT_DPI')))
 
+def create_window():
+    return sg.Window(f'Aerie Dice Roll Simulator v {slay.version} Eval Copy', 
+        layout = slay.layout, finalize=True, use_default_focus=False)
 window = create_window()
 
-fig_agg = None
-
 while True:
-    #events are keys, value is a returned dictionary that corresponds
-    #to input values
+    #events are keys
+    #value is a returned dictionary that corresponds to input values
     event, values = window.read()
-    #for debugging purposes
+    #for debugging purposes, can remove
     print(event)
 
     #quit events
@@ -58,13 +57,7 @@ while True:
 
     #runs simulation sequence assuming that dice pool is not empty
     if event == '-ENGAGE-' and sim.Simulator.dice:
-        #clear previous canvas
-        if fig_agg is not None:
-            fig_agg.get_tk_widget().forget()
-
-        sim.Simulator.fig = sim.Simulator.simulation_wrapper()
-        fig_agg = sim.draw_figure(window['-CANVAS-'].TKCanvas, 
-            sim.Simulator.fig)
+        sops.engage_ops(window)
 
     #saves figure to file
     if event == '-SAVE_OUTPUT-':
