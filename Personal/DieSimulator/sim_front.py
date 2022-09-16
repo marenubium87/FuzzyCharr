@@ -1,20 +1,23 @@
 #Frontend GUI and driver for simulator.
 
-import PySimpleGUI as sg
-import simulator as sim
+import sim_config as cfg
+
+import simulator
+sim = simulator.Simulator
+
 import sim_layout as slay
 import sim_gui_element_ops as sops
 
-print(int(sim.os.getenv('PLOT_WIDTH')) * int(sim.os.getenv('PLOT_DPI')))
+import PySimpleGUI as sg
 
 def create_window():
-    return sg.Window(f'Aerie Dice Roll Simulator v {slay.version} Eval Copy', 
+    return sg.Window(f'Aerie Dice Roll Simulator v {cfg.VERSION} Eval Copy', 
         layout = slay.layout, finalize=True, use_default_focus=False)
 window = create_window()
 
 while True:
-    #events are keys
-    #value is a returned dictionary that corresponds to input values
+    #In sg, events are keys
+    #Value is a returned dictionary that corresponds to input values
     event, values = window.read()
     #for debugging purposes, can remove
     print(event)
@@ -26,7 +29,7 @@ while True:
     #button events for incre/decrementing common dice
     if event[1] in ('+', '-'):
         #string slicing to extract operation and die from event
-        sim.Simulator.modify_dice(int(event[2:-1]), event[1])
+        sim.modify_dice(int(event[2:-1]), event[1])
 
     #handles events related to manual input
     #slices the string to pass "sub-event" into man_ops
@@ -45,7 +48,7 @@ while True:
 
     #handles the clicking of the "Clear die pool" button
     if event == '-POOL_CLEAR-':
-        sim.Simulator.clear_die_pool()
+        sim.clear_die_pool()
 
     #handles events dealing with the reroll selection checkbox
     if event == '-REROLL_SELECT-':
@@ -56,15 +59,12 @@ while True:
         sops.num_trials_ops(window, event, values)
 
     #runs simulation sequence assuming that dice pool is not empty
-    if event == '-ENGAGE-' and sim.Simulator.dice:
+    if event == '-ENGAGE-' and sim.dice:
         sops.engage_ops(window)
 
     #saves figure to file
     if event == '-SAVE_OUTPUT-':
-        if sim.Simulator.fig is not None:
-            file_path = sg.popup_get_file('Choose path to save figure (PNG):', 
-                save_as=True, title='Save Figure')
-            sim.plt.savefig(f'{file_path}.png')
+        sops.save_output_ops()
 
     #element updates that must be performed regardless of event
     sops.element_update(window)

@@ -1,17 +1,10 @@
-#Handles the main simulation, number crunching, plotting,
-#and matplotlib interfaces.
+#Simulator backend.  Handles simulating die rolls,
+#sanitizing and aggregating results.
 
-import random as rand
-import matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
+import sim_config as cfg
+
 import math
-import matplotlib.ticker as mpltick
-import os
-from dotenv import load_dotenv
-
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-matplotlib.use('TkAgg')
+import random as rand
 
 class Simulator:
     #dictionary where keys are types of dice and vals are number of that die
@@ -20,20 +13,19 @@ class Simulator:
 
     #available modes {SUM, SUCC}
     mode = 'SUM'
-    #threshold for a die roll to be counted as a success
+    #die roll must be >= this number to be counted as a success
     succ_threshold = 1
 
     #available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
     mode_drop = 'Do not drop'
     #number of dice to drop
     num_drops = 0
-
+    #reroll all dice equal to or below this number
     reroll_threshold = 0
 
-    num_trials = int(os.getenv('DEFAULT_TRIALS'))
-
+    num_trials = cfg.SIM_DEFAULT_TRIALS
     #the confidence level selected for the simulation
-    CI_level = int(os.getenv('DEFAULT_CI_LEVEL'))
+    CI_level = cfg.SIM_DEFAULT_CI_LEVEL
 
     #dictionary storing outcomes as keys and frequencies as values for
     #any given simulation run
@@ -133,8 +125,7 @@ class Simulator:
         binomial dist, p=0.5) based on number of trials.
         '''
         #z-star critical values for various confidence intervals
-        z_star_dict = {70:1.036, 80:1.281, 90:1.645, 95:1.96,
-            97:2.17, 99:2.576}
+        z_star_dict = cfg.SIM_ZSTAR_VALS
 
         moe = math.sqrt(0.5 * 0.5 / cls.num_trials)
         moe = moe * 100 * z_star_dict[cls.CI_level]
@@ -215,18 +206,19 @@ class Simulator:
                 cls.freq[outcome] = 1
 
     @classmethod
-    def decimalize_outcomes(cls):
+    def sanitize_outcomes(cls):
         '''
         Modifies frequency dictionary such that values corresponding to outcomes
         are now probabilities (percents) instead of counts.  Also removes outcomes
         from dictionary if their associated probability is below a dynamic
         cutoff threshold calculated by the cutoff sensitivity parameter.
         '''
-        #defined as the number of times smaller than the maximum outcome
-        #for a value to be removed.
-        cutoff_sensitivity = 100
-        cutoff_threshold = max(cls.freq.values()) / cls.num_trials
-        cutoff_threshold /= cutoff_sensitivity
+        #if a data value is at least this number of times smaller than
+        #largest data value, remove it from the plot
+        cutoff_sensitivity = cfg.SIM_CUTOFF_SENSITVITY
+        cutoff_threshold = (
+            (max(cls.freq.values()) / cls.num_trials) / cutoff_sensitivity
+        )
         
         to_delete = []
         for outcome in cls.freq:
@@ -238,142 +230,3 @@ class Simulator:
 
         for value in to_delete:
             cls.freq.pop(value)
-
-        #for debugging purposes, can delete
-        #print(cls.freq)
-
-    @classmethod
-    def generate_plot(cls):
-        '''
-        Sets up matplotlib plot from freq dictionary in class
-        and returns figure of plot.
-        '''
-        #if the data is too scattered such that there's no entries
-        #that made it above the cutoff threshold.
-        if not cls.freq:
-            return
-        #closes previous figures, if any
-        plt.close('all')
-
-        #figure width and height in inches on screen
-        fig_w = os.getenv('PLOT_WIDTH')
-        fig_h = os.getenv('PLOT_HEIGHT')
-
-        #spacing for x-tick and value labels; 2 means every other one, etc.
-        lbl_sp = int(os.getenv('PLOT_LBL_SPACING'))
-        #number of entries on chart before skipping algorithm kicks in
-        lbl_sp_thresh = int(os.getenv('PLOT_LBL_SPACING_THRESH'))
-        if len(cls.freq.keys()) > lbl_sp_thresh:
-            lbl_sp = math.ceil(len(cls.freq.keys()) / lbl_sp_thresh)
-
-
-        #generates sorted x and y lists
-        cls.x_sorted.clear()
-        cls.y_sorted.clear()
-        for outcome in sorted(cls.freq.keys()):
-            cls.x_sorted.append(outcome)
-            cls.y_sorted.append(cls.freq[outcome])
-        
-        #init figure and axes
-        fig, ax = plt.subplots()
-        
-        #sets figure width and height in inches
-        fig.set_size_inches(
-            int(os.getenv('PLOT_WIDTH')),
-            int(os.getenv('PLOT_HEIGHT'))
-
-        )
-        p1 = ax.bar(cls.x_sorted, cls.y_sorted)
-
-    #X-AXIS STUFF STARTS HERE
-
-        #creates x-index from smallest to largest values, and sets x-ticks
-        ind_x = np.arange(cls.x_sorted[0], cls.x_sorted[-1] + 1, 
-            max(int((cls.x_sorted[-1] - cls.x_sorted[0]) / 20), 1))
-
-        ax.set_xlabel('Outcome')
-        ax.set_xticks(ind_x, ind_x)
-        if max(ind_x) > 300:
-            ax.xaxis.set_major_formatter(mpltick.FormatStrFormatter('%.2e'))
-
-        
-    #X-AXIS STUFF ENDS HERE
-
-    #Y-AXIS GRIDLINE STUFF STARTS HERE
-        #parameter determining how many y-gridlines should be displayed
-        #(excluding 0); graph will adjust scaling to satisfy this
-        y_gl = 6
-        y_spacing = math.ceil(max(cls.freq.values()) / y_gl)
-        y_max = min(y_spacing * y_gl,
-            max(cls.freq.values()) * 1.5
-        )
-        ind_y = np.linspace(0, y_max, y_gl + 1)
-        ind_y = [round(x, 2) for x in ind_y]
-        ax.set_yticks(ind_y, ind_y)
-        if max(ind_y) < 5:
-            ax.yaxis.set_major_formatter(mpltick.FormatStrFormatter('%.2f'))
-
-        ax.set_ylabel('Probability (%)')
-        #plots horizontal (y) grid lines and draws them under the bars
-        ax.set_axisbelow(True)
-        plt.grid(axis = 'y', linestyle='dashed')
-    #Y-AXIS GRIDLINE STUFF ENDS HERE
-
-    #DATA LABEL STUFF STARTS HERE
-        # if lbl_sp == 1:
-        #     ax.bar_label(p1, fmt='%.1f')
-        # else:
-        #     data_labels = [str(round(x, 1)) for x in cls.y_sorted]
-        #     for i in range(0, len(data_labels)):
-        #         if i % lbl_sp != 0:
-        #             data_labels[i] = ''
-
-        #     ax.bar_label(p1, fmt='%.1f', labels=data_labels, padding=30)
-    #DATA LABEL STUFF ENDS HERE
-
-    #TITLE RELATED STUFF STARTS HERE
-        mode_str_dict = {'SUM':'Sum', 'SUCC':'Successes'}
-        dice_str = cls.generate_dice_str()
-        
-        succ_thresh_str = ''
-        if cls.succ_threshold > 1:
-            succ_thresh_str = f' (Threshold: >= {cls.succ_threshold})'
-        
-        reroll_str = ''
-        if cls.reroll_threshold > 0:
-            reroll_str = (f', Reroll {cls.reroll_threshold}s'
-                f' and below')
-
-        drop_str = ''
-        if cls.mode_drop != 'Do not drop':
-            drop_str = f', {cls.mode_drop} {cls.num_drops}'
-        
-        trials_str = f', {cls.num_trials} trials'
-
-        plt.title(f'Probability Dist. for {mode_str_dict[cls.mode]}'
-            f'{succ_thresh_str} of {dice_str}{reroll_str}'
-            f'{drop_str}{trials_str}')
-
-    #TITLE RELATED STUFF ENDS HERE
-
-        plt.tight_layout()
-
-        #for testing purposes, can comment out
-        #plt.show()
-        return plt.gcf()
-        
-    @classmethod
-    def simulation_wrapper(cls):
-        '''
-        Runs entire simulation and returns a figure of the plot.
-        '''
-        cls.perform_sim()
-        cls.decimalize_outcomes()
-        return cls.generate_plot()
-
-#matplotlib helper code
-def draw_figure(canvas, figure):
-    figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
-    figure_canvas_agg.draw()
-    figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
-    return figure_canvas_agg

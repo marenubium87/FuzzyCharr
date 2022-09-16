@@ -1,0 +1,5 @@
+shift-rclick for powershell console
+
+pyinstaller --onefile -w --icon="string here" myThing.py
+
+--clean (cleans pyinstaller cache)
