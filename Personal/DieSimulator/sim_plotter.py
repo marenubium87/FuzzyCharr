@@ -15,52 +15,6 @@ import matplotlib.ticker as plttick
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 matplotlib.use('TkAgg')
 
-#takes the sim object and performs plot stuffs on it
-def generate_plot():
-    '''
-    Sets up matplotlib plot from freq dictionary in class
-    and returns figure of plot.
-    '''
-    #If no usable data, do not plot.
-    if not sim.freq:
-        return
-    #closes previous figures, if any
-    plt.close('all')
-
-    #spacing for x-tick and value labels; 2 means every other one, etc.
-    lbl_sp = cfg.PLT_LBL_SPACING
-
-    #number of entries on chart before skipping algorithm kicks in
-    lbl_sp_thresh = cfg.PLT_LBL_SPACING_THRESH
-
-    #Alternative label spacing threshold calculation.
-    if max(sim.freq.keys()) - min(sim.freq.keys()) > lbl_sp_thresh:
-        lbl_sp = math.ceil(
-            (max(sim.freq.keys()) - min(sim.freq.keys())) / lbl_sp_thresh)
-
-    #create sorted lists for matplotlib from sim's freq dictionary
-    generate_sorted_lists(sim)
-    
-    #init figure and axes
-    fig, ax = plt.subplots()
-    
-    #sets figure width and height in inches
-    fig.set_size_inches(cfg.PLT_WIDTH, cfg.PLT_HEIGHT)
-
-    #generate bar graph object with data.
-    bar_graph = ax.bar(sim.x_sorted, sim.y_sorted)
-
-    #generate and format axes, labels, and title.
-    generate_x_axis(ax, lbl_sp)
-    generate_y_axis(ax, plt)
-    generate_data_labels(bar_graph, ax, lbl_sp)
-    generate_title(plt)
-
-    plt.tight_layout()
-
-    #returns current figure
-    return plt.gcf()
-
 #create sorted lists for matplotlib from sim's freq dictionary
 def generate_sorted_lists(sim):
     sim.x_sorted.clear()
@@ -93,8 +47,8 @@ def generate_y_axis(ax, plt):
     #(excluding the x-axis); graph will adjust scaling to satisfy this
     y_gl = 6
     y_spacing = math.ceil(max(sim.freq.values()) / y_gl)
-    y_max = min(y_spacing * y_gl,
-        max(sim.freq.values()) * 1.5
+    y_max = max(y_spacing * y_gl,
+        int(max(sim.freq.values()) * 1.2)
     )
     ind_y = np.linspace(0, y_max, y_gl + 1)
     ind_y = [round(x, 2) for x in ind_y]
@@ -146,3 +100,98 @@ def draw_figure(canvas, figure):
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
+
+def calc_xbar(freq):
+    weighted_sum = 0
+    for outcome in freq.keys():
+        weighted_sum += outcome * freq[outcome] / 100
+    return round(weighted_sum, cfg.SIM_ROUND_PREC)
+
+def calc_sx(freq, xbar):
+    print(freq)
+    weighted_sq_sum = 0
+    for outcome in freq.keys():
+        weighted_sq_sum += (outcome ** 2) * freq[outcome] / 100
+
+    weighted_sq_sum -= xbar ** 2
+    return round(math.sqrt(weighted_sq_sum), cfg.SIM_ROUND_PREC)
+
+def calc_med(freq, step):
+    #list that will store cumulative probabilities
+    cum_prob = []
+
+    for outcome in sorted(freq.keys()):
+        if not cum_prob:
+            cum_prob.append((outcome, round(freq[outcome], cfg.SIM_ROUND_PREC)))
+        else:
+            cum_prob.append((outcome, 
+                round(freq[outcome], cfg.SIM_ROUND_PREC) + cum_prob[-1][1]))
+
+    cum_threshold_current = step
+    #the outcomes that correspond to cum_threshold_step, 2*cum_threshold step,
+    #etc.  
+    cum_threshold_outcomes = []
+
+    i = 0
+    while cum_threshold_current < 100 and i < len(cum_prob):
+        if cum_prob[i][1] > cum_threshold_current:
+            cum_threshold_outcomes.append(cum_prob[i][0])
+            cum_threshold_current += step
+        i += 1
+    print(cum_prob)
+    print(cum_threshold_outcomes)
+
+#takes the sim object and performs plot stuffs on it
+def generate_plot():
+    '''
+    Sets up matplotlib plot from freq dictionary in class
+    and returns figure of plot.
+    '''
+    #If no usable data, do not plot.
+    if not sim.freq:
+        return
+    #closes previous figures, if any
+    plt.close('all')
+
+
+
+    #spacing for x-tick and value labels; 2 means every other one, etc.
+    lbl_sp = cfg.PLT_LBL_SPACING
+
+    #number of entries on chart before skipping algorithm kicks in
+    lbl_sp_thresh = cfg.PLT_LBL_SPACING_THRESH
+
+    #Alternative label spacing threshold calculation.
+    if max(sim.freq.keys()) - min(sim.freq.keys()) > lbl_sp_thresh:
+        lbl_sp = math.ceil(
+            (max(sim.freq.keys()) - min(sim.freq.keys())) / lbl_sp_thresh)
+
+    #create sorted lists for matplotlib from sim's freq dictionary
+    generate_sorted_lists(sim)
+    
+    #init figure and axes
+    fig, ax = plt.subplots()
+    
+    #sets figure width and height in inches
+    fig.set_size_inches(cfg.PLT_WIDTH, cfg.PLT_HEIGHT)
+
+    #generate bar graph object with data.
+    bar_graph = ax.bar(sim.x_sorted, sim.y_sorted)
+
+    #generate and format axes, labels, and title.
+    generate_x_axis(ax, lbl_sp)
+    generate_y_axis(ax, plt)
+    generate_data_labels(bar_graph, ax, lbl_sp)
+    generate_title(plt)
+
+    xbar = round(calc_xbar(sim.freq), cfg.SIM_ROUND_PREC)
+    sx = calc_sx(sim.freq, xbar)
+
+    cum_prob = calc_med(sim.freq, cfg.PLT_CUM_PROB_STEP)
+
+    print(f'mean is {xbar} stddev is {sx}')
+
+    plt.tight_layout()
+
+    #returns current figure
+    return plt.gcf()

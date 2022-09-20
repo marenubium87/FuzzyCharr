@@ -1,5 +1,5 @@
-#Simulator backend.  Handles simulating die rolls,
-#sanitizing and aggregating results.
+#Simulator backend, handles simulating die rolls, and preparing, sanitizing,
+#  and aggregating results for use by plotter.
 
 import sim_config as cfg
 
@@ -7,28 +7,29 @@ import math
 import random as rand
 
 class Simulator:
-    #dictionary where keys are types of dice and vals are number of that die
-    #e.g. 6 : 2 would mean 2d6
+    #Dictionary where keys are types of dice and vals are number of that die
+    #  e.g. 6:2 would mean 2d6
     dice = {}
 
-    #available modes {SUM, SUCC}
+    #Available modes {SUM, SUCC}
     mode = 'SUM'
-    #die roll must be >= this number to be counted as a success
+
+    #Die roll must be >= this number to be counted as a success, min 1
     succ_threshold = 1
 
-    #available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
+    #Available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
     mode_drop = 'Do not drop'
-    #number of dice to drop
+    #Number of dice to drop
     num_drops = 0
-    #reroll all dice equal to or below this number
+    #Reroll all dice equal to or below this number
     reroll_threshold = 0
 
     num_trials = cfg.SIM_DEFAULT_TRIALS
-    #the confidence level selected for the simulation
+    #The confidence level for MoE calculations
     CI_level = cfg.SIM_DEFAULT_CI_LEVEL
 
-    #dictionary storing outcomes as keys and frequencies as values for
-    #any given simulation run
+    #Dictionary storing outcomes as keys and frequencies as values for
+    #  any given simulation run
     freq = {}
 
     #for plot use
@@ -222,9 +223,9 @@ class Simulator:
         
         to_delete = []
         for outcome in cls.freq:
-            #rounds to 6 dec. places to avoid floating point inaccuracies in output.
+            #rounds to avoid floating point inaccuracies in output.
             cls.freq[outcome] = round(cls.freq[outcome] / 
-                cls.num_trials * 100, 6)
+                cls.num_trials * 100, cfg.SIM_ROUND_PREC)
             if cls.freq[outcome] < cutoff_threshold:
                 to_delete.append(outcome)
 
