@@ -1,4 +1,4 @@
-#Simulator backend, handles simulating die rolls, and preparing, sanitizing,
+#Simulator backend.  Handles simulating die rolls, and preparing, sanitizing,
 #  and aggregating results for use by plotter.
 
 import sim_config as cfg
@@ -11,73 +11,68 @@ class Simulator:
     #  e.g. 6:2 would mean 2d6
     dice = {}
 
-    #Available modes {SUM, SUCC}
-    mode = 'SUM'
+    #Operation mode
+    #  available modes {'Sum', 'Successes'}
+    mode = 'Sum'
 
     #Die roll must be >= this number to be counted as a success, min 1
     succ_threshold = 1
 
-    #Available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
+    #Dice drop mode
+    #  available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
     mode_drop = 'Do not drop'
     #Number of dice to drop
     num_drops = 0
     #Reroll all dice equal to or below this number
     reroll_threshold = 0
 
-    num_trials = cfg.SIM_DEFAULT_TRIALS
-    #The confidence level for MoE calculations
-    CI_level = cfg.SIM_DEFAULT_CI_LEVEL
+    #Simulation trials to run
+    num_trials = 60000
 
-    #Dictionary storing outcomes as keys and frequencies as values for
-    #  any given simulation run
+    #The confidence level for MoE calculations
+    #  must be one of the confidence interval values in cfg file!
+    CI_level = 90
+
+    #Dictionary storing outcomes as keys and frequencies as values
+    #  for any given simulation run
     freq = {}
 
-    #for plot use
-    x_sorted = []
-    y_sorted = []
-
-    #plot figure
-    fig = None
-
-    #interface for TKinter fig adaptor
-    fig_agg = None
-
     @classmethod
-    def modify_dice(cls, d, o, n=1):
+    def modify_dice(cls, die_type, operation, n=1):
         '''
-        Modifies simulator's dice dictionary entry of die type d
-        with string operation o, and number n.  If d doesn't exist 
-        in the dictionary it will be created.
+        Modifies Simulator's dice dictionary entry of die_type
+        by n dice and by the relevant operation string.
+        If die_type doesn't exist in dict, it will be created.
         
-        Acceptable values for o are as follows:
+        Acceptable values for operation are as follows:
         +:  adds one die of the type to the die pool
         -:  subtracts one die of the type from the die pool
         =:  sets the number of dice of type to n
-
         '''
-        if o == '+':
-            if d in cls.dice:
-                cls.dice[d] += n
+
+        if operation == '+':
+            if die_type in cls.dice:
+                cls.dice[die_type] += n
             else:
-                cls.dice[d] = n
-        if o == '-':
-            if d in cls.dice:
-                cls.dice[d] -= n
+                cls.dice[die_type] = n
+        if operation == '-':
+            if die_type in cls.dice:
+                cls.dice[die_type] -= n
             else:
                 #if key not in dict then subtracting dice does nothing
                 pass
-        if o == '=':
-            cls.dice[d] = n
+        if operation == '=':
+            cls.dice[die_type] = n
 
-        #final check, prunes any invalid entries to make sure dictionary
-        #is in a valid state
+        #final check, prunes any dice with less than one in number 
+        #to make sure dictionary is in a valid state
         to_delete = []
-        for die_type in cls.dice:
-            if int(cls.dice[die_type]) < 1:
-                to_delete.append(die_type)
+        for type in cls.dice:
+            if int(cls.dice[type]) < 1:
+                to_delete.append(type)
 
-        for die_type in to_delete:
-            cls.dice.pop(die_type)
+        for type in to_delete:
+            cls.dice.pop(type)
 
         #checking output, can safely comment out in prod code
         print(cls.dice)
@@ -85,8 +80,8 @@ class Simulator:
     @classmethod
     def clear_die_pool(cls):
         '''
-        Helper fcn; empties the dice dictionary and resets params relevant
-        to dice pool (drops and success threshold)
+        Empties the dice dictionary and resets params relevant
+        to dice pool (drops, success and reroll threshold)
         '''
         cls.dice.clear()
         cls.succ_threshold = 1
@@ -96,7 +91,7 @@ class Simulator:
     @classmethod
     def get_total_dice(cls):
         '''
-        Helper fcn: returns total dice currently in pool.
+        Returns total dice currently in pool.
         '''
         result = 0
         #dice pool is not empty
@@ -107,8 +102,9 @@ class Simulator:
     @classmethod
     def drop_dice(cls, roll):
         '''
-        Helper fcn: drops highest or lowest dice from previous roll,
-        then returns
+        Drops highest or lowest dice from the list roll, using the current
+        drop mode in current Simulator config, then returns amended list roll.
+        Necessary for: perform_roll().
         '''
         if cls.mode_drop != 'Do not drop':
             for i in range(cls.num_drops):
@@ -121,113 +117,119 @@ class Simulator:
     @classmethod
     def calculate_MoE(cls):
         '''
-        Helper function.  Calculates the margin of error for each outcome
-        using the expected CI (conservative estimate using 
-        binomial dist, p=0.5) based on number of trials.
+        Calculates the approximate margin of error for each outcome
+        in percentage points (not percents!) using the expected CI 
+        (conservative estimate using binom dist, p=0.5) based on num of trials.
         '''
-        #z-star critical values for various confidence intervals
-        z_star_dict = cfg.SIM_ZSTAR_VALS
-
         moe = math.sqrt(0.5 * 0.5 / cls.num_trials)
-        moe = moe * 100 * z_star_dict[cls.CI_level]
+        moe = moe * 100 * cfg.ZSTAR_VALS[cls.CI_level]
         
+        #Display MoE to the nearest tenth of a percentage point
         return round(moe, 1)
 
     @classmethod
-    def generate_dice_str(cls):
+    def generate_dice_str_from_pool(cls):
         '''
-        Helper function.  Generates a string from the current dice pool
-        in 1d2+3d4 format.
+        Generates a string from the current dice pool in 1d2+3d4 format.
         '''
         dice_str = ''
         for die_type in cls.dice:
             dice_str += f'+{cls.dice[die_type]}d{die_type}'
-        #removes leading '+'
+        #Removes leading '+'
         return dice_str[1:]
 
     @classmethod
     def perform_roll(cls):
         '''
-        Performs a single roll using dice dictionary, drops num_drops dice, 
-        then returns a list of remaining dice rolls in this particular roll.
+        Performs a single roll using dice dictionary, rerolling dice as
+        necessary depending on current Simulator configuration,
+        dropping a number of highest or lowest dice as necessary depending 
+        on current Simulator configuration, then returns a list of the 
+        remaining die rolls in this particular roll.
+        Requires: drop_dice().
+        Necessary for: perform_sim
         '''
         single_roll = []
-        new_result = 0
+        next_result = 0
 
-        #performs roll and rerolls dice until above reroll threshold
+        #Performs roll and rerolls dice until above reroll threshold
         for type in cls.dice:
             for die in range(cls.dice[type]):
                 while True:
-                    # +1 since dice values are in form [1, n], not [0, n)
-                    new_result = rand.randrange(1, type + 1)
-                    #strict inequality as reroll treshold defined as the highest
-                    #value that needs to be rerolled
-                    if new_result > cls.reroll_threshold:
+                    # +1 here since dice values are in form [1, n], not [1, n)
+                    next_result = rand.randrange(1, type + 1)
+                    #Strict inequality as reroll treshold defined as the highest
+                    #  value that needs to be rerolled
+                    if next_result > cls.reroll_threshold:
                         break
-                single_roll.append(new_result)
+                single_roll.append(next_result)
 
-        #drops appropriate number of dice
+        #Drops appropriate number of dice
         single_roll = cls.drop_dice(single_roll)
 
         return single_roll
 
     @classmethod
-    def get_successes(cls, r):
-        s = 0
-        for outcome in r:
+    def get_successes(cls, roll):
+        '''
+        Returns the number of successes in roll based on the success threshold
+        in the current Simulator configuration.  
+        Necessary for: perform_sim().
+        '''
+        successes = 0
+        for outcome in roll:
             if outcome >= cls.succ_threshold:
-                s += 1
-        return s
+                successes += 1
+        return successes
 
     @classmethod
     def perform_sim(cls):
         '''
-        Performs a simulation run using the die pool and number of trials
-        loaded in the Simulator class, saving the result to the
-        frequency dictionary.
+        Performs a simulation run using the die pool for number of trials
+        in Simulator configuration, saving the result to the
+        frequency dictionary in the Simulator.
+        Requires: perform_roll(), get_successes()
         '''
         rand.seed()
-        #resets frequency dictionary from any past simulation run(s)
+        #Resets frequency dictionary from any past simulation run(s)
         cls.freq.clear()
         single_roll = []
 
-        #using this range instead of (0, t) for accurate simulation count
+        #Using this range instead of (0, t) for accurate simulation count
         for roll in range(1, cls.num_trials + 1):
             single_roll = cls.perform_roll()
 
-            if cls.mode == 'SUM':
+            if cls.mode == 'Sum':
                 outcome = sum(single_roll)
-            elif cls.mode == 'SUCC':
+            elif cls.mode == 'Successes':
                 outcome = cls.get_successes(single_roll)
 
             if outcome in cls.freq:
                 cls.freq[outcome] += 1
             else:
-                #create entry outcome not yet recorded in dictionary
+                #Create entry outcome if outcome not yet recorded in dictionary
                 cls.freq[outcome] = 1
 
     @classmethod
     def sanitize_outcomes(cls):
         '''
-        Modifies frequency dictionary such that values corresponding to outcomes
-        are now probabilities (percents) instead of counts.  Also removes outcomes
-        from dictionary if their associated probability is below a dynamic
-        cutoff threshold calculated by the cutoff sensitivity parameter.
+        Modifies frequency dictionary: 
+        - changes values from counts to percents.  
+        - removes outcomes if associated probability is below cutoff threshold
+          calculated by config's cutoff sensitivity.
         '''
-        #if a data value is at least this number of times smaller than
-        #largest data value, remove it from the plot
-        cutoff_sensitivity = cfg.SIM_CUTOFF_SENSITVITY
-        cutoff_threshold = (
-            (max(cls.freq.values()) / cls.num_trials) / cutoff_sensitivity
-        )
-        
         to_delete = []
+
+        #Pruning data values based on cutoff threshold
+        cutoff_threshold = max(cls.freq.values()) / cfg.CUTOFF_SENSITIVITY
         for outcome in cls.freq:
-            #rounds to avoid floating point inaccuracies in output.
-            cls.freq[outcome] = round(cls.freq[outcome] / 
-                cls.num_trials * 100, cfg.SIM_ROUND_PREC)
             if cls.freq[outcome] < cutoff_threshold:
                 to_delete.append(outcome)
+        
+        for outcome in to_delete:
+            cls.freq.pop(outcome)
 
-        for value in to_delete:
-            cls.freq.pop(value)
+        #Convert to percentages, round to avoid floating point inccuracies
+        for outcome in cls.freq:
+            cls.freq[outcome] = round(cls.freq[outcome] / 
+                cls.num_trials * 100, cfg.ROUNDING_PREC)

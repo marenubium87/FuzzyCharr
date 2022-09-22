@@ -6,6 +6,7 @@ import simulator
 sim = simulator.Simulator
 
 import sim_plotter as splot
+plotter = splot.Plotter
 
 import PySimpleGUI as sg
 
@@ -34,7 +35,7 @@ def parse_input(s):
 def element_update(window):
 
     #update dealing with simulator mode and success threshold
-    if sim.mode == 'SUCC':
+    if sim.mode == 'Successes':
         
         #that is, the biggest value a die can contain
         #needed for success threshold and rerolls
@@ -128,13 +129,13 @@ def man_ops(window, event, values):
 
 def mode_ops(window, event):
     #success threshold is updated in universal element update, and not here
-    if event in ['SUM', 'SUCC']:
+    if event in ['Sum', 'Successes']:
         mst = window['-MODE_SUCC_THRESH-']
         sim.mode = event
-        if event == 'SUM':
+        if event == 'Sum':
             mst.update(disabled=True, value=1)
             sim.succ_threshold = 1
-        if event == 'SUCC':
+        if event == 'Successes':
             mst.update(disabled=False, value=1)
     
 def drop_ops(window, mode):
@@ -193,21 +194,22 @@ def num_trials_ops(window, event, values):
 
 def engage_ops(window):
     #clear previous canvas
-    if sim.fig_agg is not None:
-        sim.fig_agg.get_tk_widget().forget()
+    if plotter.fig_agg is not None:
+        plotter.fig_agg.get_tk_widget().forget()
 
     #TODO:  WRITE THE LINES OF CODE THAT SIMULATION WRAPPER CONTAINS, HERE,
     #USING STUFFS FROM SIM AND SPLOT CLASSES
 
     sim.perform_sim()
     sim.sanitize_outcomes()
-    sim.fig = splot.generate_plot()
+    plotter.fig = plotter.generate_plot()
 
-    sim.fig_agg = splot.draw_figure(window['-CANVAS-'].TKCanvas, sim.fig)
+    plotter.fig_agg = splot.draw_figure(window['-CANVAS-'].TKCanvas, 
+        plotter.fig)
 
 #FIGURE OUT HOW TO DO PATH STUFFS DISPLAY FOR THE SAVE DIR
 def save_output_ops():
-    if sim.fig is not None:
+    if plotter.fig is not None:
         file_path = sg.popup_get_file('Choose path to save figure (PNG):', 
             save_as=True, title='Save Figure')
         splot.plt.savefig(f'{file_path}.png')

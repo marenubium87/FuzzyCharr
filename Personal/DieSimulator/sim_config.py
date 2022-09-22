@@ -1,29 +1,21 @@
-#Environment and configuration, default settings.
+#Configuration file.  Config and default settings.
 
-VERSION = '0.9.6'
-LAST_UPDATED = '09/16/22'
-
+VERSION = '0.9.7'
+LAST_UPDATED = '09/22/22'
 
 ####    ####    ####    ####
 ####    VALUES FOR SIMULATOR STUFFS STARTS HERE
 
-#Default number of trials when program starts
-SIM_DEFAULT_TRIALS = 60000
-
 #Dict containing critical z* values for selected confidence intervals
-SIM_ZSTAR_VALS = {70:1.036, 80:1.281, 90:1.645, 95:1.96, 97:2.17, 99:2.576}
-
-#Default confidence interval for MoE calculations
-#Must be one of the confidence interval values above!
-SIM_DEFAULT_CI_LEVEL = 90
+ZSTAR_VALS = {70:1.036, 80:1.281, 90:1.645, 95:1.96, 97:2.17, 99:2.576}
 
 #If a data value is at least this number of times smaller than
 #  the largest data value, remove it from the plot
-SIM_CUTOFF_SENSITVITY = 45
+CUTOFF_SENSITIVITY = 120
 
 #Number of decimal places to round results to truncate floating-point
 #  inaccuracies in representation
-SIM_ROUND_PREC = 6
+ROUNDING_PREC = 6
 
 ####    VALUES FOR SIMULATOR STUFFS ENDS HERE
 
@@ -47,16 +39,17 @@ PLT_LBL_SPACING = 1
 #  number of bars divided by this parameter
 PLT_LBL_SPACING_THRESH = 28
 
-#Number of labeled x-axis ticks along bottom of graph (approximate)
-PLT_X_AX_TICKS_POP = 20
+#Number of labeled x-axis labels along bottom of graph (approximate)
+PLT_X_AX_LABELS_POP = 20
 
 #Value above which x-axis labels become written in scientific notation
 PLT_X_AX_SCI_THRESH = 999
 
-#Step size for cumulative probability distribution
-#  for example, step size of 25 would result in cumulative probability
-#  values reported at 25, 50, and 75 percent
-PLT_CUM_PROB_STEP = 25
+#Number of y-gridlines (excluding x-axis) to be displayed
+#  graph will adjust vertical scaling to conform to this value.
+#  best to pick a smaller value with relatively abundant factors;
+#  4 and 6 work well as a default.
+PLT_Y_GRIDLINES = 4
 
 ####    VALUES FOR PLOT STUFFS ENDS HERE
 

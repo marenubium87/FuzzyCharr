@@ -1,5 +1,12 @@
 #Frontend GUI and driver for simulator.
 
+'''
+TODO:  user currently can type garbage into success threshold and the other spinner
+TODO:  still not happy with plot y-formatting for more degenerate cases... consider splitting into helper fcn
+TODO:  continued documentation and cleanup for gui element ops
+TODO:  continued documentation and cleanup for sim_front
+'''
+
 import sim_config as cfg
 
 import simulator
