@@ -180,7 +180,7 @@ drop_layout = [
     [sg.Combo(['Do not drop', 'Drop lowest', 'Drop highest'], 'Do not drop',
         size=11, key='-DROP_SELECT-', readonly=True, enable_events=True)],
     [sg.Spin([0], initial_value=0, key='-DROP_NUM-', disabled=True,
-        enable_events=True, pad=(5, (5, 4))),
+        enable_events=True, pad=(5, (5, 4)), size=2),
     sg.Text('Dice', pad=(5, (5, 4)))]
 ]
 
@@ -194,7 +194,7 @@ drop_frm = sg.Frame('Drops', drop_layout)
 trials_layout = [
     [
         sg.Text('Number of trials:', pad =(5, 0)),
-        sg.Input(size=6, key='-NUM_TRIALS-', 
+        sg.Input(size=6, key='-NUM_TRIALS_INPUT-', 
             default_text=sim.num_trials, pad =(4, 0),
             enable_events=True),
         sg.Button('Update', pad=((5,5), 5), key='-NUM_TRIALS_COMMIT-')

@@ -142,21 +142,26 @@ class Plotter:
         dice_str = sim.generate_dice_str_from_pool()
         
         succ_thresh_str = ''
+        #Doesn't make sense to print out success threshold if it's equal to 1
+        #  (those are auto-successes)
         if sim.succ_threshold > 1:
-            succ_thresh_str = f' (Threshold: >= {sim.succ_threshold})'
+            succ_thresh_str = f' (>= {sim.succ_threshold})'
         
         reroll_str = ''
+        #Doesn't make sense to print out reroll threshold is it's equal to 0
+        #  (there will be no rerolls)
         if sim.reroll_threshold > 0:
-            reroll_str = (f', Reroll {sim.reroll_threshold}s'
-                f' and below')
+            reroll_str = (f', Reroll <= {sim.reroll_threshold}')
 
         drop_str = ''
-        if sim.mode_drop != 'Do not drop':
+        #Doesn't make sense to print out number of drops if it's equal to 0
+        #  (since we aren't dropping anything)
+        if sim.num_drops > 0:
             drop_str = f', {sim.mode_drop} {sim.num_drops}'
         
-        trials_str = f', {sim.num_trials} trials'
+        trials_str = f', {sim.num_trials} Trials'
 
-        plt.title(f'Probability Dist. for {mode_str}'
+        plt.title(f'{mode_str}'
             f'{succ_thresh_str} of {dice_str}{reroll_str}'
             f'{drop_str}{trials_str}')
 

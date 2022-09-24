@@ -1,7 +1,7 @@
 #Configuration file.  Config and default settings.
 
 VERSION = '0.9.7'
-LAST_UPDATED = '09/22/22'
+LAST_UPDATED = '09/23/22'
 
 ####    ####    ####    ####
 ####    VALUES FOR SIMULATOR STUFFS STARTS HERE
