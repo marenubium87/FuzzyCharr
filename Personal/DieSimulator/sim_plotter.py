@@ -68,7 +68,7 @@ class Plotter:
             ax.xaxis.set_major_formatter(FormatStrFormatter('%.1e'))
 
         #Creates x-index from smallest to largest values, and sets x-label
-        #  spacing based on either pre-defined label spacing, or overwrite
+        #  spacing based on either pre-defined label spacing, or override
         #  with explicit number of labels
         ind_x = np.arange(
             cls.x_sorted[0], cls.x_sorted[-1] + 1, 
@@ -80,55 +80,90 @@ class Plotter:
         ax.set_xticks(ind_x, ind_x)
 
     @classmethod
-    def generate_y_spacing(cls):
+    def calculate_y_dim(cls):
         '''
-        Returns a list of y-dimension ticks for the graph using either 
-        predetermined setting and the largest data value on the graph
-        or alternative procedure for more degenerate graphs.
+        Returns y_dim, the y-dimension of the graph in terms of a probability %
+        This is *NOT* equal to the highest data bar on the graph, as we usually
+        want to leave some room at the top.  This function dynamically
+        calculates an acceptable y-dimension based on the highest data value
+        (outcome frequency) stored in the simulator.
+        Necessary for: generate_y_axis()
         '''
+        #The y_dimension of the graph, which is equivalent to the highest value
+        #  displayed on the graph window itself (henceforth colloquially
+        #  'top of graph'), since bottom value necessarily must be zero
         y_dim = 0
-        y_max = max(sim.freq.values())
-        y_round_prec = 0
+        y_data_max = max(sim.freq.values())
 
-        #TODO: comment on the logic in this code here
+        #This parameter roughly represents how high, at minimum,
+        #  the top of the graph should be above the highest data bar,
+        #  as a proportion (1.16 = 116%)
+        h = 1.16
 
-        #For data with large peaks, have the table max be a value 
-        #  divisible by 20, starting with 40
-        c = 1.16
-        if y_max > 33:
-
-            y_dim = int(math.ceil(y_max * c / 10))
+        #Mode 1
+        #For data with peak above this value, make top of graph
+        #  divisible by 20, possible values starting with 40 
+        #  and ending with 120
+        if y_data_max > 33:
+            y_dim = int(math.ceil(y_data_max * h / 10))
             if y_dim % 2 == 1:
                 y_dim += 1
             y_dim *= 10
-        elif y_max > 5:
 
-            y_spacing = math.ceil(y_max / cfg.PLT_Y_GRIDLINES)
-            y_dim = max(y_spacing * cfg.PLT_Y_GRIDLINES,
-                math.ceil(y_max * c / cfg.PLT_Y_GRIDLINES) * cfg.PLT_Y_GRIDLINES)
-        elif y_max > 0.7:
-            y_dim = math.ceil(y_max * c)
-            y_round_prec = 2
+        #Mode 2
+        #For data with peak above this value but less than previous value,
+        #  have top of graph satisfy the minimum height requirement above,
+        #  but also be divisible by the gridline number value, for neat
+        #  (integer) values on y-axis
+        elif y_data_max > 5:
+            y_dim = (math.ceil(y_data_max * h / cfg.PLT_Y_GRIDLINES) 
+                 * cfg.PLT_Y_GRIDLINES)
+
+        #Mode 3
+        #For data with peak above this value but less than previous value,
+        #  peaks are now too small to insist on integer divisibility for
+        #  gridlines; but we insist top of graph is still integer value
+        elif y_data_max > 0.7:
+            y_dim = math.ceil(y_data_max * h)
+
+        #For data with peaks below previous value,
+        #  peaks are now too small to even insist on top of graph 
+        #  being integer values, so simply calculate a reasonable value for
+        #  top of graph
         else:
-            y_dim = y_max * c
-            y_round_prec = 2
-            pass
+            y_dim = y_data_max * h
 
-
-
-        #Creates gridlines using y-dimension and number of gridlines specified
-        ind_y = np.linspace(0, y_dim, cfg.PLT_Y_GRIDLINES + 1)
-        return ind_y, y_round_prec
-
+        return y_dim
 
     @classmethod
-    def generate_y_axis(cls, ax, plt):
+    def generate_y_axis(cls, ax):
         '''
         Sets up labels and settings for y-axis, using the
-        matplotlib ax axis and plt plot objects.
+        matplotlib ax axis object
+        Requires: calculate_y_dim()
         '''
-        ind_y, y_round_prec = Plotter.generate_y_spacing()
-        ax.set_yticks(ind_y, ind_y)
+        #Y-axis dimension bounds
+        y_dim = cls.calculate_y_dim()
+        ax.set_ylim([0, y_dim])
+
+        #Draw number of gridlines as defined by config file at equally spaced
+        #  intervals; minor gridlines at half the distance between majors
+        ax.yaxis.set_major_locator(
+            MultipleLocator(y_dim / cfg.PLT_Y_GRIDLINES))
+        ax.yaxis.set_minor_locator(
+            MultipleLocator(y_dim / cfg.PLT_Y_GRIDLINES / 2))
+        #In this context color is a string decimal btwn
+        #  0 (black) and 1 (white)
+        ax.grid(axis='y', which='major', linewidth=0.7, color='0.7', 
+            linestyle='--')
+        ax.grid(axis='y', which='minor', linewidth=0.5, color='0.3', 
+            linestyle=':')
+
+        #For datasets with small peaks, have y-axis labels contain
+        #  more decimal points
+        y_round_prec = 0
+        if max(sim.freq.values()) <= 5:
+            y_round_prec += 2
 
         #Sets up y-axis formatting, without percent symbols 
         ax.yaxis.set_major_formatter(
@@ -136,7 +171,6 @@ class Plotter:
 
         #Draws gridlines underneath data bars
         ax.set_axisbelow(True)
-        plt.grid(axis = 'y', linestyle='dashed')
         ax.set_ylabel('Probability (%)')
 
     @classmethod
@@ -153,11 +187,11 @@ class Plotter:
                 if i % cls.plt_lbl_spacing != 0:
                     data_labels[i] = ''
 
-        #Padding is distance above bar to place labels
+        #Padding is distance above the relevant bar to place labels
         ax.bar_label(graph, fmt='%.1f', labels=data_labels, padding=10)
 
     @classmethod
-    def generate_title(cls, plt):
+    def generate_title(cls):
         '''
         Reads parameters from Simulator to dynamically generate title string
         '''
@@ -191,36 +225,55 @@ class Plotter:
 
     @classmethod
     def calc_xbar(freq):
+        '''
+        Calculates x-bar for the distribution using the standard
+        Σ x * p(x) formula
+        '''
         weighted_sum = 0
         for outcome in freq.keys():
             weighted_sum += outcome * freq[outcome] / 100
-        return round(weighted_sum, cfg.SIM_ROUND_PREC)
+        return round(weighted_sum, cfg.ROUNDING_PREC)
 
     @classmethod
     def calc_sx(freq, xbar):
+        '''
+        Calculates the standard deviation of the distribution using
+        the variance shortcut equation; specifically:
+        s^2 = Σ [x^2 * p(x)] - x-bar^2
+        Takes x-bar as a param so as not to waste computation cycles
+        if x-bar already calculated
+        '''
+        #for debugging, can delete!
         print(freq)
+
         weighted_sq_sum = 0
         for outcome in freq.keys():
             weighted_sq_sum += (outcome ** 2) * freq[outcome] / 100
 
         weighted_sq_sum -= xbar ** 2
-        return round(math.sqrt(weighted_sq_sum), cfg.SIM_ROUND_PREC)
+        return round(math.sqrt(weighted_sq_sum), cfg.ROUNDING_PREC)
 
-    @classmethod
-    def calc_med(freq, step):
-        #list that will store cumulative probabilities
-        cum_prob = []
+    @staticmethod
+    def calc_quartiles(freq):
+        '''
+        Your docstring here!
+        '''
 
+        #List that will store cumulative probability less than or equal
+        #  to a given outcome as tuples in form (outcome, probability)
+        cum_prob = [(-1, 0)]
+
+        #Generate CDF
         for outcome in sorted(freq.keys()):
-            if not cum_prob:
-                cum_prob.append((outcome, round(freq[outcome], cfg.SIM_ROUND_PREC)))
-            else:
-                cum_prob.append((outcome, 
-                    round(freq[outcome], cfg.SIM_ROUND_PREC) + cum_prob[-1][1]))
+            cum_prob.append((outcome, 
+                round(freq[outcome] + cum_prob[-1][1], cfg.ROUNDING_PREC)))
 
+        #Step size to generate CDF thresholds; for quartiles, use 25
+        #  i.e. [25, 50, 75]
+        step = 25
         cum_threshold_current = step
-        #the outcomes that correspond to cum_threshold_step, 2*cum_threshold step,
-        #etc.  
+        #The outcomes that correspond to CDF values exceeding each step
+        #  as described above
         cum_threshold_outcomes = []
 
         i = 0
@@ -229,8 +282,18 @@ class Plotter:
                 cum_threshold_outcomes.append(cum_prob[i][0])
                 cum_threshold_current += step
             i += 1
+
+        #This is for debugging purposes, can safely remove
         print(cum_prob)
         print(cum_threshold_outcomes)
+
+        return cum_threshold_outcomes
+
+    @classmethod
+    def draw_quartiles(cls):
+        #gonna need to write this function at some point to highlight, etc.
+        #the quartiles on the data
+        pass
 
     @classmethod
     def generate_plot(cls):
@@ -270,13 +333,13 @@ class Plotter:
 
         #Generate and format axes, labels, and title.
         cls.generate_x_axis(ax)
-        cls.generate_y_axis(ax, plt)
+        cls.generate_y_axis(ax)
         cls.generate_data_labels(bar_graph, ax)
-        cls.generate_title(plt)
+        cls.generate_title()
 
         #xbar = round(calc_xbar(sim.freq), cfg.SIM_ROUND_PREC)
         #sx = calc_sx(sim.freq, xbar)
-        #cum_prob = calc_med(sim.freq, cfg.PLT_CUM_PROB_STEP)
+        cls.calc_quartiles(sim.freq)
         #print(f'mean is {xbar} stddev is {sx}')
 
         plt.tight_layout()

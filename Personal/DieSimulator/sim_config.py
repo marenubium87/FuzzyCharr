@@ -45,8 +45,8 @@ PLT_X_AX_LABELS_POP = 20
 #Value above which x-axis labels become written in scientific notation
 PLT_X_AX_SCI_THRESH = 999
 
-#Number of y-gridlines (excluding x-axis) to be displayed
-#  graph will adjust vertical scaling to conform to this value.
+#Number of major y-gridlines (excluding x-axis) to be displayed
+#  graph will adjust vertical scaling to conform to this value
 #  best to pick a smaller value with relatively abundant factors;
 #  4 and 6 work well as a default.
 PLT_Y_GRIDLINES = 4

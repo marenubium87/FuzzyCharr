@@ -6,11 +6,11 @@ DONE    1:  user currently can type garbage into success threshold and the other
 DONE    2:  if there are less than two dice, do we want drop dice to revert back to 
         'do not drop' mode?, no, currently it resets to 0 and that's fine, don't want to be
         randomly changing modes on people
-3:  still not happy with plot y-formatting for more degenerate cases... 
+DONE    3:  still not happy with plot y-formatting for more degenerate cases... 
           done...when value is greater than 100, consider clamping at 100 maybe, or 120 for spacing
           done...consider splitting into helper fcn
-          ...want 8 gridlines - 4 main ones and then 4 minor ones that aren't labeled
-          ...make gridlines a bit lighter too i think
+          done...want 8 gridlines - 4 main ones and then 4 minor ones that aren't labeled
+          done...make gridlines a bit lighter too i think
 4:  add xbar, sx, median/quartile things onto graph
 DONE    5.   write filepath to pop-up box instead of just saving "Saved".
 DONE    6.  Status box for what program is currently doing?
@@ -18,3 +18,4 @@ DONE    6.  Status box for what program is currently doing?
 7.  Add an icon for the program!
 DONE    8.  Review refreshing window so that it doesn't go unresponsive on longer sim runs
         not doing this, not worth the effort.
+8.  Add some hoverover tooltips for certain elements, like the CI text box for example
