@@ -1,16 +1,20 @@
 Todo:
-1:  user currently can type garbage into success threshold and the other spinner
+DONE    1:  user currently can type garbage into success threshold and the other spinner
         maybe have the element_update subfunctions return 1 if something goes wrong
         and then not run the simulation if that happens
         Warn user when successes value is being reset?
-DONE 2:  if there are less than two dice, do we want drop dice to revert back to 
+DONE    2:  if there are less than two dice, do we want drop dice to revert back to 
         'do not drop' mode?, no, currently it resets to 0 and that's fine, don't want to be
         randomly changing modes on people
 3:  still not happy with plot y-formatting for more degenerate cases... 
-          ...when value is greater than 100, consider clamping at 100 maybe, or 120 for spacing
-          ...consider splitting into helper fcn
+          done...when value is greater than 100, consider clamping at 100 maybe, or 120 for spacing
+          done...consider splitting into helper fcn
           ...want 8 gridlines - 4 main ones and then 4 minor ones that aren't labeled
           ...make gridlines a bit lighter too i think
 4:  add xbar, sx, median/quartile things onto graph
 DONE    5.   write filepath to pop-up box instead of just saving "Saved".
-6.  Status box for what program is currently doing?
+DONE    6.  Status box for what program is currently doing?
+        not doing this, too scope-creepy for this iteration
+7.  Add an icon for the program!
+DONE    8.  Review refreshing window so that it doesn't go unresponsive on longer sim runs
+        not doing this, not worth the effort.

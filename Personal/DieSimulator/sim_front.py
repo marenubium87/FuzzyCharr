@@ -38,6 +38,10 @@ while True:
     if event[1:4] == 'MAN':
         sops.man_ops(window, event[5:-1], values)
 
+    #Handle clicking of the "Clear die pool" button
+    if event == '-POOL_CLEAR-':
+        sim.clear_die_pool()
+
     #Handle events dealing with the mode selection frame
     #  slices the string to pass "sub-event" into mode_ops()
     if event[1:5] == 'MODE':
@@ -47,10 +51,6 @@ while True:
     #  passes in current state of dropdown in values dictionary
     if event[1:5] == 'DROP':
         sops.drop_ops(window, values['-DROP_SELECT-'])
-
-    #Handle clicking of the "Clear die pool" button
-    if event == '-POOL_CLEAR-':
-        sim.clear_die_pool()
 
     #Handle events dealing with the reroll selection checkbox,
     #  passing in enabled state of checkbox as bool
@@ -62,15 +62,27 @@ while True:
     if event[1:11] == 'NUM_TRIALS':
         sops.num_trials_ops(window, event[12:-1], values)
 
+    #Update dice pool text
+    sops.pool_update(window)
+
     #Element updates that must be checked/performed for *any* event
-    #TODO:  CONSIDER SETTING THIS EQUAL TO A VARIABLE
-    sops.element_update(window, values)
+    #If input errors detected, flag will equal 1; 0 else
+    #Input error flag checked immediately below if ENGAGE event is triggered
+    input_error_flag = sops.element_update(window, values)
 
     #Runs simulation sequence (simulate, sanitize, plot, draw)
     #  if dice pool is not empty
-    #TODO:  CONSIDER, IF ABOVE VARIABLE NOT ZERO, ABORT SIMULATION
-    if event == '-ENGAGE-' and sim.dice:
-        sops.engage_ops(window)
+    if event == '-ENGAGE-':     
+        if input_error_flag:
+            sg.popup(
+                    ('One or more input parameters is not\na valid value'
+                    ' and has been reset.\n\n'
+                    'Please check your inputs and try again.'),
+                    title='Input Error')
+        elif not sim.dice:
+            sg.popup(f'No dice in pool; simulation aborted.', title='Empty Dice Pool')
+        else:
+            sops.engage_ops(window)
 
     #Saves figure to file
     if event == '-SAVE_OUTPUT-':

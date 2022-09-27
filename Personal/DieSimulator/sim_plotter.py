@@ -12,6 +12,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker as plttick
+from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 matplotlib.use('TkAgg')
 
@@ -64,7 +65,7 @@ class Plotter:
         #  prune number of labels by additional factor of two for spacing
         if cls.x_sorted[-1] > cfg.PLT_X_AX_SCI_THRESH:
             num_x_labels = int(num_x_labels / 2)
-            ax.xaxis.set_major_formatter(plttick.FormatStrFormatter('%.1e'))
+            ax.xaxis.set_major_formatter(FormatStrFormatter('%.1e'))
 
         #Creates x-index from smallest to largest values, and sets x-label
         #  spacing based on either pre-defined label spacing, or overwrite
@@ -79,36 +80,59 @@ class Plotter:
         ax.set_xticks(ind_x, ind_x)
 
     @classmethod
+    def generate_y_spacing(cls):
+        '''
+        Returns a list of y-dimension ticks for the graph using either 
+        predetermined setting and the largest data value on the graph
+        or alternative procedure for more degenerate graphs.
+        '''
+        y_dim = 0
+        y_max = max(sim.freq.values())
+        y_round_prec = 0
+
+        #TODO: comment on the logic in this code here
+
+        #For data with large peaks, have the table max be a value 
+        #  divisible by 20, starting with 40
+        c = 1.16
+        if y_max > 33:
+
+            y_dim = int(math.ceil(y_max * c / 10))
+            if y_dim % 2 == 1:
+                y_dim += 1
+            y_dim *= 10
+        elif y_max > 5:
+
+            y_spacing = math.ceil(y_max / cfg.PLT_Y_GRIDLINES)
+            y_dim = max(y_spacing * cfg.PLT_Y_GRIDLINES,
+                math.ceil(y_max * c / cfg.PLT_Y_GRIDLINES) * cfg.PLT_Y_GRIDLINES)
+        elif y_max > 0.7:
+            y_dim = math.ceil(y_max * c)
+            y_round_prec = 2
+        else:
+            y_dim = y_max * c
+            y_round_prec = 2
+            pass
+
+
+
+        #Creates gridlines using y-dimension and number of gridlines specified
+        ind_y = np.linspace(0, y_dim, cfg.PLT_Y_GRIDLINES + 1)
+        return ind_y, y_round_prec
+
+
+    @classmethod
     def generate_y_axis(cls, ax, plt):
         '''
         Sets up labels and settings for y-axis, using the
         matplotlib ax axis and plt plot objects.
-        Also calculates displayed y-dimension of graph using predetermined 
-        number of y-gridlines, or alternate procedure for more degenerate graphs
         '''
-        y_spacing = math.ceil(max(sim.freq.values()) / cfg.PLT_Y_GRIDLINES)
-      
-        #a and b are parameters that determine when alternate spacing rules
-        #  should be used.
-        #  ideally, b should be equal to or a factor of the y-grid spacing parm.
-        #  a and b multiply roughly to proportion of max data value before
-        #  alternate grid spacing rules come into effect, to prevent top of 
-        #  data being too close to top of graph.
-
-        ###TODO:  REWRITE THE ALT SPACING RULES INTO DIFFERENT FUNCTION PROBABLY
-        a = 0.28
-        b = cfg.PLT_Y_GRIDLINES
-        y_dim = max(y_spacing * cfg.PLT_Y_GRIDLINES,
-            math.ceil(max(sim.freq.values()) * a ) * b)
-
-        #Creates gridlines using y-dimension and number of gridlines specified
-        ind_y = np.linspace(0, y_dim, cfg.PLT_Y_GRIDLINES + 1)
-        ind_y = [round(x, 2) for x in ind_y]
+        ind_y, y_round_prec = Plotter.generate_y_spacing()
         ax.set_yticks(ind_y, ind_y)
 
-        #Formats y-labels alternatively for plots with small peaks
-        if max(ind_y) < 1:
-            ax.yaxis.set_major_formatter(plttick.FormatStrFormatter('%.2f'))
+        #Sets up y-axis formatting, without percent symbols 
+        ax.yaxis.set_major_formatter(
+            plttick.PercentFormatter(decimals=y_round_prec, symbol=''))
 
         #Draws gridlines underneath data bars
         ax.set_axisbelow(True)
@@ -232,6 +256,10 @@ class Plotter:
 
         #Generate bar graph object with data
         bar_graph = ax.bar(cls.x_sorted, cls.y_sorted)
+
+        #Resets plot spacing; necessary for running a simulation not requiring
+        #  alternative label spacing, after running a simulation that did
+        cls.plt_lbl_spacing = 1
 
         #Alternative label spacing threshold calculation, if applicable.
         if max(sim.freq.keys()) - min(sim.freq.keys()) > cfg.PLT_LBL_SPACING_THRESH:

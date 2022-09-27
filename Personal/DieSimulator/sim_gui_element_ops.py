@@ -43,6 +43,7 @@ def element_update_successes(window, values):
     '''
     Update function for simulator mode and success threshold elements
     sub-function of element_update()
+    Returns 0 if no success threshold is in valid state, 1 otherwise
     '''
     #Redefinition for convenience
     mst_window = window['-MODE_SUCC_THRESH-']
@@ -54,10 +55,9 @@ def element_update_successes(window, values):
         if mst_str.isdigit() and int(mst_str) > 0:
             pass
         else:
-            #If not, input is malformed and action must be taken
-            #TODO:  rewrite popup so that warning is about resetting succ thresh
-            sg.popup('You fucked up')
+            #If not, input is malformed; reset to valid state and return error
             mst_window.update(value=1)
+            return 1
 
     if sim.dice:
         biggest_die = 0
@@ -70,8 +70,7 @@ def element_update_successes(window, values):
         #  a success threshold of 0
         mst_window.update(values=list(range(1, biggest_die + 1)))
         #Updates selection for situation where a larger faced die is removed
-        #  this also triggers
-        #TODO:  give the user a warning here, necessary?
+        #  this also triggers if user inputs value greater than largest die
         if int(mst_window.get()) > biggest_die:
             mst_window.update(value=biggest_die)
     else:
@@ -80,25 +79,7 @@ def element_update_successes(window, values):
 
     #Update simulator success threshold from value in spinner
     sim.succ_threshold = int(mst_window.get())
-
-def element_update_pool(window):
-    '''
-    Update function for dice pool multiline text element
-    sub-function of element_update()
-    '''
-    #Write-only key prevents contents from being unnecessarily stored
-    #  in PSG's values dictionary
-    #Redefinition for convenience
-    pool_window = window['-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY]
-    #Clear and rebuild string
-
-    pool_window.update('')
-    if sim.dice:
-        pool_str = ''
-        for die_type in sim.dice.keys():
-            pool_str += f'{sim.dice[die_type]} D{die_type}\n'
-        #Clears up a newline at the end of output
-        pool_window.update(pool_str[:-1])
+    return 0
 
 def element_update_drops(window, values):
     '''
@@ -121,10 +102,9 @@ def element_update_drops(window, values):
         if dn_str.isdigit() and int(dn_str) >= 0:
             pass
         else:
-            #If not, input is malformed and action must be taken
-            #TODO:  rewrite popup so that warning is about resetting succ thresh
-            sg.popup('You fucked up')
+            #If not, input is malformed; reset to valid state and return error
             dn_window.update(value=0)
+            return 1
 
     #NOT an off-by-one error here; it doesn't make sense to drop all the dice
     #  so the correct interval is [0, total_dice)
@@ -136,6 +116,7 @@ def element_update_drops(window, values):
 
     #Update simulator number of drops from value in spinner
     sim.num_drops = int(dn_window.get())
+    return 0
 
 def element_update_reroll(window, values):
     '''
@@ -157,10 +138,9 @@ def element_update_reroll(window, values):
         if rt_str.isdigit() and int(rt_str) >= 0:
             pass
         else:
-            #If not, input is malformed and action must be taken
-            #TODO:  rewrite popup so that warning is about resetting succ thresh
-            sg.popup('You fucked up')
+            #If not, input is malformed; reset to valid state and return error
             rt_window.update(value=0)
+            return 1
     
     #NOT an off by one error - we want the interval to be [0, smallest_die)
     #  (in other words, not inclusive), since if we have to reroll the largest
@@ -173,35 +153,58 @@ def element_update_reroll(window, values):
 
     #Update simulator reroll threshold from value in spinner 
     sim.reroll_threshold = int(rt_window.get())
+    return 0
 
 def element_update(window, values):
     '''
     Wrapper that runs all potential items that must be checked and possibly
-    updated for *any* action that is taken in the program.
+    updated for *any* action that is taken in the program
+    If any errors are detected in input for any of the subfunctions, will
+    abort update for remainder and return 1; if no errors are detected return 0
     Requires: all sub-functions of the form element_update_(...) above
     '''
-    if sim.mode == 'Successes': 
-        element_update_successes(window, values)
+    errors_detected = 0
+    if sim.mode == 'Successes' and not errors_detected: 
+        errors_detected = element_update_successes(window, values)
 
-    element_update_pool(window)
-
-    if sim.mode_drop != 'Do not drop':
-        element_update_drops(window, values)
+    if sim.mode_drop != 'Do not drop' and not errors_detected:
+        errors_detected = element_update_drops(window, values)
         
     #This if statement checks whether the "reroll select" checkbox is checked
-    if window['-REROLL_SELECT-'].get():
-        element_update_reroll(window, values)
-        
+    if window['-REROLL_SELECT-'].get() and not errors_detected:
+        errors_detected = element_update_reroll(window, values)
+
+    return errors_detected
+
+def pool_update(window):
+    '''
+    Update function for dice pool multiline text element; should be run
+    once per cycle to update text in dice pool
+    '''
+    #Write-only key prevents contents from being unnecessarily stored
+    #  in PSG's values dictionary
+    #Redefinition for convenience
+    pool_window = window['-POOL_CONTENTS-'+sg.WRITE_ONLY_KEY]
+    #Clear and rebuild string
+
+    pool_window.update('')
+    if sim.dice:
+        pool_str = ''
+        for die_type in sim.dice.keys():
+            pool_str += f'{sim.dice[die_type]} D{die_type}\n'
+        #Clears up a newline at the end of output
+        pool_window.update(pool_str[:-1])
+
 def man_ops(window, event, values):
     '''
     Operations that must be performed for interaction with elements in the
     manual operation frame.  Pass in "sub-event" for any event starting
-    with "MAN" and performs appropriate operations.
+    with "MAN" and performs appropriate operations
     Requires: parse_input()
     '''
     #Redefinitions for convenience
     mi_str = values['-MAN_INPUT-']
-    window_mi = window['-MAN_INPUT-']
+    mi_window = window['-MAN_INPUT-']
 
     if event == 'INPUT':
         #For debugging purposes, CAN REMOVE THIS!
@@ -210,17 +213,17 @@ def man_ops(window, event, values):
         #Input validation.  Should delete any character that's not
         #  a numeral, d, +
         if mi_str and mi_str[-1] not in ('0123456789d+'):
-            window_mi.update(mi_str[:-1])
+            mi_window.update(mi_str[:-1])
     
     if event in ['REPLACE', 'APPEND']:
         #Generates new dice dictionary from user input
-        new_dice_dict = parse_input(window_mi.get())
+        new_dice_dict = parse_input(mi_window.get())
         #If input is malformed, dice dict should be empty
         if not new_dice_dict:
             sg.popup('Unable to parse your dice string; ' 
                 'please check your input.', title='Error Parsing Input')
         else:
-            window_mi.update(value = '')
+            mi_window.update(value = '')
             #Replaces or appends to current dice dictionary depending on mode
             if event == 'REPLACE':
                 sim.clear_die_pool()
@@ -231,26 +234,26 @@ def mode_ops(window, event):
     '''
     Operations that must be performed for interaction with elements in the
     mode selection frame.  Pass in "sub-event" for any event starting
-    with "MODE" and performs appropriate operations.
+    with "MODE" and performs appropriate operations
     '''
     #Note: success threshold is updated in universal element update, 
     #  and not here
     if event in ['SUM', 'SUCC']:
         #Redefinition for convenience
-        mst = window['-MODE_SUCC_THRESH-']
+        mst_window = window['-MODE_SUCC_THRESH-']
         if event == 'SUM':
             sim.mode = 'Sum'
-            mst.update(disabled=True, value=1)
+            mst_window.update(disabled=True, value=1)
             sim.succ_threshold = 1
         if event == 'SUCC':
             sim.mode = 'Successes'
-            mst.update(disabled=False, value=1)
+            mst_window.update(disabled=False, value=1)
     
 def drop_ops(window, mode):
     '''
     Operations that must be performed for interaction with elements in the
     drop dice frame.  Pass in mode from the drop mode combobox to perform 
-    actions accordingly.
+    actions accordingly
     Mode has possible values {'Do not drop', 'Drop lowest', 'Drop highest'}
     '''
     #Note: Number of drops is updated in universal element update, 
@@ -261,11 +264,11 @@ def drop_ops(window, mode):
     print(sim.mode_drop)
 
     #Redefinition for convenience
-    window_dn = window['-DROP_NUM-']
+    dn_window = window['-DROP_NUM-']
     if mode == 'Do not drop':
-        window_dn.update(disabled=True, value=0)
+        dn_window.update(disabled=True, value=0)
     else:
-        window_dn.update(disabled=False)
+        dn_window.update(disabled=False)
 
 def reroll_select_ops(window, enabled):
     '''
@@ -275,23 +278,23 @@ def reroll_select_ops(window, enabled):
     #Note: Success threshold is updated in universal element update, 
     #  and not here
     #Redefinition for convenience
-    window_rt = window['-REROLL_THRESH-']
+    rt_window = window['-REROLL_THRESH-']
 
     if enabled:
-        window_rt.update(disabled=False)
+        rt_window.update(disabled=False)
     else:
-        window_rt.update(disabled=True, value=0)
+        rt_window.update(disabled=True, value=0)
         sim.num_drops = 0
 
 def num_trials_ops(window, event, values):
     '''
     Operations that must be performed for interaction with elements in the
     number of trials frame and margin of error frame.  Pass in "sub-event" for 
-    any event starting with "NUM_TRIALS" and performs appropriate operations.
+    any event starting with "NUM_TRIALS" and performs appropriate operations
     '''
     #Redefinition for convenience
     nt_str = values['-NUM_TRIALS_INPUT-']
-    window_nt = window['-NUM_TRIALS_INPUT-']
+    nt_window = window['-NUM_TRIALS_INPUT-']
 
     if event == 'INPUT':
         #For debugging purposes, can remove this!
@@ -300,7 +303,7 @@ def num_trials_ops(window, event, values):
         #Input validation - should delete any character that's not
         #  a numeral
         if nt_str and nt_str[-1] not in ('0123456789'):
-            window_nt.update(nt_str[:-1])
+            nt_window.update(nt_str[:-1])
 
     if event == 'COMMIT':
         #Makes certain that input is readable as a numeral
@@ -314,7 +317,7 @@ def num_trials_ops(window, event, values):
                 'Please enter a valid (integer, positive) number of trials.',
                 title='Input Error')
             sim.num_trials = 0
-        window_nt.update(value=sim.num_trials)
+        nt_window.update(value=sim.num_trials)
 
     if event == 'CI':
         sim.CI_level = int(window['-NUM_TRIALS_CI-'].get())
@@ -325,13 +328,14 @@ def num_trials_ops(window, event, values):
 def engage_ops(window):
     '''
     Operations that must be performed when the user hits the 
-    'Run Simulation' button.  Runs simulation and draws graph.
+    'Run Simulation' button.  Runs simulation and draws graph
     '''
     #clear previous canvas
     if plotter.fig_agg is not None:
         plotter.fig_agg.get_tk_widget().forget()
 
     sim.perform_sim()
+    window.refresh()
     sim.sanitize_outcomes()
     plotter.fig = plotter.generate_plot()
 
@@ -341,7 +345,7 @@ def engage_ops(window):
 def save_output_ops():
     '''
     Operations that must be performed when the user hits the
-    'Save Output' button.
+    'Save Output' button
     '''
     if plotter.fig is not None:
         file_path = sg.popup_get_file('Choose path to save figure (PNG):', 
@@ -350,6 +354,5 @@ def save_output_ops():
             #  and the single comma
             file_types=(('Image File (.png)', '*.png'),)
         )
-        splot.plt.savefig(f'{file_path}.png')
-        #TODO:  FIGURE OUT HOW TO DO PATH STUFFS DISPLAY FOR THE SAVE DIR
+        splot.plt.savefig(f'{file_path}')
         sg.popup(f'Output saved as {file_path}.', title='Save Successful')
