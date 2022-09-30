@@ -11,11 +11,13 @@ DONE    3:  still not happy with plot y-formatting for more degenerate cases...
           done...consider splitting into helper fcn
           done...want 8 gridlines - 4 main ones and then 4 minor ones that aren't labeled
           done...make gridlines a bit lighter too i think
-4:  add xbar, sx, median/quartile things onto graph
 DONE    5.   write filepath to pop-up box instead of just saving "Saved".
 DONE    6.  Status box for what program is currently doing?
         not doing this, too scope-creepy for this iteration
-7.  Add an icon for the program!
 DONE    8.  Review refreshing window so that it doesn't go unresponsive on longer sim runs
         not doing this, not worth the effort.
+4:  add xbar, sx, median/quartile things onto graph
+7.  Add an icon for the program!
 8.  Add some hoverover tooltips for certain elements, like the CI text box for example
+9.  Verify that all methods are correct classification, i.e. class vs static
+10. Remove all the comment/testing bits 

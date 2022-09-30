@@ -71,8 +71,8 @@ while True:
     input_error_flag = sops.element_update(window, values)
 
     #Runs simulation sequence (simulate, sanitize, plot, draw)
-    #  if dice pool is not empty
-    if event == '-ENGAGE-':     
+    if event == '-ENGAGE-':
+        #Verify no errors in input from earlier
         if input_error_flag:
             sg.popup(
                     ('One or more input parameters is not\na valid value'
