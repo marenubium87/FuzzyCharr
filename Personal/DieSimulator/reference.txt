@@ -16,8 +16,11 @@ DONE    6.  Status box for what program is currently doing?
         not doing this, too scope-creepy for this iteration
 DONE    8.  Review refreshing window so that it doesn't go unresponsive on longer sim runs
         not doing this, not worth the effort.
-4:  add xbar, sx, median/quartile things onto graph
-7.  Add an icon for the program!
-8.  Add some hoverover tooltips for certain elements, like the CI text box for example
+DONE    4:  add xbar, sx, median/quartile things onto graph
+        align mean and SD using number of digits
+DONE    7.  Add an icon for the program! icon made, just need to incorporate on pyinstaller
+DONE    8.  Add some hoverover tooltips for certain elements, like the CI text box for example
 9.  Verify that all methods are correct classification, i.e. class vs static
-10. Remove all the comment/testing bits 
+DONE    10. Remove all the comment/testing bits 
+DONE    11. add acknowledgements popup
+12.  add license, see here: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository

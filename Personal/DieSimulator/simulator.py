@@ -1,235 +1,96 @@
-#Simulator backend.  Handles simulating die rolls, and preparing, sanitizing,
-#  and aggregating results for use by plotter.
+#Simulator frontend.  Activates PSG and runs main program.
 
-import sim_config as cfg
+import PySimpleGUI as sg
 
-import math
-import random as rand
+import diesimulator.sim_config as cfg
+import diesimulator.sim_backend
+import diesimulator.sim_layout as slay
+import diesimulator.sim_gui_element_ops as sops
 
-class Simulator:
-    #Dictionary where keys are types of dice and vals are number of that die
-    #  e.g. 6:2 would mean 2d6
-    dice = {}
+sim = diesimulator.sim_backend.Simulator
 
-    #Operation mode
-    #  available modes {'Sum', 'Successes'}
-    mode = 'Sum'
+def create_window():
+	return sg.Window(
+	    f'Aerie Dice Roll Simulator v {cfg.VERSION} Eval Copy',
+	    layout=slay.layout,
+	    finalize=True,
+	    use_default_focus=False)
 
-    #Die roll must be >= this number to be counted as a success, min 1
-    succ_threshold = 1
 
-    #Dice drop mode
-    #  available modes {'Do not drop', 'Drop lowest', 'Drop highest'}
-    mode_drop = 'Do not drop'
-    #Number of dice to drop
-    num_drops = 0
-    #Reroll all dice equal to or below this number
-    reroll_threshold = 0
+window = create_window()
 
-    #Simulation trials to run
-    num_trials = 60000
+while True:
+	#In PSG, events are keys; values is a returned dict corresponding to
+	#  element inputs or changes.
+	event, values = window.read()
 
-    #The confidence level for MoE calculations
-    #  must be one of the confidence interval values in cfg file!
-    CI_level = 90
+	#Quitting events
+	if event in (sg.WIN_CLOSED, None):
+		break
 
-    #Dictionary storing outcomes as keys and frequencies as values
-    #  for any given simulation run
-    freq = {}
+	#Button events for inc/decrementing common dice
+	if event[1] in ('+', '-'):
+		#String slicing to extract operation and die from event
+		sim.modify_dice(int(event[2:-1]), event[1])
 
-    @classmethod
-    def modify_dice(cls, die_type, operation, n=1):
-        '''
-        Modifies Simulator's dice dictionary entry of die_type
-        by n dice and by the relevant operation string.
-        If die_type doesn't exist in dict, it will be created.
-        
-        Acceptable values for operation are as follows:
-        +:  adds one die of the type to the die pool
-        -:  subtracts one die of the type from the die pool
-        =:  sets the number of dice of type to n
-        '''
+	#Handle events related to manual input
+	#  slices the string to pass "sub-event" into man_ops()
+	if event[1:4] == 'MAN':
+		sops.man_ops(window, event[5:-1], values)
 
-        if operation == '+':
-            if die_type in cls.dice:
-                cls.dice[die_type] += n
-            else:
-                cls.dice[die_type] = n
-        if operation == '-':
-            if die_type in cls.dice:
-                cls.dice[die_type] -= n
-            else:
-                #if key not in dict then subtracting dice does nothing
-                pass
-        if operation == '=':
-            cls.dice[die_type] = n
+	#Handle clicking of the "Clear die pool" button
+	if event == '-POOL_CLEAR-':
+		sim.clear_die_pool()
 
-        #final check, prunes any dice with less than one in number 
-        #to make sure dictionary is in a valid state
-        to_delete = []
-        for type in cls.dice:
-            if int(cls.dice[type]) < 1:
-                to_delete.append(type)
+	#Handle events dealing with the mode selection frame
+	#  slices the string to pass "sub-event" into mode_ops()
+	if event[1:5] == 'MODE':
+		sops.mode_ops(window, event[6:-1])
 
-        for type in to_delete:
-            cls.dice.pop(type)
+	#Handle events dealing with the drop selection frame,
+	#  passes in current state of dropdown in values dictionary
+	if event[1:5] == 'DROP':
+		sops.drop_ops(window, values['-DROP_SELECT-'])
 
-        #checking output, can safely comment out in prod code
-        print(cls.dice)
+	#Handle events dealing with the reroll selection checkbox,
+	#  passing in enabled state of checkbox as bool
+	if event == '-REROLL_SELECT-':
+		sops.reroll_select_ops(window, window['-REROLL_SELECT-'].get())
 
-    @classmethod
-    def clear_die_pool(cls):
-        '''
-        Empties the dice dictionary and resets params relevant
-        to dice pool (drops, success and reroll threshold)
-        '''
-        cls.dice.clear()
-        cls.succ_threshold = 1
-        cls.num_drops = 0
-        cls.reroll_threshold = 0
-        
-    @classmethod
-    def get_total_dice(cls):
-        '''
-        Returns total dice currently in pool.
-        '''
-        result = 0
-        #dice pool is not empty
-        if cls.dice:
-            result = sum(cls.dice.values())
-        return result
+	#Handle events dealing with the trials frame
+	#  slices the string to pass "sub-event" into num_trials_ops()
+	if event[1:11] == 'NUM_TRIALS':
+		sops.num_trials_ops(window, event[12:-1], values)
 
-    @classmethod
-    def drop_dice(cls, roll):
-        '''
-        Drops highest or lowest dice from the list roll, using the current
-        drop mode in current Simulator config, then returns amended list roll.
-        Necessary for: perform_roll().
-        '''
-        if cls.mode_drop != 'Do not drop':
-            for i in range(cls.num_drops):
-                if cls.mode_drop == 'Drop lowest':
-                    roll.remove(min(roll))
-                elif cls.mode_drop == 'Drop highest':
-                    roll.remove(max(roll))
-        return roll
+	#Update dice pool text
+	sops.pool_update(window)
 
-    @classmethod
-    def calculate_MoE(cls):
-        '''
-        Calculates the approximate margin of error for each outcome
-        in percentage points (not percents!) using the expected CI 
-        (conservative estimate using binom dist, p=0.5) based on num of trials.
-        '''
-        moe = math.sqrt(0.5 * 0.5 / cls.num_trials)
-        moe = moe * 100 * cfg.ZSTAR_VALS[cls.CI_level]
-        
-        #Display MoE to the nearest tenth of a percentage point
-        return round(moe, 1)
+	#Element updates that must be checked/performed for *any* event
+	#If input errors detected, flag will equal 1; 0 else
+	#Input error flag checked immediately below if ENGAGE event is triggered
+	input_error_flag = sops.element_update(window, values)
 
-    @classmethod
-    def generate_dice_str_from_pool(cls):
-        '''
-        Generates a string from the current dice pool in 1d2+3d4 format.
-        '''
-        dice_str = ''
-        for die_type in cls.dice:
-            dice_str += f'+{cls.dice[die_type]}d{die_type}'
-        #Removes leading '+'
-        return dice_str[1:]
+	#Runs simulation sequence (simulate, sanitize, plot, draw)
+	if event == '-ENGAGE-':
+		#Verify no errors in input from earlier
+		if input_error_flag:
+			sg.popup(('One or more input parameters is not\na valid value'
+			          ' and has been reset.\n\n'
+			          'Please check your inputs and try again.'),
+			         title='Input Error')
+		elif not sim.dice:
+			sg.popup(f'No dice in pool; simulation aborted.', title='Empty Dice Pool')
+		else:
+			sops.engage_ops(window)
 
-    @classmethod
-    def perform_roll(cls):
-        '''
-        Performs a single roll using dice dictionary, rerolling dice as
-        necessary depending on current Simulator configuration,
-        dropping a number of highest or lowest dice as necessary depending 
-        on current Simulator configuration, then returns a list of the 
-        remaining die rolls in this particular roll.
-        Requires: drop_dice().
-        Necessary for: perform_sim
-        '''
-        single_roll = []
-        next_result = 0
+	#Saves figure to file
+	if event == '-SAVE_OUTPUT-':
+		sops.save_output_ops()
 
-        #Performs roll and rerolls dice until above reroll threshold
-        for type in cls.dice:
-            for die in range(cls.dice[type]):
-                while True:
-                    # +1 here since dice values are in form [1, n], not [1, n)
-                    next_result = rand.randrange(1, type + 1)
-                    #Strict inequality as reroll treshold defined as the highest
-                    #  value that needs to be rerolled
-                    if next_result > cls.reroll_threshold:
-                        break
-                single_roll.append(next_result)
+	#Displays credits
+	if event == '-CREDITS-':
+		sops.credits_ops()
 
-        #Drops appropriate number of dice
-        single_roll = cls.drop_dice(single_roll)
+	window.refresh()
 
-        return single_roll
-
-    @classmethod
-    def get_successes(cls, roll):
-        '''
-        Returns the number of successes in roll based on the success threshold
-        in the current Simulator configuration.  
-        Necessary for: perform_sim().
-        '''
-        successes = 0
-        for outcome in roll:
-            if outcome >= cls.succ_threshold:
-                successes += 1
-        return successes
-
-    @classmethod
-    def perform_sim(cls):
-        '''
-        Performs a simulation run using the die pool for number of trials
-        in Simulator configuration, saving the result to the
-        frequency dictionary in the Simulator.
-        Requires: perform_roll(), get_successes()
-        '''
-        rand.seed()
-        #Resets frequency dictionary from any past simulation run(s)
-        cls.freq.clear()
-        single_roll = []
-
-        #Using this range instead of (0, t) for accurate simulation count
-        for roll in range(1, cls.num_trials + 1):
-            single_roll = cls.perform_roll()
-
-            if cls.mode == 'Sum':
-                outcome = sum(single_roll)
-            elif cls.mode == 'Successes':
-                outcome = cls.get_successes(single_roll)
-
-            if outcome in cls.freq:
-                cls.freq[outcome] += 1
-            else:
-                #Create entry outcome if outcome not yet recorded in dictionary
-                cls.freq[outcome] = 1
-
-    @classmethod
-    def sanitize_outcomes(cls):
-        '''
-        Modifies frequency dictionary: 
-        - changes values from counts to percents.  
-        - removes outcomes if associated probability is below cutoff threshold
-          calculated by config's cutoff sensitivity.
-        '''
-        to_delete = []
-
-        #Pruning data values based on cutoff threshold
-        cutoff_threshold = max(cls.freq.values()) / cfg.CUTOFF_SENSITIVITY
-        for outcome in cls.freq:
-            if cls.freq[outcome] < cutoff_threshold:
-                to_delete.append(outcome)
-        
-        for outcome in to_delete:
-            cls.freq.pop(outcome)
-
-        #Convert to percentages, round to avoid floating point inccuracies
-        for outcome in cls.freq:
-            cls.freq[outcome] = round(cls.freq[outcome] / 
-                cls.num_trials * 100, cfg.ROUNDING_PREC)
+window.close()
