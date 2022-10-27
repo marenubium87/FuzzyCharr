@@ -16,6 +16,7 @@ from . import sim_backend
 
 sim = sim_backend.Simulator
 
+
 class Plotter:
 	#Sorted x and y lists to generate histogram
 	x_sorted = []
@@ -31,12 +32,17 @@ class Plotter:
 	#  see config for more info
 	plt_lbl_spacing = cfg.PLT_LBL_SPACING
 
-	#Step size for cumulative probability distribution thresholds
+	#Thresholds for modes when calculating y-dimension (top of graph)
+	y_dim_mode_thresh = [33, 9, 0.7]
+	#Minimum proportion the top of graph must be above highest data bar
+	min_h = 1.19
+
+	#Step size for cumulative probability distribution function thresholds
 	#  for example, step size of 25 would result in cumulative probability
 	#  values reported at 25, 50, and 75 percent
-	plt_cum_prob_step = 25
+	plt_cdf_prob_step = 25
 
-	#Statistical variables
+	#Statistical variables - mean and standard deviation
 	xbar = 0
 	sx = 0
 
@@ -94,29 +100,30 @@ class Plotter:
         location of the three quartiles (Q1, M, Q3) of the distribution
         '''
 
-		#List that will store cumulative probability less than or equal
-		#  to a given outcome as tuples in form (outcome, probability)
-		cum_prob = [(-1, 0)]
+		#List that will store cumulative distribution fcn, that is,
+		#  each p(x <= i) for i in [min outcome, max outcome]
+		#  as tuples in form (outcome, probability)
+		cdf = [(-1, 0)]
 
 		#Generate CDF
 		for outcome in sorted(freq.keys()):
-			cum_prob.append(
-			    (outcome, round(freq[outcome] + cum_prob[-1][1], cfg.ROUNDING_PREC)))
+			cdf.append((outcome, round(freq[outcome] + cdf[-1][1],
+			                           cfg.ROUNDING_PREC)))
 
 		#Step size to generate CDF thresholds; for quartiles, use 25
 		#  i.e. [25, 50, 75]
 		step = 25
-		cum_threshold_current = step
+		prob_threshold_current = step
 		#The outcomes that correspond to CDF values exceeding each step
 		#  as described above
 		new_quartiles = []
 
 		#Build quartiles list
 		i = 0
-		while cum_threshold_current < 100 and i < len(cum_prob):
-			if cum_prob[i][1] > cum_threshold_current:
-				new_quartiles.append(cum_prob[i][0])
-				cum_threshold_current += step
+		while prob_threshold_current < 100 and i < len(cdf):
+			if cdf[i][1] > prob_threshold_current:
+				new_quartiles.append(cdf[i][0])
+				prob_threshold_current += step
 			i += 1
 
 		cls.quartiles = new_quartiles
@@ -137,30 +144,26 @@ class Plotter:
 			num_x_labels = int(num_x_labels / 2)
 			ax.xaxis.set_major_formatter(FormatStrFormatter('%.1e'))
 
-		#Creates x-index from smallest to largest values, and sets x-label
-		#  spacing based on either pre-defined label spacing, or override
-		#  with explicit number of labels
+		#Creates x-index from smallest to largest values, and modify
+		#  label spacing as necessary for "crowded" x-axes
 		ind_x = np.arange(
 		    cls.x_sorted[0], cls.x_sorted[-1] + 1,
-		    max(
-		        int((cls.x_sorted[-1] - cls.x_sorted[0]) / num_x_labels),
-		        cls.plt_lbl_spacing))
+		    max(int((cls.x_sorted[-1] - cls.x_sorted[0]) / num_x_labels), 1))
 
 		ax.set_xlabel('Outcome')
 		ax.set_xticks(ind_x, ind_x)
 
-	@staticmethod
-	def calc_y_dim(m_thresh, h):
+	@classmethod
+	def calc_y_dim(cls):
 		'''
-        Calculates and returns an appropriate y_dim, y-dimension of the graph 
-        y_dim is *NOT* equal to the highest data bar on the graph; needs to be
+        Calculates and returns an appropriate y_dim, y-dimension of the graph
+        y_dim is *NOT* equal to the highest bar on the graph; needs to be
         higher to leave space at top.
-        m_thresh is a list representing the cutoffs for the different modes for
-        calculation of y_dim.
-        h is the minimum proportion the top of graph is above highest data bar
+        y_dim_min_thresh - list of cutoffs for calculation modes of y_dim
+        min_h - minimum proportion for top of graph above highest data bar
         Necessary for: generate_y_axis()
         '''
-		#The y_dimension of the graph, which is equivalent to the highest value
+		#y_dimension of the graph, which is equivalent to the highest value
 		#  displayed on the graph window itself (henceforth colloquially
 		#  'top of graph'), since bottom value necessarily must be zero
 		y_dim = 0
@@ -168,53 +171,42 @@ class Plotter:
 		#Largest data value
 		y_data_max = max(sim.freq.values())
 
-		#Mode 1
-		#For data with peak above this value, make top of graph
-		#  divisible by 20, possible values starting with 40
-		#  and ending with 120
-		if y_data_max > m_thresh[0]:
-			y_dim = int(math.ceil(y_data_max * h / 10))
+		#Mode 1 - Peak of data above highest threshold
+		#Possible top of graph values 40 - 120, count by 20
+		if y_data_max >= cls.y_dim_mode_thresh[0]:
+			y_dim = int(math.ceil(y_data_max * cls.min_h / 10))
 			if y_dim % 2 == 1:
 				y_dim += 1
 			y_dim *= 10
 
-		#Mode 2
-		#For data with peak above this value but less than previous value,
-		#  have top of graph satisfy the minimum height requirement above,
-		#  but also be divisible by the gridline number value, for neat
-		#  (integer) values on y-axis
-		elif y_data_max > 9:
+		#Mode 2 - Peak of data < highest; and >= second highest threshold
+		#  Top of graph must now be divisible by the gridline number value,
+		#  for neat (integer) values on y-axis
+		elif y_data_max >= cls.y_dim_mode_thresh[1]:
 			y_dim = (
-			    math.ceil(y_data_max * h / cfg.PLT_Y_GRIDLINES) * cfg.PLT_Y_GRIDLINES)
+			    math.ceil(y_data_max * cls.min_h / cfg.PLT_Y_GRIDLINES) *
+			    cfg.PLT_Y_GRIDLINES)
 
-		#Mode 3
-		#For data with peak above this value but less than previous value,
-		#  peaks are now too small to insist on integer divisibility for
-		#  gridlines; but we insist top of graph is still integer value
-		elif y_data_max > 0.7:
-			y_dim = math.ceil(y_data_max * h)
+		#Mode 3 - Peak of data < second highest; and >= lower threshold
+		#  Peaks now too small to insist on integer divisibility for gridlines
+		#  but force top of graph to still be integer value
+		elif y_data_max > cls.y_dim_mode_thresh[2]:
+			y_dim = math.ceil(y_data_max * cls.min_h)
 
-		#For data with peaks below previous value,
-		#  peaks are now too small to even insist on top of graph
-		#  being integer values, so simply calculate a reasonable value for
-		#  top of graph
+		#Mode 4 - Peak of data < lower threshold
+		#  Calculate a reasonable value for top of graph, no other restrictions
 		else:
-			y_dim = y_data_max * h
+			y_dim = y_data_max * cls.min_h
 
 		return y_dim
 
 	@classmethod
 	def generate_y_axis(cls, ax):
 		'''
-        Sets up labels and settings for y-axis, using the
-        matplotlib ax axis object
+        Sets up labels and settings for y-axis, using matplotlib axis object
         Requires: calc_y_dim()
         '''
-		#Thresholds for modes to calculate y_dim; see calc_y_dim() for notes
-		m_thresh = [33, 14, 0.7]
-		#Minimum proportion the top of graph is above highest data bar
-		h = 1.19
-		y_dim = cls.calc_y_dim(m_thresh, h)
+		y_dim = cls.calc_y_dim()
 		#Y-axis dimension bounds
 		ax.set_ylim([0, y_dim])
 
@@ -222,18 +214,17 @@ class Plotter:
 		#  intervals; minor gridlines at half the distance between majors
 		ax.yaxis.set_major_locator(MultipleLocator(y_dim / cfg.PLT_Y_GRIDLINES))
 		ax.yaxis.set_minor_locator(MultipleLocator(y_dim / cfg.PLT_Y_GRIDLINES / 2))
-		#In this context color is a string decimal btwn
-		#  0 (black) and 1 (white)
+		
+		#In this context color is a string decimal btwn 0 (black) and 1 (white)
 		ax.grid(axis='y', which='major', linewidth=0.7, color='0.7', linestyle='--')
 		ax.grid(axis='y', which='minor', linewidth=0.5, color='0.3', linestyle=':')
 
-		#For datasets with small peaks, have y-axis labels contain
-		#  more decimal points
+		#Make y-axis labels contain decimals if values are small
 		y_round_prec = 0
-		if max(sim.freq.values()) <= m_thresh[1]:
+		if max(sim.freq.values()) <= cls.y_dim_mode_thresh[1]:
 			y_round_prec += 2
 
-		#Sets up y-axis formatting, without percent symbols
+		#Sets up y-axis formatting for percents, but without percent symbols
 		ax.yaxis.set_major_formatter(
 		    plttick.PercentFormatter(decimals=y_round_prec, symbol=''))
 
@@ -260,8 +251,7 @@ class Plotter:
 	@classmethod
 	def generate_lbl_list(cls):
 		'''
-        Sets up labels for the actual data bars, and based on class
-        label spacing parameter
+        Labels for data bars, based on plotter label spacing attribute
         '''
 		cls.lbl_data = [str(round(y, 1)) for y in cls.y_sorted]
 
@@ -273,7 +263,7 @@ class Plotter:
 	@classmethod
 	def generate_quartile_list(cls):
 		'''
-        Generates a second list for the quartile labels
+        Generates a list for the quartile labels
         '''
 		quartile_names = ['Q1', 'M', 'Q3']
 		#Merges quartile values and names into dict
@@ -281,16 +271,15 @@ class Plotter:
 		    cls.quartiles[i]: quartile_names[i] for i in range(len(cls.quartiles))
 		}
 
-		#Clear labels from previous run; not doing so was creating problems
+		#Clear labels from previous run
 		cls.lbl_quartiles = []
 		for i in range(0, len(cls.x_sorted)):
 			if cls.x_sorted[i] in quartile_dict:
 				#Adds quartile labels in correct location
 				cls.lbl_quartiles.append(quartile_dict[cls.x_sorted[i]])
-				#Also clears the surrounding neighborhood from data labels,
-				#  so that figures don't overlap
-				#  Range is essentially [-(spacing - 1), (spacing - 1)] around
-				#  the quartile marker
+				#Also clears the surrounding neighborhood 
+				#  [-(spacing - 1), (spacing - 1)] around the quartile marker
+				#  from data labels, so that figures don't overlap
 				for j in range(i - cls.plt_lbl_spacing + 1, i + cls.plt_lbl_spacing):
 					cls.lbl_data[j] = ''
 			else:
@@ -352,8 +341,7 @@ class Plotter:
 		    f'{round(cls.xbar, 1)}\n'
 		    f'{round(cls.sx, 1)}',
 		    xy=(cls.xbar, ax.get_ylim()[1] * 0.94),
-		    #This calculates an offset from the vertical line to determine
-		    #  where to put the text
+		    #Calculates an offset from the vertical line for text placement
 		    xytext=(cls.xbar + (ax.get_xlim()[1] - ax.get_xlim()[0]) * 0.13,
 		            ax.get_ylim()[1] * 0.91),
 		    ha='right',
@@ -396,11 +384,10 @@ class Plotter:
 	@classmethod
 	def generate_plot(cls):
 		'''
-        Sets up matplotlib plot from freq dictionary in class
-        and returns figure of plot.
+        Sets up matplotlib plot from freq dictionary; returns figure of plot
         Requires:  all class functions above.
         '''
-		#If no usable data, do not plot
+		#Do not plot if no usable data
 		if not sim.freq:
 			return
 		#Closes previous figures, if any
@@ -420,7 +407,7 @@ class Plotter:
 		#Sets figure width and height in inches
 		fig.set_size_inches(cfg.PLT_WIDTH, cfg.PLT_HEIGHT)
 
-		#Generate bar graph object with data; draws the actual bars
+		#Generate bar graph object with data; draw bars
 		bar_graph = ax.bar(
 		    cls.x_sorted,
 		    cls.y_sorted,
@@ -428,7 +415,7 @@ class Plotter:
 		    edgecolor='#1f7bcc',  #med blue
 		    linewidth=1.4)
 
-		#Generate and format x and y axes.
+		#Generate and format x- and y- axes
 		cls.generate_x_axis(ax)
 		cls.generate_y_axis(ax)
 

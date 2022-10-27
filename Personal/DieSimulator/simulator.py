@@ -13,6 +13,7 @@ def create_window():
 	return sg.Window(
 	    f'Aerie Dice Roll Simulator v {cfg.VERSION} Eval Copy',
 	    layout=slay.layout,
+		icon='icon.ico',
 	    finalize=True,
 	    use_default_focus=False)
 

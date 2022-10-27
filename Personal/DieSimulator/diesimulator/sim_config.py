@@ -1,4 +1,4 @@
-#Configuration file.  Config and default settings.
+#Configuration.  Config and default settings.
 
 VERSION = '0.9.8'
 LAST_UPDATED = '10/26/22'
@@ -57,11 +57,10 @@ PLT_Y_GRIDLINES = 4
 
 #Button size for the D(n) +/- buttons
 BTN_SIZE = 3
-#Horizontal and vertical padding for the D(n) +/- buttons, in
+#Horizontal and vertical padding for the D(n) +/- buttons, in pixels
 BTN_HPAD = 5
 BTN_VPAD = 3
-#For D(n) +/- buttons, distance btwn leftmost button and frame,
-#  and rightmost button and frame, pixels
+#For D(n) +/- buttons, distance btwn edge buttons and frame, in pixels
 BTN_MARGIN = 15
 
 ####    VALUES FOR LAYOUT STUFFS ENDS HERE

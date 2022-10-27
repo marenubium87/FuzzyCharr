@@ -91,7 +91,7 @@ class Simulator:
         Returns total dice currently in pool.
         '''
 		result = 0
-		#dice pool is not empty
+		
 		if cls.dice:
 			result = sum(cls.dice.values())
 		return result
@@ -138,13 +138,11 @@ class Simulator:
 	@classmethod
 	def perform_roll(cls):
 		'''
-        Performs a single roll using dice dictionary, rerolling dice as
-        necessary depending on current Simulator configuration,
-        dropping a number of highest or lowest dice as necessary depending 
-        on current Simulator configuration, then returns a list of the 
-        remaining die rolls in this particular roll.
-        Requires: drop_dice().
-        Necessary for: perform_sim
+        Performs a single roll with current dice in dictionary, rerolling and
+		dropping dice as applicable based on current Simulator attributes, then
+		returns a list of the die outcomes.
+        Requires: drop_dice()
+        Necessary for: perform_sim()
         '''
 		single_roll = []
 		next_result = 0
@@ -171,7 +169,7 @@ class Simulator:
 		'''
         Returns the number of successes in roll based on the success threshold
         in the current Simulator configuration.  
-        Necessary for: perform_sim().
+        Necessary for: perform_sim()
         '''
 		successes = 0
 		for outcome in roll:
@@ -182,9 +180,8 @@ class Simulator:
 	@classmethod
 	def perform_sim(cls):
 		'''
-        Performs a simulation run using the die pool for number of trials
-        in Simulator configuration, saving the result to the
-        frequency dictionary in the Simulator.
+        Performs a simulation run of number of trials stored in Simulator,
+        tallying outcome frequencies to Simulator's frequency dict.
         Requires: perform_roll(), get_successes()
         '''
 		rand.seed()

@@ -12,3 +12,7 @@
 #Python stuff
 __pycache__/
 dist/
+
+#exe stuff
+build/
+*.spec
