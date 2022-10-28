@@ -14,7 +14,7 @@ def create_window():
     return sg.Window(
         f"Aerie Dice Roll Simulator v {cfg.VERSION} Eval Copy",
         layout=slay.layout,
-        icon="icon.ico",
+        icon="iconnew.ico",
         finalize=True,
         use_default_focus=False,
     )
@@ -75,20 +75,7 @@ while True:
 
     # Runs simulation sequence (simulate, sanitize, plot, draw)
     if event == "-ENGAGE-":
-        # Verify no errors in input from earlier
-        if input_error_flag:
-            sg.popup(
-                (
-                    "One or more input parameters is not\na valid value"
-                    " and has been reset.\n\n"
-                    "Please check your inputs and try again."
-                ),
-                title="Input Error",
-            )
-        elif not sim.dice:
-            sg.popup("No dice in pool; simulation aborted.", title="Empty Dice Pool")
-        else:
-            sops.engage_ops(window)
+        sops.engage_ops(window, input_error_flag)
 
     # Saves figure to file
     if event == "-SAVE_OUTPUT-":

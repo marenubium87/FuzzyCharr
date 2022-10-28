@@ -3,3 +3,14 @@ shift-rclick for powershell console
 pyinstaller --onefile -w --icon=["string here"] [filename here].py
 
 --clean (cleans pyinstaller cache)
+
+for simulator, for convenience:
+
+pyinstaller --clean --onefile -w --icon='iconnew.ico' -n 'Aerie Dice Sim 0.9.8' simulator.py
+
+
+https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile/7675014#7675014
+https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile/13790741#13790741
+
+also check this
+https://github.com/PySimpleGUI/PySimpleGUI-Base64-Encoder

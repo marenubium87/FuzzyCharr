@@ -46,8 +46,8 @@ def element_update_successes(window, values):
     Returns 0 if no success threshold is in valid state, 1 otherwise
     """
     # Redefinition for convenience
-    mst_window = window["-MODE_SUCC_THRESH-"]
-    mst_str = values["-MODE_SUCC_THRESH-"]
+    mst_window = window["-MODE_SUCCESS_THRESHOLD-"]
+    mst_str = values["-MODE_SUCCESS_THRESHOLD-"]
 
     # If value of the success threshold is not an int...
     if mst_str and not isinstance(mst_str, int):
@@ -78,7 +78,7 @@ def element_update_successes(window, values):
         mst_window.update(value=1, values=[1], disabled=True)
 
     # Update simulator success threshold from value in spinner
-    sim.succ_threshold = int(mst_window.get())
+    sim.success_threshold = int(mst_window.get())
     return 0
 
 
@@ -131,8 +131,8 @@ def element_update_reroll(window, values):
     if sim.dice:
         smallest_die = min(sim.dice)
     # Redefinition for convenience
-    rt_window = window["-REROLL_THRESH-"]
-    rt_str = values["-REROLL_THRESH-"]
+    rt_window = window["-REROLL_THRESHOLD-"]
+    rt_str = values["-REROLL_THRESHOLD-"]
 
     # If value of the reroll threshold is not an int...
     if rt_str and not isinstance(rt_str, int):
@@ -243,14 +243,14 @@ def mode_ops(window, event):
     """
     # Note: success threshold is updated in universal element update,
     #  and not here
-    if event in ["SUM", "SUCC"]:
+    if event in ["SUM", "SUCCESS"]:
         # Redefinition for convenience
-        mst_window = window["-MODE_SUCC_THRESH-"]
+        mst_window = window["-MODE_SUCCESS_THRESHOLD-"]
         if event == "SUM":
             sim.mode = "Sum"
             mst_window.update(disabled=True, value=1)
-            sim.succ_threshold = 1
-        if event == "SUCC":
+            sim.success_threshold = 1
+        if event == "SUCCESS":
             sim.mode = "Successes"
             mst_window.update(disabled=False, value=1)
 
@@ -282,7 +282,7 @@ def reroll_select_ops(window, enabled):
     # Note: Success threshold is updated in universal element update,
     #  and not here
     # Redefinition for convenience
-    rt_window = window["-REROLL_THRESH-"]
+    rt_window = window["-REROLL_THRESHOLD-"]
 
     if enabled:
         rt_window.update(disabled=False)
@@ -325,21 +325,38 @@ def num_trials_ops(window, event, values):
         sim.CI_level = int(window["-NUM_TRIALS_CI-"].get())
 
 
-def engage_ops(window):
+def engage_ops(window, input_error_flag):
     """
     Operations that must be performed when the user hits the
     'Run Simulation' button.  Runs simulation and draws graph
+    assuming no errors in input.
     """
-    # clear previous canvas
-    if plotter.fig_agg is not None:
-        plotter.fig_agg.get_tk_widget().forget()
+    # Verify no errors in input from earlier
+    if input_error_flag:
+        sg.popup(
+            (
+                "One or more input parameters is not\na valid value"
+                " and has been reset.\n\n"
+                "Please check your inputs and try again."
+            ),
+            title="Input Error"
+        )
+    elif not sim.dice:
+        sg.popup("No dice in pool; simulation aborted.", title="Dice Pool Error")
+    elif sim.num_trials < 1:
+        sg.popup("Non-positive number of trials; simulation aborted.", 
+            title="Number of Trials Error")
+    else:
+        # clear previous canvas
+        if plotter.fig_agg is not None:
+            plotter.fig_agg.get_tk_widget().forget()
 
-    sim.perform_sim()
-    window.refresh()
-    sim.sanitize_outcomes()
-    plotter.fig = plotter.generate_plot()
+        sim.perform_sim()
+        window.refresh()
+        sim.sanitize_outcomes()
+        plotter.fig = plotter.generate_plot()
 
-    plotter.fig_agg = splot.draw_figure(window["-CANVAS-"].TKCanvas, plotter.fig)
+        plotter.fig_agg = splot.draw_figure(window["-CANVAS-"].TKCanvas, plotter.fig)
 
 
 def save_output_ops():
@@ -368,7 +385,7 @@ def credits_ops():
     sg.popup(
         "Credits:\n\n"
         "Developer:  Birb (Aerie)\n"
-        "Guidance:   Kitty (Reynx)\n"
+        "Guidance:   Cat (Mrow)\n"
         "Testing:    Wickerbeast (Lyra)\n"
         "End-user:   You!  Thank you <3",
         font="Consolas",

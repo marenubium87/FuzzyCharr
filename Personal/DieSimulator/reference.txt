@@ -29,3 +29,5 @@ DONE    14      Add an icon for the program!  As in, in psg as well as pyinstall
 DONE    15      Look into bug where creating large graph doesn't reset labels
 16      For 1.0 - delete the "eval copy" thing from title bar and also from the about frame
 17      For 1.0 - udpate version to 1.0!
+18      see if can get the icon thing to work - see pyinstaller notes
+19      cancel saving output still saves a png?
