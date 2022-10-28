@@ -16,3 +16,6 @@ dist/
 #exe stuff
 build/
 *.spec
+
+#project-specific for die simulator
+iconbase.svg

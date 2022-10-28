@@ -2,4 +2,5 @@
     "editor.formatOnSave": false,
     "python.formatting.provider": "yapf",
     "python.linting.enabled": false,
+    "python.linting.pylintEnabled": true,
 }
