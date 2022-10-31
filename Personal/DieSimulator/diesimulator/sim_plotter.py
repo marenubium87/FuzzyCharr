@@ -16,6 +16,7 @@ matplotlib.use("TkAgg")
 
 sim = sim_backend.Simulator
 
+
 class Plotter:
     # Sorted x and y lists to generate histogram
     x_sorted = []
@@ -289,9 +290,11 @@ class Plotter:
                 cls.lbl_quartiles.append("")
 
     @classmethod
-    def generate_lbls_highlights(cls, graph, ax):
+    def generate_lbls_highlights(cls, graph, ax, color_dark, color_light):
         """
         Wrapper handling labels and highlighting tasks on the bar graph object
+        color_dark is for quartile bar edges and labels
+        color_light is for quartile bar faces
         """
         # Update label spacing first, then generate label lists
         cls.calc_lbl_spacing()
@@ -302,27 +305,25 @@ class Plotter:
         # Padding is distance above the relevant bar to place labels
         ax.bar_label(graph, fmt="%.1f", labels=cls.lbl_data, padding=8)
 
-        # Colors for quartile labels and bars
-        solid_color = "#13d420"  # lighter green
-        lbl_color = "#0b8013"  # darker green
         # Place quartile labels
         ax.bar_label(
             graph,
             labels=cls.lbl_quartiles,
             padding=8,
-            color=lbl_color,
+            color=color_dark,
             fontweight="heavy",
         )
 
         # Highlight quartile bars
         for i, label in enumerate(cls.lbl_quartiles):
             if label != "":
-                graph[i].set(color=solid_color, edgecolor=lbl_color)
+                graph[i].set(color=color_light, edgecolor=color_dark)
 
     @classmethod
-    def generate_annotations(cls, ax):
+    def generate_annotations(cls, ax, color_dark, color_light):
         """
-        Creates a vertical line marker and annotates values for xbar and sd
+        Creates a vertical line marker in color_light 
+        and annotates values for xbar and sd in color_dark
         """
         # Draw vertical line for x-bar location
         plt.vlines(
@@ -330,7 +331,7 @@ class Plotter:
             ymin=ax.get_ylim()[1] * 0.85,
             ymax=ax.get_ylim()[1] * 0.97,
             linewidths=1.7,
-            color="#d6c7ff",  # lavender
+            color=color_light
         )
         # Note value of x-bar and std dev nearby
         plt.annotate(
@@ -341,7 +342,7 @@ class Plotter:
                 ax.get_ylim()[1] * 0.91,
             ),
             ha="right",
-            color="#3b1d8f",  # dark violet
+            color=color_dark
         )
         plt.annotate(
             f"{round(cls.xbar, 1)}\n" f"{round(cls.sx, 1)}",
@@ -352,7 +353,7 @@ class Plotter:
                 ax.get_ylim()[1] * 0.91,
             ),
             ha="right",
-            color="#3b1d8f",  # dark violet
+            color=color_dark
         )
 
     @staticmethod
@@ -416,12 +417,20 @@ class Plotter:
         # Sets figure width and height in inches
         fig.set_size_inches(cfg.PLT_WIDTH, cfg.PLT_HEIGHT)
 
+        # Graph colors here
+        color_bar_dark = "#324A99"  # dark blue
+        color_bar_light = "#ADC7FF"  # light blue
+        color_quartile_dark = "#104722"  # dark green
+        color_quartile_light = "#86F7AA"  # lighter green
+        color_annotate_dark = "#3B1D8F"  # dark violet
+        color_annotate_light = "#D6C7FF"  # lavender
+
         # Generate bar graph object with data; draw bars
         bar_graph = ax.bar(
             cls.x_sorted,
             cls.y_sorted,
-            color="#7ac1ff",  # light blue
-            edgecolor="#1f7bcc",  # med blue
+            color=color_bar_light,
+            edgecolor=color_bar_dark,
             linewidth=1.4,
         )
 
@@ -430,8 +439,8 @@ class Plotter:
         cls.generate_y_axis(ax)
 
         # Labels, annotations, and title
-        cls.generate_lbls_highlights(bar_graph, ax)
-        cls.generate_annotations(ax)
+        cls.generate_lbls_highlights(bar_graph, ax, color_quartile_dark, color_quartile_light)
+        cls.generate_annotations(ax, color_annotate_dark, color_annotate_light)
         cls.generate_title()
 
         plt.tight_layout()

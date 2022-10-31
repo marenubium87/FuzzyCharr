@@ -339,13 +339,15 @@ def engage_ops(window, input_error_flag):
                 " and has been reset.\n\n"
                 "Please check your inputs and try again."
             ),
-            title="Input Error"
+            title="Input Error",
         )
     elif not sim.dice:
         sg.popup("No dice in pool; simulation aborted.", title="Dice Pool Error")
     elif sim.num_trials < 1:
-        sg.popup("Non-positive number of trials; simulation aborted.", 
-            title="Number of Trials Error")
+        sg.popup(
+            "Non-positive number of trials; simulation aborted.",
+            title="Number of Trials Error",
+        )
     else:
         # clear previous canvas
         if plotter.fig_agg is not None:
@@ -374,8 +376,9 @@ def save_output_ops():
             #  and the single comma
             file_types=(("Image File (.png)", "*.png"),),
         )
-        splot.plt.savefig(f"{file_path}")
-        sg.popup(f"Output saved as {file_path}.", title="Save Successful")
+        if file_path is not None:
+            splot.plt.savefig(f"{file_path}")
+            sg.popup(f"Output saved as {file_path}.", title="Save Successful")
 
 
 def credits_ops():
@@ -385,7 +388,7 @@ def credits_ops():
     sg.popup(
         "Credits:\n\n"
         "Developer:  Birb (Aerie)\n"
-        "Guidance:   Cat (Mrow)\n"
+        "Guidance:   Kitty (Mrow)\n"
         "Testing:    Wickerbeast (Lyra)\n"
         "End-user:   You!  Thank you <3",
         font="Consolas",

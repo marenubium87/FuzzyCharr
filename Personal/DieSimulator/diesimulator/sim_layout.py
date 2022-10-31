@@ -391,7 +391,7 @@ trials_frm = sg.Frame("Trials", num_trials_layout)
 ####    CREDITS FRAME STUFFS STARTS HERE
 credits_layout = [
     [sg.Text("Made with <3 by Aerie")],
-    [sg.Text(f"v {cfg.VERSION} Eval Copy")],
+    [sg.Text(f"v {cfg.VERSION}")],
 ]
 
 credits_frm = sg.Frame("About", credits_layout)

@@ -1,7 +1,7 @@
 # Configuration.  Config and default settings.
 
-VERSION = "0.9.8"
-LAST_UPDATED = "10/26/22"
+VERSION = "1.0.0"
+LAST_UPDATED = "10/31/2022"
 
 ####    ####    ####    ####
 ####    VALUES FOR SIMULATOR STUFFS STARTS HERE
@@ -39,7 +39,7 @@ PLT_LBL_SPACING = 1
 PLT_LBL_SPACING_THRESHOLD = 28
 
 # Number of labeled x-axis labels along bottom of graph (approximate)
-PLT_X_AX_LABELS_POP = 20
+PLT_X_AX_LABELS_POP = 16
 
 # Value above which x-axis labels become written in scientific notation
 PLT_X_AX_SCI_THRESHOLD = 999

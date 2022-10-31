@@ -6,6 +6,7 @@ import random as rand
 
 from . import sim_config as cfg
 
+
 class Simulator:
     # Dictionary where keys are types of dice and vals are number of that die
     #  e.g. 6:2 would mean 2d6

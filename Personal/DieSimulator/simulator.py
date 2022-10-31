@@ -6,15 +6,16 @@ import diesimulator.sim_config as cfg
 import diesimulator.sim_backend
 import diesimulator.sim_layout as slay
 import diesimulator.sim_gui_element_ops as sops
+import diesimulator.sim_icon as sicon
 
 sim = diesimulator.sim_backend.Simulator
 
 
 def create_window():
     return sg.Window(
-        f"Aerie Dice Roll Simulator v {cfg.VERSION} Eval Copy",
+        f"Aerie Dice Roll Simulator v {cfg.VERSION}",
         layout=slay.layout,
-        icon="iconnew.ico",
+        icon=sicon.icon,
         finalize=True,
         use_default_focus=False,
     )
