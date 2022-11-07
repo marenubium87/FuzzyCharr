@@ -1,0 +1,22 @@
+The Archipelago of Amijoa
+
+You are a cat collector in a distant land who lives near the archipelago of Amijoa. 
+The archipelago is made up of N islands that are inhabited by cats. 
+You have a list of M clients, who all want some number of cats to adopt (between 1 and 6). 
+Your job is to go and collect these cats from the islands, 
+however on every trip you can only bring back exactly enough cats for the next client on your list. 
+
+It takes you one day to visit and collect cats from one island. 
+At the start of your job, you know how many cats are on each island. 
+
+However, if three fourths or more of the islands have no cats on them, 
+the remaining cats will redistribute themselves evenly amongst the islands. 
+If the number of cats is ever less than three times the number of islands, 
+two cats will migrate to each island from outside the archipelago. 
+
+For a given set of islands and clients, find the shortest number of days it will take you to find cats for 
+your clients to adopt.
+
+Example: The Amijoa archipelago is made up of 4 islands with 2, 1, 5, and 3 cats on them. 
+You have 6 clients who want 2, 3, 1, 2, 1, and 4 cats.
+

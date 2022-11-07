@@ -1,3 +1,0 @@
-﻿  main.c
-c:\users\james\source\repos\project euler\projecteuler04\projecteuler04\main.c(15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  ProjectEuler04.vcxproj -> C:\Users\James\source\repos\Project Euler\ProjectEuler04\Debug\ProjectEuler04.exe

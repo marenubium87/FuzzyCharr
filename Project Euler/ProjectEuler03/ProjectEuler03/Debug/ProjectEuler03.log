@@ -1,5 +1,0 @@
-﻿  main.c
-c:\users\james\source\repos\project euler\projecteuler03\projecteuler03\main.c(18): warning C4244: 'function': conversion from '__int64' to 'double', possible loss of data
-c:\users\james\source\repos\project euler\projecteuler03\projecteuler03\main.c(32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-c:\users\james\source\repos\project euler\projecteuler03\projecteuler03\main.c(18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  ProjectEuler03.vcxproj -> C:\Users\James\source\repos\Project Euler\ProjectEuler03\Debug\ProjectEuler03.exe

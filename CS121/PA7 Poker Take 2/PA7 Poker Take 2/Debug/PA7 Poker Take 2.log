@@ -1,8 +1,0 @@
-﻿  pokeypoke.c
-c:\users\james\source\repos\pa7 poker take 2\pa7 poker take 2\pokeypoke.c(300): warning C4715: 'evaluateHand': not all control paths return a value
-c:\users\james\source\repos\pa7 poker take 2\pa7 poker take 2\pokeypoke.c(322): warning C4715: 'findHighestCard': not all control paths return a value
-c:\users\james\source\repos\pa7 poker take 2\pa7 poker take 2\pokeypoke.c(431): warning C4715: 'compareHands': not all control paths return a value
-c:\users\james\source\repos\pa7 poker take 2\pa7 poker take 2\pokeypoke.c(645): warning C4715: 'dealerAIAlmostStraight': not all control paths return a value
-c:\users\james\source\repos\pa7 poker take 2\pa7 poker take 2\pokeypoke.c(676): warning C4715: 'dealerAIAlmostFlush': not all control paths return a value
-c:\users\james\source\repos\pa7 poker take 2\pa7 poker take 2\pokeypoke.c(760): warning C4715: 'dealerDiscard': not all control paths return a value
-  PA7 Poker Take 2.vcxproj -> C:\Users\James\source\repos\PA7 Poker Take 2\Debug\PA7 Poker Take 2.exe
