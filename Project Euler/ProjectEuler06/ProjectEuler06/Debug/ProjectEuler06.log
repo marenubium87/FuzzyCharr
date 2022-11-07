@@ -1,4 +1,0 @@
-﻿  main.c
-c:\users\james\source\repos\project euler\projecteuler06\projecteuler06\main.c(10): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\james\source\repos\project euler\projecteuler06\projecteuler06\main.c(13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  ProjectEuler06.vcxproj -> C:\Users\James\source\repos\Project Euler\ProjectEuler06\Debug\ProjectEuler06.exe
