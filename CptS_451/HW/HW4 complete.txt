@@ -1,0 +1,120 @@
+(1)
+SELECT DISTINCT coursemajor, courseno, credits
+FROM student, enroll NATURAL JOIN course
+WHERE studentmajor = 'CptS'
+	AND trackcode = 'SE'
+	AND student.sid = enroll.sid
+ORDER BY coursemajor, courseno
+
+(2)
+SELECT sname, student.sid, studentmajor, trackcode, sum(credits)
+FROM student, enroll, course
+WHERE enroll.coursemajor = course.coursemajor
+	AND enroll.courseno = course.courseno
+	AND student.sid = enroll.sid
+GROUP BY student.sid
+HAVING sum(credits) > 18
+ORDER BY sname
+
+(3)
+SELECT coursemajor, courseno FROM course
+WHERE (course.coursemajor, course.courseno) NOT IN 
+(
+	--all courses taken by people not in SE, CptS major
+	SELECT DISTINCT coursemajor, courseno
+	FROM --students that are not in SE track, CptS major
+		(SELECT sid, sname
+		FROM student
+		WHERE student.sid NOT IN
+			(SELECT sid
+			FROM student
+			WHERE trackcode = 'SE' AND studentmajor = 'CptS')
+		) as non_se_cpts, enroll
+	WHERE non_se_cpts.sid = enroll.sid
+)
+AND (course.coursemajor, course.courseno) IN
+(
+	SELECT DISTINCT coursemajor, courseno
+	FROM enroll
+)
+
+(4)
+SELECT DISTINCT s.sname, s.sid, s.studentmajor, enroll.coursemajor, enroll.courseno, enroll.grade
+FROM student as s, enroll,
+	--courses Ali was in
+	(SELECT distinct s1.sname, coursemajor, courseno, grade
+	FROM student AS s1, enroll AS e1
+	WHERE s1.sid = e1.sid
+	AND s1.sname = 'Ali'
+	) AS ali
+WHERE s.sid = enroll.sid
+AND s.sname <> 'Ali'
+AND enroll.coursemajor = ali.coursemajor
+AND enroll.courseno = ali.courseno
+AND enroll.grade = ali.grade
+
+(5)
+SELECT student.sname, student.sid
+FROM student
+LEFT OUTER JOIN enroll ON student.sid = enroll.sid
+WHERE student.studentmajor = 'CptS'
+AND courseno IS NULL
+ORDER BY sname
+
+(6)
+SELECT c1.coursemajor, c1.courseno, COUNT(sid) FROM course as c1, enroll as e1
+WHERE c1.coursemajor = e1.coursemajor
+AND c1.courseno = e1.courseno
+GROUP BY c1.coursemajor, c1.courseno
+HAVING COUNT(sid) > enroll_limit
+ORDER BY c1.coursemajor, c1.courseno
+
+(7)
+SELECT premajor, precourseno, COUNT(premajor) FROM prereq
+GROUP BY premajor, precourseno
+HAVING count(premajor) > 5
+
+(8)
+SELECT s1.sname, s1.sid, e1.coursemajor, e1.courseno FROM student AS s1, enroll AS e1, prereq AS p1, enroll AS e2, student AS s2
+WHERE s1.sid = e1.sid
+AND e1.coursemajor = p1.coursemajor
+AND e1.courseno = p1.courseno
+AND p1.premajor = e2.coursemajor
+AND p1.precourseno = e2.courseno
+AND e2.sid = s2.sid
+AND s1.sid = s2.sid
+AND e1.grade >= 2
+AND e2.grade < 2
+AND s1.studentmajor = 'CptS'
+ORDER BY coursemajor, courseno
+
+(9)
+SELECT coursemajor, courseno, 
+100 * COUNT(CASE WHEN grade >= 2.0 THEN 1 ELSE null END) / COUNT(grade) AS passrate
+FROM enroll
+WHERE coursemajor = 'CptS'
+GROUP BY coursemajor, courseno
+ORDER BY courseno
+
+(EC)
+SELECT * FROM student
+WHERE sid NOT IN(
+	SELECT s_incomplete.sid
+	FROM
+	(
+		SELECT *
+		FROM student AS s1
+		LEFT OUTER JOIN
+		trackrequirements AS tr
+		ON s1.trackcode = tr.trackcode
+		AND s1.studentmajor = tr.trackmajor
+	) AS s_incomplete
+
+	LEFT OUTER JOIN enroll
+
+	ON s_incomplete.sid = enroll.sid
+	AND s_incomplete.coursemajor = enroll.coursemajor
+	AND s_incomplete.courseno = enroll.courseno
+	WHERE s_incomplete.trackmajor IS NULL
+	OR enroll.coursemajor IS NULL
+)
