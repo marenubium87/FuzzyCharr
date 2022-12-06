@@ -17,7 +17,5 @@ int main() {
 		cout << val << " ";
 	}
 
-	myTree.addVals(5, 8);
-
 	return 0;
 }
