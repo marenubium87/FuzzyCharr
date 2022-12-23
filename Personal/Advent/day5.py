@@ -52,12 +52,4 @@ for i in range(1, len(stacks_b)):
     print(stacks_b[i].pop())
 
 
-
-
-
-
-
-
-
-
 f.close()

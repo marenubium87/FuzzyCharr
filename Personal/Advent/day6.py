@@ -24,4 +24,3 @@ while len(my_set) < 14:
     my_set = {*str[index:index+14]}
     
 print(index + 13 + 1)
-
