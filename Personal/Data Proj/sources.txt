@@ -1,0 +1,2 @@
+https://www.openintro.org/data/index.php?data=county_complete
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VOQCHQ&version=11.0

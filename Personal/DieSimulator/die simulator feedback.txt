@@ -1,0 +1,10 @@
+gui element ops
+
+parse_input
+-check your comments!  some of them are grammatically incorrect
+-rename temp, temp_dice to a better variable name
+
+don't use term subfunction
+(reynx:  look at comment for update successes fcn)
+
+redefinition is the wrong word - delete that comment

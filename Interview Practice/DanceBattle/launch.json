@@ -1,0 +1,3 @@
+{
+    "args": ["<", "${workspaceFolder}/input1.txt"]
+}

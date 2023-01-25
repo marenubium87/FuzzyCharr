@@ -73,7 +73,7 @@ def can_visit(nodes, here, dir):
 
     #if direction is fine,
     #check the height diff btwn the two nodes; 2 or mroe is no good
-    if abs(find_height_change(nodes, here, dir)) > 1:
+    if find_height_change(nodes, here, dir) > 1:
         return 0
 
     return 1
@@ -106,72 +106,75 @@ f = open(r'day12_input.txt', mode = 'r')
 
 raw = f.read().splitlines()
 raw = [list(s) for s in raw]
-raw_s = [[sublist[j] for j in range(142, 176)] for ]
 # print(raw)
 
 #makes node grid
-nodes = []
-for i in range(len(raw_s)):
-    node_row = []
-    for j in range(len(raw_s[i])):
-        node_row.append(make_node((i, j), raw_s[i][j]))
-    nodes.append(node_row)
-
-starting = find_node(nodes, 0)
-ending = find_node(nodes, 27)
-
-calc_heuristic_cost(nodes, ending)
-
-print(starting.loc)
-print(ending.loc)
-starting.cost[0] = 0
-starting.est_cost = sum(starting.cost)
-starting.parent = starting.loc
-print(starting.est_cost)
-
-dirs = ['n', 'e', 'w', 's']
-# for dir in dirs:
-#     print(find_height_change(nodes, nodes[1][3], dir))
+def make_nodes(raw):
+    nodes = []
+    for i in range(len(raw)):
+        node_row = []
+        for j in range(len(raw[i])):
+            node_row.append(make_node((i, j), raw[i][j]))
+        nodes.append(node_row)
+    return nodes
 
 
-to_visit = pq()
-to_visit.put((starting.est_cost, id(starting), starting))
-current = starting
-cycles = 0
-
-while current.height != 27:
-    cycles += 1
-    if cycles % 8830 == 0:
-        break
-    current = to_visit.get()[2]     #for pq, get returns in form of (priority, item)
-    if current.visited == True:
-        continue
-    print(f'visiting {current.loc}')
-    if current.height > 6:
-        print(f'Current height {current.height}')
-    current.visited = True
-    #look at each neighbor that hasn't been visited
-    for dir in dirs:
-        if can_visit(nodes, current, dir) == 1:
-            neighbor = get_neighbor(nodes, current, dir)
-            if neighbor.visited == False:
-                #update cost to get to this neighbor if lower than previously
-                if current.cost[0] + 10 < neighbor.cost[0]:
-                    neighbor.cost[0] = current.cost[0] + 10
-                    neighbor.parent = current.loc
-                #recompute total est cost
-                neighbor.est_cost = sum(neighbor.cost)
-                to_visit.put((neighbor.est_cost, id(neighbor), neighbor))
 
 
-count = 0
-print(count)
-current = ending
-while current.loc != starting.loc:
-    count += 1
-    print(current.loc)
-    current = nodes[current.parent[0]][current.parent[1]]
-print(count)
+
+def do_astar_things(starting_coords, raw):
+    nodes = make_nodes(raw)
+
+    starting = nodes[starting_coords[0]][starting_coords[1]]
+    ending = find_node(nodes, 27)
+    calc_heuristic_cost(nodes, ending)
+    starting.cost[0] = 0
+    starting.est_cost = sum(starting.cost)
+    starting.parent = starting.loc
+    starting.height = 1
+    #print(starting.est_cost)
+
+    dirs = ['n', 'e', 'w', 's']
+    # for dir in dirs:
+    #     print(find_height_change(nodes, nodes[1][3], dir))
+
+    to_visit = pq()
+    to_visit.put((starting.est_cost, id(starting), starting))
+    current = starting
+    cycles = 0
+
+    while current.height != 27:
+        cycles += 1
+        current = to_visit.get()[2]     #for pq, get returns in form of (priority, item)
+        if current.visited == True:
+            continue
+        #print(f'visiting {current.loc}')
+        current.visited = True
+        #look at each neighbor that hasn't been visited
+        for dir in dirs:
+            if can_visit(nodes, current, dir) == 1:
+                neighbor = get_neighbor(nodes, current, dir)
+                if neighbor.visited == False:
+                    #update cost to get to this neighbor if lower than previously
+                    if current.cost[0] + 10 < neighbor.cost[0]:
+                        neighbor.cost[0] = current.cost[0] + 10
+                        neighbor.parent = current.loc
+                    #recompute total est cost
+                    neighbor.est_cost = sum(neighbor.cost)
+                    to_visit.put((neighbor.est_cost, id(neighbor), neighbor))
+
+
+    count = 0
+    current = ending
+    while current.loc != starting.loc:
+        count += 1
+        #print(current.loc)
+        current = nodes[current.parent[0]][current.parent[1]]
+    return count
+
+
+path_lengths = [do_astar_things((i, 0), raw) for i in range(0, 41)]
+print(path_lengths)
 
 
 
