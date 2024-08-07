@@ -81,3 +81,6 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+
+#specific files
+Personal/PandasLearning/survey_results_public.csv
