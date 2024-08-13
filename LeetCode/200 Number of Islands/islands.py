@@ -1,5 +1,7 @@
 from queue import Queue
 
+#I am birb!
+
 #expected answer: 1
 grid1 = [
   ["1","1","1","1","0"],
