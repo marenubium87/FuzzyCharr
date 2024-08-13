@@ -1,6 +1,6 @@
 from queue import Queue
 
-#I am birb!
+#I am kitty!
 
 #expected answer: 1
 grid1 = [
