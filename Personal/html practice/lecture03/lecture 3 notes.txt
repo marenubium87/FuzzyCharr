@@ -1,0 +1,3 @@
+Tip:  Adding the transition on the hover will make the transition occur on hover,
+but not on dehover.  To make the transition occur on hover and de-hover, put
+the transition in the base class (as opposed to the hover pseudoclass)
