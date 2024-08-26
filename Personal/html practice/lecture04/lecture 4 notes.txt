@@ -1,0 +1,2 @@
+Note that putting box-shadow: none; will remove the box shadow
+useful for turning it off when element is active, for example

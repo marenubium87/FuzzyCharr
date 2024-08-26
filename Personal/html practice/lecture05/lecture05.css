@@ -1,0 +1,33 @@
+p {
+  font-family:Arial, Helvetica, sans-serif;
+  margin-bottom: -10px;
+  font-size: 14px;
+}
+
+.ticker-price {
+  font-size: 32px;
+}
+
+.currency {
+  font-size: 18px;
+  color: rgb(128, 128, 128);
+}
+
+.gain-loss {
+  color: rgb(46, 131, 53)
+}
+
+.after-hours {
+  color: rgb(128, 128, 128)
+}
+
+.after-change {
+  color:rgb(224, 81, 81);
+  margin-left: 10px;
+  cursor:pointer;
+}
+
+.after-change:hover {
+  color:rgb(173, 39, 39);
+  cursor:pointer;
+}

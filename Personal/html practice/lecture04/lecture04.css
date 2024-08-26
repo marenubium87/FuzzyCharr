@@ -18,12 +18,14 @@ button {
 }
 
 .shadow-button {
-  transition: margin 0.3s;
+  transition: margin 0.05s, box-shadow 5s;
+  box-shadow: 3px 5px 10px rgb(48, 48, 48)
 }
 
 .shadow-button:active {
-  margin-top: 18px;
-  margin-left: 12px;
+  margin-top: 26px;
+  margin-left: 23px;
+  box-shadow: none;
 }
 
 .num-button {

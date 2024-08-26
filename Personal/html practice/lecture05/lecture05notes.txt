@@ -1,0 +1,4 @@
+For the cursor:pointer it doesn't seem to matter
+if the attribute is on the class or on the hover pseudoclass
+it seems that it will have the same behavior, namely
+on hover, the cursor will turn into a pointer.
