@@ -1,0 +1,39 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p.title {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+div {
+  width: 250px;
+  border: 2px solid rgb(27, 16, 119);
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 50px;
+  margin-right: 20px;
+}
+
+.pic-preview {
+  width: 250px;
+  object-fit: contain;
+
+}
+
+.desc {
+  text-align: center;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.sep-dot {
+  color: rgb(128, 128, 128)
+}
+
+.dist {
+  color: rgb(19, 19, 19)
+}

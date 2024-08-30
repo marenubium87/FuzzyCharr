@@ -24,7 +24,6 @@ p {
 .after-change {
   color:rgb(224, 81, 81);
   margin-left: 10px;
-  cursor:pointer;
 }
 
 .after-change:hover {
