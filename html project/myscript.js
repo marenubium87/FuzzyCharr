@@ -1,49 +1,129 @@
 //constructor for phrase object
 
-class Phrase {
-    //constructor for phrase object
-    constructor(isClue, isActive, isSolved, phraseText, answerText) {
+class Statement {
+    //constructor for statement object
+    constructor(isClue, isActive, isSolved, clueText, answerText) {
         this.isClue = isClue;
         this.isActive = isActive;
         this.isSolved = isSolved;
-        this.phraseText = phraseText;
+        this.clueText = clueText;
         this.answerText = answerText;
     }
-      
+
+    //picks the correct phrase in a statement, whether it be the clue or the answer
     pickPhrase() {
         var target;
         var arr = [];
+
+        //has this portion been solved?
         if (this.isSolved) {
             target = this.answerText;
         } 
         else {
-            target = this.phraseText;
+            target = this.clueText;
             if(this.isClue) {
-                arr += '['
+                arr += '[ ';
             }
         }
         
         for (let i = 0; i < target.length; i++) {
-        if (typeof target[i] === "string") {
-            arr += target[i];
+            if (typeof target[i] === "string") {
+                arr += target[i];
+            }
+            else {
+                arr += target[i].pickPhrase();
+            }
         }
-        else {
-            arr += target[i].pickPhrase();
-        }
-        }
+
+        //if unsolved clue, append trailing bracket
         if (!this.isSolved && this.isClue) {
-        arr += ']';
+        arr += ' ]';
         }
         return arr;
     }
+
+
 }
 
-const text3 = new Phrase(true, true, false, ["can't fit a round peg into a square this"], "hole");
-const text2 = new Phrase(true, false, false, ["like every w", text3, " number"], "even");
-const text1 = new Phrase(false, false, false, [text2, " you can help stop forest fires!"]);
+var text3 = new Statement(true, true, false, ["can't fit a round peg into a square ___"], "hole");
+var text2 = new Statement(true, false, false, ["like every w", text3, " number multiplied by two"], "even");
+
+var gameObject = {};
+gameObject['baseStatement'] = new Statement(false, false, false, [text2, " you can learn to be a bobcat!"], "");
+gameObject['cluesArr'] = [text2, text3];
+gameObject['answersArr'] = [];
+gameObject['isSolved'] = false;
+
+//finds the answers to every clue in the puzzle and places into array
+gameObject['populateAnswerList'] = function() {
+    for (let i = 0; i < this.baseStatement.clueText.length; i++) {
+        if (this.cluesArr[i].isClue) {
+            this.answersArr.push(this.cluesArr[i].answerText);
+        }
+    }
+}
+
+gameObject['processGuess'] = function(guess) {
+    
+    var i = this.answersArr.indexOf(guess);
+    document.getElementById("testOutput").textContent = i;
+
+    if (i > -1) {
+        if (this.cluesArr[i].isActive) {
+            this.cluesArr[i].isActive = false;
+            this.cluesArr[i].isSolved = true;
+            document.getElementById("testOutput").textContent = i;
+            
+            //now we need to figure out who is still active
+            for (let j = 0; j < this.cluesArr.length; j++) {
+
+                //active clues are ones who are not solved
+                //but whose children are all solved
+                if (!this.cluesArr[j].isSolved) {
+
+                    //document.getElementById("testOutput").textContent = j;
+                    var allChildrenSolved = true;
+
+                    for(let k = 0; k < this.cluesArr[j].clueText.length; k++) {
+                        if (typeof this.cluesArr[j] === "Statement" &&
+                            this.cluesArr[j].clueText[k].isSolved == false) {
+                            allChildrenSolved = false;
+                            break;
+                        }
+                    }
+
+                    if (allChildrenSolved) {
+                        this.cluesArr[j].isActive = true;
+                    }
+                }
+            }
+        }
+    }
+}
 
 //window.onload is a *property* and not a function, so do not do window.onload() with the parens
 window.onload = function() {
-    document.getElementById("puzzleStr").textContent=text1.pickPhrase();
+    //first display the raw unsolved phrase onto the webpage
+    document.getElementById("puzzleStr").textContent=gameObject.baseStatement.pickPhrase();
+
+    //populate the answers array in gameObject
+    gameObject.populateAnswerList();
+
+    const userGuess = document.getElementById("userGuess");
+    
+    userGuess.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            processGuess(userGuess.value);
+            userGuess.value = "";
+        }
+    });
+
+
 };
 
+//adds event listener so that user can trigger guess by the Enter key after each guess
+
+function processGuess(guess) {
+    gameObject.processGuess(guess);
+    document.getElementById("puzzleStr").textContent=gameObject.baseStatement.pickPhrase();
+}
