@@ -14,12 +14,13 @@ class Statement {
     pickPhrase() {
         var target;
         var arr = [];
-
+        //debugger;
         //has this portion been solved?
         if (this.isSolved) {
             target = this.answerText;
         } 
         else {
+            //debugger;
             target = this.clueText;
             if(this.isClue) {
                 arr += '[ ';
@@ -27,6 +28,7 @@ class Statement {
         }
         
         for (let i = 0; i < target.length; i++) {
+            //debugger;
             if (typeof target[i] === "string") {
                 arr += target[i];
             }
@@ -41,22 +43,24 @@ class Statement {
         }
         return arr;
     }
-
-
 }
 
-var text3 = new Statement(true, true, false, ["can't fit a round peg into a square ___"], "hole");
-var text2 = new Statement(true, false, false, ["like every w", text3, " number multiplied by two"], "even");
+var text5 = new Statement(true, true, false, ["the opposite of out"], "in");
+var text4 = new Statement(true, true, false, ["plump like an overfed kitty"], "round");
+var text2 = new Statement(true, true, false, ["the number one of something"], "best");
+var text3 = new Statement(true, false, false, [text4, ", and not flat, thing that we live ", text5], "world");
+
 
 var gameObject = {};
-gameObject['baseStatement'] = new Statement(false, false, false, [text2, " you can learn to be a bobcat!"], "");
-gameObject['cluesArr'] = [text2, text3];
+gameObject['baseStatement'] = new Statement(false, false, false, ["Cats are the ", text2, " creatures in the ", 
+    text3, "."], "");
+gameObject['cluesArr'] = [text2, text3, text4, text5];
 gameObject['answersArr'] = [];
 gameObject['isSolved'] = false;
 
 //finds the answers to every clue in the puzzle and places into array
 gameObject['populateAnswerList'] = function() {
-    for (let i = 0; i < this.baseStatement.clueText.length; i++) {
+    for (let i = 0; i < this.cluesArr.length; i++) {
         if (this.cluesArr[i].isClue) {
             this.answersArr.push(this.cluesArr[i].answerText);
         }
@@ -69,7 +73,10 @@ gameObject['processGuess'] = function(guess) {
     document.getElementById("testOutput").textContent = i;
 
     if (i > -1) {
+
         if (this.cluesArr[i].isActive) {
+            //debugger;
+            
             this.cluesArr[i].isActive = false;
             this.cluesArr[i].isSolved = true;
             document.getElementById("testOutput").textContent = i;
@@ -85,11 +92,14 @@ gameObject['processGuess'] = function(guess) {
                     var allChildrenSolved = true;
 
                     for(let k = 0; k < this.cluesArr[j].clueText.length; k++) {
-                        if (typeof this.cluesArr[j] === "Statement" &&
-                            this.cluesArr[j].clueText[k].isSolved == false) {
+                        //debugger;
+                        if (this.cluesArr[j] instanceof Statement &&
+                            this.cluesArr[j].clueText[k].isSolved === false) {
+                                //debugger;
                             allChildrenSolved = false;
                             break;
                         }
+                        
                     }
 
                     if (allChildrenSolved) {
@@ -117,8 +127,6 @@ window.onload = function() {
             userGuess.value = "";
         }
     });
-
-
 };
 
 //adds event listener so that user can trigger guess by the Enter key after each guess
